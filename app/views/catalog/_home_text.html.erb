@@ -2,6 +2,7 @@
 <div class="row col-12">
    <form id="search-box" class="form-search" method="get" action="http://104.236.170.12:3000" >
       <fieldset class="row"> 
+        <input name="search_field" value="all_fields" type="hidden" />
         <input name="q" type="text" class="input-lg search-query col-md-offset-2 col-md-8 col-sm-offset-3 col-md6" />
         <input name="show_articles" id="show_articles" type="hidden" value="true"/>
         <button type="submit" class="btn btn-success btn-lg col-md-offset-2" onclick="document.getElementById('show_articles').value='true';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search all library resources</button>
