@@ -1,0 +1,52 @@
+<!-- for reference, the original bl show code
+<dl class="dl-horizontal  dl-invert">
+  <% document_show_fields(document).each do |solr_fname, field| -%>
+    <% if should_render_show_field? document, field %>
+            <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+            <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+    <% end -%>
+  <% end -%>
+</dl>
+
+-->
+
+
+
+
+
+<%= display_access_options(document, 'show') %>
+<%= fetch_cover_url(document) %>
+<h2>About this resource</h2>
+<dl class="dl-horizontal  dl-invert">
+  <%= display_solr_field(document, 'title_display', 'Title', 'title') %>
+  <%= display_solr_field(document, 'subtitle_display', 'Subtitle', 'title') %>
+  <%= display_solr_field(document, 'title_vern_display', 'Title', 'title') %>
+  <%= display_solr_field(document, 'subtitle_vern_display', 'Subtitle', 'title') %>
+  <%= display_solr_field_search_link(document, 'author_display', 'Author', 'author', '', 'author') %>
+  <%= display_solr_field(document, 'author_vern_display', 'Author', 'author') %>
+  <%= display_solr_field_search_link(document, 'subject_topic_facet', 'Subject', 'subject', '', 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_geo_facet', 'Region', 'subject', '', 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_era_facet', 'Era', 'subject', '', 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_name_facet', 'People and groups', 'subject', '', 'subject') %>
+  <%= display_solr_field(document, 'abstract_display', 'Abstract', 'abstract') %>
+</dl>
+
+<h2>About this edition</h2>
+<dl class="dl-horizontal  dl-invert">
+  <%= display_solr_field(document, 'edition_display', 'Edition statement', 'edition') %>
+  <%= display_solr_field(document, 'pub_date', 'Publication year', 'publication_date') %>
+  <%= display_solr_field(document, 'publisher_display', 'Publisher', 'publisher') %>
+  <%= display_solr_field(document, 'publisher_vern_display', 'Publisher', 'publisher') %>
+  <%= display_solr_field(document, 'language_facet', 'Language', 'language') %>
+  <%= display_solr_field(document, 'format', 'Format', 'format') %>
+  <%= display_solr_field(document, 'contributor_display', 'Contributors', 'author') %>
+  <%= display_solr_field(document, 'note_display', 'Note', 'note') %>
+  <%= display_solr_field(document, 'isbn_t', 'ISBN', 'isbn') %>
+  <%= display_solr_field(document, 'url_suppl_display', 'Additional information', 'link')  %><!-- should be a link -->
+  <%= display_solr_field(document, 'place_of_publication_display', 'Place of publication', 'place_of_publication') %>
+  <%= display_solr_field(document, 'place_of_publication_vern_display', 'Place of publication', 'place_of_publication') %>
+  <%= display_solr_field(document, 'publication_note_display', 'Publication details', 'publication_note') %>
+  <%= display_solr_field(document, 'eg_tcn_t', 'Catalog identifier', 'tcn') %>
+  <%= display_solr_field(document, 'record_source_facet', 'Collection', 'collection') %>
+
+</dl>

@@ -1,0 +1,18 @@
+    <div class="document" itemtype="http://schema.org/Thing">
+      <div class="documentHeader row">
+
+         <h5 class="index_title">
+         <span class="document-counter">
+         <%= article_counter.to_s + '.' if article_counter %>
+         </span>
+         <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+        </h5>
+        <dl class="document-metadata dl-horizontal dl-invert">
+           <%= display_field('Authors', article[:authors].join('; '), 'authors') %>
+           <%= display_field('Format', article[:type], 'format') %>
+           <%= display_field('Journal', article[:journal], 'format') %>
+           <%= display_field('Publication year', article[:year], 'pub-date') %>
+           <%= display_field('Abstract', truncate(article[:abstract], length: 200, separator: ' '), 'description') %>
+        </dl>
+      </div>
+   </div>

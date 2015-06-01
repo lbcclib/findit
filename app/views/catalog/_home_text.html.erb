@@ -1,0 +1,49 @@
+
+<div class="row col-12">
+   <form id="search-box" class="form-search" method="get" action="http://104.236.170.12:3000" >
+      <fieldset class="row"> 
+        <input name="q" type="text" class="input-lg search-query col-md-offset-2 col-md-8 col-sm-offset-3 col-md6" />
+        <input name="show_articles" id="show_articles" type="hidden" value="true"/>
+        <button type="submit" class="btn btn-success btn-lg col-md-offset-2" onclick="document.getElementById('show_articles').value='true';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search all library resources</button>
+        <button type="submit" class="btn btn-success btn-lg col-md-offset-2" onclick="document.getElementById('show_articles').value='false';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search books and media only</button>
+      </fieldset>
+   </form>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-md-4 col-md-offset-2 col-sm-10">
+<h2>Scope of this search tool</h2>
+This tool searches the following collections:
+<ul>
+  <li>Alexander Street Press titles (American history in video, American song, Classical music library, Smithsonian global sound)</li>
+  <li>Credo reference -- at the reference book level</li>
+  <li>eBrary</li>
+  <li>All EBSCO databases</li>
+  <li>EBSCO ebooks (but need to set up a different delivery method -- EDX?)</li>
+  <li>Evergreen catalog (LBCC non-reserve holdings only)</li>
+  <li>Films on demand</li>
+  <li>Gale Opposing Viewpoints in context, American history in context</li>
+  <li>Gale Virtual Reference Library</li>
+  <li>Several open access and public domain ebook sources: HathiTrust, DOAB, NCBI bookshelf, Wright American Fiction</li>
+
+</ul>
+It does not currently search:
+<ul>
+  <li>Reserves items</li>
+  <li>Evergreen catalog for other consortium members</li>
+  <li>Evergreen Web site records</li>
+  <li>Other journal databases (but we could pay EBSCO for these data)</li>
+  <li>EBSCO/Gale databases at the journal level</li>
+  <li>Gale student resources in context (seemed too oriented to high school audience, but can add</li>
+  <li>Credo at the topic page level -- not sure if this is possible</li>
+</div>
+<div class="col-md-4 col-sm-10">
+<%= image_tag("scope.png") %>
+</div>
