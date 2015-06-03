@@ -47,7 +47,8 @@ gem "devise-guests", "~> 0.3"
 gem "blacklight-marc", "~> 5.0"
 
 # Just trying these out
-#gem "bento_search"
+gem "bento_search"
+gem "ahoy_matey"
 gem "blacklight_advanced_search"
 gem "blacklight_range_limit"
 gem "openlibrary"
