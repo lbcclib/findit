@@ -97,6 +97,35 @@ module LbccHelper
         return ''
     end 
 
+    def display_representative_image(document)
+       return image_tag(select_representative_image(document), size:'60x30', alt:document['title_t'])
+    end
+
+    def select_representative_image(document)
+       if document.has? 'isbn_t'
+          isbns = []
+          case document['isbn_t']
+             when Array then isbns = document['isbn_t']
+             when String then isbns.push(document['isbn_t'])
+             else
+                isbns = document['isbn_t'].to_a
+          end
+          client = Openlibrary::Client.new
+          view = Openlibrary::View
+          isbns.each do |isbn|
+             book = view.find_by_isbn(isbn)
+             unless book.nil?
+                unless '' == book.thumbnail_url
+                   return book.thumbnail_url
+                end
+             end
+          end
+       else
+          return "NO"
+       end
+       return 'http://33.media.tumblr.com/avatar_a3415e501f10_128.png'
+    end
+
     def display_fulltext_access_link(url_value, style)
         display_field = <<-EOS
           <a href=#{url_value} class="btn btn-success" role="button" target="_blank">Access this resource</a>
@@ -189,26 +218,6 @@ module LbccHelper
             end
         end
         return copies
-    end
-
-    def fetch_cover_url(document)
-        if document.has? 'isbn_t'
-            isbns = document['isbn_t']
-            isbns = isbns.kind_of?(Array) ? isbns : isbns.to_a
-
-            olid = ''
-            view = Openlibrary::View
-
-            isbns.each do |isbn|
-                if view.find_by_isbn('0972540342')
-                    book = view.find_by_isbn('0972540342')
-                    break
-                end
-            end
-            if defined? book
-               return book.thumbnail_url #but we should loop this....
-            end
-        end
     end
 
     def snippet options={}
