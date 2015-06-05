@@ -531,6 +531,7 @@
 
    <!-- LBCC custom fields -->
    <field name="abstract_display" type="string" indexed="true" stored="true" multiValued="true" />
+   <field name="bibtex_t" type="string" indexed="true" stored="true" multiValued="false" />
    <field name="contents_display" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="contributor_display" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="eg_tcn_t" type="string" indexed="true" stored="true" multiValued="false"/>

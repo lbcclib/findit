@@ -18,6 +18,15 @@ module LbccHelper
         return request.parameters[:show_articles] == 'true' ? true : false
     end
 
+
+    def create_bibtex(document) # never mind this should be created at index time
+       entry = BibTeX::Entry.new
+       case document['type_facet']
+          when 'Book' == document['type_facet'] then
+             entry.type = :book
+       end 
+    end
+
     
     def display_article_type(original_string)
         article_type = original_string.capitalize
@@ -38,6 +47,35 @@ module LbccHelper
             url_value = render_index_field_value(:document => document, :field => 'url_fulltext_display')
             display_fulltext_access_link(url_value, style)
         end
+    end
+
+    def generate_citations(document)
+       if document.has? 'bibtex_t'
+          b = BibTeX.parse(document['bibtex_t'][0])
+       else
+          b = BibTeX.parse <<-END
+@book{resource,
+  address = {Raleigh, North Carolina},
+  author = {Thomas, Dave and Fowler, Chad and Hunt, Andy},
+  publisher = {The Pragmatic Bookshelf},
+  series = {The Facets of Ruby},
+  title = {Programming Ruby 1.9: The Pragmatic Programmer's Guide},
+  year = {2009}
+}
+       END
+       end
+       styles = Hash.new
+       citations = Hash.new
+       styles['APA'] = CiteProc::Processor.new format: 'html', style: 'apa'
+       styles['MLA'] = CiteProc::Processor.new format: 'html', style: 'modern-language-association'
+       styles['Chicago'] = CiteProc::Processor.new format: 'html', style: 'chicago-fullnote-bibliography'
+       styles['IEEE'] = CiteProc::Processor.new format: 'html', style: 'ieee'
+       styles['CBE'] = CiteProc::Processor.new format: 'html', style: 'council-of-science-editors'
+       styles.each do |shortname, processor|
+          processor.import b.to_citeproc
+          citations[shortname] = processor.render(:bibliography, id: 'resource').first
+       end
+       return citations
     end
 
     def display_field(label, value, dd_class)
