@@ -9,8 +9,12 @@
 }
 
 body {
- padding-bottom: 70px;
+ padding-bottom: 90px;
+ height: 100%
 }
+
+html { height: 100%;}
+
 
 #documents .document, .articles .document {
   margin-top: 6px;
@@ -22,6 +26,17 @@ body {
 
 .navbar {
   min-height: 75px;
+}
+
+.navbar-bottom {
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ width: 100%;
+}
+
+.navbar-bottom:before {
+  clear:both;
 }
 
 
@@ -97,3 +112,31 @@ body {
 #header-navbar .navbar-brand {
   height: 70px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+	background: #FFF0B9;
+	height: auto;
+        margin-top: 10px;
+	padding-bottom: 30px;
+	position: relative;
+	width: 100%;
+	border-top: 1px solid #090909;
+}
+
+
