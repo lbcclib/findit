@@ -8,6 +8,10 @@
   border-left: 1px dotted #e5b992;
 }
 
+body {
+ padding-bottom: 70px;
+}
+
 #documents .document, .articles .document {
   margin-top: 6px;
   padding: 6px;
@@ -15,6 +19,11 @@
   border-bottom: 1px dotted #e5b992;
 
 }
+
+.navbar {
+  min-height: 75px;
+}
+
 
 #header-navbar.navbar-static-top {
    background-color: #fff0b9;
@@ -26,11 +35,6 @@
 
 .navbar-nav li a:focus {
    color: #F2824F;
-}
-
-$logo_image: 'http://104.236.170.12:3000/assets/logo.jpg';
-#header-navbar .navbar-brand {
-  background: url("http://104.236.170.12:3000/assets/logo.jpg") no-repeat scroll left top transparent;
 }
 
 .btn-success {
@@ -88,4 +92,8 @@ body {
 .facet_limit-active .panel-heading .panel-title a {
   color: #000;
   font-weight: 600;
+}
+
+#header-navbar .navbar-brand {
+  height: 70px;
 }
