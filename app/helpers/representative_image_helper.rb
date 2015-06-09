@@ -2,14 +2,18 @@ module RepresentativeImageHelper
     require 'openlibrary'
 
     def display_representative_image(document, full_size=false )
-       unless select_representative_image(document, full_size).nil?
-          return image_tag(select_representative_image(document, full_size), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image'))
+       unless representative_image_url(document, full_size).nil?
+          if full_size
+             return link_to(image_tag(representative_image_url(document, full_size), alt:document['title_t'], class: 'large-cover-image'), representative_image_url(document, full_size))
+          else
+             return link_to(image_tag(representative_image_url(document, full_size), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
+          end
        else
           return nil
        end
     end
 
-    def select_representative_image(document, full_size=false)
+    def representative_image_url(document, full_size=false)
        if document.has? 'isbn_t'
           isbns = []
           case document['isbn_t']
