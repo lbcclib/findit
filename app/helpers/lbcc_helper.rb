@@ -153,7 +153,7 @@ module LbccHelper
           isbns.each do |isbn|
              book = view.find_by_isbn(isbn)
              unless book.nil?
-                unless '' == book.thumbnail_url
+                unless book.thumbnail_url.nil?
                    unless full_size
                       return book.thumbnail_url
                    else
