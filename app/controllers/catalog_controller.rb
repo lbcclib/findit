@@ -198,5 +198,4 @@ class CatalogController < ApplicationController
   def about
   end
 
-
 end 
