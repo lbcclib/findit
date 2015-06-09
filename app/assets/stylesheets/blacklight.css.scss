@@ -4,8 +4,17 @@
 
 @import 'blacklight/blacklight';
 
+.large_search_container {
+ width: 100%;
+ top: 13px;
+}
+
 #article-container {
   border-left: 1px dotted #e5b992;
+}
+
+.form-search {
+  padding-top: 30px;
 }
 
 body {
