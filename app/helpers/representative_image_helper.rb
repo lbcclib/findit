@@ -31,7 +31,7 @@ module RepresentativeImageHelper
                    unless full_size
                       return book.thumbnail_url
                    else
-                      return book.thumbnail_url.sub('-S.jpg', '-L.jpg')
+                      return book.thumbnail_url.sub('-S.jpg', '-M.jpg')
                    end
                 end
              end
