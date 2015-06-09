@@ -21,12 +21,12 @@
   <%= display_solr_field(document, 'subtitle_display', 'Subtitle', 'title') %>
   <%= display_solr_field(document, 'title_vern_display', 'Title', 'title') %>
   <%= display_solr_field(document, 'subtitle_vern_display', 'Subtitle', 'title') %>
-  <%= display_solr_field_search_link(document, 'author_display', 'Author', 'author', '', 'author') %>
+  <%= display_solr_field_search_link(document, 'author_display', 'Author', 'author', 'author', false, 'author') %>
   <%= display_solr_field(document, 'author_vern_display', 'Author', 'author') %>
-  <%= display_solr_field_search_link(document, 'subject_topic_facet', 'Subject', 'subject', '', 'subject') %>
-  <%= display_solr_field_search_link(document, 'subject_geo_facet', 'Region', 'subject', '', 'subject') %>
-  <%= display_solr_field_search_link(document, 'subject_era_facet', 'Era', 'subject', '', 'subject') %>
-  <%= display_solr_field_search_link(document, 'subject_name_facet', 'People and groups', 'subject', '', 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_topic_facet', 'Subject', 'subject', 'subject', true, 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_geo_facet', 'Region', 'subject', 'subject', false, 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_era_facet', 'Era', 'subject', 'subject', false, 'subject') %>
+  <%= display_solr_field_search_link(document, 'subject_name_facet', 'People and groups', 'subject', 'subject', false, 'subject') %>
   <%= display_solr_field(document, 'abstract_display', 'Abstract', 'abstract') %>
 </dl>
 
@@ -49,3 +49,4 @@
   <%= display_solr_field(document, 'record_source_facet', 'Collection', 'collection') %>
 
 </dl>
+
