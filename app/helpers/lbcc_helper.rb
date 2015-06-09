@@ -1,9 +1,9 @@
 module LbccHelper
     include BlacklightHelper
     include ActionView::Helpers::TextHelper
+    include RepresentativeImageHelper
     require 'nokogiri'
     require 'open-uri'
-    require 'openlibrary'
     require 'uri'
 
     EBSCOHOST_API_PREFIX = 'http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=linncc.main.eitws&pwd=ebs9905&sort=relevance&authType=profile&ipprof=&startrec=1&numrec=10&db=aph&db=agr&db=buh&db=c8h&db=eric&db=zbh&db=hch&db=hxh&db=nfh&db=pbh&db=bwh&db=voh&format=full&query='
@@ -134,39 +134,6 @@ module LbccHelper
         end
         return ''
     end 
-
-    def display_representative_image(document, full_size=false )
-       return image_tag(select_representative_image(document, full_size), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image'))
-    end
-
-    def select_representative_image(document, full_size=false)
-       if document.has? 'isbn_t'
-          isbns = []
-          case document['isbn_t']
-             when Array then isbns = document['isbn_t']
-             when String then isbns.push(document['isbn_t'])
-             else
-                isbns = document['isbn_t'].to_a
-          end
-          client = Openlibrary::Client.new
-          view = Openlibrary::View
-          isbns.each do |isbn|
-             book = view.find_by_isbn(isbn)
-             unless book.nil?
-                unless book.thumbnail_url.nil?
-                   unless full_size
-                      return book.thumbnail_url
-                   else
-                      return book.thumbnail_url.sub('-S.jpg', '-L.jpg')
-                   end
-                end
-             end
-          end
-       else
-          return "NO"
-       end
-       return 'http://33.media.tumblr.com/avatar_a3415e501f10_128.png'
-    end
 
     def display_fulltext_access_link(url_value, style)
         display_field = <<-EOS
