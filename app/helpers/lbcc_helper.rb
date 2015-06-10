@@ -51,7 +51,14 @@ module LbccHelper
 
     def generate_citations(document)
        if document.has? 'bibtex_t'
-          b = BibTeX.parse(document['bibtex_t'][0])
+          if document['bibtex_t'].is_a?(Array)
+             b = BibTeX.parse(document['bibtex_t'][0])
+          elif document['bibtex_t'].is_a?(String)
+             b = BibTeX.parse(document['bibtex_t'])
+          else
+             # this is weird, because is_a?(String) or respond_to?(to_str) aren't working
+             b = BibTeX.parse(document['bibtex_t'].to_s)
+          end
        else
           b = BibTeX.parse <<-END
 @book{resource,
@@ -73,7 +80,12 @@ module LbccHelper
        styles['CBE'] = CiteProc::Processor.new format: 'html', style: 'council-of-science-editors'
        styles.each do |shortname, processor|
           processor.import b.to_citeproc
-          citations[shortname] = processor.render(:bibliography, id: 'resource').first
+          unless processor.empty?
+             citations[shortname] = processor.render(:bibliography, id: 'resource').first
+          else
+             #citations[shortname] = 'Citations not available at this time'
+             citations[shortname] = document['bibtex_t']
+          end
        end
        return citations
     end
