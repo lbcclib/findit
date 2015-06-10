@@ -219,10 +219,10 @@ module LbccHelper
         rescue Errno::ECONNREFUSED
            return false
         end
-        volumes = @metadata.xpath('//open-ils:volume[@opac_visible="t"][@lib="LBCCLIB"]', 'open-ils' => HOLDINGS_NS)
+        volumes = @metadata.xpath('//open-ils:volume[@opac_visible="t" and @deleted="f"][@lib="LBCCLIB"]', 'open-ils' => HOLDINGS_NS)
         volumes.each do |volume|
             label = volume.xpath('./@label').text
-            items = volume.xpath('.//open-ils:copy[@opac_visible="t"]', 'open-ils' => HOLDINGS_NS)
+            items = volume.xpath('.//open-ils:copy[@opac_visible="t" and @deleted="f"]', 'open-ils' => HOLDINGS_NS)
             items.each do |item|
                 tmp = {}
                 tmp[:status] = item.xpath('.//open-ils:status', 'open-ils' => HOLDINGS_NS).text
