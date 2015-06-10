@@ -19,12 +19,14 @@ module LbccHelper
     end
 
 
-    def create_bibtex(document) # never mind this should be created at index time
-       entry = BibTeX::Entry.new
-       case document['type_facet']
-          when 'Book' == document['type_facet'] then
-             entry.type = :book
-       end 
+    def create_bibtex(document)
+       bibtex = '@book{resource, '
+       if document.has? 'author_display'
+          bibtex.concat('author = {' + document['author_display'].gsub(/[0-9\-]/, '') + '},')
+       end
+       bibtex.concat('title = {' + document['title_display'] + '}')
+       bibtex.concat('}')
+       return bibtex
     end
 
     
@@ -60,16 +62,7 @@ module LbccHelper
              b = BibTeX.parse(document['bibtex_t'].to_s)
           end
        else
-          b = BibTeX.parse <<-END
-@book{resource,
-  address = {Raleigh, North Carolina},
-  author = {Thomas, Dave and Fowler, Chad and Hunt, Andy},
-  publisher = {The Pragmatic Bookshelf},
-  series = {The Facets of Ruby},
-  title = {Programming Ruby 1.9: The Pragmatic Programmer's Guide},
-  year = {2009}
-}
-       END
+          b = BibTeX.parse(create_bibtex(document))
        end
        styles = Hash.new
        citations = Hash.new
