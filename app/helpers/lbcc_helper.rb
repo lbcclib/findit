@@ -114,9 +114,15 @@ module LbccHelper
         if false == items
             display_library_holdings = 'Ask a librarian for information about this item.'
 	elsif 'fancy' == style
-            display_library_holdings = '<dl class="dl-horizontal  dl-invert">'
+            display_library_holdings = '<h2>Find a copy on the shelf</h2>'
+
+
             items.each do |item|
-                display_library_holdings = display_library_holdings + '<dt>' + item[:label] + '</dt><dd>' + item[:status] + '</dd>'
+                display_library_holdings.concat('<dl class="dl-horizontal  dl-invert">')
+                display_library_holdings.concat('<dt>Call number</dt><dd>' + item[:label] + '</dd>')
+                display_library_holdings.concat('<dt>Status</dt><dd>' + item[:status] + '</dd>')
+                display_library_holdings.concat('</dl>')
+                display_library_holdings.concat('<hr />')
             end
         elsif 'simple' == style
             some_item_available = false
@@ -130,7 +136,7 @@ module LbccHelper
         end
     end
 
-        display_library_holdings.html_safe
+        return display_library_holdings.html_safe
     end
 
     def ebscohost_interface_url()
