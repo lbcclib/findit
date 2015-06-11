@@ -1,7 +1,6 @@
 module LbccHelper
     include BlacklightHelper
     include ActionView::Helpers::TextHelper
-    include RepresentativeImageHelper
     require 'nokogiri'
     require 'open-uri'
     require 'uri'
@@ -93,11 +92,21 @@ module LbccHelper
        return citations
     end
 
+   def display_article_field(label, value, dc_element='description')
+      value = strip(value)
+      return value if '' == value
+      field_for_display = <<-EOS
+         <dt>#{label}:</dt>
+         <dd propery="#{dc_element}">#{value}</dd>
+      EOS
+      return field_for_display.html_safe
+   end
+
     def display_fulltext_access_link(url_value, style)
-        display_field = <<-EOS
+        access_link = <<-EOS
           <a href=#{url_value} class="btn btn-success" role="button" target="_blank">Access this resource</a>
         EOS
-        display_field.html_safe
+        return access_link.html_safe
     end
 
     def display_library_holdings(tcn, style)

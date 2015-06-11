@@ -8,11 +8,11 @@
          <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
         </h5>
         <dl class="document-metadata dl-horizontal dl-invert">
-           <%= display_field('Authors', article[:authors].join('; '), 'authors') %>
-           <%= display_field('Format', article[:type], 'format') %>
-           <%= display_field('Journal', article[:journal], 'format') %>
-           <%= display_field('Publication year', article[:year], 'pub-date') %>
-           <%= display_field('Abstract', truncate(article[:abstract], length: 200, separator: ' '), 'description') %>
+           <%= display_article_field('Authors', article[:authors].join('; '), 'authors') %>
+           <%= display_article_field('Format', article[:type], 'format') %>
+           <%= display_article_field('Journal', article[:journal], 'format') %>
+           <%= display_article_field('Publication year', article[:year], 'pub-date') %>
+           <%= display_article_field('Abstract', truncate(article[:abstract], length: 200, separator: ' '), 'description') %>
         </dl>
       </div>
    </div>
