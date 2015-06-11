@@ -83,63 +83,6 @@ module LbccHelper
        return citations
     end
 
-    def display_field(label, value, dd_class)
-        value = strip(value)
-        if value.include? 'http://'
-           value = '<a href="' + value + '">' + value + '</a>'
-        end
-        return '' if '' == value
-        dd_class = "blacklight-#{dd_class}" if dd_class
-        display_field = <<-EOS
-          <dt class=#{dd_class}>#{label}:</dt>
-          <dd class=#{dd_class}>#{value}</dd>
-        EOS
-        return display_field.html_safe
-    end
-
-    def display_solr_field(document, solr_fname, label_text='', dd_class=nil)
-        label = ""
-        display_field = ""
-        label = if label_text.length > 0 then label_text end
-        if document.has? solr_fname
-            display_value = render_index_field_value(:document => document, :field => solr_fname)
-            return '' if '' == display_value
-            return display_field(label_text, strip(display_value), dd_class)
-        end
-        return ''
-    end
-
-    def display_field_search_link(label, value, dd_class, search_field='all_fields', exact_match=false, link_class)
-        if value
-            value_arr = []
-            case value
-                when Array then value_arr = value
-                when String then value_arr.push(value)
-                else 
-                    value_arr = value.to_a
-            end
-            dd_class = "blacklight-#{dd_class}" if dd_class
-            display_string  = <<-EOS
-                <dt class=#{dd_class}>#{label}:</dt>
-                <dd class=#{dd_class}>#{value_arr.collect{ |value| search_catalog_link(value, value, search_field, link_class, exact_match)}.join('; ') }</dd>
-            EOS
-            return display_string.html_safe
-        end
-        return ''
-    end
-
-    def display_solr_field_search_link(document, solr_fname, label_text='', dd_class=nil, search_field='all_fields', exact_match=false, link_class=nil)
-        label = ""
-        display_field = ""
-        label = label_text.length > 0 ? label_text : ''
-
-        if document.has? solr_fname
-            values = document[solr_fname] 
-            return display_field_search_link(label, values, dd_class, search_field, exact_match, link_class)
-        end
-        return ''
-    end 
-
     def display_fulltext_access_link(url_value, style)
         display_field = <<-EOS
           <a href=#{url_value} class="btn btn-success" role="button" target="_blank">Access this resource</a>
@@ -173,11 +116,6 @@ module LbccHelper
 
     def ebscohost_interface_url()
         return EBSCOHOST_INTERFACE_PREFIX + URI.escape(request.parameters[:q])
-    end
-
-    def search_catalog_link(text, search_query, search_field, link_class=nil, exact_match=false)
-       search_query = "\"#{search_query}\"".html_safe if exact_match 
-       link_to text, catalog_index_path(:q => search_query, :search_field => search_field ), :class => link_class
     end
 
 
