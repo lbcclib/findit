@@ -25,6 +25,16 @@ module LbccHelper
           bibtex.concat('author = {' + document['author_display'].gsub(/[0-9\-]/, '') + '},')
        end
        bibtex.concat('title = {' + document['title_display'] + '}')
+       if document.has? 'pub_date'
+          bibtex.concat(', year = ' + document['pub_date'][0])
+       end
+       if document.has? 'publisher_display'
+          if document['publisher_display'].is_a?(Array)
+             bibtex.concat(', publisher = {' + document['publisher_display'][0] + '}')
+          else
+             bibtex.concat(', publisher = ' + document['publisher_display'].to_s + '}')
+          end
+       end
        bibtex.concat('}')
        return bibtex
     end
