@@ -180,7 +180,8 @@ module LbccHelper
     def strip(string)
         # Also strip preceeding [ or whitespace
         string.gsub!(/^[\*\[\s]*/, '')
-        string.gsub(/[,-:\];\s]*$/, '')
+        string.gsub!(/[,\-:\];\s]*$/, '')
+        return string
     end
 
 
