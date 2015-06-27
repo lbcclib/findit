@@ -6,7 +6,7 @@ module RepresentativeImageHelper
           if full_size
              return link_to(image_tag(representative_image_url(document, 'M'), alt:document['title_t'], class: 'large-cover-image'), representative_image_url(document, 'L'))
           else
-             return link_to(image_tag(representative_image_url(document, 'M'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
+             return link_to(image_tag(representative_image_url(document, 'S'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
           end
        else
           return nil
@@ -36,8 +36,9 @@ module RepresentativeImageHelper
                    end
                 end
              end
-       else
-          return nil
+       end
+       if document.has? 'format'
+          return 'icons/'.concat(document['format']).concat('.png')
        end
        return nil
     end
