@@ -55,3 +55,5 @@ gem "openlibrary"
 gem "bibtex-ruby"
 gem "citeproc-ruby"
 gem "csl-styles"
+
+gem "puma"
