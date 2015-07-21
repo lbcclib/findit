@@ -96,8 +96,9 @@ module LbccHelper
 
             items.each do |item|
                 display_library_holdings.concat('<dl class="dl-horizontal  dl-invert">')
-                display_library_holdings.concat('<dt>Call number</dt><dd>' + item[:label] + '</dd>')
                 display_library_holdings.concat('<dt>Status</dt><dd>' + item[:status] + '</dd>')
+                display_library_holdings.concat('<dt>Location</dt><dd>' + item[:location] + '</dd>')
+                display_library_holdings.concat('<dt>Call number</dt><dd>' + item[:label] + '</dd>')
                 display_library_holdings.concat('</dl>')
                 display_library_holdings.concat('<hr />')
             end
