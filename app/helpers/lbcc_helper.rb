@@ -109,6 +109,13 @@ module LbccHelper
             end
         if some_item_available
             display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" class="btn btn-success">Available at the library</a>'
+            display_library_holdings.concat('<table class="table"><thead><tr><th>Status</th><th>Location</th><th>Call number</th></thead>')
+            items.first(5).each do |item|
+                display_library_holdings.concat('<tr><td>' + item[:status] + '</td>')
+                display_library_holdings.concat('<td>' + item[:location] + '</td>')
+                display_library_holdings.concat('<td>' + item[:label] + '</td></tr>')
+            end
+            display_library_holdings.concat('</table>')
         else
             display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' + tcn + 'hold_type=T;hold_source_page=/eg/opac/record/'+ tcn + '?query=locg=8&detail_record_view=1" class="btn btn-warning">Place a hold</a>'
         end
