@@ -22,6 +22,14 @@ html {
   max-height: 120px;
 }
 
+.large-cover-image {
+  margin: 0 auto 10px auto;
+  width: 60%;
+  max-width: 160px;
+  display:block;
+}
+
+
 body {
  margin-bottom: 110px;
  height: 100%;
@@ -116,8 +124,11 @@ body {
   font-weight: 600;
 }
 
-#header-navbar .navbar-brand {
-  height: 100px;
+#header-navbar {
+  max-height: 110px;
 }
 
+.navbar-brand {
+  min-height: 100px;
+}
 
