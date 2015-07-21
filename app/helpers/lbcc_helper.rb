@@ -66,7 +66,7 @@ module LbccHelper
        styles.each do |shortname, processor|
           processor.import b.to_citeproc
           unless processor.empty?
-             citations[shortname] = processor.render(:bibliography, id: 'resource').first
+             citations[shortname] = processor.render(:bibliography, id: 'resource').first.tr('{}', '')
           else
              #citations[shortname] = 'Citations not available at this time'
              citations[shortname] = document['bibtex_t']
