@@ -55,5 +55,5 @@ gem "openlibrary"
 gem "bibtex-ruby"
 gem "citeproc-ruby"
 gem "csl-styles"
-
+gem "exception_notification"
 gem "puma"
