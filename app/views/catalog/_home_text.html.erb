@@ -4,12 +4,12 @@
       <fieldset> 
         <input name="search_field" value="all_fields" type="hidden" />
         <div class="row">
-          <input name="q" type="text" class="input-lg search-query col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8" />
+          <input name="q" type="text" class="input-lg search-query col-xs-offset-2 col-xs-8" />
           <input name="show_articles" id="show_articles" type="hidden" value="true"/>
         </div>
         <div class="row search-option-buttons">
-          <button type="submit" class="btn btn-success btn-lg col-md-offset-2" onclick="document.getElementById('show_articles').value='true';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search all library resources</button>
-          <button type="submit" class="btn btn-success btn-lg col-md-offset-2" onclick="document.getElementById('show_articles').value='false';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search books and media only</button>
+          <button type="submit" class="btn btn-success btn-lg col-sm-offset-2 col-xs-offset-2 col-xs-8 col-sm-3" onclick="document.getElementById('show_articles').value='true';" style="white-space: normal;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search all library resources</button>
+          <button type="submit" class="btn btn-success btn-lg col-sm-offset-2 hidden-xs col-sm-3" onclick="document.getElementById('show_articles').value='false';" style="white-space: normal;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search books and media only</button>
         </div>
       </fieldset>
    </form>

@@ -1,12 +1,12 @@
 <footer class="footer">
   <div class="container">
-    <%= link_to(image_tag("blacklight/findit.png", :alt=> "Find It"), "about") %>
+    <%= link_to(image_tag("blacklight/findit.png", :alt=> "Find It", :class=> "col-xs-12 col-sm-2", :style=> "max-width:196px;max-height:70px;"), "about") %>
     <div class="navbar-right">
-      <ul class="nav navbar-right">
+      <ul class="nav navbar-right col-offset-6">
         <li>
-          <%= link_to("New search", root_path, class: 'bookmarks_nav') %>
+          <%= link_to("New search", root_path, class: 'col-xs-4 bookmarks_nav', style: "min-width:120px;") %>
         </li> <li>
-          <%= link_to("About Find It", "about", class: 'bookmarks_nav') %>
+          <%= link_to("About Find It", "about", class: 'col-xs-4 bookmarks_nav', style: "min-width:120px;") %>
         </li>
       </ul>
     </div>
