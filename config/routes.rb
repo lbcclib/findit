@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   blacklight_for :catalog
   devise_for :users
 
-  # Static About page
+  # Static pages
   get '/about' => 'catalog#about'
+  get '/more' => 'catalog#more'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
