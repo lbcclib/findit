@@ -6,14 +6,12 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
-  configure_blacklight do |config|
-
-
   rescue_from 'Blacklight::Exceptions::ECONNREFUSED' do |exception|
     flash[:error] = "Find It's data are temporarily unavailable.  We will resolve this issue momentarily."
     redirect_to :action=>'more'
   end
 
+  configure_blacklight do |config|
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = { 
