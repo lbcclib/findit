@@ -1,5 +1,5 @@
 module RepresentativeImageHelper
-    require 'openlibrary'
+    require 'net/http'
 
     def display_representative_image(document, full_size=false )
        unless representative_image_url(document, 'L').nil?
@@ -22,20 +22,20 @@ module RepresentativeImageHelper
              else
                 isbns = document['isbn_t'].to_a
           end
-             client = Openlibrary::Client.new
-             view = Openlibrary::View
-             isbns.each do |isbn|
-                book = view.find_by_isbn(isbn)
-                unless book.nil?
-                   unless book.thumbnail_url.nil?
-                      if 'S' == size
-                         return book.thumbnail_url
-                      else
-                         return book.thumbnail_url.sub('-S.jpg', '-'.concat(size).concat('.jpg'))
-                      end
+          isbns.each do |isbn|
+             base_url = 'http://covers.openlibrary.org/b/isbn/' + isbn
+             thumbnail_url = URI.parse(base_url + '-S.jpg?default=false')
+             ol_test_response = Net::HTTP.get_response(thumbnail_url)
+             if ol_test_response.code == '302'
+                unless ol_test_response.body.include? 'not found'
+                   if 'S' == size
+                      return base_url + '-S.jpg'
+                   else
+                      return base_url + '-M.jpg'
                    end
                 end
              end
+          end
        end
        if document.has? 'format'
           return 'icons/'.concat(document['format']).concat('.png')
