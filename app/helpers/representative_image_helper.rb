@@ -26,7 +26,7 @@ module RepresentativeImageHelper
              base_url = 'http://covers.openlibrary.org/b/isbn/' + isbn
              thumbnail_url = URI.parse(base_url + '-S.jpg?default=false')
              ol_test_response = Net::HTTP.get_response(thumbnail_url)
-             if ol_test_response.code == '302'
+             if ol_test_response.code == '302' or ol_test_response.code == '200'
                 unless ol_test_response.body.include? 'not found'
                    if 'S' == size
                       return base_url + '-S.jpg'
