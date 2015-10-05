@@ -45,14 +45,18 @@ module LbccHelper
 
     def generate_citations(document)
        if document.has? 'bibtex_t'
-          if document['bibtex_t'].is_a?(Array)
+         begin
+           if document['bibtex_t'].is_a?(Array)
              b = BibTeX.parse(document['bibtex_t'][0])
-          elif document['bibtex_t'].is_a?(String)
+           elsif document['bibtex_t'].is_a?(String)
              b = BibTeX.parse(document['bibtex_t'])
-          else
+           else
              # this is weird, because is_a?(String) or respond_to?(to_str) aren't working
              b = BibTeX.parse(document['bibtex_t'].to_s)
-          end
+	   end
+	 rescue BibTeX::ParseError
+           b = BibTeX.parse(create_bibtex(document))
+	 end
        else
           b = BibTeX.parse(create_bibtex(document))
        end
