@@ -13,35 +13,17 @@ module RepresentativeImageHelper
        end
     end
 
-    def check_image_source(isbn)
-       base_url = 'http://covers.openlibrary.org/b/isbn/' + isbn
-       thumbnail_url = URI.parse(base_url + '-S.jpg?default=false')
-       ol_test_response = Net::HTTP.get_response(thumbnail_url)
-       if ol_test_response.code == '302' or ol_test_response.code == '200'
+    def get_image_url(isbn, size)
+       full_url = URI.parse('http://covers.openlibrary.org/b/isbn/' + isbn + '-' + size + '.jpg?default=false')
+       ol_test_response = Net::HTTP.get_response(full_url)
+       if ol_test_response.code == '200'
           unless ol_test_response.body.include? 'not found'
-             return true
+             return full_url
 	  end
+       elsif ol_test_response.code == '302'
+	       return ol_test_response['location']
        end
        return false
-    end
-
-    def download_to_file(uri, file_name, recurse = true)
-	    response = Net::HTTP.get_response(URI(uri))
-	    case response
-	    when Net::HTTPSuccess then
-		    open(file_name, 'wb') do |file|
-			    file.write(response.body)
-		    end
-	    when Net::HTTPRedirection then
-		    if recurse
-		    	download_to_file(response['location'], file_name, false)
-		    end
-	    end
-    end
-
-    def download_images(isbn)
-	    download_to_file('http://covers.openlibrary.org/b/isbn/' + isbn + '-S.jpg', 'app/assets/images/covers/' + isbn + '-S.jpg', true)
-	    download_to_file('http://covers.openlibrary.org/b/isbn/' + isbn + '-M.jpg', 'app/assets/images/covers/' + isbn + '-M.jpg', true)
     end
 
     def representative_image_path(document, size='S')
@@ -54,17 +36,25 @@ module RepresentativeImageHelper
                 isbns = document['isbn_t'].to_a
           end
           isbns.each do |isbn|
-             unless Rails.application.assets.find_asset 'covers/' + isbn + '-S.jpg'
-                if check_image_source(isbn)
-                   download_images(isbn)
-		end
-             end
-             if Rails.application.assets.find_asset 'covers/' + isbn + '-S.jpg'
+             cover = CoverImage.find_by(isbn: isbn)
+	     if cover
                 if 'S' == size
-                  return 'covers/' + isbn + '-S.jpg'
+                  return cover.thumbnail_url
 		else
-                  return 'covers/' + isbn + '-M.jpg'
+                  return cover.full_url
 		end
+             else
+		thumbnail_url = get_image_url(isbn, 'S')
+		if thumbnail_url
+	           full_url = get_image_url(isbn, 'M')
+		   image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url)
+                   if 'S' == size
+                     return thumbnail_url
+		   else
+                     return full_url
+		   end
+		end
+
              end
           end
        end
