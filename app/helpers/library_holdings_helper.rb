@@ -28,7 +28,7 @@ module LibraryHoldingsHelper
                 if 'Available' == item[:status] then some_item_available = true end
             end
         if some_item_available
-            display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" class="btn btn-success">Available at the library</a>'
+            display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" target="_blank" class="btn btn-success">Available at the library</a>'
             display_library_holdings.concat('<table class="table"><thead><tr><th>Status</th><th>Location</th><th>Call number</th></thead>')
             items.first(5).each do |item|
                 display_library_holdings.concat('<tr><td>' + item[:status] + '</td>')
