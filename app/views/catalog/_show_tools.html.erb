@@ -5,11 +5,9 @@
 
   <div class="panel-body">
   <ul class="nav">
-      <% if (@document.has? 'bibtex_t') %>
-        <li class="cite">
-         <%= link_to 'Cite this', citation_catalog_path(:id => @document), {:id => 'citeLink', :data => {:ajax_modal => "trigger"}} %>
-        </li>
-      <% end %>
+    <li class="cite">
+     <%= link_to 'Cite this', citation_catalog_path(:id => @document), {:id => 'citeLink', :data => {:ajax_modal => "trigger"}} %>
+    </li>
     <% if @document.respond_to?( :to_email_text ) %>
       <li class="email">
       <%= link_to 'Email this', email_catalog_path(:id => @document), {:id => 'emailLink', :data => {:ajax_modal => "trigger"}} %>
