@@ -15,7 +15,11 @@ module RepresentativeImageHelper
 
     def get_image_url(isbn, size)
        full_url = URI.parse('http://covers.openlibrary.org/b/isbn/' + isbn + '-' + size + '.jpg?default=false')
-       ol_test_response = Net::HTTP.get_response(full_url)
+       begin
+          ol_test_response = Net::HTTP.get_response(full_url)
+       rescue
+          return false
+       end
        if ol_test_response.code == '200'
           unless ol_test_response.body.include? 'not found'
              return full_url
