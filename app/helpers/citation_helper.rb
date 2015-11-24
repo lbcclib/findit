@@ -4,6 +4,7 @@ module CitationHelper
 
 
     def create_bibtex(document)
+    # A backup for creating a brief BibTeX string in case it wasn't added in the indexing step
        bibtex = '@book{resource, '
        if document.has? 'author_display'
           bibtex.concat('author = {' + document['author_display'].gsub(/[0-9\-]/, '') + '},')
@@ -32,10 +33,10 @@ module CitationHelper
            elsif document['bibtex_t'].is_a?(String)
              b = BibTeX.parse(document['bibtex_t'])
            else
-             # this is weird, because is_a?(String) or respond_to?(to_str) aren't working
              b = BibTeX.parse(document['bibtex_t'].to_s)
 	   end
 	 rescue BibTeX::ParseError
+	 #If parsing the text from index time absolutely doesn't work, create a new BibTeX string on the fly
            b = BibTeX.parse(create_bibtex(document))
 	 end
        else
