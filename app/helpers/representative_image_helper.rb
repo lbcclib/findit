@@ -31,34 +31,56 @@ module RepresentativeImageHelper
     end
 
     def representative_image_path(document, size='S')
+       cover = CoverImage.find_by(solr_id: document.id)
+       if cover
+           if cover.updated_at.to_i > 2.weeks.ago.to_i
+              if cover.thumbnail_url #if we found an image last time we searched
+                 if 'S' == size
+                    return cover.thumbnail_url
+                 else
+                    return cover.full_url
+		 end
+              else
+                 return false
+              end
+
+              if document.has? 'isbn_t'
+                 isbns = find_isbns_from(document)
+                 isbns.each do |isbn|
+		    thumbnail_url = get_image_url(isbn, 'S')
+		    if thumbnail_url
+	               full_url = get_image_url(isbn, 'M')
+		       image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
+                       if 'S' == size
+                          return thumbnail_url
+		       else
+                          return full_url
+		       end
+                    end
+		 end
+              end
+
+
+
+
+
+
+           end
+       end
+
+       # If the image has not yet been cached
        if document.has? 'isbn_t'
-          isbns = []
-          case document['isbn_t']
-             when Array then isbns = document['isbn_t']
-             when String then isbns.push(document['isbn_t'])
-             else
-                isbns = document['isbn_t'].to_a
-          end
+          isbns = find_isbns_from(document)
           isbns.each do |isbn|
-             cover = CoverImage.find_by(isbn: isbn)
-	     if cover
-                if 'S' == size
-                  return cover.thumbnail_url
-		else
-                  return cover.full_url
-		end
-             else
 		thumbnail_url = get_image_url(isbn, 'S')
 		if thumbnail_url
 	           full_url = get_image_url(isbn, 'M')
-		   image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url)
+		   image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
                    if 'S' == size
                      return thumbnail_url
 		   else
                      return full_url
 		   end
-		end
-
              end
           end
        end
@@ -67,4 +89,16 @@ module RepresentativeImageHelper
        end
        return nil
     end
+
+    def find_isbns_from(document)
+          isbns = []
+          case document['isbn_t']
+             when Array then isbns = document['isbn_t']
+             when String then isbns.push(document['isbn_t'])
+             else
+                isbns = document['isbn_t'].to_a
+          end
+	  return isbns
+    end
+
 end
