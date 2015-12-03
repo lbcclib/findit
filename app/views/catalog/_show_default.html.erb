@@ -1,5 +1,5 @@
 <%= display_access_options(document, 'show') %>
-<% ahoy.track 'viewed record' %>
+<% ahoy.track 'viewed record', catalog_id: document.id %>
 <h2>About this resource</h2>
 <dl class="dl-horizontal  dl-invert">
   <%= display_field(document, 'title_display', 'Title', :dc_element => 'title') %>
