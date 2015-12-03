@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require 'blacklight_advanced_search'
-
-
 //= require ahoy
 //= require jquery_ujs
 //= require turbolinks
