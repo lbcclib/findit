@@ -16,10 +16,12 @@
   </div>
 </div>
 
-<% if has_search_parameters? %>
-<div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="container">
+<% if defined? has_search_parameters %>
+  <% if has_search_parameters? %>
+  <div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
     <%= render_search_bar  %>
+    </div>
   </div>
-</div>
+  <% end %>
 <% end %>
