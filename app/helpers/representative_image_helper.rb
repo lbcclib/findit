@@ -1,8 +1,8 @@
 module RepresentativeImageHelper
     require 'net/http'
 
-    # Displays either a cover image or format icon,
-    # based on the requested side and identifiers from
+    # Generates HTML for either a cover image or format
+    # icon, based on the requested side and identifiers from
     # the Solr document
     def display_representative_image(document, full_size=false )
        unless representative_image_path(document, 'L').nil?
@@ -27,77 +27,79 @@ module RepresentativeImageHelper
             return false
         end
         if ol_test_response.code == '200'
-           unless ol_test_response.body.include? 'not found'
-               return full_url
-	   end
+            unless ol_test_response.body.include? 'not found'
+                return full_url
+	        end
         elsif ol_test_response.code == '302'
-	    return ol_test_response['location']
+	        return ol_test_response['location']
         end
         return false
     end
 
+    # Returns a URL or path for either an image
+    # or format icon
     def representative_image_path(document, size='S')
-       cover = CoverImage.find_by(solr_id: document.id)
-       if cover
-           if cover.updated_at.to_i > 2.weeks.ago.to_i
-              if cover.thumbnail_url #if we found an image last time we searched
-                 if 'S' == size
-                    return cover.thumbnail_url
-                 else
-                    return cover.full_url
-		 end
-              else
-                 return false
-              end
+        cover = CoverImage.find_by(solr_id: document.id)
+        if cover
+            if cover.updated_at.to_i > 2.weeks.ago.to_i
+                if cover.thumbnail_url #if we found an image last time we searched
+                    if 'S' == size
+                        return cover.thumbnail_url
+                    else
+                        return cover.full_url
+		            end
+                else
+                    return false
+                end
 
-              if document.has? 'isbn_t'
-                 isbns = find_isbns_from(document)
-                 isbns.each do |isbn|
-		    thumbnail_url = get_image_url(isbn, 'isbn', 'S')
-		    if thumbnail_url
-	               full_url = get_image_url(isbn, 'isbn', 'M')
-		       image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
-                       if 'S' == size
-                          return thumbnail_url
-		       else
-                          return full_url
-		       end
+                if document.has? 'isbn_t'
+                    isbns = find_isbns_from(document)
+                    isbns.each do |isbn|
+		            thumbnail_url = get_image_url(isbn, 'isbn', 'S')
+		            if thumbnail_url
+	                    full_url = get_image_url(isbn, 'isbn', 'M')
+		                image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
+                        if 'S' == size
+                           return thumbnail_url
+		                else
+                           return full_url
+		                end
                     end
-		 end
-              end
-           end
-       end
+		        end
+            end
+        end
+    end
 
-       # If the image has not yet been cached
-       if document.has? 'isbn_t'
-          isbns = find_isbns_from(document)
-          isbns.each do |isbn|
-		thumbnail_url = get_image_url(isbn, 'isbn', 'S')
-		if thumbnail_url
-	           full_url = get_image_url(isbn, 'isbn', 'M')
-		   image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
-                   if 'S' == size
-                     return thumbnail_url
-		   else
-                     return full_url
-		   end
-             end
-          end
-       end
-       if document.has? 'format'
-          return 'icons/'.concat(document['format']).concat('.png')
-       end
-       return nil
+        # If the image has not yet been cached
+        if document.has? 'isbn_t'
+            isbns = find_isbns_from(document)
+            isbns.each do |isbn|
+		        thumbnail_url = get_image_url(isbn, 'isbn', 'S')
+		        if thumbnail_url
+	                full_url = get_image_url(isbn, 'isbn', 'M')
+		            image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
+                    if 'S' == size
+                        return thumbnail_url
+		            else
+                        return full_url
+		            end
+                end
+            end
+        end
+        if document.has? 'format'
+            return 'icons/'.concat(document['format']).concat('.png')
+        end
+        return nil
     end
 
     def find_isbns_from(document)
-          isbns = []
-          case document['isbn_t']
-             when Array then isbns = document['isbn_t']
-             when String then isbns.push(document['isbn_t'])
-             else
-                isbns = document['isbn_t'].to_a
-          end
-	  return isbns
+        isbns = []
+        case document['isbn_t']
+            when Array then isbns = document['isbn_t']
+            when String then isbns.push(document['isbn_t'])
+        else
+            isbns = document['isbn_t'].to_a
+        end
+	    return isbns
     end
 end
