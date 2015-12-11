@@ -1,6 +1,9 @@
 module RepresentativeImageHelper
     require 'net/http'
 
+    # Displays either a cover image or format icon,
+    # based on the requested side and identifiers from
+    # the Solr document
     def display_representative_image(document, full_size=false )
        unless representative_image_path(document, 'L').nil?
           if full_size
@@ -13,21 +16,24 @@ module RepresentativeImageHelper
        end
     end
 
-    def get_image_url(isbn, size)
-       full_url = URI.parse('http://covers.openlibrary.org/b/isbn/' + isbn + '-' + size + '.jpg?default=false')
-       begin
-          ol_test_response = Net::HTTP.get_response(full_url)
-       rescue
-          return false
-       end
-       if ol_test_response.code == '200'
-          unless ol_test_response.body.include? 'not found'
-             return full_url
-	  end
-       elsif ol_test_response.code == '302'
-	       return ol_test_response['location']
-       end
-       return false
+    # Returns a URL for an image from the Open Library.
+    # identifier_type can be ISBN, OCLC, or LCCN (case-
+    # insensitive).
+    def get_image_url(identifier, identifier_type, size)
+        full_url = URI.parse('http://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
+        begin
+            ol_test_response = Net::HTTP.get_response(full_url)
+        rescue
+            return false
+        end
+        if ol_test_response.code == '200'
+           unless ol_test_response.body.include? 'not found'
+               return full_url
+	   end
+        elsif ol_test_response.code == '302'
+	    return ol_test_response['location']
+        end
+        return false
     end
 
     def representative_image_path(document, size='S')
@@ -47,9 +53,9 @@ module RepresentativeImageHelper
               if document.has? 'isbn_t'
                  isbns = find_isbns_from(document)
                  isbns.each do |isbn|
-		    thumbnail_url = get_image_url(isbn, 'S')
+		    thumbnail_url = get_image_url(isbn, 'isbn', 'S')
 		    if thumbnail_url
-	               full_url = get_image_url(isbn, 'M')
+	               full_url = get_image_url(isbn, 'isbn', 'M')
 		       image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
                        if 'S' == size
                           return thumbnail_url
@@ -59,12 +65,6 @@ module RepresentativeImageHelper
                     end
 		 end
               end
-
-
-
-
-
-
            end
        end
 
@@ -72,9 +72,9 @@ module RepresentativeImageHelper
        if document.has? 'isbn_t'
           isbns = find_isbns_from(document)
           isbns.each do |isbn|
-		thumbnail_url = get_image_url(isbn, 'S')
+		thumbnail_url = get_image_url(isbn, 'isbn', 'S')
 		if thumbnail_url
-	           full_url = get_image_url(isbn, 'M')
+	           full_url = get_image_url(isbn, 'isbn', 'M')
 		   image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
                    if 'S' == size
                      return thumbnail_url
@@ -100,5 +100,4 @@ module RepresentativeImageHelper
           end
 	  return isbns
     end
-
 end
