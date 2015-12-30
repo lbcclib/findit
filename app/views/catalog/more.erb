@@ -7,9 +7,29 @@
 </form>
 
 <h1>Ebooks</h1>
-Ebrary
+<form action="http://site.ebrary.com/lib/linnbenton/search.action" method="get" />
+<input onblur="if (this.value == '') this.value = 'Search Ebrary';" onfocus="if (this.value == 'Search Ebrary') this.value = '';" value="Search Ebrary" name="p00" class="catalog-search" />
+<input name="search" type="submit" value="Search" />
+</form>
 
 <h1>Articles</h1>
-Ac Search Prem
-Ac OneFile
-CINAHL (for nursing)
+<form action="http://search.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/login.aspx" method="get" />
+<input onblur="if (this.value == '') this.value = 'Search Academic Search Premier';" onfocus="if (this.value == 'Search Academic Search Premier') this.value = '';" value="Search Academic Search Premier" name="bquery" class="catalog-search" />
+<input name="direct" value="true" type="hidden" />
+<input name="db" value="aph" type="hidden" />
+<input name="type" value="0" type="hidden" />
+<input name="site" value="ehost-live" type="hidden" />
+<input name="search" type="submit" value="Search" />
+</form>
+
+
+
+
+<form action="http://search.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/login.aspx" method="get" />
+<input onblur="if (this.value == '') this.value = 'Search CINAHL (nursing and health)';" onfocus="if (this.value == 'Search CINAHL (nursing and health)') this.value = '';" value="Search CINAHL (nursing and health)" name="bquery" class="catalog-search" />
+<input name="direct" value="true" type="hidden" />
+<input name="db" value="c8h" type="hidden" />
+<input name="type" value="0" type="hidden" />
+<input name="site" value="ehost-live" type="hidden" />
+<input name="search" type="submit" value="Search" />
+</form>
