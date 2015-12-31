@@ -6,7 +6,8 @@ Find It is based on [Blacklight](http://projectblacklight.org/), with a few othe
 
 In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/sandbergja/discovery_layer/issues/60), but has only been tested with JRuby on Windows Server 2013.
 
-Here's how to get this running for yourself
+Here's how to get this running for yourself:
+
 1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.
 2. `cd` into the directory that you created.
 3. [Set up devise](http://guides.railsgirls.com/devise/).
