@@ -55,20 +55,20 @@ module RepresentativeImageHelper
                 if document.has? 'isbn_t'
                     isbns = find_isbns_from(document)
                     isbns.each do |isbn|
-		            thumbnail_url = get_image_url(isbn, 'isbn', 'S')
-		            if thumbnail_url
-	                    full_url = get_image_url(isbn, 'isbn', 'M')
-		                image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
-                        if 'S' == size
-                           return thumbnail_url
-		                else
-                           return full_url
-		                end
+		         thumbnail_url = get_image_url(isbn, 'isbn', 'S')
+		         if thumbnail_url
+	                     full_url = get_image_url(isbn, 'isbn', 'M')
+		             image = CoverImage.update(cover.id, isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: document.id)
+                             if 'S' == size
+                                 return thumbnail_url
+		             else
+                                 return full_url
+		             end
+		         end
                     end
-		        end
+                end
             end
         end
-    end
 
         # If the image has not yet been cached
         if document.has? 'isbn_t'
