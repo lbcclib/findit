@@ -4,7 +4,10 @@ Find It is a discovery layer for [Linn-Benton Community College's library](http:
 
 Find It is based on [Blacklight](http://projectblacklight.org/), with a few other gems thrown in.  This repository represents the changes we made from a basic installation of blacklight.
 
-In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/sandbergja/discovery_layer/issues/60), but has only been tested with JRuby on Windows Server 2013.
+In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/sandbergja/discovery_layer/issues/60), but has only been tested in the following environments:
+
+* JRuby on Windows Server 2013
+* Ruby on Ubuntu 15.10
 
 Here's how to get this running for yourself:
 
