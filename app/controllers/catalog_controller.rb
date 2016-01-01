@@ -75,6 +75,13 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_name_facet', :label => 'People and groups'
     config.add_facet_field 'record_source_facet', :label => 'Source database'
 
+    config.advanced_search = {
+        :form_solr_parameters => {
+            "facet.field" => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet'],
+            "facet.sort" => "index" # sort by byte order of values
+        }
+    }
+
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
