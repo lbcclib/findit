@@ -11,7 +11,7 @@ In theory, you should be able to get this to work on Windows and Linux boxes usi
 
 Here's how to get this running for yourself:
 
-1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.
+1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.
 2. `cd` into the directory that you created.
 4. `git init`
 5. `git remote add findit [URL]` where [URL] is the name of this repository.
