@@ -1,10 +1,11 @@
 module ArticleHelper
     require 'nokogiri'
     require 'open-uri'
+    require 'ruby_eds.rb'
     require 'uri'
 
-    EBSCOHOST_API_PREFIX = 'http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=linncc.main.eitws&pwd=ebs9905&sort=relevance&authType=profile&ipprof=&startrec=1&numrec=10&db=aph&db=agr&db=buh&db=c8h&db=eric&db=zbh&db=hch&db=hxh&db=nfh&db=pbh&db=bwh&db=voh&format=full&query='
-    EBSCOHOST_INTERFACE_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=aph&db=agr&db=buh&db=c8h&db=eric&db=zbh&db=hch&db=hxh&db=nfh&db=pbh&db=bwh&db=rlh&db=voh&db=nlebk&type=0&site=ehost-live&bquery='
+    include RubyEDS
+
     EBSCO_LINK_RESOLVER_PREFIX = 'http://resolver.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/openurl/?linksourcecustid=15183&id=doi:'
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
      
@@ -16,48 +17,53 @@ module ArticleHelper
         return article_type
     end
 
-    def ebscohost_interface_url()
-        return EBSCOHOST_INTERFACE_PREFIX + URI.escape(request.parameters[:q])
+    def display_article_field(label, value, dc_element='description')
+        value = strip(value)
+        return value if '' == value
+        field_for_display = <<-EOS
+            <dt>#{label}:</dt>
+            <dd propery="#{dc_element}">#{value}</dd>
+        EOS
+        return field_for_display.html_safe
     end
 
+    def fetch_search_data()
+        if !session[:article_user_token].blank? && !session[:article_session_token].blank?
+            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], limiter: 'FT:y,RV:y', resultsperpage: 7, )
+            results = Nokogiri::XML(raw_response.body)
+            results.remove_namespaces!
+            return results
+        end
+        return false
+    end
 
+    def extract_record_list(results)
+        test = results.xpath('//Record')
+        return test
+    end
 
-   def display_article_field(label, value, dc_element='description')
-      value = strip(value)
-      return value if '' == value
-      field_for_display = <<-EOS
-         <dt>#{label}:</dt>
-         <dd propery="#{dc_element}">#{value}</dd>
-      EOS
-      return field_for_display.html_safe
-   end
+    def extract_data_from_single_record(record)
+        data = {}
+        data[:title] = record.xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
+        data[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
+        data[:url] = record.xpath('./PLink').text
+        #data[:abstract] = 'The author explores how smelly cats are.'
+        data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
+        #data[:type] = 'Theoretical article'
+        data[:authors] = []
+        authors = record.xpath('.//PersonEntity')
+        authors.each do |author|
+            data[:authors].push(author.xpath('.//NameFull').text)
+        end
+        return data
+    end
 
-    def fetch_articles()
+    def perform_article_search()
         articles = []
-        @results = Nokogiri::XML(open(URI.escape(EBSCOHOST_API_PREFIX + request.parameters[:q])))
-        records = @results.xpath('//rec')
-        records.each do |record|
-            tmp = {}
-            tmp[:title] = record.xpath('.//atl').text
-            tmp[:journal] = record.xpath('.//jtl').text
-            if record.at('.//ui[@type="doi"]')
-                tmp[:url] = URI.escape(EBSCO_LINK_RESOLVER_PREFIX + record.xpath('.//ui[@type="doi"]').text)
-            elsif '' != record.at_xpath('.//plink').text
-                tmp[:url] = URI.escape(PROXY_PREFIX + record.xpath('.//plink').text)
-            elsif '' != record.at_xpath('.//pdfLink').text
-                tmp[:url] = URI.escape(PROXY_PREFIX + record.xpath('.//pdfLink').text)
-            else
-                tmp[:url] = nil
-            end
-            tmp[:abstract] = record.xpath('.//ab').text
-            tmp[:year] = record.xpath('.//pubinfo/dt/@year').text
-            tmp[:type] = display_article_type(record.xpath('.//pubtype').text)
-            tmp[:authors] = []
-            authors = record.xpath('.//au')
-            authors.each do |author|
-                tmp[:authors].push(author.text)
-            end
-            articles.push(tmp)
+        results = fetch_search_data()
+        list_of_records = extract_record_list(results)
+        list_of_records.each do |record|
+            articles.push(extract_data_from_single_record(record))
         end
         return articles
     end
