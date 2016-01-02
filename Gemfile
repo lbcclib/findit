@@ -57,3 +57,6 @@ gem "bibtex-ruby"
 gem "citeproc-ruby"
 gem "csl-styles"
 gem "exception_notification"
+
+# Also use this EDS API gem
+gem 'ruby_eds', :git => 'https://github.com/sandbergja/ruby_eds.git'
