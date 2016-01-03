@@ -20,8 +20,8 @@ module RepresentativeImageHelper
     # identifier_type can be ISBN, OCLC, or LCCN (case-
     # insensitive).
     def get_image_url(identifier, identifier_type, size)
-        full_url = URI.parse('http://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
         begin
+            full_url = URI.parse('http://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
             ol_test_response = Net::HTTP.get_response(full_url)
         rescue
             return false
