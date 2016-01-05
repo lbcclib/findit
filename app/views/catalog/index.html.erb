@@ -16,7 +16,7 @@
     <div id="article-container" class="col-md-5 col-sm-9 col-md-offset-1">
       <h2>Articles</h2>
       <i>Emerging research and news articles -- great sources for your next paper</i><br />
-      <!--<a href="" class="btn btn-default btn-lg">Search articles</a>-->
+      <a href="<%=eds_interface_url() %>" class="btn btn-default btn-lg">Search articles</a>
       <div class="articles">
         <% articles = perform_article_search() %>
         <% article_counter = 1 %>
@@ -27,7 +27,7 @@
           <% end %>
         <% end %>
       </div>
-      <!-- <a href="" class="btn btn-default btn-lg">More articles</a>-->
+      <a href="<%=eds_interface_url() %>" class="btn btn-default btn-lg">More articles</a>
     </div>
 
   <% else %>

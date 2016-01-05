@@ -7,6 +7,7 @@ module ArticleHelper
     include RubyEDS
 
     EBSCO_LINK_RESOLVER_PREFIX = 'http://resolver.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/openurl/?linksourcecustid=15183&id=doi:'
+    EDS_INTERFACE_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=http://search.ebscohost.com/login.aspx?direct=true&type=0&site=eds-live&bquery='
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
      
     def display_article_type(original_string)
@@ -35,6 +36,10 @@ module ArticleHelper
             return results
         end
         return false
+    end
+
+    def ebscohost_interface_url()
+        return EDS_INTERFACE_PREFIX + URI.escape(request.parameters[:q])
     end
 
     def extract_record_list(results)
