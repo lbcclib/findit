@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<% if 'about' == action_name or !params[:q].blank? or !params[:f].blank? %>
+<% if 'about' == action_name or !params[:q].blank? or !params[:f].blank? or !params[:search_field].blank? %>
   <div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
     <%= render_search_bar  %>
