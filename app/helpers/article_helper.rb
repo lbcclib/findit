@@ -38,7 +38,7 @@ module ArticleHelper
         return false
     end
 
-    def ebscohost_interface_url()
+    def eds_interface_url()
         return EDS_INTERFACE_PREFIX + URI.escape(request.parameters[:q])
     end
 
