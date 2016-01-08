@@ -30,7 +30,7 @@ module ArticleHelper
 
     def fetch_search_data()
         if !session[:article_user_token].blank? && !session[:article_session_token].blank?
-            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], limiter: 'FT:y,RV:y', resultsperpage: 7, )
+            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 7 )
             results = Nokogiri::XML(raw_response.body)
             results.remove_namespaces!
             return results
