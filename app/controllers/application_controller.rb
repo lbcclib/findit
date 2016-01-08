@@ -25,13 +25,17 @@ class ApplicationController < ActionController::Base
   end
 
   def create_article_api_session
-    session[:article_user_token] = authenticate_user(
-      Rails.application.secrets.article_api_username,
-      Rails.application.secrets.article_api_password)
-    session[:article_session_token] = open_session(
-      'edsapi',
-      'y',
-      session[:article_user_token])
+    begin
+      session[:article_user_token] = authenticate_user(
+        Rails.application.secrets.article_api_username,
+        Rails.application.secrets.article_api_password)
+        session[:article_session_token] = open_session(
+        'edsapi',
+        'y',
+        session[:article_user_token])
+    rescue
+      return false
+    end
   end
   
 end
