@@ -70,9 +70,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20 
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true, :sort => 'count'
     config.add_facet_field 'lc_1letter_facet', :label => 'Call number' 
-    config.add_facet_field 'subject_geo_facet', :label => 'Region of focus', :limit => true
-    config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true
-    config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true
+    config.add_facet_field 'subject_geo_facet', :label => 'Region of focus', :limit => true, :sort => 'count'
+    config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
+    config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
     config.add_facet_field 'record_source_facet', :label => 'Source database', :limit => true
 
     config.advanced_search = {
