@@ -41,12 +41,20 @@
           <% end %>
         <% end %>
         <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
-        <% if current_page > 1 %>
-            <%= link_to('Previous', url_for(params.merge(page: current_page-1))) %>
-        <% end %>
-        <% if current_page < 10 %>
-            <%= link_to('Next', url_for(params.merge(page: current_page+1))) %>
-        <% end %>
+      </div>
+        <div class="pagination col-xs-9">
+            <ul class="pagination">
+                <% if current_page > 1 %>
+                    <li><%= link_to('Previous', url_for(params.merge(page: current_page-1))) %></li>
+                <% end %>
+                <% (1 .. (current_page - 1)).each do |i| %>
+                    <li><%= link_to(i.to_s, url_for(params.merge(page: i))) %></li>
+                <% end %>
+                <li class="active"><span><%= current_page.to_s %></span></li>
+                <% if current_page < 10 %>
+                    <li><%= link_to('Next', url_for(params.merge(page: current_page+1))) %></li>
+                <% end %>
+          </ul>
       </div>
 
   <% else %>
