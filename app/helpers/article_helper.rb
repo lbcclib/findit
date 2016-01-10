@@ -7,7 +7,6 @@ module ArticleHelper
     include RubyEDS
 
     EBSCO_LINK_RESOLVER_PREFIX = 'http://resolver.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/openurl/?linksourcecustid=15183&id=doi:'
-    EDS_INTERFACE_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=http://search.ebscohost.com/login.aspx?direct=true&type=0&site=eds-live&bquery='
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
      
     def display_article_type(original_string)
@@ -32,7 +31,7 @@ module ArticleHelper
         if !session[:article_user_token].blank? && !session[:article_session_token].blank?
             page_number = params[:page].present? ? params[:page] : 1
             begin
-                raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'view' => 'detailed', 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News', 'pagenumber' => page_number )
+                raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'view' => 'detailed', 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News', 'pagenumber' => page_number, 'highlight' => 'n' )
 	    rescue
                 return false
 	    end
@@ -43,10 +42,6 @@ module ArticleHelper
         return false
     end
 
-    def eds_interface_url()
-        return EDS_INTERFACE_PREFIX + URI.escape(request.parameters[:q])
-    end
-
     def extract_record_list(results)
         test = results.xpath('//Record')
         return test
@@ -54,16 +49,18 @@ module ArticleHelper
 
     def extract_data_from_single_record(record)
         data = {}
-        data[:title] = record.xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
-        data[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
-        data[:url] = record.xpath('./PLink').text
-        data[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
-        data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
-        #data[:type] = 'Theoretical article'
-        data[:authors] = []
-        authors = record.xpath('.//PersonEntity')
-        authors.each do |author|
-            data[:authors].push(author.xpath('.//NameFull').text)
+        if record.at_xpath('./PLink') and record.at_xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull')
+            data[:title] = record.xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
+            data[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
+            data[:url] = PROXY_PREFIX + record.xpath('./PLink').text
+            data[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
+            data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
+            data[:type] = 'Article'
+            data[:authors] = []
+            authors = record.xpath('.//PersonEntity')
+            authors.each do |author|
+                data[:authors].push(author.xpath('.//NameFull').text)
+            end
         end
         return data
     end
@@ -74,7 +71,9 @@ module ArticleHelper
 	if results
             list_of_records = extract_record_list(results)
             list_of_records.each do |record|
-                articles.push(extract_data_from_single_record(record))
+                if !extract_data_from_single_record(record).empty?
+                    articles.push(extract_data_from_single_record(record))
+                end
             end
 	end
 	return articles

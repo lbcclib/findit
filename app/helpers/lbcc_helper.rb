@@ -33,9 +33,8 @@ module LbccHelper
         return access_link.html_safe
     end
 
-    def snippet options={}
-        value = options[:value].join(' ')
-        truncate(strip(value), length: 200, separator: ' ')
+    def snippet(value)
+        return truncate(strip(value), length: 200, separator: ' ')
     end
 
     def strip(string)

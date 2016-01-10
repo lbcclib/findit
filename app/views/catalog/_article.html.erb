@@ -9,8 +9,9 @@
         </h5>
         <dl class="document-metadata dl-horizontal dl-invert">
            <%= display_article_field('Authors', article[:authors].join('; '), 'authors') %>
-           <%= display_article_field('Journal', article[:journal], 'format') %>
+           <%= display_article_field('Journal', article[:journal], 'journal') %>
            <%= display_article_field('Publication year', article[:year], 'pub-date') %>
+           <%= display_article_field('Abstract', snippet(article[:abstract]), 'abstract') %>
         </dl>
       </div>
    </div>
