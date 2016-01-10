@@ -31,7 +31,7 @@ module ArticleHelper
     def fetch_search_data()
         if !session[:article_user_token].blank? && !session[:article_session_token].blank?
         begin
-            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News' )
+            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'view' => 'detailed', 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News' )
 	rescue
             return false
 	end
@@ -56,7 +56,7 @@ module ArticleHelper
         data[:title] = record.xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
         data[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
         data[:url] = record.xpath('./PLink').text
-        #data[:abstract] = 'The author explores how smelly cats are.'
+        data[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
         data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
         #data[:type] = 'Theoretical article'
         data[:authors] = []
