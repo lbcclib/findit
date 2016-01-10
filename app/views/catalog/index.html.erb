@@ -1,9 +1,9 @@
 <% if has_search_parameters? %>
-  <% if articles_desired() %>
+  <% if show_all_formats? %>
     <div class="col-md-5 col-sm-9">
       <h2>Books and media</h2>
       <i>E-books, streaming video and music, library books and more</i><br />
-      <a href="<%= url_for(params.merge(show_articles: 'false')) %>" class="btn btn-default btn-lg">Search books and media</a>
+      <%= link_to 'More books and media', url_for(params.merge(show_articles: 'false')), class: 'btn btn-default btn-lg' %>
         <%- if @response.empty? %>
           <%= render "zero_results" %>
         <%- elsif render_grouped_response? %>
@@ -11,12 +11,12 @@
         <%- else %>
           <%= render_document_index %>
         <%- end %>
-      <a href="<%= url_for(params.merge(show_articles: 'false')) %>" class="btn btn-default">More books and media</a>
+      <%= link_to 'More books and media', url_for(params.merge(show_articles: 'false')), class: 'btn btn-default btn-lg' %>
     </div>
     <div id="article-container" class="col-md-5 col-sm-9 col-md-offset-1">
       <h2>Articles</h2>
       <i>Emerging research and news articles -- great sources for your next paper</i><br />
-      <a href="<%=eds_interface_url() %>" class="btn btn-default btn-lg">Search articles</a>
+      <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
       <div class="articles">
         <% articles = perform_article_search() %>
         <% article_counter = 1 %>
@@ -27,8 +27,27 @@
           <% end %>
         <% end %>
       </div>
-      <a href="<%=eds_interface_url() %>" class="btn btn-default btn-lg">More articles</a>
+      <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
     </div>
+
+  <% elsif show_only_articles? %> 
+      <div class="articles col-xs-9">
+        <% articles = perform_article_search() %>
+        <% article_counter = 1 %>
+        <% articles.each do |article| %>
+          <% unless article[:url].nil? %>
+            <%= render partial: 'article', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
+            <% article_counter += 1 %>
+          <% end %>
+        <% end %>
+        <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
+        <% if current_page > 1 %>
+            <%= link_to('Previous', url_for(params.merge(page: current_page-1))) %>
+        <% end %>
+        <% if current_page < 10 %>
+            <%= link_to('Next', url_for(params.merge(page: current_page+1))) %>
+        <% end %>
+      </div>
 
   <% else %>
     <div id="sidebar" class="col-md-3 col-sm-4">
@@ -38,27 +57,6 @@
     <div id="content" class="col-md-7 col-sm-8">
       <%= render 'search_results' %>
     </div>
-<!--
-    <div id="hours" class="col-md-2 col-sm-8 col-md-offset-6" style="position:fixed">
-      <h3>Library hours</h3>
-      <dl>
-        <dt> Monday - Thursday</dt>
-        <dd> 7:30 AM to 7:00 PM</dd>
-        <dt> Fridays</dt>
-        <dd> 7:30 AM to 5:00 PM</dd>
-        <dt> Saturdays</dt> 
-        <dd> 12:00 noon to 5:00 PM</dd>
-      </dl>
-      <h3>Get in touch</h3>
-      <p>541-917-4645</p>
-      <p><a href="mailto:libref@linnbenton.edu">libref@linnbenton.edu</a></p>
-      <h3>Other helpful sites</h3>
-      <ul>
-        <li><a href="http://library.linnbenton.edu">Library Home</a></li>
-        <li><a href="http://linnbenton.edu">LBCC Home</a></li>
-      </ul>
-    </div>
--->
   <% end %>
 
 <% else #show home page if no search params %>

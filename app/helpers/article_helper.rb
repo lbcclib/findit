@@ -30,11 +30,12 @@ module ArticleHelper
 
     def fetch_search_data()
         if !session[:article_user_token].blank? && !session[:article_session_token].blank?
-        begin
-            raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'view' => 'detailed', 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News' )
-	rescue
-            return false
-	end
+            page_number = params[:page].present? ? params[:page] : 1
+            begin
+                raw_response = search([request.parameters[:q]], session[:article_session_token], session[:article_user_token], 'xml', 'limiter' => 'FT:y', 'resultsperpage' => 10, 'view' => 'detailed', 'facetfilter' => '1, SourceType:Academic Journals, SourceType:News', 'pagenumber' => page_number )
+	    rescue
+                return false
+	    end
             results = Nokogiri::XML(raw_response.body)
             results.remove_namespaces!
             return results

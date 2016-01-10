@@ -5,10 +5,13 @@ module LbccHelper
     require 'open-uri'
     require 'uri'
 
-    def articles_desired()
+    def show_all_formats?
         return request.parameters[:show_articles] == 'true' ? true : false
     end
 
+    def show_only_articles?
+        return request.parameters[:show_articles] == 'only' ? true : false
+    end
 
     def display_access_options(document, context)
     # Context options: show (individual record), index (search results)
