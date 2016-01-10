@@ -37,8 +37,9 @@ module LbccHelper
         return truncate(strip(value), length: 200, separator: ' ')
     end
 
-    def strip(string)
+    def strip(value)
         # Also strip preceeding [ or whitespace
+	string = value.to_s
         string.gsub!(/^[\*\s]*/, '')
         string.gsub!(/[,\-:;\s]*$/, '')
         return string
