@@ -33,8 +33,8 @@ module LbccHelper
         return access_link.html_safe
     end
 
-    def snippet(value)
-        return truncate(strip(value), length: 200, separator: ' ')
+    def snippet args
+        return truncate(strip(args[:value]), length: 200, separator: ' ')
     end
 
     def strip(value)
