@@ -34,12 +34,15 @@ module LbccHelper
     end
 
     def snippet opts={}
-	value = options[:value].join(' ')
+	    value = opts[:value]
         return truncate strip(value), length: 200, separator: ' '
     end
 
     def strip(string)
         # Also strip preceeding [ or whitespace
+	if !string.is_a? String
+	   string = string.to_s
+	end
         string.gsub!(/^[\*\s]*/, '')
         string.gsub!(/[,\-:;\s]*$/, '')
         return string
