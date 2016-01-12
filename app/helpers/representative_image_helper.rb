@@ -67,10 +67,9 @@ module RepresentativeImageHelper
                     end
                 end
             end
-        end
 
         # If the image has not yet been cached
-        if document.has? 'isbn_t'
+        elsif document.has? 'isbn_t'
             isbns = find_isbns_from(document)
             isbns.each do |isbn|
                 thumbnail_url = get_image_url(isbn, 'isbn', 'S')
