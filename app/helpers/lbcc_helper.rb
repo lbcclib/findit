@@ -33,13 +33,20 @@ module LbccHelper
         return access_link.html_safe
     end
 
-    def snippet args
-        return truncate(strip(args[:value]), length: 200, separator: ' ')
+    def snippet opts={}
+        if opts[:value].is_a? Array
+	    value = opts[:value][0]
+        else
+	    value = opts[:value]
+        end
+        return truncate strip(value), length: 200, separator: ' '
     end
 
-    def strip(value)
+    def strip(string)
         # Also strip preceeding [ or whitespace
-	string = value.to_s
+	if !string.is_a? String
+	   string = string.to_s
+	end
         string.gsub!(/^[\*\s]*/, '')
         string.gsub!(/[,\-:;\s]*$/, '')
         return string
