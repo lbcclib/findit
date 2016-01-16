@@ -51,7 +51,7 @@ module ArticleHelper
         data = {}
         if record.at_xpath('./PLink') and record.at_xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull')
             data[:title] = record.xpath('./RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
-            data[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
+            data[:journal] = record.at_xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
             data[:url] = PROXY_PREFIX + record.xpath('./PLink').text
             data[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
             data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
