@@ -67,7 +67,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'is_electronic_facet', :label => 'Access it', :collapse => false
     config.add_facet_field 'format', :label => 'Format', :collapse => false
     config.add_facet_field 'pub_date_sort', :label => 'Publication year', :range => true, :collapse => false
-    config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20 
+    config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20, :sort => 'count'
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true, :sort => 'count'
     config.add_facet_field 'lc_1letter_facet', :label => 'Call number' 
     config.add_facet_field 'subject_geo_facet', :label => 'Region of focus', :limit => true, :sort => 'count'
@@ -77,8 +77,9 @@ class CatalogController < ApplicationController
 
     config.advanced_search = {
         :form_solr_parameters => {
-            "facet.field" => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet'],
-            "facet.sort" => "index" # sort by byte order of values
+            'facet.field' => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet', 'subject_name_facet', 'record_source_facet'],
+            'facet.limit' => 10,
+            'facet.sort' => 'index' # sort by byte order of values
         }
     }
 
