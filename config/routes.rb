@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/about' => 'catalog#about'
   get '/more' => 'catalog#more'
 
+  get 'articles/:db/:id' => 'articles#show'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
