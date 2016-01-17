@@ -19,7 +19,8 @@ class ArticlesController < ApplicationController
         @document = {}
         
         @document[:title] = record.xpath('.//RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
-        @document[:journal] = record.xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull').text
+        journal = record.at_xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull')
+        @document[:journal] = journal ? journal.text : ''
         @document[:url] = PROXY_PREFIX + record.xpath('./PLink').text
         @document[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
         @document[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
