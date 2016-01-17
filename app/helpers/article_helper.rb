@@ -56,6 +56,8 @@ module ArticleHelper
             data[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
             data[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
             data[:type] = 'Article'
+            data[:db] = record.at_xpath('./Header/DbId').text
+            data[:id] = record.at_xpath('./Header/An').text
             data[:authors] = []
             authors = record.xpath('.//PersonEntity')
             authors.each do |author|

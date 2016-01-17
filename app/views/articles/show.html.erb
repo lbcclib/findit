@@ -1,2 +1,20 @@
 <h1><%= @document[:title] %></h1>
-<%= @document.inspect %>
+<%= display_fulltext_access_link @document[:url] %>
+<h2>About this resource</h2>
+<dl class="dl-horizontal  dl-invert">
+  
+
+  <%= display_article_field('Authors', @document[:authors].join('; '), 'authors') %>
+  <%= display_article_field 'Abstract', @document[:abstract], 'abstract' %>
+
+
+
+
+</dl>
+
+<h2>About this edition</h2>
+<dl class="dl-horizontal  dl-invert">
+  <%= display_article_field('Journal', @document[:journal], 'journal') %>
+  <%= display_article_field('Publication year', @document[:year], 'pub-date') %>
+</dl>
+

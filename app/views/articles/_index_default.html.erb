@@ -5,8 +5,9 @@
          <span class="document-counter">
          <%= article_counter.to_s + '.' if article_counter %>
          </span>
-         <a href="<%= article[:url] %>" target="_blank"><%= article[:title] %></a>
+         <%= link_to article[:title], controller: 'articles', action: 'show', db: article[:db], id: article[:id]  %>
         </h5>
+        <%= display_fulltext_access_link article[:url] %>
         <dl class="document-metadata dl-horizontal dl-invert">
            <%= display_article_field('Authors', article[:authors].join('; '), 'authors') %>
            <%= display_article_field('Journal', article[:journal], 'journal') %>

@@ -22,7 +22,7 @@
         <% article_counter = 1 %>
         <% articles.each do |article| %>
           <% unless article[:url].nil? %>
-            <%= render partial: 'article', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
+            <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
             <% article_counter += 1 %>
           <% end %>
         <% end %>
@@ -36,7 +36,7 @@
         <% article_counter = 1 %>
         <% articles.each do |article| %>
           <% unless article[:url].nil? %>
-            <%= render partial: 'article', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
+            <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
             <% article_counter += 1 %>
           <% end %>
         <% end %>
