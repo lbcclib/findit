@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/about' => 'catalog#about'
   get '/more' => 'catalog#more'
 
-  get 'articles/:db/:id' => 'articles#show'
+  get 'articles/:db/:id' => 'articles#show', :constraints => { :id => /[^\/]+/ }
 
 
   # The priority is based upon order of creation: first created -> highest priority.

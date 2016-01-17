@@ -5,7 +5,7 @@
          <span class="document-counter">
          <%= article_counter.to_s + '.' if article_counter %>
          </span>
-         <%= link_to article[:title], controller: 'articles', action: 'show', db: article[:db], id: article[:id]  %>
+         <%= link_to article[:title], controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
         </h5>
         <%= display_fulltext_access_link article[:url] %>
         <dl class="document-metadata dl-horizontal dl-invert">
