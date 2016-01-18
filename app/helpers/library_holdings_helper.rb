@@ -52,6 +52,8 @@ module LibraryHoldingsHelper
             @metadata = Nokogiri::XML(open(SUPERCAT_URI_PREFIX + tcn.to_s))
         rescue Errno::ECONNREFUSED
            return false
+        rescue OpenURI::HTTPError
+           return false
         end
         volumes = @metadata.xpath('//open-ils:volume[@opac_visible="t" and @deleted="f"][@lib="LBCCLIB"]', 'open-ils' => HOLDINGS_NS)
         volumes.each do |volume|
