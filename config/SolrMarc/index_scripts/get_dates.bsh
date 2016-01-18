@@ -1,0 +1,93 @@
+import org.marc4j.marc.*;
+import java.util.regex.*;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+
+/* Much of this code is thanks to Wayne Schneider at
+/ Hennepin County Library.  See
+/ https://github.com/wafschneider/dynamic-indexing-code4lib2015 */
+
+
+public String getPubDate(Record record){
+  // Grab the necessary data from the leader and 008
+  String leader = record.getLeader().toString();
+  char ldr07 = leader.charAt(7);
+  
+  char fixed06 = ' ';
+  String date1 = null;
+  ControlField fixed = (ControlField) record.getVariableField("008");
+  if (fixed != null) {
+    fixed06 = fixed.getData().length() > 6 ? fixed.getData().charAt(6) : ' ';
+    date1 = fixed.getData().length() > 11 ? fixed.getData().substring(7, 11) : " ";
+  }
+  
+  if (ldr07 != 's') {
+    // examine the code at 008/06
+    switch (fixed06) {
+      case ' ':
+      case 'e':
+      case 'i':
+      case 'k':
+      case 'm':
+      case 'p':
+      case 'r':
+      case 's':
+      case 't':
+        // see if date1 is four digits
+        if ((date1 != null) && isValidStringNumber(date1)) {
+          return date1;
+        }
+      break;
+    }
+  }
+  String date_from_260 = indexer.getFirstFieldVal(record, "260c");
+  if (date_from_260 != null) {
+    if(isValidStringNumber(date_from_260.replaceAll("[^0-9]", ""))) {
+      return date_from_260.replaceAll("[^0-9]", "");
+    }
+  }
+
+  List fields = record.getVariableFields("264");
+  Iterator fieldsIter = fields.iterator();
+  if (fields != null) {
+    while(fieldsIter.hasNext()) {
+      DataField t264 = (DataField) fieldsIter.next();
+      char ind2 = t264.getIndicator2();
+      if (1 == ind2) {
+        List subfields = t264.getSubfields();
+        Iterator i = subfields.iterator();
+        while (i.hasNext()) {
+          Subfield sf = (Subfield) i.next();
+          char code = sf.getCode();
+          String data = sf.getData();
+          if ('c' == code) {
+            if (data != null) {
+              if(isValidStringNumber(data.replaceAll("[^0-9]", ""))) {
+                return data.replaceAll("[^0-9]", "");
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+  
+
+private boolean isValidStringNumber(String stringNumber) {
+  if(stringNumber.isEmpty()) {
+    return false;
+  } if ((stringNumber.length()<4) || (stringNumber.length()>5)) {
+    return false;
+  } 
+  for(int i =0 ; i<4 ;i++) {
+    if(!Character.isDigit(stringNumber.charAt(i)) || (stringNumber.charAt(i).equals(" "))) {
+      return false;
+    }
+  }
+  return true;
+}

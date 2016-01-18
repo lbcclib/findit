@@ -535,6 +535,7 @@
    <field name="contents_display" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="contributor_display" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="eg_tcn_t" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genre_facet" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="is_electronic_facet" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="note_display" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="place_of_publication_display" type="string" indexed="false" stored="true" multiValued="true"/>
