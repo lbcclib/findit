@@ -22,3 +22,9 @@ Here's how to get this running for yourself:
 10. `rails generate ahoy:stores:active_record`
 11. `rake db:migrate`
 12. Open up config/secrets.yml, and add your article_api_username and article_api_password.
+13. You may also need to add the following three lines to app/config/initializers/assets.rb:
+```
+Rails.application.config.assets.precompile += %w( icons/* )
+Rails.application.config.assets.precompile += %w( blacklight/findit.png )
+Rails.application.config.assets.precompile += %w( *.png )
+```
