@@ -11,7 +11,7 @@ In theory, you should be able to get this to work on Windows and Linux boxes usi
 
 Here's how to get this running for yourself:
 
-1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.
+1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.  Also be sure to use a version of Blacklight in the 5.x.x series; Find It isn't set up to use Blacklight 6 yet.
 2. `cd` into the directory that you created.
 4. `git init`
 5. `git remote add findit [URL]` where [URL] is the name of this repository.
@@ -22,3 +22,9 @@ Here's how to get this running for yourself:
 10. `rails generate ahoy:stores:active_record`
 11. `rake db:migrate`
 12. Open up config/secrets.yml, and add your article_api_username and article_api_password.
+13. You may also need to add the following three lines to app/config/initializers/assets.rb:
+```
+Rails.application.config.assets.precompile += %w( icons/* )
+Rails.application.config.assets.precompile += %w( blacklight/findit.png )
+Rails.application.config.assets.precompile += %w( *.png )
+```
