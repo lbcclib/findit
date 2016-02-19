@@ -204,6 +204,10 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
     config.spell_max = 5
+
+    # Remove endnote and refworks, since they are not supported by our school
+    config.show.document_actions.delete(:refworks)
+    config.show.document_actions.delete(:endnote)
   end
 
   #Static about page
