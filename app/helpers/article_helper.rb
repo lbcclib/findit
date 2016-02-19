@@ -22,7 +22,7 @@ module ArticleHelper
         return value if '' == value
         field_for_display = <<-EOS
             <dt>#{label}:</dt>
-            <dd propery="#{dc_element}">#{value}</dd>
+            <dd property="#{dc_element}">#{value}</dd>
         EOS
         return field_for_display.html_safe
     end
