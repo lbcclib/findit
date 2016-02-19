@@ -17,12 +17,12 @@ module ArticleHelper
         return article_type
     end
 
-    def display_article_field(label, value, dc_element='description')
+    def display_article_field(label, value)
         value = strip(value)
         return value if '' == value
         field_for_display = <<-EOS
             <dt>#{label}:</dt>
-            <dd property="#{dc_element}">#{value}</dd>
+            <dd>#{value}</dd>
         EOS
         return field_for_display.html_safe
     end

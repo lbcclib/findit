@@ -9,12 +9,12 @@
   <%= display_field(document, 'subtitle_display', 'Subtitle', :dc_element => 'title') %>
   <%= display_field(document, 'title_vern_display', 'Title', :dc_element => 'title') %>
   <%= display_field(document, 'subtitle_vern_display', 'Subtitle', :dc_element => 'title') %>
-  <%= display_field(document, 'author_display', 'Author', :search_link => true, :search_field => 'author', :search_exact_match => false, :dc_element => 'creator') %>
+  <%= display_field(document, 'author_display', 'Author', :search_link => true, :search_fields => 'author', :search_exact_match => false, :dc_element => 'creator') %>
   <%= display_field(document, 'author_vern_display', 'Author', :dc_element => 'creator') %>
-  <%= display_field(document, 'subject_topic_facet', 'Subject', :search_link => true, :search_field => 'subject', :search_exact_match => true, :dc_element => 'subject') %>
-  <%= display_field(document, 'subject_geo_facet', 'Region', :search_link => true, :search_field => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
-  <%= display_field(document, 'subject_era_facet', 'Era', :search_link => true, :search_field => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
-  <%= display_field(document, 'subject_name_facet', 'People and groups', :search_link => true, :search_field => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
+  <%= display_field(document, 'subject_topic_facet', 'Subject', :search_link => true, :search_fields => 'subject', :search_exact_match => true, :dc_element => 'subject') %>
+  <%= display_field(document, 'subject_geo_facet', 'Region', :search_link => true, :search_fields => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
+  <%= display_field(document, 'subject_era_facet', 'Era', :search_link => true, :search_fields => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
+  <%= display_field(document, 'subject_name_facet', 'People and groups', :search_link => true, :search_fields => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
   <%= display_field(document, 'abstract_display', 'Abstract', :dc_element => 'description') %>
 </dl>
 

@@ -3,18 +3,15 @@
 <h2>About this resource</h2>
 <dl class="dl-horizontal  dl-invert">
   
-
-  <%= display_article_field('Authors', @document[:authors].join('; '), 'authors') %>
-  <%= display_article_field 'Abstract', @document[:abstract], 'abstract' %>
-
-
-
+  <%= display_field(@document, :authors, 'Authors', :search_link => true, :search_fields => 'author', :search_exact_match => false, :dc_element => 'creator') %>
+  <%= display_field(@document, :abstract, 'Abstract', :dc_element => 'description') %>
 
 </dl>
 
 <h2>About this edition</h2>
 <dl class="dl-horizontal  dl-invert">
-  <%= display_article_field('Journal', @document[:journal], 'journal') %>
-  <%= display_article_field('Publication year', @document[:year], 'pub-date') %>
+  <%= display_field(@document, :journal, 'Journal', :search_link => true, :search_fields => 'title', :search_exact_match => false, :dc_element => 'title') %>
+  <%= display_field(@document, :year, 'Publication year', :dc_element => 'date') %>
+
 </dl>
 

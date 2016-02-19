@@ -5,12 +5,16 @@ require 'uri'
     # Make sure that this is an array
     def field_to_array(value)
         value_arr = []
-        case value
-            when Array then value_arr = value
-            when String then value_arr.push(value)
+        if value.is_a?(Array)
+           value_arr = value
+        elsif value.is_a?(String)
+           if value.length>0
+              value_arr.push(value)
+           end
         else
             value_arr = value.to_a
         end
+        return value_arr
     end
 
     # Create the HTML to display a field
@@ -19,10 +23,16 @@ require 'uri'
         
         # Make sure that the document actually has the
         # desired field
-        if document.has? field_name
-            values = field_to_array(document[field_name])
+        if document.is_a?(Hash)
+           if document.has_key? field_name
+              values = field_to_array(document.fetch(field_name))
+           else
+              return nil
+           end
+        elsif document.has? field_name
+           values = field_to_array(document[field_name])
         else
-            return nil
+           return nil
         end
 
         values_html = Array.new
