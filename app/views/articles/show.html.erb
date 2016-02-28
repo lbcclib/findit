@@ -1,8 +1,7 @@
-<h1><%= @document[:title] %></h1>
-<%= display_fulltext_access_link @document[:url] %>
+<h1><%= @document.title %></h1>
+<%= display_fulltext_access_link @document.url %>
 <h2>About this resource</h2>
 <dl class="dl-horizontal  dl-invert">
-  
   <%= display_field(@document, :authors, 'Authors', :search_link => true, :search_fields => 'author', :search_exact_match => false, :dc_element => 'creator') %>
   <%= display_field(@document, :abstract, 'Abstract', :dc_element => 'description') %>
 

@@ -5,14 +5,16 @@
          <span class="document-counter">
          <%= article_counter.to_s + '.' if article_counter %>
          </span>
-         <%= link_to article[:title], controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
+         <%= link_to article.title, controller: 'articles', action: 'show', db: url_encode(article.db), id: url_encode(article.id) %>
         </h5>
-        <%= display_fulltext_access_link article[:url] %>
+        <%= display_fulltext_access_link article.url %>
         <dl class="document-metadata dl-horizontal dl-invert">
-           <%= display_article_field('Authors', article[:authors].join('; ')) %>
-           <%= display_article_field('Journal', article[:journal]) %>
-           <%= display_article_field('Publication year', article[:year]) %>
-           <%= display_article_field 'Abstract', snippet({value: article[:abstract]}) %>
+           <% if article.authors %>
+           <%= display_article_field('Authors', article.authors.join('; ')) %>
+           <% end %>
+           <%= display_article_field('Journal', article.journal) %>
+           <%= display_article_field('Publication year', article.year) %>
+           <%= display_article_field 'Abstract', snippet({value: article.abstract}) %>
         </dl>
       </div>
    </div>

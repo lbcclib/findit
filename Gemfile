@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'jettywrapper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use jdbcsqlite3 as the database for Active Record in jruby,
@@ -59,4 +59,4 @@ gem "csl-styles"
 gem "exception_notification"
 
 # Also use this EDS API gem
-gem 'ruby_eds', :git => 'https://github.com/sandbergja/ruby_eds.git'
+gem 'ebsco-discovery-service-api'

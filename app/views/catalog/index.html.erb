@@ -18,44 +18,14 @@
       <i>Emerging research and news articles -- great sources for your next paper</i><br />
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
       <div class="articles">
-        <% articles = perform_article_search() %>
-        <% article_counter = 1 %>
-        <% articles.each do |article| %>
-          <% unless article[:url].nil? %>
-            <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
-            <% article_counter += 1 %>
-          <% end %>
-        <% end %>
+      <%= render 'articles/search_results' %>
       </div>
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
     </div>
 
   <% elsif show_only_articles? %> 
-      <div class="articles col-xs-9">
-        <% articles = perform_article_search() %>
-        <% article_counter = 1 %>
-        <% articles.each do |article| %>
-          <% unless article[:url].nil? %>
-            <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} if defined?(article[:url]) %>
-            <% article_counter += 1 %>
-          <% end %>
-        <% end %>
-        <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
-      </div>
-        <div class="pagination col-xs-9">
-            <ul class="pagination">
-                <% if current_page > 1 %>
-                    <li><%= link_to('Previous', url_for(params.merge(page: current_page-1))) %></li>
-                <% end %>
-                <% (1 .. (current_page - 1)).each do |i| %>
-                    <li><%= link_to(i.to_s, url_for(params.merge(page: i))) %></li>
-                <% end %>
-                <li class="active"><span><%= current_page.to_s %></span></li>
-                <% if current_page < 10 %>
-                    <li><%= link_to('Next', url_for(params.merge(page: current_page+1))) %></li>
-                <% end %>
-          </ul>
-      </div>
+     <%= %>
+     <%= render 'articles/search_results' %>
 
   <% else %>
     <div id="sidebar" class="col-md-3 col-sm-4">

@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::Base
 
-  # Loads RubyEDS so that to create User sessions
-  # for the EDS api
-  require 'ruby_eds'
-  include RubyEDS
-
+  require 'ebsco-discovery-service-api'
+  require 'openssl'
 
   # Adds a few additional behaviors into the application controller 
   include Blacklight::Controller
@@ -14,9 +11,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :create_article_api_session
   after_filter :track_action
-
-  before_action :create_article_api_session
 
   protected
 
@@ -25,17 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def create_article_api_session
-    begin
-      session[:article_user_token] = authenticate_user(
+    @connection = EDSApi::ConnectionHandler.new(2)
+    @connection.uid_init(
         Rails.application.secrets.article_api_username,
-        Rails.application.secrets.article_api_password)
-        session[:article_session_token] = open_session(
-        'edsapi',
-        'y',
-        session[:article_user_token])
-    rescue
-      return false
-    end
+        Rails.application.secrets.article_api_password,
+        'edsapi')
+    @connection.uid_authenticate
+    @connection.create_session
+    session[:article_api_connection] = @connection
   end
-  
+
 end

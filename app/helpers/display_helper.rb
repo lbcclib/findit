@@ -23,9 +23,9 @@ require 'uri'
         
         # Make sure that the document actually has the
         # desired field
-        if document.is_a?(Hash)
-           if document.has_key? field_name
-              values = field_to_array(document.fetch(field_name))
+        if document.respond_to? field_name
+           if document.send field_name
+              values = field_to_array(document.send field_name)
            else
               return nil
            end

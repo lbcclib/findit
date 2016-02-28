@@ -1,36 +1,21 @@
 class ArticlesController < ApplicationController
-    require 'nokogiri'
-    require 'open-uri'
-    require 'ruby_eds.rb'
-    require 'uri'
-
-    include RubyEDS
-
-    PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
-
-
-
+    
     def show
-        raw_response = retrieve(params[:db], params[:id], session[:article_session_token], session[:article_user_token])
-        doc = Nokogiri::XML(raw_response.body)
-        doc.remove_namespaces!
-        record = doc.at_xpath('.//Record')
+        #create article object named @document
+        #fetch data from API
+        #apply values
+        @document = Article.new
 
-        @document = {}
-        
-        @document[:title] = record.xpath('.//RecordInfo/BibRecord/BibEntity/Titles/Title/TitleFull').text
-        journal = record.at_xpath('.//IsPartOf/BibEntity/Titles/Title/TitleFull')
-        @document[:journal] = journal ? journal.text : ''
-        @document[:url] = PROXY_PREFIX + record.xpath('./PLink').text
-        @document[:abstract] = record.xpath('./Items/Item[Name/text()="Abstract"]/Data').text
-        @document[:year] = record.xpath('.//Date[Type/text()="published"]/Y').text
-        @document[:type] = 'Article'
-        @document[:authors] = []
-            authors = record.xpath('.//PersonEntity')
-            authors.each do |author|
-                @document[:authors].push(author.xpath('.//NameFull').text)
-            end
-
-        
+        if session[:article_api_connection].show_session_token and session[:article_api_connection].show_auth_token
+            results = session[:article_api_connection].retrieve(params[:db], params[:id], '', '',
+                session[:article_api_connection].show_session_token,
+                session[:article_api_connection].show_auth_token)
+        end
+        if results
+            @document.extract_data_from_api_response results['Record']
+        end
     end
+
+    protected
+
 end
