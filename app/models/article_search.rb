@@ -1,22 +1,28 @@
 class ArticleSearch < Search
     require 'erb'
     include ERB::Util
-    attr_reader :articles
+    attr_reader :articles, :facets, :search_opts
 
     def enough_data_exists_in(record)
-        if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull'] and record['Header']['DbId'] and record['Header']['An']
-            return true
-        else
+        begin
+            if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull'] and record['Header']['DbId'] and record['Header']['An']
+                return true
+            else
+                return false
+            end
+        rescue NoMethodError
             return false
         end
     end
 
 
-    def initialize(q, page, api_connection)
+    def initialize(q, page, requested_facets = [], api_connection)
         @q = q
         @page = page
         @api_connection = api_connection
         @articles = Array.new
+        @requested_facets = requested_facets.to_a
+        @facets = Array.new
     end
 
     def search_opts
@@ -26,6 +32,11 @@ class ArticleSearch < Search
         search_opts.concat('&resultsperpage=10')
         search_opts.concat('&view=detailed')
         search_opts.concat('&facetfilter=' + url_encode('1, SourceType:Academic Journals,SourceType:News'))
+        i = 2
+        @requested_facets.each do |facet|
+            search_opts.concat('&facetfilter=' + url_encode(i.to_s + ', ' + facet))
+            i = i + 1
+        end
         search_opts.concat('&pagenumber=' + @page.to_s)
         search_opts.concat('&highlight=n')
         return search_opts
@@ -49,8 +60,14 @@ class ArticleSearch < Search
             end
             @articles = Kaminari.paginate_array(records, total_count: total_results_count).page(@page).per(10)
 
+            results['SearchResult']['AvailableFacets'].each do |facet|
+                tmp = ArticleFacet.new facet['Label']
+                facet['AvailableFacetValues'].each do |value|
+                    tmp.add_value value['Value'], value['AddAction'].sub('addfacetfilter(', '').chop, value['Count']
+                end
+                @facets.push(tmp)
+            end
         end
-        return false
     end
 
 end

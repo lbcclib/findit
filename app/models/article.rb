@@ -30,8 +30,10 @@ class Article
                     @abstract = item['Data']
                 end
             end
-            record['RecordInfo']['BibRecord']['BibRelationships']['HasContributorRelationships'].each do |person|
-                @authors.push(person['PersonEntity']['Name']['NameFull'])
+            if record['RecordInfo']['BibRecord']['BibRelationships']['HasContributorRelationships']
+                record['RecordInfo']['BibRecord']['BibRelationships']['HasContributorRelationships'].each do |person|
+                    @authors.push(person['PersonEntity']['Name']['NameFull'])
+                end
             end
         end
     end

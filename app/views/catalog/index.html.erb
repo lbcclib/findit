@@ -1,4 +1,10 @@
 <% if has_search_parameters? %>
+  <% if show_articles? %>
+    <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
+    <% article_results = ArticleSearch.new params[:q], current_page, params[:article_facets], session[:article_api_connection] %>
+    <% article_results.send_search %>
+  <% end %>
+
   <% if show_all_formats? %>
     <div class="col-md-5 col-sm-9">
       <h2>Books and media</h2>
@@ -17,15 +23,14 @@
       <h2>Articles</h2>
       <i>Emerging research and news articles -- great sources for your next paper</i><br />
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
-      <div class="articles">
-      <%= render 'articles/search_results' %>
-      </div>
+      <%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %>
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
     </div>
 
   <% elsif show_only_articles? %> 
-     <%= %>
-     <%= render 'articles/search_results' %>
+     <%= article_results.search_opts %>
+     <div id="sidebar" class="col-md-3 col-sm-4"><div id="facets" class="facets sidenav"><%= render partial: 'articles/facets', locals: {:@facets => article_results.facets} %></div></div>
+     <div id="content" class="col-md-7 col-sm-8"><%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %></div>
 
   <% else %>
     <div id="sidebar" class="col-md-3 col-sm-4">

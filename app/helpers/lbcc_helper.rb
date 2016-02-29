@@ -13,6 +13,10 @@ module LbccHelper
         return request.parameters[:show_articles] == 'only' ? true : false
     end
 
+    def show_articles?
+        return request.parameters[:show_articles] == 'false' ? false : true
+    end
+
     def display_access_options(document, context)
     # Context options: show (individual record), index (search results)
         style = ('index' == context) ? 'simple' : 'fancy'

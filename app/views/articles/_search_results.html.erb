@@ -1,17 +1,12 @@
-<% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
-
-<div class="articles col-xs-9">
-<% results = ArticleSearch.new params[:q], current_page, session[:article_api_connection] %>
-<% results.send_search %>
-<%= render partial: 'catalog/paginate_compact', object: results.articles %>
+<div class="articles">
+<%= render partial: 'catalog/paginate_compact', object: @articles %>
 
 <% article_counter = 1 %>
-<% results.articles.each do |article| %>
+<% @articles.each do |article| %>
     <% unless article.url.nil? %>
         <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} if defined?(article.url) %>
         <% article_counter += 1 %>
      <% end %>
 <% end %>
-<%= render partial: 'catalog/results_pagination', locals: {:@response => results.articles} %>
+<%= render partial: 'catalog/results_pagination', locals: {:@response => @articles} %>
 </div>
-
