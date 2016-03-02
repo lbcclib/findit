@@ -59,3 +59,4 @@ gem "exception_notification"
 
 # Also use this EDS API gem
 gem 'ebsco-discovery-service-api'
+gem 'browser', '=1.1.0'
