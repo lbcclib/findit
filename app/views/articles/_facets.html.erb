@@ -1,8 +1,8 @@
 <% @facets.each do |facet| %>
   <div class="panel panel-default facet_limit">
-    <div aria-expanded="true" class="collapse-toggle panel-heading" data-toggle="collapse">
+    <div aria-expanded="true" class="panel-heading">
       <h5 class="panel-title facet-field-heading"><a data-no-turbolink="true" href="#"><%= facet.title %></a></h5>
-      <div style="" aria-expanded="true" id="facet-is_electronic_facet" class="panel-collapse facet-content collapse in">
+      <div style="" aria-expanded="true" class="panel-collapse facet-content collapse in">
         <div class="panel-body">
           <ul class="facet-values list-unstyled">
           <% facet.values.each do |value| %>

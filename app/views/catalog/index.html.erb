@@ -23,14 +23,22 @@
       <h2>Articles</h2>
       <i>Emerging research and news articles -- great sources for your next paper</i><br />
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
-      <%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %>
+      <div class="articles">
+        <%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %>
+      </div>
       <%= link_to 'More articles', url_for(params.merge(show_articles: 'only')), class: 'btn btn-default btn-lg' %>
     </div>
 
   <% elsif show_only_articles? %> 
-     <%= article_results.search_opts %>
-     <div id="sidebar" class="col-md-3 col-sm-4"><div id="facets" class="facets sidenav"><%= render partial: 'articles/facets', locals: {:@facets => article_results.facets} %></div></div>
-     <div id="content" class="col-md-7 col-sm-8"><%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %></div>
+    <div class="articles">
+      <div id="sidebar" class="col-md-3 col-sm-4"><div id="facets" class="facets sidenav"><%= render partial: 'articles/facets', locals: {:@facets => article_results.facets} %></div></div>
+      <div id="content" class="col-md-7 col-sm-8">
+        <%= render partial: 'catalog/paginate_compact', object: article_results.articles %>
+        <%= render partial: 'articles/search_results', locals: {:@articles => article_results.articles} %>
+        <%= render partial: 'catalog/results_pagination', locals: {:@response => article_results.articles} %>
+      </div>
+    </div>
+    
 
   <% else %>
     <div id="sidebar" class="col-md-3 col-sm-4">
