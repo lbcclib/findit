@@ -48,15 +48,23 @@ class ArticleSearch < Search
         if @api_connection.show_session_token and @api_connection.show_auth_token
             begin
                 results = @api_connection.search search_opts, @api_connection.show_session_token, @api_connection.show_auth_token
+            rescue Net::ReadTimeout
+                logger.debug "EDS timed out"
             end
-            total_results_count = results['SearchResult']['Statistics']['TotalHits']
-            list_of_records = results['SearchResult']['Data']['Records']
-            list_of_records.each do |record|
-                if enough_data_exists_in record
-                    current_article = Article.new
-                    current_article.extract_data_from_api_response record
-                    records.push current_article
+            if results.any?
+                total_results_count = results['SearchResult']['Statistics']['TotalHits']
+                list_of_records = results['SearchResult']['Data']['Records']
+                unless list_of_records.nil?
+                    list_of_records.each do |record|
+                        if enough_data_exists_in record
+                            current_article = Article.new
+                            current_article.extract_data_from_api_response record
+                            records.push current_article
+                        end
+                    end
                 end
+            else
+                total_records_count = 0
             end
             @articles = Kaminari.paginate_array(records, total_count: total_results_count).page(@page).per(10)
 
