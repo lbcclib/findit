@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
 
   def track_action
     ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters
+    ahoy.track_visit
   end
 
   def create_article_api_session
