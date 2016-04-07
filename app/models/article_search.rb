@@ -54,7 +54,7 @@ class ArticleSearch < Search
             if results.any?
                 total_results_count = results['SearchResult']['Statistics']['TotalHits']
                 list_of_records = results['SearchResult']['Data']['Records']
-                unless list_of_records.nil?
+                unless list_of_records.nil? or total_results_count < 1
                     list_of_records.each do |record|
                         if enough_data_exists_in record
                             current_article = Article.new
@@ -68,13 +68,15 @@ class ArticleSearch < Search
             end
             @articles = Kaminari.paginate_array(records, total_count: total_results_count).page(@page).per(10)
 
-            results['SearchResult']['AvailableFacets'].each do |facet|
-                tmp = ArticleFacet.new facet['Label']
-                facet['AvailableFacetValues'].each do |value|
-                    tmp.add_value value['Value'], value['AddAction'].sub('addfacetfilter(', '').chop, value['Count']
+	    if results['SearchResult']['AvailableFacets'].respond_to? :each
+                results['SearchResult']['AvailableFacets'].each do |facet|
+                    tmp = ArticleFacet.new facet['Label']
+                    facet['AvailableFacetValues'].each do |value|
+                        tmp.add_value value['Value'], value['AddAction'].sub('addfacetfilter(', '').chop, value['Count']
+                    end
+                    @facets.push(tmp)
                 end
-                @facets.push(tmp)
-            end
+	    end
         end
     end
 

@@ -14,7 +14,11 @@ module LbccHelper
     end
 
     def show_articles?
-        return request.parameters[:show_articles] == 'false' ? false : true
+        if (request.parameters.has_key?(:show_articles))
+            return request.parameters[:show_articles] == 'false' ? false : true
+	else
+	    return false
+	end
     end
 
     def display_access_options(document, context)
