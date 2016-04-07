@@ -48,7 +48,7 @@ class ArticleSearch < Search
         if @api_connection.show_session_token and @api_connection.show_auth_token
             begin
                 results = @api_connection.search search_opts, @api_connection.show_session_token, @api_connection.show_auth_token
-            rescue Net::ReadTimeout
+            rescue AvtionView::Template::Error, Net::ReadTimeout
                 logger.debug "EDS timed out"
             end
             if results.any?
