@@ -21,9 +21,17 @@ class Article
             if record['Header']['PubType']
                 @type = record['Header']['PubType']
             end
-            if record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships']
-                @journal = record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].first['BibEntity']['Titles'].first['TitleFull']
-                @year = record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].first['BibEntity']['Dates'].first['Y']
+            if record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].respond_to? :first
+	        begin
+                    @journal = record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].first['BibEntity']['Titles'].first['TitleFull']
+                rescue NoMethodError
+		    @journal = "Unknown journal"	
+		end
+	        begin
+                    @year = record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].first['BibEntity']['Dates'].first['Y']
+                rescue NoMethodError
+                    @year = "Unknown year"
+		end
             end
             record['Items'].each do |item|
                 if 'Abstract' == item['Name']
