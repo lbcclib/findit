@@ -52,8 +52,12 @@ class ArticleSearch < Search
                 logger.debug "EDS timed out"
             end
             if results.any?
-                total_results_count = results['SearchResult']['Statistics']['TotalHits']
-                list_of_records = results['SearchResult']['Data']['Records']
+                begin
+                    total_results_count = results['SearchResult']['Statistics']['TotalHits']
+                    list_of_records = results['SearchResult']['Data']['Records']
+                rescue ActionView::Template::Error
+                    total_results_count = 0
+                end
                 unless list_of_records.nil? or total_results_count < 1
                     list_of_records.each do |record|
                         if enough_data_exists_in record
