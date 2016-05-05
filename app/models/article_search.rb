@@ -55,7 +55,7 @@ class ArticleSearch < Search
                 begin
                     total_results_count = results['SearchResult']['Statistics']['TotalHits']
                     list_of_records = results['SearchResult']['Data']['Records']
-                rescue ActionView::Template::Error
+                rescue 
                     total_results_count = 0
                 end
                 unless list_of_records.nil? or total_results_count < 1
@@ -72,14 +72,18 @@ class ArticleSearch < Search
             end
             @articles = Kaminari.paginate_array(records, total_count: total_results_count).page(@page).per(10)
 
-	    if results['SearchResult']['AvailableFacets'].respond_to? :each
-                results['SearchResult']['AvailableFacets'].each do |facet|
-                    tmp = ArticleFacet.new facet['Label']
-                    facet['AvailableFacetValues'].each do |value|
-                        tmp.add_value value['Value'], value['AddAction'].sub('addfacetfilter(', '').chop, value['Count']
+	    begin
+	        if results['SearchResult']['AvailableFacets'].respond_to? :each
+                    results['SearchResult']['AvailableFacets'].each do |facet|
+                        tmp = ArticleFacet.new facet['Label']
+                        facet['AvailableFacetValues'].each do |value|
+                            tmp.add_value value['Value'], value['AddAction'].sub('addfacetfilter(', '').chop, value['Count']
+                        end
+                        @facets.push(tmp)
                     end
-                    @facets.push(tmp)
-                end
+	        end
+	    rescue
+                logger.debug "EDS returned no facets"
 	    end
         end
     end
