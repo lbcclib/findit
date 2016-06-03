@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgres as the database for Active Record
-gem 'pg_jruby', :platforms => :jruby
+gem 'pg', '0.17.1', :platform => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
 gem 'pg', :platforms => :ruby
 
 # Use SCSS for stylesheets
