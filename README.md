@@ -45,4 +45,5 @@ Rails.application.config.assets.precompile += %w( *.png )
  
 ### Developing on Windows Machines
 1. Install Ruby, Rails, and Git using the Rails Installer: http://railsinstaller.org/en
+  * I recommend that you use the 2.1 installer, due to a [bothersome issue with their 2.2 installer](https://github.com/railsinstaller/railsinstaller-windows/issues/81).
 2. Follow the directions listed above.
