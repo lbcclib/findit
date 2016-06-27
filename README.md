@@ -16,7 +16,7 @@ Here's how to get this running for yourself:
 1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.  Also be sure to use a version of Blacklight in the 5.x.x series; Find It isn't set up to use Blacklight 6 yet.
 2. `cd` into the directory that you created.
 4. `git init`
-5. `git remote add findit [URL]` where URL is something like git@github.com: Username/Repository.
+5. `git remote add findit [URL]` where URL is the clone URL for this repository.
 6. `git pull findit master`
 7. `git reset --hard findit/master`
 8. Add `gem 'jettywrapper'` to the Gemfile.
