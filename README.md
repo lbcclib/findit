@@ -42,3 +42,8 @@ Rails.application.config.assets.precompile += %w( *.png )
   * Click the pull requests tab
   * Click New Pull Request.
   * Verify your changes, then click "Create pull request".
+ 
+### Developing on Windows Machines
+1. Install git: https://git-scm.com/download/win
+2. Install Ruby using the Ruby Installer: http://rubyinstaller.org/downloads/
+3. Follow the directions listed above.
