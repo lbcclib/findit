@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LbccHelperTest < ActionView::TestCase
-  test "should work" do
-    assert_equal "result", your_helper_method
+  test "full text access link is parseable HTML" do
+    assert Nokogiri::HTML.parse(display_fulltext_access_link('http://linnbenton.edu'))
   end
 end
