@@ -6,7 +6,7 @@ gem 'rails', '4.2.5'
 group :production do
     # Use postgres as the database for Active Record
     # Comment out the first line if using Ruby, the second line if using JRuby
-    gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
+    #gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
     gem 'pg', :platforms => :ruby
 end
 group :development, :test do
