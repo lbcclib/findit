@@ -66,3 +66,5 @@ gem 'browser', '=1.1.0'
 # sqlite3 in ruby
 #gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
 #gem 'sqlite3', :platforms => :ruby
+
+gem 'coveralls', require: false
