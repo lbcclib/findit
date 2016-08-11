@@ -10,7 +10,7 @@ group :production do
     gem 'pg', :platforms => :ruby
 end
 group :development, :test do
-    gem 'sqlite'
+    gem 'sqlite3'
     gem 'activeuuid', '>= 0.5.0'
 end
 
