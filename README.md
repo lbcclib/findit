@@ -1,5 +1,8 @@
 # Find It
 
+!https://travis-ci.org/sandbergja/discovery_layer.svg?branch=master!:https://travis-ci.org/sandbergja/discovery_layer
+[![Coverage Status](https://coveralls.io/repos/github/sandbergja/discovery_layer/badge.svg?branch=master)](https://coveralls.io/github/sandbergja/discovery_layer?branch=master)
+
 Find It is a discovery layer for [Linn-Benton Community College's library](http://library.linnbenton.edu/).  This tool searches across most of the library's print and electronic resources so that students don't get stuck in just one silo of information.
 
 Find It is based on [Blacklight](http://projectblacklight.org/), with a few other gems thrown in.  This repository represents the changes we made from a basic installation of blacklight.
