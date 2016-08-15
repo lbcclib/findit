@@ -2,10 +2,18 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
-# Use jdbcsqlite3 as the database for Active Record in jruby,
-# sqlite3 in ruby
-gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
-gem 'sqlite3', :platforms => :ruby
+
+group :production do
+    # Use postgres as the database for Active Record
+    # Comment out the first line if using Ruby, the second line if using JRuby
+    #gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
+    gem 'pg', :platforms => :ruby
+end
+group :development, :test do
+    gem 'sqlite3'
+    gem 'activeuuid', '>= 0.5.0'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -49,7 +57,6 @@ gem 'devise-guests', '~> 0.3'
 gem 'blacklight-marc', '~> 5.0'
 
 gem "ahoy_matey"
-gem 'activeuuid', '>= 0.5.0'
 gem "blacklight_advanced_search", '>=5.2.1'
 gem "blacklight_range_limit"
 gem "bibtex-ruby"
@@ -60,3 +67,10 @@ gem "exception_notification"
 # Also use this EDS API gem
 gem 'ebsco-discovery-service-api'
 gem 'browser', '=1.1.0'
+
+# Use jdbcsqlite3 as the database for Active Record in jruby,
+# sqlite3 in ruby
+#gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
+#gem 'sqlite3', :platforms => :ruby
+
+gem 'coveralls', require: false

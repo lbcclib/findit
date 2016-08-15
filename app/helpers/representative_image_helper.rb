@@ -41,7 +41,7 @@ module RepresentativeImageHelper
     def representative_image_path(document, size='S')
         cover = CoverImage.find_by(solr_id: document.id)
         if cover
-            if cover.updated_at.to_i > 4.weeks.ago.to_i
+            if cover.updated_at.to_i > 2.weeks.ago.to_i
                 if cover.thumbnail_url
                 #if an image url is cached, just return it
                     if 'S' == size
