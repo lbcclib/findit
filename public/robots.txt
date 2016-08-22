@@ -1,4 +1,5 @@
 User-agent: *
 Crawl-delay: 20
+Disallow: /? # blocks search results pages
 Disallow: /catalog? # blocks search results pages
 Disallow: /catalog/facet # blocks facet pages
