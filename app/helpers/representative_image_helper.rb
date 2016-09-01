@@ -7,7 +7,11 @@ module RepresentativeImageHelper
     def display_representative_image(document, full_size=false )
        unless representative_image_path(document, 'L').nil?
           if full_size
-             return link_to(image_tag(representative_image_path(document, 'M'), alt:document['title_t'], class: 'large-cover-image'), representative_image_path(document, 'L'))
+             begin
+                return link_to(image_tag(representative_image_path(document, 'M'), alt:document['title_t'], class: 'large-cover-image'), representative_image_path(document, 'L'))
+             rescue
+                return ''
+             end
           else
              return link_to(image_tag(representative_image_path(document, 'S'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
           end
