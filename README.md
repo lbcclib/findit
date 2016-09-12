@@ -16,7 +16,7 @@ In theory, you should be able to get this to work on Windows and Linux boxes usi
 
 Here's how to get this running for yourself:
 
-1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.  Also be sure to use a version of Blacklight in the 5.x.x series; Find It isn't set up to use Blacklight 6 yet.
+1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.  Also be sure to use a version of Blacklight in the 5.x.x series; Find It isn't set up to use Blacklight 6 yet.  Also, you might want to use the command `rails _4.2.5_ new my_new_blacklight_app` so that rails doesn't install a bunch of stuff with compatibility issues.
 2. `cd` into the directory that you created.
 4. `git init`
 5. `git remote add findit [URL]` where URL is the clone URL for this repository.
