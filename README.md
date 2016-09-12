@@ -16,18 +16,24 @@ In theory, you should be able to get this to work on Windows and Linux boxes usi
 
 Here's how to get this running for yourself:
 
-1. Follow the Blacklight [Quickstart install instructions](https://github.com/projectblacklight/blacklight/wiki/Quickstart).  Use the "hard way", rather than the one-liner to get your app started.  Make sure to include Devise in this installation process.  Also be sure to use a version of Blacklight in the 5.x.x series; Find It isn't set up to use Blacklight 6 yet.  Also, you might want to use the command `rails _4.2.5_ new my_new_blacklight_app` so that rails doesn't install a bunch of stuff with compatibility issues.
-2. `cd` into the directory that you created.
-4. `git init`
-5. `git remote add findit [URL]` where URL is the clone URL for this repository.
-6. `git pull findit master`
-7. `git reset --hard findit/master`
-8. Add `gem 'jettywrapper'` to the Gemfile.
-8. `bundle install` to make sure you have all the correct gems installed.  You may have to do a few `bundle update` commands.
-10. `rails generate ahoy:stores:active_record`
-11. `rake db:migrate`
-12. Open up config/secrets.yml, and add your article_api_username and article_api_password.
-13. You may also need to add the following three lines to app/config/initializers/assets.rb:
+1. Make sure that Ruby, Rails, Git, and Java are installed on your computer.
+  * For folks running Linux, the OpenJDK version of Java should be sufficient; I haven't needed to use Oracle Java for this setup.
+  * For folks running Windows, you can install Ruby, Rails, and Git using the [Rails Installer](http://railsinstaller.org/en). I recommend that you use the 2.1 installer, due to a [bothersome issue with their 2.2 installer](https://github.com/railsinstaller/railsinstaller-windows/issues/81). 
+2. Decide on a directory on your computer where you'd like to install Find It.  Open a console and navigate to that directory.
+3. Type `rails _4.2.5_ new my_new_blacklight_app` to start a new Rails application, which will live in a subdirectory with the name you choose.  Replace `my_new_blacklightapp` with the name that you chose.
+
+4. With the text editor of your choice, open the file called `Gemfile` in the new subdirectory. Add the line `gem 'blacklight', "~> 6.6"`
+5. Run `bundle install`
+6. Run `rails generate blacklight:install --devise --marc --jettywrapper`
+7. Run `git init` so you can begin using git in this directory.
+8. `git remote add findit [URL]` where URL is the clone URL for this repository.
+9. `git pull findit master`
+10. `git reset --hard findit/master`
+11. `bundle install` again to make sure you have all the correct gems installed.  You may have to do a few `bundle update` commands.
+12. `rails generate ahoy:stores:active_record`
+13. `rake db:migrate`
+14. Open up config/secrets.yml, and add your article_api_username and article_api_password.
+15. You may also need to add the following three lines to app/config/initializers/assets.rb:
 ```
 Rails.application.config.assets.precompile += %w( icons/* )
 Rails.application.config.assets.precompile += %w( blacklight/findit.png )
@@ -45,8 +51,3 @@ Rails.application.config.assets.precompile += %w( *.png )
   * Click the pull requests tab
   * Click New Pull Request.
   * Verify your changes, then click "Create pull request".
- 
-### Developing on Windows Machines
-1. Install Ruby, Rails, and Git using the Rails Installer: http://railsinstaller.org/en
-  * I recommend that you use the 2.1 installer, due to a [bothersome issue with their 2.2 installer](https://github.com/railsinstaller/railsinstaller-windows/issues/81).
-2. Follow the directions listed above.
