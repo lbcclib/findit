@@ -17,6 +17,7 @@ end
 group :development, :test do
     gem 'sqlite3'
     gem 'activeuuid', '>= 0.5.0'
+    gem 'jettywrapper'
 end
 
 # Use SCSS for stylesheets
