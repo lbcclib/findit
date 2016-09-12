@@ -219,6 +219,8 @@ class CatalogController < ApplicationController
 
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
+
+    config.index.thumbnail_method = :display_representative_image
   end
 
 
