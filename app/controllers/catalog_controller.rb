@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
 #
 class CatalogController < ApplicationController  
-  include Blacklight::Marc::Catalog
+  include BlacklightAdvancedSearch::Controller
   include Rails.application.routes.url_helpers
 
   include Blacklight::Catalog
+  include Blacklight::Marc::Catalog
 
   rescue_from 'Blacklight::Exceptions::ECONNREFUSED' do |exception|
     flash[:error] = "Find It's data are temporarily unavailable.  We will resolve this issue momentarily."
@@ -12,6 +13,13 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
+    # default advanced config values
+    config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
+    # config.advanced_search[:qt] ||= 'advanced'
+    config.advanced_search[:url_key] ||= 'advanced'
+    config.advanced_search[:query_parser] ||= 'dismax'
+    config.advanced_search[:form_solr_parameters] ||= {}
+
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = { 
@@ -208,7 +216,11 @@ class CatalogController < ApplicationController
     # Remove endnote and refworks, since they are not supported by our school
     config.show.document_actions.delete(:refworks)
     config.show.document_actions.delete(:endnote)
+
+    config.autocomplete_enabled = true
+    config.autocomplete_path = 'suggest'
   end
+
 
   #Static about page
   def about
