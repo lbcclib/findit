@@ -4,8 +4,9 @@ module RepresentativeImageHelper
     # Generates HTML for either a cover image or format
     # icon, based on the requested side and identifiers from
     # the Solr document
-    def display_representative_image(document, full_size=false )
-       unless representative_image_path(document, 'L').nil?
+    def display_representative_image(document, full_size=0 )
+       unless representative_image_path(document, 'S').nil?
+=begin
           if full_size
              begin
                 return link_to(image_tag(representative_image_path(document, 'M'), alt:document['title_t'], class: 'large-cover-image'), representative_image_path(document, 'L'))
@@ -13,8 +14,9 @@ module RepresentativeImageHelper
                 return ''
              end
           else
+=end
              return link_to(image_tag(representative_image_path(document, 'S'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
-          end
+          #end
        else
           return nil
        end
