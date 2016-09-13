@@ -13,6 +13,7 @@ group :production do
     # Comment out the first line if using Ruby, the second line if using JRuby
     #gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
     gem 'pg', :platforms => :ruby
+    gem 'ahoy_matey'
 end
 group :development, :test do
     gem 'sqlite3'
@@ -63,6 +64,7 @@ group :development do
 end
 
 
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -74,7 +76,6 @@ gem 'devise'
 gem 'devise-guests', '~> 0.5'
 gem 'blacklight-marc', '~> 6.1'
 
-gem "ahoy_matey"
 gem "blacklight_advanced_search", '~> 6.0.2'
 gem "blacklight_range_limit", "~> 6.0"
 gem "bibtex-ruby"
