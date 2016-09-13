@@ -12,4 +12,5 @@ matrix:
       env: "RAILS_VERSION=5.0.0"
 
 before_install:
-- gem install bundler
+- rails _4.2.5_ new -s .
+- rake findit:install

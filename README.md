@@ -39,6 +39,18 @@ Rails.application.config.assets.precompile += %w( blacklight/findit.png )
 Rails.application.config.assets.precompile += %w( *.png )
 ```
 
+## Adventurous Installation
+
+If you are feeling lucky, you can try the following, much shorter installation process.
+It exists primarily to get a quick testing environment put together for CI purposes, but theoretically should also get a basic development install put together for you.
+
+```
+git clone https://github.com/sandbergja/discovery_layer
+cd discovery_layer
+rails _4.2.5_ new -s .
+rake findit:install
+````
+
 ## Contributing to this software
 
 1. Sign in to GitHub.
