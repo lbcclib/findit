@@ -14,7 +14,7 @@ end
 group :development, :test do
     gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
     gem 'sqlite3', :platforms => :ruby
-    gem 'activeuuid', '>= 0.5.0'
+    gem 'activeuuid'
     gem 'jettywrapper'
 end
 
