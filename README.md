@@ -30,7 +30,6 @@ Here's how to get this running for yourself:
 9. `git pull findit master`
 10. `git reset --hard findit/master`
 11. `bundle install` again to make sure you have all the correct gems installed.  You may have to do a few `bundle update` commands.
-12. `rails generate ahoy:stores:active_record`
 13. `rake db:migrate`
 14. Open up config/secrets.yml, and add your article_api_username and article_api_password.
 15. You may also need to add the following three lines to app/config/initializers/assets.rb:
