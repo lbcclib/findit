@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.2.5'
 
 group :production do
-    if RUBY_PLATFORM=~ /jruby/
+    if RUBY_PLATFORM=~ /jruby/ or RUBY_PLATFORM =~ /java/
         gem 'pg', '0.17.1', :git => 'git://github.com/headius/jruby-pg.git', :branch => :master, :group => :production
     else
         gem 'pg'
@@ -38,8 +38,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
