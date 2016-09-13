@@ -1,6 +1,7 @@
-module DisplayHelper
+module DataFieldHelper
 
-require 'uri'
+    include ActionView::Helpers::TextHelper
+    require 'uri'
 
     # Make sure that this is an array
     def field_to_array(value)
@@ -82,4 +83,32 @@ require 'uri'
             return link_to url, url
         end
     end
+
+    # Provides a shortened version of strings.  This is used to cut down particularly
+    # wordy abstracts to display on search results pages.
+    # Defaults to producing snippets that are 200 characters or less, but supports an
+    # option called +:length+ which provides a different number of characters.
+    #
+    #   snippet :value => "My very short string" # => "My very short string" 
+    #   snippet :value => "My very short string", :length => 8 # => "My very" 
+    def snippet opts={}
+        desired_length = opts[:length] || 200
+        if opts[:value].is_a? Array
+	    value = opts[:value][0]
+        else
+	    value = opts[:value]
+        end
+        return truncate strip(value), length: desired_length, separator: ' '
+    end
+
+    def strip(string)
+        # Also strip preceeding [ or whitespace
+	if !string.is_a? String
+	   string = string.to_s
+	end
+        string.gsub!(/^[\*\s]*/, '')
+        string.gsub!(/[,\-:;\s]*$/, '')
+        return string
+    end
+
 end

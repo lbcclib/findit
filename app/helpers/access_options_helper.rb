@@ -1,25 +1,8 @@
-module LbccHelper
+module AccessOptionsHelper
     include BlacklightHelper
-    include ActionView::Helpers::TextHelper
     require 'nokogiri'
     require 'open-uri'
     require 'uri'
-
-    def show_all_formats?
-        return request.parameters[:show_articles] == 'true' ? true : false
-    end
-
-    def show_only_articles?
-        return request.parameters[:show_articles] == 'only' ? true : false
-    end
-
-    def show_articles?
-        if (request.parameters.has_key?(:show_articles))
-            return request.parameters[:show_articles] == 'false' ? false : true
-	else
-	    return false
-	end
-    end
 
     def display_access_options(document, context)
     # Context options: show (individual record), index (search results)
@@ -40,25 +23,4 @@ module LbccHelper
         EOS
         return access_link.html_safe
     end
-
-    def snippet opts={}
-        if opts[:value].is_a? Array
-	    value = opts[:value][0]
-        else
-	    value = opts[:value]
-        end
-        return truncate strip(value), length: 200, separator: ' '
-    end
-
-    def strip(string)
-        # Also strip preceeding [ or whitespace
-	if !string.is_a? String
-	   string = string.to_s
-	end
-        string.gsub!(/^[\*\s]*/, '')
-        string.gsub!(/[,\-:;\s]*$/, '')
-        return string
-    end
-
-
 end
