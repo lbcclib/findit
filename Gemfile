@@ -13,7 +13,6 @@ group :production do
     # Comment out the first line if using Ruby, the second line if using JRuby
     #gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
     gem 'pg', :platforms => :ruby
-    gem 'ahoy_matey'
 end
 group :development, :test do
     gem 'sqlite3'
@@ -94,5 +93,6 @@ gem 'browser', '=1.1.0'
 # sqlite3 in ruby
 #gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
 #gem 'sqlite3', :platforms => :ruby
+gem 'ahoy_matey'
 
 gem 'coveralls', require: false
