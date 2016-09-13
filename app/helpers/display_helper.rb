@@ -74,7 +74,7 @@ require 'uri'
         else
             search_query = text
         end
-        return link_to text, catalog_index_path(:q => search_query, :search_field => search_field )
+        return link_to text, url_for(:q => search_query, :search_field => search_field )
     end
 
     def external_link(url)

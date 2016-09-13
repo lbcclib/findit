@@ -17,8 +17,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def track_action
-    ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters
-    ahoy.track_visit
+    if Rails.env.production?
+      ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters
+      ahoy.track_visit
+    end
   end
 
   def create_article_api_session
