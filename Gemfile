@@ -2,20 +2,18 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.5'
-# Use Puma as the app server
-gem 'puma', '~> 3.0'
-
-gem 'jettywrapper'
-
 
 group :production do
-    # Use postgres as the database for Active Record
-    # Comment out the first line if using Ruby, the second line if using JRuby
-    #gem 'pg', '0.17.1', :platforms => :jruby, :git => 'git://github.com/headius/jruby-pg.git', :branch => :master
-    gem 'pg', :platforms => :ruby
+    if RUBY_PLATFORM=~ /jruby/
+        gem 'pg', '0.17.1', :git => 'git://github.com/headius/jruby-pg.git', :branch => :master, :group => :production
+    else
+        gem 'pg'
+    end
 end
+
 group :development, :test do
-    gem 'sqlite3'
+    gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
+    gem 'sqlite3', :platforms => :ruby
     gem 'activeuuid', '>= 0.5.0'
     gem 'jettywrapper'
 end
@@ -39,20 +37,6 @@ gem 'jbuilder', '~> 2.5'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
@@ -66,10 +50,8 @@ group :test do
   gem 'faker'
 end
 
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 
 gem 'blacklight', '~> 6.6'
 
@@ -89,10 +71,6 @@ gem "exception_notification"
 gem 'ebsco-discovery-service-api'
 gem 'browser', '=1.1.0'
 
-# Use jdbcsqlite3 as the database for Active Record in jruby,
-# sqlite3 in ruby
-#gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
-#gem 'sqlite3', :platforms => :ruby
 gem 'ahoy_matey'
 
 gem 'coveralls', require: false
