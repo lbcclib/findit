@@ -7,6 +7,8 @@ namespace :findit do
         sh 'rails generate blacklight:assets -s'
         sh 'rails generate blacklight:user -s'
         sh 'rails generate devise:install -s'
+        sh 'rake db:migrate RAILS_ENV=development'
+        sh 'rake db:migrate RAILS_ENV=test'
 =begin
         ActiveRecord::Base.establish_connection('test')
         Rake::Task['db:drop'].invoke
