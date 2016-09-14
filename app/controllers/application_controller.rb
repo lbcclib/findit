@@ -24,14 +24,24 @@ class ApplicationController < ActionController::Base
   end
 
   def create_article_api_session
-    @connection = EDSApi::ConnectionHandler.new(2)
-    @connection.uid_init(
-        Rails.application.secrets.article_api_username,
-        Rails.application.secrets.article_api_password,
-        'edsapi')
-    @connection.uid_authenticate
-    @connection.create_session
-    session[:article_api_connection] = @connection
+    if 'eds' == Rails.configuration.articles['api']
+      @connection = EDSApi::ConnectionHandler.new(2)
+      if Rails.configuration.articles['username'].nil? or Rails.configuration.articles['password'].nil?
+        @connection.ip_init 'edsapi'
+        @connection.ip_authenticate
+      else
+        @connection.uid_init(
+          Rails.configuration.articles['username'],
+          Rails.configuration.articles['password'],
+          'edsapi')
+        @connection.uid_authenticate
+      end
+      @connection.create_session
+      session[:article_api_connection] = @connection
+    elsif 'worldcat' == Rails.configuration.articles['api']
+    else
+      session[:article_api_connection] = 0
+    end
   end
 
 end

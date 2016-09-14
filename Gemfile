@@ -67,7 +67,7 @@ gem "csl-styles"
 gem "exception_notification"
 
 # Also use this EDS API gem
-gem 'ebsco-discovery-service-api'
+gem 'ebsco-discovery-service-api', :git => 'git://github.com/sandbergja/ebsco-discovery-service-api-gem', :branch => :ip_auth_fix
 gem 'browser', '=1.1.0'
 
 gem 'ahoy_matey'
