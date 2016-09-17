@@ -6,17 +6,7 @@ module RepresentativeImageHelper
     # the Solr document
     def display_representative_image(document, full_size=0 )
        unless representative_image_path(document, 'S').nil?
-=begin
-          if full_size
-             begin
-                return link_to(image_tag(representative_image_path(document, 'M'), alt:document['title_t'], class: 'large-cover-image'), representative_image_path(document, 'L'))
-             rescue
-                return ''
-             end
-          else
-=end
              return link_to(image_tag(representative_image_path(document, 'S'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
-          #end
        else
           return nil
        end
@@ -40,6 +30,11 @@ module RepresentativeImageHelper
 	        return ol_test_response['location']
         end
         return false
+    end
+
+    # Returns a path for a format icon
+    def format_icon_path format
+        return 'icons/'.concat(format).concat('.png')
     end
 
     # Returns a URL or path for either an image
@@ -92,7 +87,7 @@ module RepresentativeImageHelper
         end
         image = CoverImage.create(solr_id: document.id)
         if document.has? 'format'
-            return 'icons/'.concat(document['format']).concat('.png')
+            return format_icon_path document['format']
         end
         return nil
     end
