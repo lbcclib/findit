@@ -5,6 +5,9 @@ module RepresentativeImageHelper
     # icon, based on the requested side and identifiers from
     # the Solr document
     def display_representative_image(document, full_size=0 )
+       if document.is_a? Article
+           return link_to(image_tag(format_icon_path('Article')), controller: 'articles', action: 'show', db: url_encode(document.db), id: url_encode(document.id))
+       end
        unless representative_image_path(document, 'S').nil?
              return link_to(image_tag(representative_image_path(document, 'S'), alt:document['title_t'], class:(full_size ? 'large-cover-image' : 'thumbnail-cover-image')), :controller => "catalog", :action => "show", :id => document.id)
        else

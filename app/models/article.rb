@@ -1,7 +1,6 @@
-class Article
+class Article < SolrDocument
     attr_reader :abstract, :authors, :db, :id, :journal, :title, :type, :url, :year
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
-
 
     def initialize
         @authors = []
