@@ -1,3 +1,5 @@
+# These helpers help with extracting and formatting
+# data about Solr documents and Article API data
 module DataFieldHelper
 
     include ActionView::Helpers::TextHelper
