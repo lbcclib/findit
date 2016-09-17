@@ -97,6 +97,7 @@ module RepresentativeImageHelper
         return nil
     end
 
+    # Returns an array of all the ISBNs in the given solr document
     def find_isbns_from(document)
         isbns = []
         case document['isbn_t']
