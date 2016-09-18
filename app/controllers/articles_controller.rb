@@ -1,15 +1,11 @@
 class ArticlesController < ApplicationController
     
+    # Create article object named @document and fill it with data from the API so that it's all ready to display
     def show
-        #create article object named @document
-        #fetch data from API
-        #apply values
         @document = Article.new
 
-        if session[:article_api_connection].show_session_token and session[:article_api_connection].show_auth_token
-            results = session[:article_api_connection].retrieve(params[:db], params[:id], '', '',
-                session[:article_api_connection].show_session_token,
-                session[:article_api_connection].show_auth_token)
+        if session[:article_api_connection].ready?
+            results = session[:article_api_connection].retrieve_single_article params[:db], params[:id]
         end
         if results
             @document.extract_data_from_api_response results['Record']

@@ -15,7 +15,6 @@ class ArticleSearch < Search
         end
     end
 
-
     def initialize(q, page, requested_facets = [], api_connection)
         @q = q
         @page = page
@@ -45,12 +44,8 @@ class ArticleSearch < Search
     def send_search
         records = Array.new
 
-        if @api_connection.show_session_token and @api_connection.show_auth_token
-            begin
-                results = @api_connection.search search_opts, @api_connection.show_session_token, @api_connection.show_auth_token
-            rescue ActionView::Template::Error, Net::ReadTimeout
-                logger.debug "EDS timed out"
-            end
+        if @api_connection.ready?
+            results = @api_connection.send_search search_opts
             if results.any?
                 begin
                     total_results_count = results['SearchResult']['Statistics']['TotalHits']
