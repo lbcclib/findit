@@ -9,6 +9,10 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Blacklight::Marc::Catalog
 
+  include CoverImagesController
+  helper_method :cover_image_url_for
+
+
   rescue_from 'Blacklight::Exceptions::ECONNREFUSED' do |exception|
     flash[:error] = "Find It's data are temporarily unavailable.  We will resolve this issue momentarily."
     redirect_to :action=>'more'
@@ -234,4 +238,9 @@ class CatalogController < ApplicationController
   def more
   end
 
-end 
+    # The following code is related to cover images
+    # This code technically should be here (it is definitely doing controller-level work for the catalog) but
+    # violates the ruby tradition against fat controllers
+
+
+end
