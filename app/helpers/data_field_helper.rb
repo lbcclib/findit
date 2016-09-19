@@ -37,6 +37,12 @@ module DataFieldHelper
         else
            return nil
         end
+        
+        if opts[:dedupe]
+           if :personal_names == opts[:dedupe]
+              values.uniq! { |s| s.gsub(/\s?--\s*$/, '').gsub(/^(.*),\s([A-Z]).*\z/, '\2 \1').gsub(/^([a-zA-Z]).*\s([a-zA-z]*)[,\(-\z]/, '\1 \2') }
+           end
+        end
 
         values_html = Array.new
 

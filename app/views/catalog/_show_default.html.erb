@@ -25,7 +25,7 @@
   <%= display_field(document, 'publisher_vern_display', 'Publisher', :dc_element=>'publisher') %>
   <%= display_field(document, 'language_facet', 'Language', :dc_element=>'language') %>
   <%= display_field(document, 'format', 'Format', :dc_element=>'type') %>
-  <%= display_field(document, 'contributor_display', 'Contributors', :dc_element=>'contributor') %>
+  <%= display_field(document, 'contributor_display', 'Contributors', dc_element: 'contributor', dedupe: :personal_names) %>
   <%= display_field(document, 'note_display', 'Note', :dc_element => 'description') %>
   <%= display_field(document, 'contents_display', 'Contents', :dc_element => 'description') %>
   <%= display_field(document, 'isbn_t', 'ISBN', :dc_element => 'identifier') %>
