@@ -21,27 +21,8 @@
         </div>
       </div>
       
-      <div class="limit-criteria">
-        <h3 class="limit-criteria-heading"><%= t('blacklight_advanced_search.form.limit_criteria_heading_html')%></h3>
-
-        <div id="advanced_search_facets" class="limit_input">
-          <% if blacklight_config.try(:advanced_search).try {|h| h[:form_facet_partial] } %>
-            <%= render blacklight_config.advanced_search[:form_facet_partial] %>
-          <% else %>
-            <%= render 'advanced_search_facets' %>
-          <% end %>
-        </div>
-      </div>
   </div>
 
-  <div class="form-group advanced-search-facet">
-  <%= label_tag "publication_date", :class => "col-sm-3 control-label" do %>
-      Publication Year
-  <% end %>
-
-  <div class="col-sm-9">
-      <%= render_range_input("pub_date_sort", :begin) %> - <%= render_range_input("pub_date_sort", :end) %>      
-  </div>
 </div>
 
   <hr>
