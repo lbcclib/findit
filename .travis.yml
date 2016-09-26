@@ -5,6 +5,12 @@ matrix:
   include:
     - rvm: 2.3.1
       env: "RAILS_VERSION=4.2.5"
+    - rvm: 1.9.2
+      jdk: openjdk7
+      env: "RAILS_VERSION=4.2.5"
+    - rvm: 1.9.2
+      jdk: oraclejdk7
+      env: "RAILS_VERSION=4.2.5"
 
 before_install:
 - gem install -v '4.2.5' rails
