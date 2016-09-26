@@ -31,7 +31,7 @@ class ArticleConnection
 
   def retrieve_single_article db, id
     if :@eds_connection == @raw_connection
-      if @auth_method = :uid
+      if @auth_method == :uid
         return @eds_connection.retrieve db, id, '', '', @eds_connection.show_session_token, @eds_connection.show_auth_token
       else
         return @eds_connection.retrieve db, id
@@ -41,7 +41,7 @@ class ArticleConnection
 
   def send_search search_opts
     if :@eds_connection == @raw_connection
-      if @auth_method = :uid
+      if @auth_method == :uid
         begin
           return @eds_connection.search search_opts, @eds_connection.show_session_token, @eds_connection.show_auth_token
         rescue ActionView::Template::Error, Net::ReadTimeout
