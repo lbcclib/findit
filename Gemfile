@@ -5,7 +5,9 @@ gem 'rails', '~> 4.2.5'
 
 group :production do
     if RUBY_PLATFORM=~ /jruby/ or RUBY_PLATFORM =~ /java/
-        gem 'pg', '0.17.1', :git => 'git://github.com/headius/jruby-pg.git', :branch => :master, :group => :production
+        #gem 'pg', '0.17.1', :git => 'git://github.com/headius/jruby-pg.git', :branch => :master, :group => :production
+	gem 'activerecord-jdbcpostgresql-adapter'
+	gem 'jdbc-postgres', '~> 9.4.1200'
     else
         gem 'pg'
     end

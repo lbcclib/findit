@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :create_article_api_session
+  before_filter :start_jruby_pg
   after_filter :track_action
 
   protected
@@ -25,6 +26,13 @@ class ApplicationController < ActionController::Base
 
   def create_article_api_session
     session[:article_api_connection] = ArticleConnection.new
+  end
+
+  def start_jruby_pg
+    if Rails.env.production? and ( RUBY_PLATFORM =~ /jruby/ or RUBY_PLATFORM =~ /java/ )
+      require 'jdbc/postgres'
+      Jdbc::Postgres.load_driver
+    end
   end
 
 end
