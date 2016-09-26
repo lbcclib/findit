@@ -51,6 +51,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'warbler'
 
 gem 'blacklight', '~> 6.6'
 
@@ -67,7 +68,7 @@ gem "csl-styles"
 gem "exception_notification"
 
 # Also use this EDS API gem
-gem 'ebsco-discovery-service-api', :git => 'git://github.com/ebsco/ebsco-discovery-service-api-gem', :branch => :master
+gem 'ebsco-discovery-service-api'
 gem 'browser', '=1.1.0'
 
 gem 'ahoy_matey'
