@@ -239,10 +239,4 @@ class CatalogController < ApplicationController
   #Static page offering more search options
   def more
   end
-
-    # The following code is related to cover images
-    # This code technically should be here (it is definitely doing controller-level work for the catalog) but
-    # violates the ruby tradition against fat controllers
-
-
 end
