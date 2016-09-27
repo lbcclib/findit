@@ -1,8 +1,40 @@
 module LibraryHoldingsHelper
-    require 'nokogiri'
+    #require 'nokogiri'
     require 'open-uri'
     require 'uri'
 
+    def display_library_holdings tcn, style
+        if session[:evergreen_connection]
+            stat = session[:evergreen_connection].get_holdings tcn, org_unit: 7
+            if 'simple' == style
+                if stat.any_copies_available?
+                    display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" target="_blank" class="btn btn-success">Available at the library</a>'
+                    display_library_holdings.concat('<table class="table"><thead><tr><th>Status</th><th>Location</th><th>Call number</th></thead>')
+                    stat.copies.first(5).each do |copy|
+                        display_library_holdings.concat('<tr><td>' + copy[:status] + '</td>')
+                        display_library_holdings.concat('<td>' + copy[:location] + '</td>')
+                        display_library_holdings.concat('<td>' + copy[:call_number] + '</td></tr>')
+                    end
+                    display_library_holdings.concat('</table>')
+                end
+	    elsif 'fancy' == style
+                display_library_holdings = '<h2>Find a copy on the shelf</h2>'
+                stat.copies.each do |item|
+                    display_library_holdings.concat('<dl class="dl-horizontal  dl-invert">')
+                    display_library_holdings.concat('<dt>Status</dt><dd>' + item[:status] + '</dd>')
+                    display_library_holdings.concat('<dt>Location</dt><dd>' + item[:location] + '</dd>')
+                    display_library_holdings.concat('<dt>Call number</dt><dd>' + item[:call_number] + '</dd>')
+                    display_library_holdings.concat('</dl>')
+                    display_library_holdings.concat('<hr />')
+                end
+            end
+        else
+            return 'Ask a librarian for information about this item.'
+        end
+    end
+    
+
+=begin
     HOLDINGS_NS = 'http://open-ils.org/spec/holdings/v1'
     SUPERCAT_URI_PREFIX = 'http://libcat.linnbenton.edu/opac/extras/supercat/retrieve/atom-full/record/'
 
@@ -69,5 +101,6 @@ module LibraryHoldingsHelper
         end
         return copies
     end
+=end
 
 end

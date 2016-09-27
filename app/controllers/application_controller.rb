@@ -30,7 +30,11 @@ class ApplicationController < ActionController::Base
   end
 
   def create_evergreen_session
-    session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+    begin
+        session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+    rescue CouldNotConnectToEvergreenError
+        session[:evergreen_connection] = nil
+    end
   end
 
   def start_jruby_pg

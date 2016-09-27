@@ -72,7 +72,7 @@ gem "csl-styles"
 gem "exception_notification"
 
 gem 'ebsco-discovery-service-api'
-gem 'evergreen_holdings', '~>0.1.1'
+gem 'evergreen_holdings', '~>0.1.2'
 gem 'browser', '=1.1.0'
 
 gem 'ahoy_matey'
