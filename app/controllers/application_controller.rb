@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :create_article_api_session
+  before_filter :create_evergreen_session
   before_filter :start_jruby_pg
   after_filter :track_action
 
@@ -26,6 +27,10 @@ class ApplicationController < ActionController::Base
 
   def create_article_api_session
     session[:article_api_connection] = ArticleConnection.new
+  end
+
+  def create_evergreen_session
+    session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
   end
 
   def start_jruby_pg

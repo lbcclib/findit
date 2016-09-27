@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'activerecord-session_store'
+
 group :development do
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -69,8 +71,8 @@ gem "citeproc-ruby"
 gem "csl-styles"
 gem "exception_notification"
 
-# Also use this EDS API gem
 gem 'ebsco-discovery-service-api'
+gem 'evergreen_holdings', '~>0.1.1'
 gem 'browser', '=1.1.0'
 
 gem 'ahoy_matey'
