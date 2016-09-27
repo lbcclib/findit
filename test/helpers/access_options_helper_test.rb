@@ -13,6 +13,9 @@ class AccessOptionsHelperTest < ActionView::TestCase
     assert Nokogiri::HTML.parse(display_access_options( @short_document ))
   end
   test "access options for documents with url_fulltext_display is a link" do
+puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    puts display_access_options(@short_document) 
+puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     assert !(display_access_options(@short_document) !~ /<a\b[^>]*>(.*?)<\/a>/i)
   end
   test "concise access options for documents with url_fulltext_display is parseable HTML" do
@@ -26,6 +29,6 @@ class AccessOptionsHelperTest < ActionView::TestCase
   def initialize_vars
     create_solr_documents
     @long_document['eg_tcn_t'] = '1234'
-    @short_document['display_fulltext_access_link'] = 'http://duckduckgo.com'
+    @short_document['url_fulltext_display'] = 'http://duckduckgo.com'
   end
 end

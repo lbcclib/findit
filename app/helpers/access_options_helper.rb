@@ -20,16 +20,18 @@ module AccessOptionsHelper
     end
 
     private
+
+    # Return a bootstrap button that links to the given value
     def display_fulltext_access_link url_value
         return link_to 'Access this resource', url_value, class: 'btn btn-success', role: 'button', target: '_blank'
     end
 
     def access_option document, style
         if document.has? 'eg_tcn_t'
-            tcn_value = render_index_field_value(:document => document, :field => 'eg_tcn_t')
+            tcn_value = document['eg_tcn_t']
             display_library_holdings(tcn_value, style)
         elsif document.has? 'url_fulltext_display'
-            url_value = render_index_field_value(:document => document, :field => 'url_fulltext_display')
+            url_value = document['url_fulltext_display']
             display_fulltext_access_link url_value
         end
     end
