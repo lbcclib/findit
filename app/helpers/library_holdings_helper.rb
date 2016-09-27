@@ -4,33 +4,37 @@ module LibraryHoldingsHelper
     require 'uri'
 
     def display_library_holdings tcn, style
+        display_library_holdings = ''
         if session[:evergreen_connection]
             stat = session[:evergreen_connection].get_holdings tcn, org_unit: 7
             if 'simple' == style
                 if stat.any_copies_available?
-                    display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" target="_blank" class="btn btn-success">Available at the library</a>'
+                    display_library_holdings.concat('<a href="http://libcat.linnbenton.edu/eg/opac/record/' + tcn + '?locg=8;detail_record_view=1" target="_blank" class="btn btn-success">Available at the library</a>')
                     display_library_holdings.concat('<table class="table"><thead><tr><th>Status</th><th>Location</th><th>Call number</th></thead>')
                     stat.copies.first(5).each do |copy|
-                        display_library_holdings.concat('<tr><td>' + copy[:status] + '</td>')
-                        display_library_holdings.concat('<td>' + copy[:location] + '</td>')
-                        display_library_holdings.concat('<td>' + copy[:call_number] + '</td></tr>')
+                        display_library_holdings.concat('<tr><td>' + copy.status + '</td>')
+                        display_library_holdings.concat('<td>' + copy.location + '</td>')
+                        display_library_holdings.concat('<td>' + copy.call_number + '</td></tr>')
                     end
                     display_library_holdings.concat('</table>')
+                else
+                    display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' + tcn + 'hold_type=T;hold_source_page=/eg/opac/record/'+ tcn + '?query=locg=8&detail_record_view=1" class="btn btn-warning" target="_blank">Place a hold</a>'
                 end
 	    elsif 'fancy' == style
                 display_library_holdings = '<h2>Find a copy on the shelf</h2>'
                 stat.copies.each do |item|
-                    display_library_holdings.concat('<dl class="dl-horizontal  dl-invert">')
-                    display_library_holdings.concat('<dt>Status</dt><dd>' + item[:status] + '</dd>')
-                    display_library_holdings.concat('<dt>Location</dt><dd>' + item[:location] + '</dd>')
-                    display_library_holdings.concat('<dt>Call number</dt><dd>' + item[:call_number] + '</dd>')
-                    display_library_holdings.concat('</dl>')
-                    display_library_holdings.concat('<hr />')
+                    display_library_holdings.concat '<dl class="dl-horizontal  dl-invert">'
+                    display_library_holdings.concat '<dt>Status</dt><dd>' + item.status + '</dd>'
+                    display_library_holdings.concat '<dt>Location</dt><dd>' + item.location + '</dd>'
+                    display_library_holdings.concat '<dt>Call number</dt><dd>' + item.call_number + '</dd>'
+                    display_library_holdings.concat '</dl>'
+                    display_library_holdings.concat '<hr />'
                 end
             end
         else
-            return 'Ask a librarian for information about this item.'
+            display_library_holdings.concat 'Ask a librarian for information about this item.'
         end
+	return display_library_holdings.html_safe
     end
     
 

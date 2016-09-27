@@ -22,8 +22,9 @@ module AccessOptionsHelper
     private
 
     # Return a bootstrap button that links to the given value
-    def display_fulltext_access_link url_value
-        return link_to 'Access this resource', url_value, class: 'btn btn-success', role: 'button', target: '_blank'
+    def display_fulltext_access_link url
+        #return link_to 'Access this resource', 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=http://digital.films.com/PortalPlaylists.aspx?e=1&xtid=68370&aid=4065&cid=1639_path', class: 'btn btn-success', role: 'button', target: '_blank'
+        return link_to('Access this resource', URI.encode(url), class: 'btn btn-success', role: 'button', target: '_blank')
     end
 
     def access_option document, style
@@ -31,8 +32,7 @@ module AccessOptionsHelper
             tcn_value = document['eg_tcn_t']
             display_library_holdings(tcn_value, style)
         elsif document.has? 'url_fulltext_display'
-            url_value = document['url_fulltext_display']
-            display_fulltext_access_link url_value
+            display_fulltext_access_link document['url_fulltext_display'][0]
         end
     end
 end
