@@ -10,7 +10,7 @@ Find It is based on [Blacklight](http://projectblacklight.org/), with a few othe
 In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/sandbergja/discovery_layer/issues/60), but has only been tested in the following environments:
 
 * JRuby on Windows Server 2013
-* Ruby on Ubuntu 15.10
+* Ruby on Ubuntu 15.10 and 16.10
 
 ## Installing Find It
 
