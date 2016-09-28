@@ -13,9 +13,6 @@ class AccessOptionsHelperTest < ActionView::TestCase
     assert Nokogiri::HTML.parse(display_access_options( @short_document ))
   end
   test "access options for documents with url_fulltext_display is a link" do
-puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    puts display_access_options(@short_document) 
-puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     assert !(display_access_options(@short_document) !~ /<a\b[^>]*>(.*?)<\/a>/i)
   end
   test "concise access options for documents with url_fulltext_display is parseable HTML" do
