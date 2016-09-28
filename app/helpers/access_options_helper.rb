@@ -8,25 +8,6 @@ module AccessOptionsHelper
     # Display how a user can access the resource described in the solr document,
     # whether through a physical library copy or a URL
     def display_access_options document
-        access_option document
-    end
-
-    # Briefly display how a user can access the resource described in the solr document,
-    # whether through a physical library copy or a URL
-    #
-    # This is well suited for the search results display page
-    def display_concise_access_options document
-        concise_access_option document
-    end
-
-    private
-
-    # Return a bootstrap button that links to the given value
-    def display_fulltext_access_link url
-        return link_to('Access this resource', URI.encode(url), class: 'btn btn-success', role: 'button', target: '_blank')
-    end
-
-    def access_option document
         mode = mode_of_access document
         if mode
             if 'library_holdings' == mode
@@ -36,7 +17,12 @@ module AccessOptionsHelper
             end
         end
     end
-    def concise_access_option document
+
+    # Briefly display how a user can access the resource described in the solr document,
+    # whether through a physical library copy or a URL
+    #
+    # This is well suited for the search results display page
+    def display_concise_access_options document
         mode = mode_of_access document
         if mode
             if 'library_holdings' == mode
@@ -45,6 +31,13 @@ module AccessOptionsHelper
                 return display_fulltext_access_link document['url_fulltext_display'][0]
             end
         end
+    end
+
+    private
+
+    # Return a bootstrap button that links to the given value
+    def display_fulltext_access_link url
+        return link_to('Access this resource', URI.encode(url), class: 'btn btn-success', role: 'button', target: '_blank')
     end
 
     def mode_of_access document

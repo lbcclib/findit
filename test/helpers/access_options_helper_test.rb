@@ -22,6 +22,13 @@ class AccessOptionsHelperTest < ActionView::TestCase
     assert !(display_concise_access_options(@short_document) !~ /<a\b[^>]*>(.*?)<\/a>/i)
   end
 
+  test "mode_of_access is correct for eg documents" do
+    assert_equal 'library_holdings', mode_of_access(@long_document)
+  end
+  test "mode_of_access is correct for e-resource documents" do
+    assert_equal 'url', mode_of_access(@short_document)
+  end
+
   private
   def initialize_vars
     create_solr_documents
