@@ -60,7 +60,7 @@ gem 'warbler'
 gem 'blacklight', '~> 6.6'
 
 gem 'rsolr', '~> 1.1.2'
-gem 'devise'
+gem 'devise', '~> 4.2'
 gem 'devise-guests', '~> 0.5'
 gem 'blacklight-marc', '~> 6.1'
 
