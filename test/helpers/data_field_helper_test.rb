@@ -26,6 +26,14 @@ class DataFieldHelperTest < ActionView::TestCase
 
     test "Snippet produces text that is no longer than 200 characters using more than 200 characters" do
       assert snippet({Value: data_strings[:very_long_string]}).length <200
-      #puts Value
+    end
+
+    test "external link produces valid HTML link when given a well-formatted URL" do
+      link = external_link 'http://library.linnbenton.edu/c.php?g=13287&p=2901925'
+      assert Nokogiri::HTML.parse link
+      assert !(link !~ /<a\b[^>]*>(.*?)<\/a>/i)
+    end
+    test "external_link does not produce a link to any poorly-formatted URLs" do
+      assert external_link 'http://library.linnbenton.edu/c.php?g=13287&p=2901925' !~ /<a\b[^>]*>(.*?)<\/a>/i
     end
 end

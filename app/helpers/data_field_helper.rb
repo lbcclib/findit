@@ -89,6 +89,8 @@ module DataFieldHelper
     def external_link(url)
         if url =~ URI::regexp
             return link_to url, url
+        else
+            return url
         end
     end
 
