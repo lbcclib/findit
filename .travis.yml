@@ -16,6 +16,6 @@ matrix:
       env: "RAILS_VERSION=4.2.7"
 
 before_install:
-- gem install -v '4.2.5' rails
+- gem install -v '4.2.7' rails
 - rails _4.2.7_ new -s .
 - rake findit:install
