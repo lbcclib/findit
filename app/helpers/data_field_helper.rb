@@ -15,7 +15,7 @@ module DataFieldHelper
               value_arr.push(value)
            end
         else
-            value_arr = value.to_a
+            value_arr.push value.to_s
         end
         return value_arr
     end
