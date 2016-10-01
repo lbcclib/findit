@@ -2,26 +2,13 @@ module CitationHelper
     include BlacklightHelper
     include ActionView::Helpers::TextHelper
 
-    # Creates a minimal BibTeX string in case the app can't find one
+    # Creates a one-item BibTeX bibliography in case the app can't find one
     # in the data from Solr.
     def create_bibtex(document)
-       bibtex = '@book{resource, '
-       if document.has? 'author_display'
-          bibtex.concat('author = {' + document['author_display'].gsub(/[0-9\-]/, '') + '},')
-       end
-       bibtex.concat('title = {' + document['title_display'] + '}')
-       if document.has? 'pub_date'
-          bibtex.concat(', year = ' + document['pub_date'][0])
-       end
-       if document.has? 'publisher_display'
-          if document['publisher_display'].is_a?(Array)
-             bibtex.concat(', publisher = {' + document['publisher_display'][0] + '}')
-          else
-             bibtex.concat(', publisher = ' + document['publisher_display'].to_s + '}')
-          end
-       end
-       bibtex.concat('}')
-       return bibtex
+       biblio = BibTeX::Bibliography.new
+       biblio << BibTeX::Entry.new( extract_bibliographic_data_from (document))
+       biblio[0].key = 'resource'
+       return biblio
     end
 
     # Generates a hash containing properly formatted HTML citations
@@ -39,12 +26,12 @@ module CitationHelper
 	 # Creates a minimal BibTeX string from solr data if
 	 # the official BibTeX string can't be parsed.
 	 rescue BibTeX::ParseError
-           b = BibTeX.parse(create_bibtex(document))
+           b = create_bibtex document
 	 end
        else
 	 # Creates a minimal BibTeX string from solr data if
 	 # there is no BibTeX in the solr document.
-         b = BibTeX.parse(create_bibtex(document))
+         b = create_bibtex document
        end
        
        styles = Hash.new
@@ -76,6 +63,43 @@ module CitationHelper
           end
        end
        return citations
+    end
+
+    private
+
+    # Returns a hash with the most important information about
+    # the given solr document
+    def extract_bibliographic_data_from document
+       bib_entry = {
+           bibtex_type: bibtex_type(document['type']),
+           title: document['title_display'],
+       }
+       if document.has? 'author_display'
+           bib_entry[:author] = document['author_display']
+       end
+       if document.has? 'pub_date'
+          bib_entry[:year] = document['pub_date'][0]
+       end
+       if document.has? 'publisher_display'
+          if document['publisher_display'].is_a?(Array)
+             bib_entry[:publisher] = document['publisher_display'][0]
+          else
+             bib_entry[:publisher] = document['publisher_display'].to_s
+          end
+       end
+       return bib_entry
+    end
+
+    # Returns a symbol representing the BibTeX type that corresponds
+    # to the string you pass to it
+    def bibtex_type solr_type
+        if ['Ebook', 'Book'].include? solr_type
+            return :book
+        elsif ['Article'].include? solr_type
+            return :article
+        else
+            return :misc
+        end
     end
 
 
