@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   def create_article_api_session
-    session[:article_api_connection] = ArticleConnection.new
+    if using_eds?
+        session[:article_api_connection] = EdsConnection.new
+    elsif using_worldcat?
+        session[:article_api_connection] = WorldcatConnection.new
+    end
   end
 
   def create_evergreen_session
@@ -43,5 +47,16 @@ class ApplicationController < ActionController::Base
       Jdbc::Postgres.load_driver
     end
   end
+
+  private
+
+  def using_eds?
+    return 'eds' == Rails.configuration.articles['api']
+  end
+
+  def using_worldcat?
+    return 'worldcat' == Rails.configuration.articles['api']
+  end
+
 
 end
