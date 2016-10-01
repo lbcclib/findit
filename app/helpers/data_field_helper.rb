@@ -52,8 +52,11 @@ module DataFieldHelper
               # If no search field is specified, default to
               # searching all fields
               search_field = opts.key?(:search_fields) ? opts[:search_fields] : 'all_fields'
-              exact_match = opts.key?(:exact_match) ? opts[:exact_match] : false
-              value_string = search_catalog_link(strip(value), search_field, exact_match)
+              if opts.key?(:exact_match)
+                 value_string = exact_search_catalog_link(strip(value), search_field)
+              else
+                 value_string = search_catalog_link(strip(value), search_field)
+              end
 
            elsif opts[:contains_url]
               value_string = external_link(value) 
@@ -77,13 +80,12 @@ module DataFieldHelper
         end
     end
 
-    def search_catalog_link(text, search_field, exact_match=false)
-        if exact_match
-            search_query = "\"#{text}\"".html_safe
-        else
-            search_query = text
-        end
-        return link_to text, url_for(:q => search_query, :search_field => search_field )
+    def exact_search_catalog_link text, search_field
+        return link_to text, url_for(:q => "\"#{text}\"", :search_field => search_field )
+    end
+
+    def search_catalog_link text, search_field
+        return link_to text, url_for(:q => text, :search_field => search_field )
     end
 
     def external_link(url)
