@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class DataFieldHelperTest < ActionView::TestCase
-  puts Dir.pwd
   data_strings = YAML::load_file Rails.root.join('test', 'fixtures', 'data_strings.yml')
 
   test "Convert a string into an array" do
