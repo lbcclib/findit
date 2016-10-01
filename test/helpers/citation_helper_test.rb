@@ -34,7 +34,7 @@ class CitationHelperTest < ActionView::TestCase
       end
     end
 
-    words_in_document = ['print', 'online']
+    words_in_document = ['print', 'online', 'pages', 'page', 'pag']
     @words_in_long_document.each do |words|
       words.split.each do |word|
         words_in_document.push word.downcase.gsub /[[:punct:]]/, ''
