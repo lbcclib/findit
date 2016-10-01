@@ -1,4 +1,3 @@
-include DataFieldHelper
 module ArticleHelper
     require 'open-uri'
     require 'uri'

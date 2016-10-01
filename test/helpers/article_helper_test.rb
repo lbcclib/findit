@@ -1,4 +1,5 @@
 require 'test_helper'
+require Rails.root.join('app', 'helpers', 'data_field_helper').to_s
 
 class ArticleHelperTest < ActionView::TestCase
   test "HTML Entities are cleaned up" do
