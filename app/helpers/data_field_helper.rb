@@ -15,7 +15,7 @@ module DataFieldHelper
               value_arr.push(value)
            end
         else
-            value_arr = value.to_a
+            value_arr.push value.to_s
         end
         return value_arr
     end
@@ -89,6 +89,8 @@ module DataFieldHelper
     def external_link(url)
         if url =~ URI::regexp
             return link_to url, url
+        else
+            return url
         end
     end
 
