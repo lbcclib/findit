@@ -1,3 +1,4 @@
+# Represents a search request in the external articles API and its response
 class ArticleSearch < Search
     require 'erb'
     include ERB::Util
