@@ -83,7 +83,7 @@ module CoverImagesController
 
     # Check to make sure the cache isn't older than 3 weeks
     def recent_enough? updated_at
-        return 3.weeks.ago.to_i < updated_at.to_i
+        return 3.weeks.ago.to_i < updated_at.to_time.to_i
     end
 
 

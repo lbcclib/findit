@@ -13,5 +13,11 @@ class CoverImagesControllerTest < ActionController::TestCase
         assert_instance_of Array, identifiers
         assert_equal 1, identifiers.size
     end
+    test "recent_enough? returns true for recent date" do
+        assert recent_enough?(1.day.ago.to_s(:db))
+    end
+    test "recent_enough? returns false for really old date" do
+        assert_not recent_enough?(12.years.ago.to_s(:db))
+    end
 end
 
