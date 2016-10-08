@@ -19,7 +19,10 @@ module RepresentativeImageHelper
 
     private
 
-    # Returns a path for a format icon
+    # Returns a Path object for the requested format icon
+    #
+    # Note that this method does not actually check if the
+    # icon exists
     def format_icon_path format
         return 'icons/'.concat(format).concat('.png')
     end
