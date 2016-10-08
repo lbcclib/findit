@@ -19,7 +19,7 @@ module RepresentativeImageHelper
 
     private
 
-    # Returns a Path object for the requested format icon
+    # Returns a string with the path of a requested format icon
     #
     # Note that this method does not actually check if the
     # icon exists
