@@ -1,9 +1,5 @@
+# Helper functions for displaying journal/news articles
 module ArticleHelper
-    require 'open-uri'
-    require 'uri'
-
-    PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
-     
     def display_article_type(original_string)
         article_type = original_string.capitalize
         unless article_type.include? 'article'

@@ -1,3 +1,4 @@
+# Represents a facet for article searches
 class ArticleFacet
     attr_reader :title, :values
 

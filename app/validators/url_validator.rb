@@ -1,3 +1,4 @@
+# Checks that URLs stored in the Database actually work
 class UrlValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
         begin

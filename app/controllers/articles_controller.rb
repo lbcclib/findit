@@ -1,3 +1,4 @@
+# This controller coordinates the connection to the external API and handles all the data it returns
 class ArticlesController < ApplicationController
     
     # Create article object named @document and fill it with data from the API so that it's all ready to display

@@ -1,3 +1,6 @@
+# Methods that help figure out what formats the user is interested in
+#
+# Doesn't really help with views at all, so this should move
 module FormatHelper
     include BlacklightHelper
 

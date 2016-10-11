@@ -1,3 +1,6 @@
+# Functions related to citations, which might be a bit more sophisticated
+# than simple view helpers and should therefore probably be eventually moved
+# into model/controller
 module CitationHelper
     include BlacklightHelper
     include ActionView::Helpers::TextHelper
