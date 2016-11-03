@@ -12,8 +12,11 @@ class EdsConnection < ArticleConnection
         'edsapi')
       @raw_connection.uid_authenticate
     else
-      @raw_connection.ip_init 'edsapi'
-      @raw_connection.ip_authenticate
+      begin
+        @raw_connection.ip_init 'edsapi'
+        @raw_connection.ip_authenticate
+      rescue NoMethodError
+      end
     end
     @raw_connection.create_session
   end
@@ -50,19 +53,19 @@ class EdsConnection < ArticleConnection
     end
   end
 
-  private
-
-  def handle_timeout
-    logger.debug "EDS timed out"
-    return false
-  end
-
   def using_uid_auth?
     if Rails.configuration.articles['username'].nil? or Rails.configuration.articles['password'].nil?
       return false
     else
       return true
     end
+  end
+
+  private
+
+  def handle_timeout
+    logger.debug "EDS timed out"
+    return false
   end
 
 end

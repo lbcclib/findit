@@ -12,8 +12,8 @@ production:
 development:
     environment: development
     api: eds
-    username: api_user
-    password: my_password
+    username: lbcc
+    password: password
 test:
     environment: test
     api: worldcat
