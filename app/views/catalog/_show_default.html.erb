@@ -13,8 +13,8 @@
   <%= display_field(document, 'subject_era_facet', 'Era', :search_link => true, :search_fields => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
   <%= display_field(document, 'subject_name_facet', 'People and groups', :search_link => true, :search_fields => 'subject', :search_exact_match => false, :dc_element => 'subject') %>
   <%= display_field(document, 'abstract_display', 'Abstract', :dc_element => 'description') %>
-  <%= display_field(document, 'preceeded_by_t', 'Preceeded by', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
-  <%= display_field(document, 'followed_by_t', 'Followed by', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
+  <%= display_field(document, 'preceeded_by_display', 'Preceeded by', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
+  <%= display_field(document, 'followed_by_display', 'Followed by', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
 </dl>
 
 <h2>About this edition</h2>
@@ -29,8 +29,8 @@
   <%= display_field(document, 'note_display', 'Note', :dc_element => 'description') %>
   <%= display_field(document, 'contents_display', 'Contents', :dc_element => 'description') %>
   <%= display_field(document, 'isbn_t', 'ISBN', :dc_element => 'identifier') %>
-  <%= display_field(document, 'is_part_of_t', 'Is part of', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
-  <%= display_field(document, 'has_part_t', 'Has part', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
+  <%= display_field(document, 'is_part_of_display', 'Is part of', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
+  <%= display_field(document, 'has_part_display', 'Has part', :dc_element => 'relation', :search_link => true, :search_fields => 'all_fields', :search_exact_match => false) %>
   <%= display_field(document, 'url_suppl_display', 'Additional information', :contains_url => true) %>
   <%= display_field(document, 'place_of_publication_display', 'Place of publication') %>
   <%= display_field(document, 'place_of_publication_vern_display', 'Place of publication') %>
