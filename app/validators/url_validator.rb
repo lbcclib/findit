@@ -7,11 +7,9 @@ class UrlValidator < ActiveModel::EachValidator
             record.errors[attribute] << 'Could not parse or fetch the URI given'
             return false
         end
-        if '200' == response.code
-            if response.body.include? 'not found'
-                record.errors[attribute] << 'Image not found'
-            end
-        else
+        if response.body.include? 'not found'
+            record.errors[attribute] << 'Image not found'
+        elsif '200' != response.code
             record.errors[attribute] << 'Server responded not ok'
         end
     end

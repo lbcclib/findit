@@ -225,8 +225,8 @@ class CatalogController < ApplicationController
     config.show.document_actions.delete(:refworks)
     config.show.document_actions.delete(:endnote)
 
-    #config.autocomplete_enabled = true
-    #config.autocomplete_path = 'suggest'
+    config.autocomplete_enabled = true
+    config.autocomplete_path = 'suggest'
 
     config.index.thumbnail_method = :display_representative_image
   end
