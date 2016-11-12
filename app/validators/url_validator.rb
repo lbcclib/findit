@@ -9,8 +9,10 @@ class UrlValidator < ActiveModel::EachValidator
         end
         if response.body.include? 'not found'
             record.errors[attribute] << 'Image not found'
-        elsif '200' != response.code
-            record.errors[attribute] << 'Server responded not ok'
+        else
+            unless ['200', '301', '302'].include? response.code
+                record.errors[attribute] << 'Server responded not ok'
+            end
         end
     end
 end
