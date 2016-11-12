@@ -21,7 +21,7 @@ module CoverImagesController
         else
             # If the image has not yet been cached
             new_cover = fetch_new_cover identifiers, document.id
-            return new_cover if cover
+            return new_cover if new_cover
         end
         return false
     end
@@ -52,7 +52,9 @@ module CoverImagesController
             if thumbnail_url
                 full_url = get_image_url(isbn, 'isbn', 'M')
                 image = CoverImage.create(isbn: isbn, thumbnail_url: thumbnail_url, full_url: full_url, solr_id: id)
-                return thumbnail_url
+                if image.valid?
+                    return thumbnail_url
+		end
             end
         end
         image = CoverImage.create(solr_id: id)
