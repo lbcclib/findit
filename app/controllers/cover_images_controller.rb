@@ -75,7 +75,7 @@ module CoverImagesController
     # Returns a URL if successful, false if not
     def get_image_url identifier, identifier_type, size
         begin
-            return URI.parse('http://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
+            return URI.parse('https://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
         rescue
             return false
         end

@@ -19,8 +19,8 @@ class CoverImagesControllerTest < ActionController::TestCase
     test "recent_enough? returns false for really old date" do
         assert_not recent_enough?(12.years.ago.to_s(:db))
     end
-    test "get_image_url returns a valid URI" do
-        assert_instance_of URI::HTTP, get_image_url('1234567890', 'ISBN', 'M')
+    test "get_image_url returns a valid HTTPS URI" do
+        assert_instance_of URI::HTTPS, get_image_url('1234567890', 'ISBN', 'M')
     end
 end
 
