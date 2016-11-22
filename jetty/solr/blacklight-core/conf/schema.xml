@@ -545,6 +545,7 @@
    <field name="publisher_display" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="publisher_vern_display" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="record_source_facet" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="record_provider_facet" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="serial_coverage_display" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="subject_name_facet" type="string" indexed="true" stored="true" multiValued="true" />
 
