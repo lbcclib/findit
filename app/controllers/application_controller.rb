@@ -26,16 +26,24 @@ class ApplicationController < ActionController::Base
   end
 
   def create_article_api_session
-    if using_eds?
-        session[:article_api_connection] = EdsConnection.new
-    elsif using_worldcat?
-        session[:article_api_connection] = WorldcatConnection.new
+    unless session.key? :article_api_connection
+        if using_eds?
+            session[:article_api_connection] = EdsConnection.new
+        elsif using_worldcat?
+            session[:article_api_connection] = WorldcatConnection.new
+        end
     end
   end
 
   def create_evergreen_session
     begin
-        session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+        if session.key? :evergreen_connection
+            if session[:evergreen_connection] == nil
+                session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+            end
+        else
+            session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+        end
     rescue CouldNotConnectToEvergreenError
         session[:evergreen_connection] = nil
     end

@@ -1,3 +1,4 @@
+require 'openssl'
 # Connect to an external API to get some articles
 class EdsConnection < ArticleConnection
   # Create an initial connection to the API
@@ -11,6 +12,7 @@ class EdsConnection < ArticleConnection
         Rails.configuration.articles['password'],
         'edsapi')
       @raw_connection.uid_authenticate
+      @last_authentication = Time.current
     else
       begin
         @raw_connection.ip_init 'edsapi'
@@ -23,6 +25,11 @@ class EdsConnection < ArticleConnection
 
   def ready?
     if @raw_connection.show_session_token and @raw_connection.show_auth_token
+      if @auth_method == :uid 
+          if @last_authentication < 20.minutes.ago
+              initialize
+          end
+      end
       return true
     end
     return false
