@@ -6,6 +6,8 @@ class CreateUserFingerprints < ActiveRecord::Migration
       t.boolean :localhost
       t.boolean :bot_visitor
       t.text :postal_code
+      t.references :visit, type: :uuid, index: { unique: true }
+
 
       t.timestamps null: false
     end

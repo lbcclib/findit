@@ -4,7 +4,7 @@ class CreateSearchFingerprints < ActiveRecord::Migration
       t.text :query_string
       t.text :facets_used
       t.boolean :known_item
-      t.references :session, index: true, foreign_key: true
+      t.references :visit, type: :uuid
 
       t.timestamps null: false
     end

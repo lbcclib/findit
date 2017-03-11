@@ -252,10 +252,12 @@ class CatalogController < ApplicationController
   end
 
   after_filter :track_search, :only => :index
+  after_filter :track_metadata_view, :only => :show
 
   private
 
   def track_search
+    track_action
     SearchFingerprint.create do |sf|
       if params[:q]
         sf.query_string = params[:q]
@@ -267,15 +269,21 @@ class CatalogController < ApplicationController
       if params[:f]
         sf.facets_used = params[:f].to_json
       end
-      sf.session_id = session.id
     end
-    track_action
   end
 
   def track_action
     if Rails.env.production?
       ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters.to_json
       ahoy.track_visit
+    end
+  end
+
+  def track_metadata_view
+    track_action
+    MetadataViewFingerprint.create do |mvf|
+      mvf.document_id = @document.id
+      mvf.database_code = 'solr'
     end
   end
 
