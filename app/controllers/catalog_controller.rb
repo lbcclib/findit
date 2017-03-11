@@ -276,10 +276,8 @@ class CatalogController < ApplicationController
   end
 
   def track_action
-    if Rails.env.production?
-      ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters.to_json
-      ahoy.track_visit
-    end
+    ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters.to_json
+    ahoy.track_visit
   end
 
   def track_metadata_view
