@@ -259,8 +259,10 @@ class CatalogController < ApplicationController
     SearchFingerprint.create do |sf|
       if params[:q]
         sf.query_string = params[:q]
-        c = KnownItemSearchClassifier::Classifier.new
-        sf.known_item = (:known == (c.is_known_item_search? params[:q]))
+        unless params[:q].blank?
+          c = KnownItemSearchClassifier::Classifier.new
+          sf.known_item = (:known == (c.is_known_item_search? params[:q]))
+        end
       end
       if params[:f]
         sf.facets_used = params[:f].to_json
