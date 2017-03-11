@@ -78,3 +78,4 @@ gem 'browser', '=1.1.0'
 gem 'ahoy_matey'
 
 gem 'coveralls', require: false
+gem 'known_item_search_classifier'

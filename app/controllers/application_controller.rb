@@ -14,16 +14,8 @@ class ApplicationController < ActionController::Base
   before_filter :create_article_api_session
   before_filter :create_evergreen_session
   before_filter :start_jruby_pg
-  after_filter :track_action
 
   protected
-
-  def track_action
-    if Rails.env.production?
-      ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters
-      ahoy.track_visit
-    end
-  end
 
   def create_article_api_session
     unless session.key? :article_api_connection
