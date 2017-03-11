@@ -65,7 +65,7 @@ gem 'devise-guests', '~> 0.5'
 gem 'blacklight-marc', '~> 6.1'
 
 gem "blacklight_advanced_search", '~> 6.0.2'
-gem "blacklight_range_limit", "~> 6.0"
+gem "blacklight_range_limit", "6.0.0"
 gem "bibtex-ruby"
 gem "citeproc-ruby"
 gem "csl-styles"
