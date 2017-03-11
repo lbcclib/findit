@@ -2,6 +2,8 @@
 #
 class CatalogController < ApplicationController  
 
+  require('known_item_search_classifier')
+
   include BlacklightRangeLimit::ControllerOverride
   include BlacklightAdvancedSearch::Controller
   include Rails.application.routes.url_helpers
@@ -25,6 +27,14 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {}
+
+    config.advanced_search = {
+        :form_solr_parameters => {
+            "facet.field" => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet'],
+            "facet.sort" => "index" # sort by byte order of values
+        }
+    }
+
 
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
@@ -87,6 +97,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_geo_facet', :label => 'Region of focus', :limit => true, :sort => 'count'
     config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
     config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
+    config.add_facet_field 'genre_facet', :label => 'Genre', :limit => true, :sort => 'count'
     config.add_facet_field 'record_source_facet', :label => 'Source database', :limit => true
 
 =begin
@@ -239,4 +250,45 @@ class CatalogController < ApplicationController
   #Static page offering more search options
   def more
   end
+
+  after_filter :track_search, :only => :index
+  after_filter :track_metadata_view, :only => :show
+
+  private
+
+  def track_search
+    track_action
+    SearchFingerprint.create do |sf|
+      if params[:q]
+        sf.query_string = params[:q]
+        unless params[:q].blank?
+          c = KnownItemSearchClassifier::Classifier.new
+          sf.known_item = (:known == (c.is_known_item_search? params[:q]))
+        end
+      end
+      if params[:f]
+        sf.facets_used = params[:f].to_json
+      end
+      if params[:page]
+        sf.page = params[:page]
+      end
+    end
+  end
+
+  def track_action
+    if Rails.env.production?
+      ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters.to_json
+      ahoy.track_visit
+    end
+  end
+
+  def track_metadata_view
+    track_action
+    MetadataViewFingerprint.create do |mvf|
+      mvf.document_id = @document.id
+      mvf.database_code = 'solr'
+    end
+  end
+
+
 end

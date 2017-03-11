@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document_id: MyText
+  database_code: MyText
+  timestamp: 2017-03-10 14:37:11
+
+two:
+  document_id: MyText
+  database_code: MyText
+  timestamp: 2017-03-10 14:37:11

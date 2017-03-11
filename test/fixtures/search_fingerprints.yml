@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  query_string: MyText
+  facets_used: 
+  known_item: false
+  timestamp: 2017-03-10 13:13:33
+  session_id: 
+
+two:
+  query_string: MyText
+  facets_used: 
+  known_item: false
+  timestamp: 2017-03-10 13:13:33
+  session_id: 

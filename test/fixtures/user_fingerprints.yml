@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  on_campus: false
+  in_district: false
+  localhost: false
+  bot_visitor: false
+  postal_code: MyText
+
+two:
+  on_campus: false
+  in_district: false
+  localhost: false
+  bot_visitor: false
+  postal_code: MyText
