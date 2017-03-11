@@ -269,6 +269,9 @@ class CatalogController < ApplicationController
       if params[:f]
         sf.facets_used = params[:f].to_json
       end
+      if params[:page]
+        sf.page = params[:page]
+      end
     end
   end
 
