@@ -10,7 +10,7 @@ class SearchFingerprint < ActiveRecord::Base
     unless fingerprint_already_exists
       UserFingerprint.create do |uf|
         unless self.visit.ip.empty?
-          if '127.0.0.1' == self.visit.ip
+          if ['127.0.0.1', '0:0:0:0:0:0:0:1'].include? self.visit.ip
             uf.bot_visitor = false
             uf.in_district = true
             uf.localhost = true
