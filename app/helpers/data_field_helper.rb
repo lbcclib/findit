@@ -80,14 +80,17 @@ module DataFieldHelper
         end
     end
 
+    # Returns an HTML link to a search for the query "text" in quotes
     def exact_search_catalog_link text, search_field
         return link_to text, url_for(:q => "\"#{text}\"", :search_field => search_field )
     end
 
+    # Returns an HTML link to a search for the "text" query
     def search_catalog_link text, search_field
         return link_to text, url_for(:q => text, :search_field => search_field )
     end
 
+    # Return an HTML <a> tag containing a URL both as its content and its href attribute
     def external_link(url)
         if url =~ URI::regexp
             return link_to url, url
@@ -110,16 +113,18 @@ module DataFieldHelper
         else
 	    value = opts[:value]
         end
-        return truncate strip(value), length: desired_length, separator: ' '
+        return truncate strip(sanitize value), length: desired_length, separator: ' '
     end
 
+    # Remove whitespace and punctuation marks from the beginning and end
+    # of a string
     def strip(string)
         # Also strip preceeding [ or whitespace
 	if !string.is_a? String
 	   string = string.to_s
 	end
         string.gsub!(/^[\*\s]*/, '')
-        string.gsub!(/[,\-:;\s]*$/, '')
+        string.gsub!(/[,\:;\s]*$/, '')
         return string
     end
 

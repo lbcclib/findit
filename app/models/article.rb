@@ -36,7 +36,7 @@ class Article < SolrDocument
             end
             record['Items'].each do |item|
                 if 'Abstract' == item['Name']
-                    @abstract = item['Data']
+                    @abstract = Nokogiri::HTML.parse(item['Data']).text
                 end
             end
         end
