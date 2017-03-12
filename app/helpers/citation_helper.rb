@@ -49,7 +49,7 @@ module CitationHelper
        styles['MLA'] = CiteProc::Processor.new format: 'html', style: 'modern-language-association'
        styles['Chicago'] = CiteProc::Processor.new format: 'html', style: 'chicago-fullnote-bibliography'
        styles['IEEE'] = CiteProc::Processor.new format: 'html', style: 'ieee'
-       styles['CBE'] = CiteProc::Processor.new format: 'html', style: 'council-of-science-editors'
+       styles['CSE'] = CiteProc::Processor.new format: 'html', style: 'council-of-science-editors'
        
        # Generates the actual HTML citation using data from the
        # variable 'b' (our BibTeX string) and using the styles
