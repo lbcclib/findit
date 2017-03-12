@@ -4,10 +4,6 @@ class CitationHelperTest < ActionView::TestCase
 
   setup :initialize_vars
 
-  test "Test that BibTeX generated on the fly includes @book_title" do
-    assert create_bibtex(@long_document).to_s.include? @book_title
-  end
-
   test "Test that citations are being returned with 1 element in parseable HTML" do
     citations_generated = generate_citations(@short_document)
     citations_generated.each do |val|

@@ -7,7 +7,7 @@ class CoverImagesControllerTest < ActionController::TestCase
         assert_instance_of Array, identifiers
     end
     test "Trying to extract identifiers from a singleton solr field returns an array" do
-        document = SolrDocument.new
+        document = TestSolrDocument.new
         document.isbn_t = '9781595581037'
         identifiers = extract_identifiers document, 'isbn_t'
         assert_instance_of Array, identifiers
