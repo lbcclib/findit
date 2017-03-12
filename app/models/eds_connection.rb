@@ -44,6 +44,8 @@ class EdsConnection < ArticleConnection
     end
   end
 
+  # Send an entire search, and return the JSON data produced by
+  # the EDS API
   def send_search search_opts
     if @auth_method == :uid
       begin
@@ -60,6 +62,8 @@ class EdsConnection < ArticleConnection
     end
   end
 
+  # Return true if the configuration of the rails app is suitable
+  # for username/password authentication for the API
   def using_uid_auth?
     if Rails.configuration.articles['username'].nil? or Rails.configuration.articles['password'].nil?
       return false
