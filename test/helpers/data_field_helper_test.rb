@@ -15,6 +15,10 @@ class DataFieldHelperTest < ActionView::TestCase
     assert_kind_of Array, field_to_array(true)
   end
 
+  test "field_to_array keeps arrays as they are" do
+    assert_kind_of Array, field_to_array(["cats", "dogs", "goats", "iguanas"])
+  end
+
   test "Snippet produces text that is no longer than 200 characters using less than 200 characters" do
     assert snippet({Value: data_strings[:short_string]}).length <200
   end
