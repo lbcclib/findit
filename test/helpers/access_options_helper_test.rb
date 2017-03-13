@@ -32,7 +32,5 @@ class AccessOptionsHelperTest < ActionView::TestCase
   private
   def initialize_vars
     create_solr_documents
-    @long_document.eg_tcn_t = '1234'
-    @short_document.url_fulltext_display = 'http://duckduckgo.com'
   end
 end
