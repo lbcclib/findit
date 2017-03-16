@@ -10,6 +10,8 @@ class TestConnectionHandler < EDSApi::ConnectionHandler
 end
 
 class TestEdsConnection < EdsConnection
+    attr_reader :raw_connection
+    attr_writer :last_authentication
     def initialize
         super
         @raw_connection = TestConnectionHandler.new
@@ -51,6 +53,16 @@ class EdsConnectionTest < ActiveSupport::TestCase
         Rails.configuration.articles['password'] = 'password'
         conn = TestEdsConnection.new
         assert conn.ready?
+    end
+
+    test "UID-authenticated EDS Connection re-initializes if last_authentication was more than 20 minutes ago" do
+        Rails.configuration.articles['username'] = 'username'
+        Rails.configuration.articles['password'] = 'password'
+        conn = TestEdsConnection.new
+        first_session_token = conn.raw_connection.show_session_token
+        conn.last_authentication = 45.minutes.ago
+        conn.ready?
+        assert_not_equal first_session_token, conn.raw_connection.show_session_token
     end
 
     test "IP-authenticated EDS Connection reports that it is ready when both session token and auth token are available" do
