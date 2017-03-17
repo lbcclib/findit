@@ -18,6 +18,14 @@ class TestEdsConnection < EdsConnection
     end
 end
 
+class TestUnauthenticatedConnection < EdsConnection
+    attr_accessor :raw_connection
+    def initialize
+        @raw_connection = TestConnectionHandler.new
+        @raw_connection.auth_token = nil
+    end
+end
+
 class EdsConnectionTest < ActiveSupport::TestCase
     setup :initialize_vars
 
@@ -70,6 +78,11 @@ class EdsConnectionTest < ActiveSupport::TestCase
         Rails.configuration.articles['password'] = 'password'
         conn = TestEdsConnection.new
         assert conn.ready?
+    end
+
+    test "When no appropriate tokens are available, the EDS Connection object does not report that it is ready" do
+        conn = TestUnauthenticatedConnection.new
+        assert_not conn.ready?
     end
 
     private
