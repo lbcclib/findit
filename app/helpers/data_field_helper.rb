@@ -64,6 +64,9 @@ module DataFieldHelper
            else
               value_string = value
            end
+           if opts[:snippet]
+              value_string = snippet :value => value_string
+           end
 
            # Add a DC RDFa attribute
            if opts.key?(:dc_element)

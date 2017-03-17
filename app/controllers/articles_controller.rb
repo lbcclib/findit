@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
             results = session[:article_api_connection].retrieve_single_article params[:db], params[:id]
         end
         if results
-            @document.extract_data_from_api_response results['Record']
+            @document.extract_data_from results
         end
     end
 

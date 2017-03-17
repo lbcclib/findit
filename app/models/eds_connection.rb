@@ -37,28 +37,17 @@ class EdsConnection < ArticleConnection
 
   # Fetch a single article from the external API
   def retrieve_single_article db, id
-    if @auth_method == :uid
-      return @raw_connection.retrieve db, id, '', '', @raw_connection.show_session_token, @raw_connection.show_auth_token
-    else
-      return @raw_connection.retrieve db, id
-    end
+      article_identifiers = {'dbid' => db, 'an' => id}
+      return @raw_connection.retrieve article_identifiers
   end
 
   # Send an entire search, and return the JSON data produced by
   # the EDS API
   def send_search search_opts
-    if @auth_method == :uid
-      begin
-        return @raw_connection.search search_opts, @raw_connection.show_session_token, @raw_connection.show_auth_token
-      rescue ActionView::Template::Error, Net::ReadTimeout
-        return handle_timeout
-      end
-    else
-      begin
-        return @raw_connection.search search_opts
-      rescue ActionView::Template::Error, Net::ReadTimeout
-        return handle_timeout
-      end
+    begin
+      return @raw_connection.search search_opts
+    rescue ActionView::Template::Error, Net::ReadTimeout
+      return handle_timeout
     end
   end
 

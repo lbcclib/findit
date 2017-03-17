@@ -5,20 +5,19 @@
          <span class="document-counter">
          <%= article_counter.to_s + '.' if article_counter %>
          </span>
-         <%= link_to article.title, controller: 'articles', action: 'show', db: url_encode(article.db), id: url_encode(article.id) %>
+         <%= link_to article[:title], controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
         </h5>
         <div class="document-thumbnail">
-        <%= link_to send(blacklight_config.view_config(document_index_view_type).thumbnail_method, article), controller: 'articles', action: 'show', db: url_encode(article.db), id: url_encode(article.id) %>
+        <%= link_to send(blacklight_config.view_config(document_index_view_type).thumbnail_method, article), controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
         </div>
 
-        <%= display_fulltext_access_link article.url %>
+        <%= display_concise_access_options article %>
+
         <dl class="document-metadata dl-horizontal dl-invert">
-           <% if article.authors %>
-           <%= display_article_field('Authors', article.authors.join('; ')) %>
-           <% end %>
-           <%= display_article_field('Journal', article.journal) %>
-           <%= display_article_field('Publication year', article.year) %>
-           <%= display_article_field 'Abstract', snippet({value: article.abstract}) %>
+        <%= display_field(article, 'authors', 'Authors') %>
+        <%= display_field(article, 'year', 'Pub year') %>
+        <%= display_field(article, 'journal', 'Journal') %>
+        <%= display_field(article, 'abstract', 'Abstract', {:snippet => true}) %>
         </dl>
       </div>
    </div>
