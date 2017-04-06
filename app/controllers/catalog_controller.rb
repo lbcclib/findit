@@ -263,7 +263,10 @@ class CatalogController < ApplicationController
         sf.query_string = params[:q]
         unless params[:q].blank?
           c = KnownItemSearchClassifier::Classifier.new
-          sf.known_item = (:known == (c.is_known_item_search? params[:q]))
+	  begin
+            sf.known_item = (:known == (c.is_known_item_search? params[:q]))
+          rescue Encoding::InvalidByteSequenceError
+          end
         end
       end
       if params[:f]
