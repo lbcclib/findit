@@ -8,6 +8,12 @@ class ArticleSearch < Search
         return true
     end
 
+    # Create a new search object
+    #
+    # q: a query string
+    # page: a page number (can be an int or string)
+    # requested_facets: an array
+    # api_connection: and ApiConnection object or one of its descendants
     def initialize(q, page, requested_facets = [], api_connection)
         @q = q
         @page = page
