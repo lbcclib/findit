@@ -1,7 +1,7 @@
 <% unless search_fields.empty? %>
     <span class="<%= class_name %>">
         <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
-        <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :title => t('blacklight.search.form.search_field.title'), :class=>"search_field") %>
+        <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :title => t('blacklight.search.form.search_field.title'), :class=>select_class_name) %>
         <span class="sr-only"><%= t('blacklight.search.form.search_field.post_label') %></span>
     </span>
 <% end %>
