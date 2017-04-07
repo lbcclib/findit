@@ -23,7 +23,7 @@ Here's how to get this running for yourself:
 2. Decide on a directory on your computer where you'd like to install Find It.  Open a console and navigate to that directory.
 3. Type `rails _4.2.7_ new my_new_blacklight_app` to start a new Rails application, which will live in a subdirectory with the name you choose.  Replace `my_new_blacklightapp` with the name that you chose.
 
-4. With the text editor of your choice, open the file called `Gemfile` in the new subdirectory. Add the line `gem 'blacklight', "~> 6.6"`
+4. With the text editor of your choice, open the file called `Gemfile` in the new subdirectory. Add the line `gem 'blacklight', "~> 6.8"`
 5. Run `bundle install`
 6. Run `rails generate blacklight:install --devise --marc --jettywrapper`
 7. Run `git init` so you can begin using git in this directory.
