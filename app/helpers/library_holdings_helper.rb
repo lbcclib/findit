@@ -14,7 +14,7 @@ module LibraryHoldingsHelper
                 end
                 display_library_holdings.concat('</table>')
             else
-                display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' + tcn + 'hold_type=T;hold_source_page=/eg/opac/record/'+ tcn + '?query=locg=8&detail_record_view=1" class="btn btn-warning" target="_blank">Place a hold</a>'
+                display_library_holdings = '<a href="http://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' + tcn.to_s + 'hold_type=T;hold_source_page=/eg/opac/record/'+ tcn.to_s + '?query=locg=8&detail_record_view=1" class="btn btn-warning" target="_blank">Place a hold</a>'
             end
         else
             display_library_holdings.concat 'Ask a librarian for information about this item.'

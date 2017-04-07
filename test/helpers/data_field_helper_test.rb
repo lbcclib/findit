@@ -33,8 +33,7 @@ class DataFieldHelperTest < ActionView::TestCase
 
     test "external link produces valid HTML link when given a well-formatted URL" do
       link = external_link 'http://library.linnbenton.edu/c.php?g=13287&p=2901925'
-      assert Nokogiri::HTML.parse link
-      assert !(link !~ /<a\b[^>]*>(.*?)<\/a>/i)
+      assert is_valid_link link
     end
     test "external_link does not produce a link to any poorly-formatted URLs" do
       assert external_link 'http://library.linnbenton.edu/c.php?g=13287&p=2901925' !~ /<a\b[^>]*>(.*?)<\/a>/i

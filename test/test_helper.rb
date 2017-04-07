@@ -1,6 +1,10 @@
 require 'coveralls'
 Coveralls.wear!
 
+require 'erb'
+include ERB::Util
+
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -11,6 +15,10 @@ class ActiveSupport::TestCase
   #fixtures :all
 
   class TestSolrDocument < SolrDocument
+    attr_writer :_source
+  end
+
+  class TestArticleDocument < Article
     attr_writer :_source
   end
 
@@ -32,5 +40,16 @@ class ActiveSupport::TestCase
     @long_document._source[:author_display] = @author
     @long_document._source[:pub_date] = Array(@pub_date)
     @long_document._source[:publisher_display] = Array(@pub_comp)
+  end
+
+  # Verify that link is parseable, begins with an <a> tag, and ends with a closing </a> tag
+  def is_valid_link link
+    unless Nokogiri::HTML.parse link
+        return false
+    end
+    if (link !~ /<a\b[^>]*>(.*?)<\/a>/i)
+        return false
+    end
+    return true
   end
 end
