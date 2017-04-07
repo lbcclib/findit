@@ -57,14 +57,13 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'warbler'
 
-gem 'blacklight', '~> 6.6'
+gem 'blacklight', '~> 6.8'
 
 gem 'rsolr', '~> 1.1.2'
 gem 'devise', '~> 4.2'
 gem 'devise-guests', '~> 0.5'
 gem 'blacklight-marc', '~> 6.1'
 
-gem "blacklight_advanced_search", '~> 6.0.2'
 gem "blacklight_range_limit", "6.0.0"
 gem "bibtex-ruby"
 gem "citeproc-ruby"

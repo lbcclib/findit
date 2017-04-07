@@ -5,7 +5,6 @@ class CatalogController < ApplicationController
   require('known_item_search_classifier')
 
   include BlacklightRangeLimit::ControllerOverride
-  include BlacklightAdvancedSearch::Controller
   include Rails.application.routes.url_helpers
 
   include Blacklight::Catalog
@@ -21,21 +20,6 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
-    # default advanced config values
-    config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
-    # config.advanced_search[:qt] ||= 'advanced'
-    config.advanced_search[:url_key] ||= 'advanced'
-    config.advanced_search[:query_parser] ||= 'dismax'
-    config.advanced_search[:form_solr_parameters] ||= {}
-
-    config.advanced_search = {
-        :form_solr_parameters => {
-            "facet.field" => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet'],
-            "facet.sort" => "index" # sort by byte order of values
-        }
-    }
-
-
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = { 
@@ -100,17 +84,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'genre_facet', :label => 'Genre', :limit => true, :sort => 'count'
     config.add_facet_field 'series_facet', :label => 'Series', :limit => true, :sort => 'count'
     config.add_facet_field 'record_source_facet', :label => 'Source database', :limit => true
-
-=begin
-    config.advanced_search = {
-        :form_solr_parameters => {
-            'facet.field' => ['is_electronic_facet', 'format', 'language_facet', 'subject_topic_facet', 'subject_geo_facet', 'subject_name_facet', 'record_source_facet'],
-            'facet.limit' => 10,
-            'facet.sort' => 'index' # sort by byte order of values
-        }
-    }
-=end
-
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
