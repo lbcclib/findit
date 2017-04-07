@@ -46,6 +46,7 @@ module CoverImagesController
     # Returns a URI for a thumbnail image if it can find one,
     # otherwise it returns false
     # If it was successful, it also caches the URI
+    # If it was unsuccessful, it caches the solr_id with a thumbnail_url=NULL
     def fetch_new_cover identifiers, id
         identifiers[:isbns].each do |isbn|
             thumbnail_url = get_image_url(isbn, 'isbn', 'S')
@@ -57,7 +58,10 @@ module CoverImagesController
 		end
             end
         end
+	begin
         image = CoverImage.create(solr_id: id)
+	rescue ActiveRecord::JDBCError
+        end
         return false
     end
 
