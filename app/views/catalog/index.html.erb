@@ -1,7 +1,7 @@
 <% if has_search_parameters? %>
   <% if show_articles? %>
     <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
-    <% article_results = ArticleSearch.new params[:q], current_page, params[:article_facets], session[:article_api_connection] %>
+    <% article_results = ArticleSearch.new params[:q], params[:search_field], current_page, params[:article_facets], session[:article_api_connection] %>
     <% article_results.send_search %>
   <% end %>
 

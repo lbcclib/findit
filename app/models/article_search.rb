@@ -14,8 +14,10 @@ class ArticleSearch < Search
     # page: a page number (can be an int or string)
     # requested_facets: an array
     # api_connection: and ApiConnection object or one of its descendants
-    def initialize(q, page, requested_facets = [], api_connection)
-        @q = q
+    def initialize(q, search_field, page, requested_facets = [], api_connection)
+        search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'TX', 'subject' => 'SU'}
+        @q = q || 'Linn-Benton Community College'
+        @search_field_code = search_fields[search_field] || 'TX'
         @page = page
         @api_connection = api_connection
         @articles = Array.new
@@ -26,7 +28,7 @@ class ArticleSearch < Search
     # Assemble the requested filters, search options, and defaults for an article search
     def search_opts
         search_opts = Array.new
-        search_opts << ['query-1', @q]
+        search_opts << ['query-1', @search_field_code + ':' + @q]
         search_opts << ['limiter', 'FT:y']
         search_opts << ['resultsperpage', '10']
         search_opts << ['view', 'detailed']
