@@ -28,7 +28,7 @@ class ArticleSearch < Search
     # Assemble the requested filters, search options, and defaults for an article search
     def search_opts
         search_opts = Array.new
-        search_opts << ['query-1', @search_field_code + ':' + @q]
+        search_opts << ['query-1', @search_field_code + ':' + @q.gsub(/[[:punct:]]/, '')] # remove punctuation, because EDS responds poorly to it (particularly : and ,)
         search_opts << ['limiter', 'FT:y']
         search_opts << ['resultsperpage', '10']
         search_opts << ['view', 'detailed']
