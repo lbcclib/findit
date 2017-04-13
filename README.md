@@ -19,7 +19,7 @@ Here's how to get this running for yourself:
 
 1. Make sure that Ruby, Rails, Git, and Java are installed on your computer.
   * For folks running Linux, the OpenJDK version of Java should be sufficient; I haven't needed to use Oracle Java for this setup.
-  * For folks running Windows, you can install Ruby, Rails, and Git using the [Rails Installer](http://railsinstaller.org/en). I recommend that you use the 2.1 installer, due to a [bothersome issue with their 2.2 installer](https://github.com/railsinstaller/railsinstaller-windows/issues/81). 
+  * For folks running Windows, install [JRuby](http://jruby.org/), then run the command `gem install rails -v 4.2.7`. Also download and install [Git](https://git-scm.com/download/win)
 2. Decide on a directory on your computer where you'd like to install Find It.  Open a console and navigate to that directory.
 3. Type `rails _4.2.7_ new my_new_blacklight_app` to start a new Rails application, which will live in a subdirectory with the name you choose.  Replace `my_new_blacklightapp` with the name that you chose.
 
@@ -48,7 +48,7 @@ It exists primarily to get a quick testing environment put together for CI purpo
 ```
 git clone https://github.com/sandbergja/discovery_layer
 cd discovery_layer
-rails _4.2.5_ new -s .
+rails _4.2.7_ new -s .
 rake findit:install
 ````
 
