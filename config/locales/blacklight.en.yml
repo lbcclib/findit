@@ -1,5 +1,9 @@
 en:
   blacklight:
+    search:
+      form:
+        search:
+          placeholder: 'Find the best book in the world!!'
     application_name: 'Find It'
     articles_description: 'Emerging research and news articles -- great sources for your next paper'
     articles_label: 'Articles'
