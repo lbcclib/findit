@@ -66,14 +66,14 @@ rake findit:install
 
 ## Ben's Adventurous-ish Installation Guide (Using VM)
 
-###Setting up Virtual Machine: 
+### Setting up Virtual Machine: 
 
 1. Download VM software: https://www.virtualbox.org/wiki/Downloads
 2. Download Ubuntu: https://www.ubuntu.com/download/desktop
 3. Click 'New' in VM -> Name it -> select 'Linux' for type -> continue with default RAM memory allocation -> Create virtual hard disk -> select VDI (default) -> select Dynamically Allocated for hard disk space -> **important: choose 11gb, (for some reason, the default is not enough)**
 4. Start the Virtual Machine you just created -> click the folder to browse system for an OS image. -> Find the Ubuntu OS image you downloaded in step 2 (in Downloads folder by default) -> 'Install Ubuntu' -> check 'Download updates while installing Ubuntu' -> 'Erase disck and install Ubuntu' -> 'Install Now' -> 'Continue' -> select time-zone -> select keyboard -> name machine -> give password -> 'Continue' -> wait... -> 
 
-###After Virtual Machine is set up:
+### After Virtual Machine is set up:
 
 1. Open Terminal
 2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all`
