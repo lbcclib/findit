@@ -63,3 +63,26 @@ rake findit:install
   * Click the pull requests tab
   * Click New Pull Request.
   * Verify your changes, then click "Create pull request".
+
+## Ben's Adventurous-ish Installation Guide (Using VM)
+
+###Setting up Virtual Machine: 
+
+1. Download VM software: https://www.virtualbox.org/wiki/Downloads
+2. Download Ubuntu: https://www.ubuntu.com/download/desktop
+3. Click 'New' in VM -> Name it -> select 'Linux' for type -> continue with default RAM memory allocation -> Create virtual hard disk -> select VDI (default) -> select Dynamically Allocated for hard disk space -> **important: choose 11gb, (for some reason, the default is not enough)**
+4. Start the Virtual Machine you just created -> click the folder to browse system for an OS image. -> Find the Ubuntu OS image you downloaded in step 2 (in Downloads folder by default) -> 'Install Ubuntu' -> check 'Download updates while installing Ubuntu' -> 'Erase disck and install Ubuntu' -> 'Install Now' -> 'Continue' -> select time-zone -> select keyboard -> name machine -> give password -> 'Continue' -> wait... -> 
+
+###After Virtual Machine is set up:
+
+1. Open Terminal
+2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all`
+3. `git clone https://github.com/sandbergja/discovery_layer`
+4. `cd discovery_layer`
+5. `sudo gem install pg`
+6. `sudo gem install sqlite3 -v '1.3.13'`
+7. `bundle install`
+8. `rails new -s .`
+9. `rake findit:install`
+10. `rails server`
+11. Open browser (Firefox) and enter 'http://localhost:3000' (the 3000 part may be different, you can search the Terminal message for that)
