@@ -45,7 +45,7 @@ module AccessOptionsHelper
 
     # Return a bootstrap button that links to the given value
     def display_fulltext_access_link url
-        return link_to('Access this resource', URI.encode(url), class: 'btn btn-success', role: 'button', target: '_blank')
+        return link_to('Access this resource', url, class: 'btn btn-success', role: 'button', target: '_blank')
     end
 
     def mode_of_access document

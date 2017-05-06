@@ -2,14 +2,14 @@
 <%= display_access_options @document %>
 <h2><%= t('blacklight.about_resource_header') %></h2>
 <dl class="dl-horizontal  dl-invert">
-  <%= display_field(@document, :authors, <%= t('blacklight.authors_display') %>, :search_link => true, :search_fields => <%= t('blacklight.authors_search_display_true') %>, :search_exact_match => false, :dc_element => <%= t('blacklight.authors_search_display_false') %>) %>
-  <%= display_field(@document, :abstract, <%= t('blacklight.abstract_display') %>, :dc_element => <%= t('blacklight.abstract_search_display') %>) %>
+  <%= display_field(@document, :authors, t('blacklight.authors_display'), :search_link => true, :search_fields => t('blacklight.authors_search_display_true'), :search_exact_match => false, :dc_element => t('blacklight.authors_search_display_false') ) %>
+  <%= display_field(@document, :abstract, t('blacklight.abstract_display'), :dc_element => t('blacklight.abstract_search_display')) %>
 
 </dl>
 
 <h2><%= t('blacklight.about_edition_header') %></h2>
 <dl class="dl-horizontal  dl-invert">
-  <%= display_field(@document, :journal, <%= t('blacklight.journal_display') %>, :search_link => true, :search_fields => <%= t('blacklight.journal_search_display') %>, :search_exact_match => false, :dc_element => <%= t('blacklight.journal_search_display') %>) %>
-  <%= display_field(@document, :year, <%= t('blacklight.pubyear_display') %>, :dc_element => <%= t('blacklight.pubyear_search_display') %>) %>
+  <%= display_field(@document, :journal, t('blacklight.journal_display'), :search_link => true, :search_fields => t('blacklight.journal_search_display'), :search_exact_match => false, :dc_element => t('blacklight.journal_search_display')) %>
+  <%= display_field(@document, :year, t('blacklight.pubyear_display'), :dc_element => t('blacklight.pubyear_search_display')) %>
 
 </dl>
