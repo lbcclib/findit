@@ -3,20 +3,20 @@ require 'test_helper'
 class DataFieldHelperTest < ActionView::TestCase
   data_strings = YAML::load_file Rails.root.join('test', 'fixtures', 'data_strings.yml')
 
-  test "Convert a string into an array" do
-    assert_kind_of Array, field_to_array("A Magical String")
+  test "turn_into_array converts a string into an array" do
+    assert_kind_of Array, turn_into_array("A Magical String")
   end
 
-  test "Convert an int into an array" do
-    assert_kind_of Array, field_to_array(283)
+  test "turn_into_array converts an int into an array" do
+    assert_kind_of Array, turn_into_array(283)
   end
 
-  test "Convert a Boolean into an array" do
-    assert_kind_of Array, field_to_array(true)
+  test "turn_into_array converts a Boolean into an array" do
+    assert_kind_of Array, turn_into_array(true)
   end
 
-  test "field_to_array keeps arrays as they are" do
-    assert_kind_of Array, field_to_array(["cats", "dogs", "goats", "iguanas"])
+  test "turn_into_array keeps arrays as they are" do
+    assert_kind_of Array, turn_into_array(["cats", "dogs", "goats", "iguanas"])
   end
 
   test "Snippet produces text that is no longer than 200 characters using less than 200 characters" do

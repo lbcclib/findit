@@ -5,20 +5,6 @@ module DataFieldHelper
     include ActionView::Helpers::TextHelper
     require 'uri'
 
-    # Make sure that this is an array
-    def field_to_array(value)
-        value_arr = []
-        if value.is_a?(Array)
-           value_arr = value
-        elsif value.is_a?(String)
-           if value.length>0
-              value_arr.push(value)
-           end
-        else
-            value_arr.push value.to_s
-        end
-        return value_arr
-    end
 
     # Create the HTML to display a field
     # from a solr document
@@ -28,12 +14,12 @@ module DataFieldHelper
         # desired field
         if document.respond_to? field_name
            if document.send field_name
-              values = field_to_array(document.send field_name)
+              values = turn_into_array(document.send field_name)
            else
               return nil
            end
         elsif document.has? field_name
-           values = field_to_array(document[field_name])
+           values = turn_into_array(document[field_name])
         else
            return nil
         end
@@ -44,43 +30,7 @@ module DataFieldHelper
            end
         end
 
-        values_html = Array.new
-
-        values.each do |value|
-           # Display this field as a link to a search
-           if opts[:search_link]
-              # If no search field is specified, default to
-              # searching all fields
-              search_field = opts.key?(:search_fields) ? opts[:search_fields] : 'all_fields'
-              if opts.key?(:exact_match)
-                 value_string = exact_search_catalog_link(strip(value), search_field)
-              else
-                 value_string = search_catalog_link(strip(value), search_field)
-              end
-
-           elsif opts[:contains_url]
-              value_string = external_link(value) 
-
-           else
-              value_string = value
-           end
-           if opts[:snippet]
-              value_string = snippet :value => value_string
-           end
-
-           # Add a DC RDFa attribute
-           if opts.key?(:dc_element)
-              entry = opts[:dc_element].length > 0 ? '<span property="http://purl.org/dc/terms/' + opts[:dc_element] + '">' + value_string + '</span>' : value_string
-           else
-              entry = value_string
-           end
-        values_html.push(entry)
-        end
-
-        if values_html.any?
-           display_string = '<dt>' + label + '</dt><dd>' + values_html.join('; ')
-           return display_string.html_safe
-        end
+	return array_to_html_for_display values, label, opts
     end
 
     # Returns an HTML link to a search for the query "text" in quotes
@@ -119,6 +69,8 @@ module DataFieldHelper
         return truncate strip(sanitize value), length: desired_length, separator: ' '
     end
 
+    private
+
     # Remove whitespace and punctuation marks from the beginning and end
     # of a string
     def strip(string)
@@ -129,6 +81,62 @@ module DataFieldHelper
         string.gsub!(/^[\*\s]*/, '')
         string.gsub!(/[,\:;\s]*$/, '')
         return string
+    end
+
+    # Takes any possible output from solr and turns it into an array
+    def turn_into_array(value)
+        value_arr = []
+        if value.is_a?(Array)
+           value_arr = value
+        elsif value.is_a?(String)
+           if value.length>0
+              value_arr.push(value)
+           end
+        else
+            value_arr.push value.to_s
+        end
+        return value_arr
+    end
+
+    # Takes an array of values and outputs a valid HTML display of the array
+    def array_to_html_for_display values, label, opts
+        values_html = Array.new
+
+        values.each do |value|
+           # Display this field as a link to a search
+           if opts[:search_link]
+              # If no search field is specified, default to
+              # searching all fields
+              search_field = opts.key?(:search_fields) ? opts[:search_fields] : 'all_fields'
+              if opts.key?(:exact_match)
+                 value_string = exact_search_catalog_link(strip(value), search_field)
+              else
+                 value_string = search_catalog_link(strip(value), search_field)
+              end
+
+           elsif opts[:contains_url]
+              value_string = external_link(value) 
+
+           else
+              value_string = value
+           end
+           if opts[:snippet]
+              value_string = snippet :value => value_string
+           end
+
+           # Add a DC RDFa attribute
+           if opts.key?(:dc_element)
+              entry = opts[:dc_element].length > 0 ? '<span property="http://purl.org/dc/terms/' + opts[:dc_element] + '">' + value_string + '</span>' : value_string
+           else
+              entry = value_string
+           end
+        values_html.push(entry)
+        end
+
+        if values_html.any?
+           display_string = '<dt>' + label + '</dt><dd>' + values_html.join('; ')
+           return display_string.html_safe
+        end
     end
 
 end
