@@ -9,20 +9,7 @@ module DataFieldHelper
     # Create the HTML to display a field
     # from a solr document
     def display_field(document, field_name, label, opts = {})
-        
-        # Make sure that the document actually has the
-        # desired field
-        if document.respond_to? field_name
-           if document.send field_name
-              values = turn_into_array(document.send field_name)
-           else
-              return nil
-           end
-        elsif document.has? field_name
-           values = turn_into_array(document[field_name])
-        else
-           return nil
-        end
+        values = get_array_from_solr document, field_name
         
         if opts[:dedupe]
            if :personal_names == opts[:dedupe]
@@ -71,6 +58,27 @@ module DataFieldHelper
 
     private
 
+    # Given a solr document and a field name, it will return an array
+    # of values for that docuement, or nil if the solr document doesn't
+    # have that field
+    def get_array_from_solr document, field_name
+	# Make sure that the document actually has the
+        # desired field
+        if document.respond_to? field_name
+           if document.send field_name
+              values = turn_into_array(document.send field_name)
+           else
+              return nil
+           end
+        elsif document.has? field_name
+           values = turn_into_array(document[field_name])
+        else
+           return nil
+        end
+	return values
+    end
+
+	
     # Remove whitespace and punctuation marks from the beginning and end
     # of a string
     def strip(string)
