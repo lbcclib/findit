@@ -1,5 +1,8 @@
 en:
   blacklight:
+    search:
+      form:
+        q: 'Search'
     application_name: 'Find It'
     articles_description: 'Emerging research and news articles -- great sources for your next paper'
     articles_label: 'Articles'
@@ -7,3 +10,68 @@ en:
     more_solr_results: 'More books and media'
     solr_results_label: 'Books and media'
     solr_results_description: 'E-books, streaming video and music, library books and more'
+    about_resource_header: 'About this resource'
+    about_edition_header: 'About this edition'
+    authors_display: 'Authors'
+    authors_search_display_true: 'authors'
+    authors_search_display_false: 'creator'
+    abstract_display: 'Abstract'
+    abstract_search_display: 'description'
+    journal_display: 'Journal'
+    journal_search_display: 'title'
+    pubyear_display: 'Publication year'
+    pubyear_search_display: 'date'
+    cat_about_main: >
+      The LBCC Library offers countless books, research databases, ebooks, media, streaming content, and research tools to our patrons.
+      Rather than searching just one collection of books or articles at a time, Find It searches all of the Library's print and electronic resources at once.  This simplifies the research process and empowers you to select the exact resources that meet your needs.
+    cat_about_what: 'What am I searching?'
+    cat_about_included: 'Find It searches the following research databases:'
+    cat_dblist_alex: 'Alexander Street Press titles (American history in video, American song, Classical music library, Smithsonian global sound)'
+    cat_dblist_credo: 'Credo reference -- at the reference book level'
+    cat_dblist_ebrary: 'eBrary'
+    cat_dblist_ebsco: 'All EBSCO databases'
+    cat_dblist_ebscoeb: 'EBSCO ebooks (but need to set up a different delivery method -- EDX?)'
+    cat_dblist_everg: 'Evergreen catalog (LBCC non-reserve holdings only)'
+    cat_dblist_filmsond: 'Films on demand'
+    cat_dblist_gale: 'Gale Opposing Viewpoints in context, American history in context'
+    cat_dblist_galevrl: 'Gale Virtual Reference Library'
+    cat_dblist_oapubdom: 'Several open access and public domain ebook sources: HathiTrust, DOAB, NCBI bookshelf, Wright American Fiction'
+    cat_about_excluded: 'It does not currently search:'
+    cat_excl_rsrv: 'Resrves items'
+    cat_excl_evgother: 'Evergreen catalog for other consortium members'
+    cat_excl_evgweb: 'Evergreen Web site records'
+    cat_excl_otherj: 'Other journal databases (but we could pay EBSCO for these data)'
+    cat_excl_ebgaledbjlvl: 'EBSCO/Gale databases at the journal level'
+    cat_excl_galestres: 'Gale student resources in context (seemed too oriented to high school audience, but can add'
+    cat_excl_credotop: 'Credo at the topic page level -- not sure if this is possible'
+    cat_about_how: 'How does it work?'
+    cat_about_abtbackend: >
+      Find It uses <a href="http://projectblacklight.org/">Blacklight</a> for its interface and <a href="https://lucene.apache.org/solr/">Solr</a> to store data and serve up search results.  Find It's data come from <a href="http://libcat.linnbenton.edu">our library catalog</a>, <a href="http://www.oclc.org/en-US/worldshare-collection-manager.html">WorldShare Collection Manager</a>, and a handful of other sources.
+    cat_about_source: >
+      All of the code for Find It can be found at <a href="http://github.com/sandbergja/discovery_layer">its Github repository</a>.
+    cat_about_who: 'Who helped out?'
+    cat_who_rosalie: >
+      Rosalie Lingo created the site's graphics and color scheme.  Rosalie also provided invaluable guidance on Find It's layout and design.
+    cat_who_many: >
+      The many <a href="https://github.com/projectblacklight/blacklight/graphs/contributors">contributors</a> to Project Blacklight provided the backbone of Find It's code, and helpful voices on the <a href="https://groups.google.com/forum/#!forum/blacklight-development">Blacklight Development Group</a> provided helpful implementation tips.
+    cat_who_wayne: >
+      Wayne Schneider and Phil Feilmeyer made their very informative solr indexing scripts <a href="https://github.com/wafschneider/dynamic-indexing-code4lib2015/blob/master/hcl_scripts.bsh">publicly available</a>.
+    cat_who_countless: >
+      Countless contributors added cover images and control numbers to the <a href="http://openlibrary.org">OpenLibrary project</a>, which is how Find It incorporates cover images into its interface.  <a href="https://openlibrary.org/people/niniancat">Michelle Lanae Walker</a>, <a href="https://openlibrary.org/people/Rusly">Rusly Marzuki</a>, and <a href="https://openlibrary.org/people/sandbergja">Jane Sandberg</a> have been the major LBCC contributors to this project.
+    cat_about_bugrep: 'I have found a problem!'
+    cat_bugrep_text: >
+      If you'd like us to add a feature or fix a bug, <a href="https://github.com/sandbergja/discovery_layer/issues/new">let us know about it on GitHub</a>. You will need to register for an account on GitHub first.
+    cat_more_books: 'Books'
+    cat_more_ebooks: 'Ebooks'
+    cat_more_articles: 'Articles'
+    tog_nav: 'Toggle Navigation'
+    email:
+      text:
+        bookmessage: "Follow this link to go to reserve your book: https://libcat.linnbenton.edu/eg/opac/place_hold?hold_target="
+        urlend: "&hold_type=T"
+        urlmessage: "Follow this link to access this online resource: "
+    sms:
+      text:
+        bookmessage: "Follow this link to go to reserve your book: https://libcat.linnbenton.edu/eg/opac/place_hold?hold_target="
+        urlend: "&hold_type=T"
+        urlmessage: "Follow this link to access this online resource: "

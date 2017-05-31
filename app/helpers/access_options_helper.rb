@@ -11,7 +11,11 @@ module AccessOptionsHelper
         mode = mode_of_access document
         if mode
             if 'library_holdings' == mode
-                display_full_library_holdings document['eg_tcn_t']
+                if document['eg_tcn_t'].is_a? Array
+                    display_full_library_holdings document['eg_tcn_t'].first
+		else
+                    display_full_library_holdings document['eg_tcn_t']
+                end
             elsif 'url' == mode
                 return display_fulltext_access_link document['url_fulltext_display'][0]
             end
@@ -26,7 +30,11 @@ module AccessOptionsHelper
         mode = mode_of_access document
         if mode
             if 'library_holdings' == mode
-                display_simple_library_holdings document['eg_tcn_t']
+                if document['eg_tcn_t'].is_a? Array
+                    display_simple_library_holdings document['eg_tcn_t'].first
+		else
+                    display_simple_library_holdings document['eg_tcn_t']
+                end
             elsif 'url' == mode
                 return display_fulltext_access_link document['url_fulltext_display'][0]
             end
@@ -37,7 +45,7 @@ module AccessOptionsHelper
 
     # Return a bootstrap button that links to the given value
     def display_fulltext_access_link url
-        return link_to('Access this resource', URI.encode(url), class: 'btn btn-success', role: 'button', target: '_blank')
+        return link_to('Access this resource', url, class: 'btn btn-success', role: 'button', target: '_blank')
     end
 
     def mode_of_access document
