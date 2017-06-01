@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class DataFieldHelperTest < ActionView::TestCase
+  setup :create_solr_documents
   data_strings = YAML::load_file Rails.root.join('test', 'fixtures', 'data_strings.yml')
 
   test "turn_into_array converts a string into an array" do
