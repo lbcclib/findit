@@ -10,6 +10,10 @@ module DataFieldHelper
     # from a solr document
     def display_field(document, field_name, label, opts = {})
         values = get_array_from_solr document, field_name
+
+	if values.nil?
+	  return nil
+	end
         
         if opts[:dedupe]
            if :personal_names == opts[:dedupe]
