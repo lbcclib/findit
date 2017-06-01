@@ -38,4 +38,15 @@ class DataFieldHelperTest < ActionView::TestCase
     test "external_link does not produce a link to any poorly-formatted URLs" do
       assert external_link 'http://library.linnbenton.edu/c.php?g=13287&p=2901925' !~ /<a\b[^>]*>(.*?)<\/a>/i
     end
+    test "check that short document has a field_name" do
+      assert get_array_from_solr @short_document, :title_display
+    end
+   
+    test "check that long document has a field_name" do
+      assert get_array_from_solr @long_document, :author_display
+    end
+    
+    test "check that long document does not have a field_name" do
+      assert !(get_array_from_solr @long_document, :url_fulltext_display)
+    end
 end
