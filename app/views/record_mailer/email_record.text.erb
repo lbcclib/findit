@@ -4,7 +4,11 @@
 <%# Logic to determine if resource is a book or online, displays appropriate link, or if you need to talk to a librarian %>
 <% if document['eg_tcn_t'] != nil %>
 <%= t('blacklight.email.text.bookmessage', :bookmessage => @bookmessage ) -%>
+<% if document['eg_tcn_t'].kind_of? Array %>
 <%= document['eg_tcn_t'].first -%>
+<% else %>
+<%= document['eg_tcn_t'] -%>
+<% end %>
 <%= t('blacklight.email.text.urlend', :urlend => @urlend ) %>
 <% elsif document['url_fulltext_display'] %>
 <%= t('blacklight.email.text.urlmessage', :urlmessage => @urlmessage ) -%>

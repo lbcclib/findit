@@ -71,7 +71,7 @@ en:
         urlend: "&hold_type=T"
         urlmessage: "Follow this link to access this online resource: "
     sms:
-        text:
+      text:
         bookmessage: "Follow this link to go to reserve your book: https://libcat.linnbenton.edu/eg/opac/place_hold?hold_target="
         urlend: "&hold_type=T"
         urlmessage: "Follow this link to access this online resource: "
