@@ -24,6 +24,27 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = { 
       :qt => 'search',
+      :qf => %w[
+        abstract_t
+	author_t
+	contents_t
+	followed_by_t
+	has_part_t
+	is_part_of_t
+	isbn_t
+	isbn_of_alternate_edition_t
+	language_facet
+	note_t
+	preceeded_by_t
+	subject_t
+	subject_additional_t
+	subject_name_facet
+	subject_topic_facet
+	subject_era_facet
+	subject_geo_facet
+	subtitle_t
+	title_t
+      ].join(' '),
       :rows => 10,
       :fl => '*'
     }
