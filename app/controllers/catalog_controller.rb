@@ -93,7 +93,7 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'is_electronic_facet', :label => 'Access it', :collapse => false
+    config.add_facet_field 'is_electronic_facet', :label => 'Get it', :collapse => false
     config.add_facet_field 'format', :label => 'Format', :collapse => false
     config.add_facet_field 'pub_date_sort', :label => 'Publication year', :range => true, :collapse => false
     config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20, :sort => 'count'
