@@ -25,7 +25,8 @@ class CatalogController < ApplicationController
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
-      :fl => '*'
+      :fl => '*',
+      :bq => 'is_electronic_facet:"Albany Campus Library"^150.0',
     }
     
     # solr path which will be added to solr base url before the other solr params.
