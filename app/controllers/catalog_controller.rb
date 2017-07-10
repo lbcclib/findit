@@ -24,6 +24,27 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = { 
       :qt => 'search',
+      :qf => %w[
+        abstract_t
+	author_t
+	contents_t
+	followed_by_t
+	has_part_t
+	is_part_of_t
+	isbn_t
+	isbn_of_alternate_edition_t
+	language_facet
+	note_t
+	preceeded_by_t
+	subject_t
+	subject_additional_t
+	subject_name_facet
+	subject_topic_facet
+	subject_era_facet
+	subject_geo_facet
+	subtitle_t
+	title_t
+      ].join(' '),
       :rows => 10,
       :fl => '*',
       :bq => 'is_electronic_facet:"Albany Campus Library"^150.0',
@@ -73,7 +94,7 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'is_electronic_facet', :label => 'Access it', :collapse => false
+    config.add_facet_field 'is_electronic_facet', :label => 'Get it', :collapse => false
     config.add_facet_field 'format', :label => 'Format', :collapse => false
     config.add_facet_field 'pub_date_sort', :label => 'Publication year', :range => true, :collapse => false
     config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20, :sort => 'count'
