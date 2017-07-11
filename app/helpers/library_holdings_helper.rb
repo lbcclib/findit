@@ -40,7 +40,7 @@ module LibraryHoldingsHelper
     private
     def get_status tcn
         if session[:evergreen_connection]
-            stat = session[:evergreen_connection].get_holdings tcn, org_unit: 8, descendants: true
+            stat = session[:evergreen_connection].get_holdings tcn, org_unit: 1, descendants: true
             if stat.copies.size > 0
                 return stat
             end
