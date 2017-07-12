@@ -1,0 +1,45 @@
+<% if session[:evergreen_connection] %>
+	<% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'].first, org_unit: 1, descendants: true %>
+	<% available_albany_copy = false %>
+	<% available_hoc_copy = false %>
+	<% lbcc_owns = false %>
+	<% if stat.copies.size > 0 %>
+		<% stat.copies.each do |copy| %>
+			<% if 'LBCC Library' == copy.owning_lib %>
+				<% lbcc_owns = true %>
+				<% if 'Available' == copy.status %>
+					<% available_albany_copy = true %>
+				<% end %>
+			<% elsif 'LBCC Healthcare Occupations Center' == copy.owning_lib%>
+				<% lbcc_owns = true %>
+				<% if 'Available' == copy.status %>
+					<% available_hoc_copy = true %>
+				<% end %>
+			<% end %>
+			<% if available_hoc_copy and available_albany_copy and lbcc_owns %>
+				<% break %>
+			<% end %>
+		<% end %>
+		<% if available_albany_copy %>
+			<%= link_to url_for_evergreen_record(document['eg_tcn_t'].first), class: "btn btn-success" do %>
+				<span class="glyphicon glyphicon-education"></span> Albany Campus Library
+			<% end %>
+		<% end %>
+		<% if available_hoc_copy %>
+			<%= link_to url_for_evergreen_record(document['eg_tcn_t'].first), class: "btn btn-success" do %>
+				<span class="glyphicon glyphicon-plus"></span> HOC Library
+			<% end %>
+		<% end %>
+		<% if lbcc_owns and !available_hoc_copy and !available_albany_copy %>
+			<%= link_to url_for_evergreen_hold(document['eg_tcn_t'].first), class: "btn btn-warning" do %>
+				<span class="glyphicon glyphicon-star-empty"></span> Place a hold
+			<% end %>
+		<% end %>
+		<% unless lbcc_owns %>
+			<%= link_to url_for_evergreen_record(document['eg_tcn_t'].first), class: "btn btn-warning" do %>
+				<span class="glyphicon glyphicon-transfer"></span> Request from partner library
+			<% end %>
+		<% end %>
+
+	<% end %>
+<% end %>

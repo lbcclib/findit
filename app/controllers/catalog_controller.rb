@@ -47,7 +47,7 @@ class CatalogController < ApplicationController
       ].join(' '),
       :rows => 10,
       :fl => '*',
-      :bq => 'is_electronic_facet:"Albany Campus Library"^150.0',
+      :bq => 'is_electronic_facet:"Albany Campus Library"^250.0 "Healthcare Occupations Center"^175.0 Online^30.0',
     }
     
     # solr path which will be added to solr base url before the other solr params.
@@ -236,6 +236,9 @@ class CatalogController < ApplicationController
     config.autocomplete_path = 'suggest'
 
     config.index.thumbnail_method = :display_representative_image
+
+    config.add_results_document_tool :simple_results, partial: 'catalog/simple_holdings', if: Proc.new { |context, config, options| options[:document].has? 'eg_tcn_t' }
+    config.add_results_document_tool :fulltext_link, partial: 'catalog/fulltext_link', if: Proc.new { |context, config, options| options[:document].has? 'url_fulltext_display' }
   end
 
 

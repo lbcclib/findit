@@ -38,6 +38,14 @@ module LibraryHoldingsHelper
     end
 
     private
+    def url_for_evergreen_hold tcn
+        return 'https://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' + tcn.to_s + ';hold_type=T;hold_source_page=/eg/opac/record/'+ tcn.to_s + '?query=locg=8&detail_record_view=1'
+    end
+
+    def url_for_evergreen_record tcn
+        return 'http://libcat.linnbenton.edu/eg/opac/record/'+ tcn.to_s + '?locg=8;detail_record_view=1'
+    end
+
     def get_status tcn
         if session[:evergreen_connection]
             stat = session[:evergreen_connection].get_holdings tcn, org_unit: 1, descendants: true
