@@ -1,0 +1,43 @@
+<div class="well access-options">
+	<% if @document.has? 'url_fulltext_display' %>
+		<%= render 'catalog/fulltext_link', document: @document %>
+	<% elsif @document.has? 'eg_tcn_t' and @document.has? 'is_electronic_facet' and (@document['is_electronic_facet'].include? 'Healthcare Occupations Center' or @document['is_electronic_facet'].include? 'Albany Campus Library') %>
+		<%= render 'catalog/place_hold_link', document: @document %>
+	<% elsif @document.has? 'eg_tcn_t' and @document.has? 'is_electronic_facet' and @document['is_electronic_facet'].include? 'Partner Libraries' %>
+		<%= render 'catalog/resource_sharing_link', document: @document %>
+	<% end %>
+	<% if session[:evergreen_connection] %>
+	        <% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'], org_unit: 1, descendants: true %>
+	        <% if stat.copies.size > 0 %>
+			<% lbcc_copy_displayed = false %>
+	                <% stat.libraries[7][:copies].first(5).each do |copy| %>
+	                        <% if 'Available' == copy.status %>
+                                	<%= render 'catalog/available_lbcc', call_number: copy.call_number %>
+					<% lbcc_copy_displayed = true %>
+	                        <% elsif 'Checked out' == copy.status %>
+                                	<%= render 'catalog/checked_out', due_date: copy.due_date %>
+					<% lbcc_copy_displayed = true %>
+	                        <% end %>
+	                <% end %>
+	                <% stat.libraries[9][:copies].first(5).each do |copy| %>
+                        	<% if 'Available' == copy.status %>
+	                                <%= render 'catalog/available_hoc', call_number: copy.call_number %>
+					<% lbcc_copy_displayed = true %>
+	                        <% elsif 'Checked out' == copy.status %>
+                                	<%= render 'catalog/checked_out', due_date: copy.due_date %>
+					<% lbcc_copy_displayed = true %>
+	                        <% end %>
+	                <% end %>
+			<% unless lbcc_copy_displayed %>
+				<% [4, 5, 102, 104, 106].each do |partner| %>
+					<% stat.libraries[partner][:copies].each do |copy| %>
+                        			<% if 'Available' == copy.status %>
+							<%= render 'catalog/holding_library', lib_name: stat.libraries[partner][:name] %>
+							<% break %>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

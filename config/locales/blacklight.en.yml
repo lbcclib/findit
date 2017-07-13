@@ -4,6 +4,7 @@ en:
       form:
         q: 'Search'
     access:
+      due_back_on: 'Due back on'
       hold: 'Place a hold'
       online: 'Available online'
       resource_sharing: 'Request from partner library'
@@ -27,6 +28,7 @@ en:
     abstract_search_display: 'description'
     journal_display: 'Journal'
     journal_search_display: 'title'
+    partner_library_has: 'Available from Partner Library'
     pubyear_display: 'Publication year'
     pubyear_search_display: 'date'
     cat_about_main: >

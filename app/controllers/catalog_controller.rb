@@ -242,6 +242,7 @@ class CatalogController < ApplicationController
     config.add_results_document_tool :place_hold_link, partial: 'catalog/place_hold_link', if: Proc.new { |context, config, options| (options[:document].has? 'eg_tcn_t') and (options[:document].has? 'is_electronic_facet')  and ((options[:document]['is_electronic_facet'].include? 'Healthcare Occupations Center') or (options[:document]['is_electronic_facet'].include? 'Albany Campus Library')) }
     config.add_results_document_tool :resource_sharing_link, partial: 'catalog/resource_sharing_link', if: Proc.new { |context, config, options| (options[:document].has? 'eg_tcn_t') and (options[:document].has? 'is_electronic_facet') and (options[:document]['is_electronic_facet'].include? 'Partner Libraries') and !(options[:document]['is_electronic_facet'].include? 'Albany Campus Library' ) and !(options[:document]['is_electronic_facet'].include? 'Healthcare Occupations Center') }
     config.index.partials = [:thumbnail, :index_header, :index, :simple_holdings]
+    config.show.partials = [:show_header, :access_options, :show]
   end
 
 
