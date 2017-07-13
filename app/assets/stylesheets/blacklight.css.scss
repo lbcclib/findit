@@ -114,10 +114,11 @@ body {
 }
 
 .navbar .navbar-nav li a {
-  color: #658db5;
+  color: #23527c;
 }
-.navbar .navbar-nav li a:hover {
-  color: #e5b992;
+
+a.bookmarks_nav {
+  color: #23527c;
 }
 
 #search-navbar.navbar-default {
