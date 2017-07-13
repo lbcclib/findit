@@ -6,8 +6,8 @@
 @import 'blacklight_marc';
 
 
-#not-article-container {
-  border-left: 1px dotted #e5b992;
+#not-article-container, #sortAndPerPage {
+  border-bottom: 1px dotted #68bde1;
 }
 
 .form-search {
@@ -44,7 +44,7 @@ body {
 
 #documents .document, .articles .document {
   margin-top: 6px;
-  padding: 6px;
+  padding: 10px 6px 30px 6px;
   border-bottom: 1px dotted #68bde1;
 }
 
