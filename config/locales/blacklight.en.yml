@@ -6,6 +6,7 @@ en:
     access:
       hold: 'Place a hold'
       online: 'Available online'
+      resource_sharing: 'Request from partner library'
       available:
         hoc: 'Healthcare Occupations Center'
         lbcc: 'Albany Campus Library'
