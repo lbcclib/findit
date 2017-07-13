@@ -10,6 +10,15 @@
   border-bottom: 1px dotted #68bde1;
 }
 
+.navbar-static-top {
+  border: 0px;
+}
+
+#search-navbar {
+  border-top: solid 2px #bf9b7c;
+  border-bottom: solid 2px #bf9b7c;
+}
+
 .form-search {
   padding: 50px 0 30px 0;
 }
@@ -56,7 +65,7 @@ body {
  width: 100%;
  min-height: 90px;
  background: #FFF0B9;
- border-top: 1px solid #090909;
+ border-top: solid 2px #bf9b7c;
 }
 
 
