@@ -26,7 +26,8 @@ class CatalogController < ApplicationController
       :qt => 'search',
       :qf => %w[
         abstract_t
-	author_t
+	authority_data_t^0.5
+	author_t^1.5
 	contents_t
 	followed_by_t
 	has_part_t
@@ -39,11 +40,11 @@ class CatalogController < ApplicationController
 	subject_t
 	subject_additional_t
 	subject_name_facet
-	subject_topic_facet
+	subject_topic_facet^2.0
 	subject_era_facet
 	subject_geo_facet
 	subtitle_t
-	title_t
+	title_t^2.0
       ].join(' '),
       :rows => 10,
       :fl => '*',
