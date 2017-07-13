@@ -78,3 +78,4 @@ gem 'ahoy_matey'
 
 gem 'coveralls', require: false
 gem 'known_item_search_classifier'
+gem 'font-awesome-rails'

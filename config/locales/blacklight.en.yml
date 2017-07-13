@@ -3,6 +3,13 @@ en:
     search:
       form:
         q: 'Search'
+    access:
+      hold: 'Place a hold'
+      online: 'Available online'
+      available:
+        hoc: 'Healthcare Occupations Center'
+        lbcc: 'Albany Campus Library'
+    available: 'Available'
     application_name: 'Find It'
     articles_description: 'Emerging research and news articles -- great sources for your next paper'
     articles_label: 'Articles'
