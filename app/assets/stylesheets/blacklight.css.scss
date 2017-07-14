@@ -6,7 +6,7 @@
 @import 'blacklight_marc';
 
 
-#not-article-container, #sortAndPerPage {
+#sortAndPerPage {
   border-bottom: 1px dotted #68bde1;
 }
 
@@ -26,6 +26,10 @@
 html {
   position: relative;
   min-height: 100%;
+}
+
+h5 {
+  font-size: 18px;
 }
 
 .thumbnail-cover-image {

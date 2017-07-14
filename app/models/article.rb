@@ -1,13 +1,13 @@
 # Journal and newspaper articles taken from an external API
 class Article < SolrDocument
-#    attr_reader :abstract, :authors, :db, :id, :journal, :title, :type, :url, :year
+#    attr_reader :abstract, :authors, :db, :id, :journal, :title, :type, :url_fulltext_display, :year
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
 
     def extract_data_from record
         if record.record['PLink'] and record.title
         #if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull']
             @_source[:title] = Nokogiri::HTML.parse(record.title).text
-            @_source[:url_fulltext_display] = [PROXY_PREFIX + record.record['PLink']]
+	    @_source[:url_fulltext_display] = [PROXY_PREFIX + record.record['PLink']]
             @_source[:db] = record.dbid
             @_source[:id] = record.an
             if record.pubtype
