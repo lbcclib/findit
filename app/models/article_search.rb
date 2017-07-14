@@ -55,16 +55,16 @@ class ArticleSearch < Search
                         records.push current_article
                     end
                 end
-            end
-            @articles = Kaminari.paginate_array(records, total_count: results.hitcount).page(@page).per(10)
+                @articles = Kaminari.paginate_array(records, total_count: results.hitcount).page(@page).per(10)
 
-	    if results.facets.respond_to? :each
-                results.facets.each do |facet|
-                    tmp = ArticleFacet.new facet['Label']
-                    facet[:values].take(10).each do |value|
-                        tmp.add_value value[:value], value[:action].sub('addfacetfilter(', '').chop, value[:hitcount]
+	        if results.facets.respond_to? :each
+                    results.facets.each do |facet|
+                        tmp = ArticleFacet.new facet['Label']
+                        facet[:values].take(10).each do |value|
+                            tmp.add_value value[:value], value[:action].sub('addfacetfilter(', '').chop, value[:hitcount]
+                        end
+                        @facets.push(tmp)
                     end
-                    @facets.push(tmp)
                 end
 	    end
         end
