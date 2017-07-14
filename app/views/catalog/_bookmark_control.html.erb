@@ -17,7 +17,7 @@
 		<%= button_tag(fa_icon('thumbs-up') + ' ' + t('blacklight.bookmarks.add.button'),
                      id: "bookmark_toggle_#{document.id.to_s.parameterize}",
                      type: "submit",
-                     class: "bookmark-add btn btn-secondary") %>
+                     class: "bookmark-add btn btn-default") %>
     <% end %>
   <% else %>
     <%= form_tag(bookmark_path(document),
@@ -31,7 +31,7 @@
                 }) do %>
 		<%= button_tag(fa_icon('thumbs-down') + ' ' + t('blacklight.bookmarks.remove.button'),
                      id: "bookmark_toggle_#{document.id.to_s.parameterize}",
-                     class: "bookmark-remove btn btn-secondary") %>
+                     class: "bookmark-remove btn btn-default") %>
     <% end %>
   <% end %>
 <% else %>
