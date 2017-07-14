@@ -59,7 +59,7 @@ class ArticleSearch < Search
 
 	        if results.facets.respond_to? :each
                     results.facets.each do |facet|
-                        tmp = ArticleFacet.new facet['Label']
+                        tmp = ArticleFacet.new facet[:label]
                         facet[:values].take(10).each do |value|
                             tmp.add_value value[:value], value[:action].sub('addfacetfilter(', '').chop, value[:hitcount]
                         end
