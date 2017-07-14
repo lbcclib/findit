@@ -1,11 +1,13 @@
 <% if has_search_parameters? %>
   <% if show_articles? %>
+    <%= render 'did_you_mean' %>
     <% current_page = params[:page].present? ? Integer(params[:page]) : 1 %>
     <% article_results = ArticleSearch.new params[:q], params[:search_field], current_page, params[:article_facets], session[:article_api_connection] %>
     <% article_results.send_search %>
   <% end %>
 
   <% if show_all_formats? %>
+    <%= render 'did_you_mean' %>
     <div id="article-container" class="col-md-5 col-sm-9">
       <h2><%= t('blacklight.articles_label') %></h2>
       <i><%= t('blacklight.articles_description') %></i><br />
