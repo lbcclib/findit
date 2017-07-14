@@ -46,7 +46,7 @@ class EdsConnection < ArticleConnection
   def send_search search_opts
     begin
       return @raw_connection.search search_opts
-    rescue ActionView::Template::Error, Net::ReadTimeout
+    rescue ActionView::Template::Error, Net::ReadTimeout, RuntimeError
       return handle_timeout
     end
   end
