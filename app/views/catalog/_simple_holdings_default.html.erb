@@ -1,6 +1,6 @@
 <% if session[:evergreen_connection] %>
 	<% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'], org_unit: 8, descendants: true %>
-	<% if stat.copies.size > 0 %>
+	<% if stat.copies and stat.copies.size > 0 %>
 		<% stat.libraries[7][:copies].each do |copy| %>
 			<% if 'Available' == copy.status %>
 				<%= render 'catalog/available_lbcc', call_number: copy.call_number %>
