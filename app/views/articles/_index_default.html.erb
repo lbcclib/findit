@@ -14,10 +14,10 @@
 	<%= render 'catalog/fulltext_link', document: article %>
 
         <dl class="document-metadata dl-horizontal dl-invert">
-        <%= display_field(article, 'authors', t('authors_display')) %>
-        <%= display_field(article, 'year', t('pubyear_display')) %>
-        <%= display_field(article, 'journal', t('journal_display')) %>
-        <%= display_field(article, 'abstract', t('abstract_display'), {:snippet => true}) %>
+        <%= display_field(article, 'authors', t('blacklight.authors_display')) %>
+        <%= display_field(article, 'year', t('blacklight.pubyear_display')) %>
+        <%= display_field(article, 'journal', t('blacklight.journal_display')) %>
+        <%= display_field(article, 'abstract', t('blacklight.abstract_display'), {:snippet => true}) %>
         </dl>
       </div>
    </div>
