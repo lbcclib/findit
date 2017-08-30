@@ -10,7 +10,7 @@ module RepresentativeImageHelper
            if cover_image
                return image_tag(cover_image, alt:document['title_t'], class: 'thumbnail-cover-image')
            elsif document.has? 'format'
-               return image_tag(format_icon_path(document['format']))
+               return image_tag(format_icon_path(document['format']), alt:document['title_t'], class: 'thumbnail-cover-image')
            else
                return ''
            end
