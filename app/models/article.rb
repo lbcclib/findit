@@ -7,7 +7,7 @@ class Article < SolrDocument
     def extract_data_from record
         if record.record['PLink'] and record.title
         #if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull']
-            @_source[:title] = ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(record.title).text)
+            @_source[:title] = ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(record.title).text).html_safe
 	    @_source[:url_fulltext_display] = [PROXY_PREFIX + record.record['PLink']]
             @_source[:db] = record.dbid
             @_source[:id] = record.an
@@ -24,7 +24,7 @@ class Article < SolrDocument
             extract_journal_name_from_api_response record
             record.record['Items'].each do |item|
                 if 'Abstract' == item['Name']
-                    @_source[:abstract_display] = Nokogiri::HTML.parse(item['Data']).text
+                    @_source[:abstract_display] =  ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(item['Data']).text).html_safe
                 end
             end
         end
