@@ -35,11 +35,14 @@ module DataFieldHelper
     end
 
     # Return an HTML <a> tag containing a URL both as its content and its href attribute
-    def external_link(url)
-        if url =~ URI::regexp
-            return link_to url, url
+    def external_link(options)
+        if options[:value].is_a? Array
+            options[:value] = options[:value].first
+        end
+        if options[:value] =~ URI::regexp
+            return link_to options[:value], options[:value]
         else
-            return url
+            return options[:value]
         end
     end
 
@@ -127,7 +130,7 @@ module DataFieldHelper
               end
 
            elsif opts[:contains_url]
-              value_string = external_link(value) 
+              value_string = external_link Hash[:value, value]
 
            else
               value_string = value

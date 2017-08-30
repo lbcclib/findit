@@ -11,6 +11,8 @@ en:
       available:
         hoc: 'Healthcare Occupations Center'
         lbcc: 'Albany Campus Library'
+    about_instance: 'About this edition'
+    about_work: 'About this work'
     available: 'Available'
     application_name: 'Find It'
     articles_description: 'Emerging research and news articles -- great sources for your next paper'
