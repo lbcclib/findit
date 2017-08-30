@@ -2,31 +2,6 @@
 <div class="col-md-9 col-sm-8 show-document">
 <h1><%= @document[:title] %></h1>
 <%= display_access_options @document %>
-<h2><%= t('blacklight.about_work') %></h2>
-<dl class="dl-invert document-metadata">
-  <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'title' %></dt>
-  <dd class="col-md-9"><%= doc_presenter.field_value 'title' %></dd>
-  <% if @document.has? 'article_author_display' %>
-    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'author' %></dt>
-    <dd class="col-md-9"><%= doc_presenter.field_value 'article_author_display' %></dd>
-  <% end %>
-  <% if @document.has? 'abstract_display' %>
-    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'abstract_display' %></dt>
-    <dd class="col-md-9"><%= doc_presenter.field_value 'abstract_display' %></dd>
-  <% end %>
-
-</dl>
-
-<h2><%= t('blacklight.about_instance') %></h2>
-<dl class="dl-invert document-metadata">
-  <% if @document.has? 'journal_display' %>
-    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'journal' %></dt>
-    <dd class="col-md-9"><%= doc_presenter.field_value 'journal_display' %></dd>
-  <% end %>
-  <% if @document.has? 'pubdate' %>
-    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'pubyear_display' %></dt>
-    <dd class="col-md-9"><%= doc_presenter.field_value 'pubdate' %></dd>
-  <% end %>
-
-</dl>
+<%= render partial: 'catalog/show_work_default', locals: {document: @document} %>
+<%= render partial: 'catalog/show_instance_default', locals: {document: @document} %>
 </div>

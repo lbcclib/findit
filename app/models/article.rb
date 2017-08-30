@@ -3,10 +3,11 @@ class Article < SolrDocument
 #    attr_reader :abstract, :authors, :db, :id, :journal, :title, :type, :url_fulltext_display, :year
     PROXY_PREFIX = 'http://ezproxy.libweb.linnbenton.edu:2048/login?url='
 
+    # Fills an Article object up with data from an API
     def extract_data_from record
         if record.record['PLink'] and record.title
         #if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull']
-            @_source[:title] = Nokogiri::HTML.parse(record.title).text
+            @_source[:title] = ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(record.title).text)
 	    @_source[:url_fulltext_display] = [PROXY_PREFIX + record.record['PLink']]
             @_source[:db] = record.dbid
             @_source[:id] = record.an
@@ -14,6 +15,11 @@ class Article < SolrDocument
                 @_source[:pubtype] = record.pubtype
             end
             @_source[:article_author_display] = record.authors_raw
+            @_source[:article_language_facet] = record.languages
+	    @_source[:article_subject_facet] = Array.new
+	    record.subjects_raw.each do |raw_sub|
+                @_source[:article_subject_facet] << raw_sub['SubjectFull']
+            end
             @_source[:pub_date] = record.pubyear
             extract_journal_name_from_api_response record
             record.record['Items'].each do |item|
