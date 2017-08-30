@@ -4,13 +4,13 @@ module RepresentativeImageHelper
     # the Solr document
     def display_representative_image(document, opts = {})
        if document.is_a? Article
-           return link_to(image_tag(format_icon_path('Article')), controller: 'articles', action: 'show', db: url_encode(document[:db]), id: url_encode(document[:id]))
+           return image_tag(format_icon_path('Article'), alt:document['title'], class: 'thumbnail-cover-image')
        else
            cover_image = cover_image_url_for document
            if cover_image
-               return link_to(image_tag(cover_image, alt:document['title_t'], class: 'thumbnail-cover-image'), :controller => "catalog", :action => "show", :id => document[:id])
+               return image_tag(cover_image, alt:document['title_t'], class: 'thumbnail-cover-image')
            elsif document.has? 'format'
-               return link_to(image_tag(format_icon_path(document['format']), alt:document['title_t'], class: 'thumbnail-cover-image'), :controller => 'catalog', :action => 'show', :id => document.id)
+               return image_tag(format_icon_path(document['format']))
            else
                return ''
            end

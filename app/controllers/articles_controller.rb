@@ -1,6 +1,13 @@
 # This controller coordinates the connection to the external API and handles all the data it returns
-class ArticlesController < ApplicationController
+class ArticlesController < CatalogController
     after_filter :track_metadata_view, :only => :show
+
+    configure_blacklight do |config|
+
+      config.add_show_field 'article_author_display', :label => 'Authors', :work => true, :itemprop => 'contributor', :helper_method => 'link_to_article_search'
+      config.add_show_field 'journal_display', :label => 'Journal', :instance => true, :itemprop => 'isPartOf', :helper_method => 'link_to_article_search'
+
+    end
     
     # Create article object named @document and fill it with data from the API so that it's all ready to display
     def show

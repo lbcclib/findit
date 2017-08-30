@@ -13,11 +13,15 @@
 
 	<%= render 'catalog/fulltext_link', document: article %>
 
-        <dl class="document-metadata dl-horizontal dl-invert">
-        <%= display_field(article, 'authors', t('blacklight.authors_display')) %>
-        <%= display_field(article, 'year', t('blacklight.pubyear_display')) %>
-        <%= display_field(article, 'journal', t('blacklight.journal_display')) %>
-        <%= display_field(article, 'abstract', t('blacklight.abstract_display'), {:snippet => true}) %>
-        </dl>
+<dl class="document-metadata dl-horizontal dl-invert">
+	<% doc_presenter = index_presenter(article) %> 
+  <% index_fields(article).each do |field_name, field| -%>
+      <% if article.has? field_name %>
+	    <dt class="blacklight-<%= field_name.parameterize %>"><%= render_index_field_label article, field: field_name %></dt>
+	    <dd class="blacklight-<%= field_name.parameterize %>"><%= doc_presenter.field_value field_name %></dd>
+      <% end -%>
+  <% end -%>
+
+</dl>
       </div>
    </div>

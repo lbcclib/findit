@@ -1,15 +1,32 @@
+<% doc_presenter = show_presenter(@document) %>
+<div class="col-md-9 col-sm-8 show-document">
 <h1><%= @document[:title] %></h1>
 <%= display_access_options @document %>
-<h2><%= t('blacklight.about_resource_header') %></h2>
-<dl class="dl-horizontal  dl-invert">
-  <%= display_field(@document, :authors, t('blacklight.authors_display'), :search_link => true, :search_fields => t('blacklight.authors_search_display_true'), :search_exact_match => false, :dc_element => t('blacklight.authors_search_display_false') ) %>
-  <%= display_field(@document, :abstract, t('blacklight.abstract_display'), :dc_element => t('blacklight.abstract_search_display')) %>
+<h2><%= t('blacklight.about_work') %></h2>
+<dl class="dl-invert document-metadata">
+  <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'title' %></dt>
+  <dd class="col-md-9"><%= doc_presenter.field_value 'title' %></dd>
+  <% if @document.has? 'article_author_display' %>
+    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'author' %></dt>
+    <dd class="col-md-9"><%= doc_presenter.field_value 'article_author_display' %></dd>
+  <% end %>
+  <% if @document.has? 'abstract_display' %>
+    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'abstract_display' %></dt>
+    <dd class="col-md-9"><%= doc_presenter.field_value 'abstract_display' %></dd>
+  <% end %>
 
 </dl>
 
-<h2><%= t('blacklight.about_edition_header') %></h2>
-<dl class="dl-horizontal  dl-invert">
-  <%= display_field(@document, :journal, t('blacklight.journal_display'), :search_link => true, :search_fields => t('blacklight.journal_search_display'), :search_exact_match => false, :dc_element => t('blacklight.journal_search_display')) %>
-  <%= display_field(@document, :year, t('blacklight.pubyear_display'), :dc_element => t('blacklight.pubyear_search_display')) %>
+<h2><%= t('blacklight.about_instance') %></h2>
+<dl class="dl-invert document-metadata">
+  <% if @document.has? 'journal_display' %>
+    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'journal' %></dt>
+    <dd class="col-md-9"><%= doc_presenter.field_value 'journal_display' %></dd>
+  <% end %>
+  <% if @document.has? 'pubdate' %>
+    <dt class="col-md-3"><%= render_document_show_field_label @document, field: 'pubyear_display' %></dt>
+    <dd class="col-md-9"><%= doc_presenter.field_value 'pubdate' %></dd>
+  <% end %>
 
 </dl>
+</div>

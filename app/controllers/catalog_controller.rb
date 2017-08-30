@@ -124,6 +124,10 @@ class CatalogController < ApplicationController
     config.add_index_field 'language_facet', :label => 'Language'
     config.add_index_field 'pub_date', :label => 'Publication year'
     config.add_index_field 'abstract_display', :label => 'Abstract', helper_method: 'snippet'
+    config.add_index_field 'journal_display', :label => 'Journal'
+    config.add_index_field 'article_author_display', :label => 'Author'
+
+
     #config.add_index_field 'lc_callnum_display', :label => 'LC Call #'
 
 
