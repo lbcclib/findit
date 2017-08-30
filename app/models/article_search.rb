@@ -15,7 +15,7 @@ class ArticleSearch < Search
     # requested_facets: an array
     # api_connection: and ApiConnection object or one of its descendants
     def initialize(q, search_field, page, requested_facets = [], api_connection)
-        search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'TX', 'subject' => 'SU'}
+        search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
         @q = q || 'Linn-Benton Community College'
         @search_field_code = search_fields[search_field] || 'TX'
         @page = page
