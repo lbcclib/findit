@@ -49,6 +49,9 @@ class CatalogController < ApplicationController
       :rows => 10,
       :fl => '*',
       :bq => 'is_electronic_facet:"Albany Campus Library"^250.0 "Healthcare Occupations Center"^175.0 Online^30.0',
+      :bq => 'record_source_facet:"eBrary Academic Complete"^25.0 "NCBI Bookshelf"^35.0 "Open Textbook Library"^50.0',
+      :bq => 'pub_date:[1923 TO *]^10.0',
+      :bq => 'pub_date:[2015 TO *]^10.0',
     }
     
     # solr path which will be added to solr base url before the other solr params.
