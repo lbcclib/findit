@@ -155,6 +155,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'format', :label => 'Format', :instance => true, :itemprop => 'description'
     config.add_show_field 'publisher_display', :label => 'Publisher', :instance => true, :itemprop => 'publisher'
     config.add_show_field 'publisher_vern_display', :label => 'Publisher', :instance => true, :itemprop => 'publisher'
+    config.add_show_field 'pub_date', :label => 'Publication date', :instance => true, :itemprop => 'datePublished'
     config.add_show_field 'language_facet', :label => 'Language', :link_to_facet => :language_facet, :link_to_search => :language_facet, :itemprop => 'inLanguage', :instance => true
     config.add_show_field 'note_display', :label => 'Note', :instance => true, :itemprop => 'description'
     config.add_show_field 'contents_display', :label => 'Contents', :instance => true, :itemprop => 'description'
