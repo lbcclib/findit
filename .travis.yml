@@ -3,19 +3,19 @@ sudo: false
 
 matrix:
   include:
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: "RAILS_VERSION=4.2.7"
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       jdk: openjdk7
       env: "RAILS_VERSION=4.2.7"
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       jdk: oraclejdk7
       env: "RAILS_VERSION=4.2.7"
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       jdk: oraclejdk8
       env: "RAILS_VERSION=4.2.7"
 
 before_install:
-- gem install -v '4.2.7' rails
+- gem install -v $RAILS_VERSION rails
 - rails _4.2.7_ new -s .
 - rake findit:install
