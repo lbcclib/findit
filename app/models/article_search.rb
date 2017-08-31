@@ -34,8 +34,10 @@ class ArticleSearch < Search
         search_opts << ['view', 'detailed']
         i = 1
         @requested_facets.each do |facet|
-            search_opts << ['facetfilter', (i.to_s + ', ' + facet)]
-            i = i + 1
+            facet[1].each do |term|
+                search_opts << ['facetfilter', (i.to_s + ', ' + facet[0].gsub(/\s+/, '') + ':' + term)]
+                i = i + 1
+            end
         end
         search_opts << ['pagenumber', @page.to_s]
         search_opts << ['highlight', 'n']
@@ -63,7 +65,7 @@ class ArticleSearch < Search
                         facet[:values].take(10).each do |value|
                             items.push(OpenStruct.new hits: value[:hitcount], value: value[:value], label: value[:value], action: value[:action].sub('addfacetfilter(', '').chop)
                         end
-			@facets.push(Blacklight::Solr::Response::Facets::FacetField.new facet[:label], items)
+			@facets.push(Blacklight::Solr::Response::Facets::FacetField.new facet[:id], items)
                     end
                 end
 	    end

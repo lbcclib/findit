@@ -17,6 +17,10 @@ en:
     application_name: 'Find It'
     articles_description: 'Emerging research and news articles -- great sources for your next paper'
     articles_label: 'Articles'
+    articles:
+      ContentProvider: 'Database'
+      SourceType: 'Source type'
+      SubjectEDS: 'Subject'
     more_article_results: 'More articles'
     more_solr_results: 'More books and media'
     solr_results_label: 'Books and media'
