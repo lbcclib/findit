@@ -21,8 +21,4 @@ class CoverImageTest < ActiveSupport::TestCase
         cover = CoverImage.new solr_id: 12345, thumbnail_url: 'https://covers.openlibrary.org/b/isbn/0071381333-S.jpg?default=false'
         assert_not cover.valid?
     end
-    test "Can cache a cover image with a proper solr_id and thumbnail_url" do
-        cover = CoverImage.new solr_id: 12345, thumbnail_url: 'https://ia800808.us.archive.org/zipview.php?zip=/28/items/olcovers68/olcovers68-S.zip&file=686643-S.jpg'
-        assert cover.valid?
-    end
 end
