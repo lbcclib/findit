@@ -1,5 +1,5 @@
 language: ruby
-sudo: false
+sudo: required
 
 matrix:
   include:
@@ -17,6 +17,5 @@ matrix:
 
 before_install:
 - gem install -v $RAILS_VERSION rails
-- bundle install
 - rails new --skip .
 - rake findit:install
