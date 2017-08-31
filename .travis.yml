@@ -17,5 +17,5 @@ matrix:
 
 before_install:
 - gem install -v $RAILS_VERSION rails
-- rails new --skip '../discovery_layer'
+- rails new --skip --pretend '.'
 - rake findit:install
