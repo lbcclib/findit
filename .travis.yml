@@ -17,6 +17,6 @@ matrix:
 
 before_install:
 - gem install -v $RAILS_VERSION rails
-- rails -v
-- rails new --skip '.'
+- rails new test
+#- rails new --skip '.'
 - rake findit:install
