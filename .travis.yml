@@ -17,5 +17,7 @@ matrix:
 
 before_install:
 - gem install -v $RAILS_VERSION rails
+- pwd
+- ls -al
 - rails _4.2.7_ new -s .
 - rake findit:install
