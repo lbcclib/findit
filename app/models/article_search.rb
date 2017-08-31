@@ -59,11 +59,11 @@ class ArticleSearch < Search
 
 	        if results.facets.respond_to? :each
                     results.facets.each do |facet|
-                        tmp = ArticleFacet.new facet[:label]
+                        items = []
                         facet[:values].take(10).each do |value|
-                            tmp.add_value value[:value], value[:action].sub('addfacetfilter(', '').chop, value[:hitcount]
+                            items.push(OpenStruct.new hits: value[:hitcount], value: value[:value], label: value[:value], action: value[:action].sub('addfacetfilter(', '').chop)
                         end
-                        @facets.push(tmp)
+			@facets.push(Blacklight::Solr::Response::Facets::FacetField.new facet[:label], items)
                     end
                 end
 	    end
