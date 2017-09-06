@@ -63,7 +63,7 @@ class ArticleSearch < Search
                     results.facets.each do |facet|
                         items = []
                         facet[:values].take(10).each do |value|
-                            items.push(OpenStruct.new hits: value[:hitcount], value: value[:value], label: value[:value], action: value[:action].sub('addfacetfilter(', '').chop)
+                            items.push(OpenStruct.new hits: value[:hitcount], value: value[:action].gsub(/addfacetfilter\(\w+\:(.*)\)/, '\1'), label: value[:value])
                         end
 			@facets.push(Blacklight::Solr::Response::Facets::FacetField.new facet[:id], items)
                     end
