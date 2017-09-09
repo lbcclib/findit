@@ -2,6 +2,7 @@
 # Only works for documents with a #to_marc right now. 
 class RecordMailer < ActionMailer::Base
 
+  # Email a record to a user
   def email_record(documents, details, url_gen_params)
     #raise ArgumentError.new("RecordMailer#email_record only works with documents with a #to_marc") unless document.respond_to?(:to_marc)
         
@@ -14,6 +15,7 @@ class RecordMailer < ActionMailer::Base
     mail(:to => details[:to],  :subject => subject, :from => 'libref@linnbenton.edu')
   end
   
+  # Text a record to a user
   def sms_record(documents, details, url_gen_params)
     @documents      = documents
     @url_gen_params = url_gen_params

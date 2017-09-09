@@ -1,3 +1,5 @@
+# Display cover images and icons that represent specific
+# documents
 module RepresentativeImageHelper
     # Generates HTML for either a cover image or format
     # icon, based on the requested side and identifiers from

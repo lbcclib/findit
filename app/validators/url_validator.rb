@@ -1,5 +1,7 @@
 # Checks that URLs stored in the Database actually work
 class UrlValidator < ActiveModel::EachValidator
+    # Throw errors unless the URL returns HTTP 200, 301, or 302
+    # and the response doesn't include the string 'not found'
     def validate_each(record, attribute, value)
         begin
             response = Net::HTTP.get_response(URI.parse(value))

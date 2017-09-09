@@ -23,6 +23,7 @@ class EdsConnection < ArticleConnection
     @raw_connection.create_session
   end
 
+  # Make sure the EDS connection has all it needs to send searches
   def ready?
     if @raw_connection.show_session_token and @raw_connection.show_auth_token
       if @auth_method == :uid 
@@ -63,6 +64,7 @@ class EdsConnection < ArticleConnection
 
   private
 
+  # Respond when EDS times out
   def handle_timeout
     logger.debug "EDS timed out"
     return false

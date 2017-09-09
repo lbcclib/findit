@@ -1,3 +1,5 @@
+# An analytics table that records salient
+# details about user searches
 class SearchFingerprint < ActiveRecord::Base
   visitable
 
@@ -5,6 +7,7 @@ class SearchFingerprint < ActiveRecord::Base
 
   private
 
+  # Record the salient details of a search
   def create_user_fingerprint
     unless self.visit.nil?
       if self.visit.has_attribute? 'id'
