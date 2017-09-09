@@ -18,7 +18,7 @@ module DataFieldHelper
         end
     end
 
-    # Return an HTML <a> tag linking to a new search for an article
+    # Return an HTML <a> tag linking to a new search for the string included in options[:value]
     def link_to_article_search(options)
 	    return Array.wrap(options[:value]).map{|value| link_to value, controller: 'catalog', q: value, show_articles: true}.to_sentence.html_safe
     end

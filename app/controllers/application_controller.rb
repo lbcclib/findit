@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # Creates a new connection to the Articles API, unless one already
+  # exists.  The connection is stored in the session.
   def create_article_api_session
     unless session.key? :article_api_connection
         if using_eds?
@@ -27,6 +29,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Creates a new connection to the Evergreen catalog API, unless one already
+  # exists.  The connection is stored in the session.
   def create_evergreen_session
     begin
         if session.key? :evergreen_connection
@@ -41,6 +45,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Loads the activerecord-jdbc-adapter/driver for postgres if:
+  # * the environment is a production one, and
+  # * jruby is the ruby platform
   def start_jruby_pg
     if Rails.env.production? and ( RUBY_PLATFORM =~ /jruby/ or RUBY_PLATFORM =~ /java/ )
       require 'jdbc/postgres'
@@ -50,10 +57,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Check to see if the app is configured to get articles from the
+  # EDS API
   def using_eds?
     return 'eds' == Rails.configuration.articles['api']
   end
 
+  # Check to see if the app is configured to get articles from the
+  # Worldcat API
   def using_worldcat?
     return 'worldcat' == Rails.configuration.articles['api']
   end

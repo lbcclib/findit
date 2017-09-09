@@ -4,6 +4,7 @@ class ArticleConnection
   def initialize
   end
 
+  # Make sure the API is ready to accept queries
   def ready?
   end
 
@@ -12,6 +13,7 @@ class ArticleConnection
     puts db + id
   end
 
+  # Send the search to the Article API
   def send_search search_opts
     puts search_opts
   end

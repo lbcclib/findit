@@ -278,6 +278,7 @@ class CatalogController < ApplicationController
 
   private
 
+  # Track when users perform a search
   def track_search
     track_action
     SearchFingerprint.create do |sf|
@@ -300,11 +301,13 @@ class CatalogController < ApplicationController
     end
   end
 
+  # Track an action using ahoy for analytics purposes
   def track_action
     ahoy.track "Processed #{controller_name}##{action_name}", request.filtered_parameters.to_json
     ahoy.track_visit
   end
 
+  # Track when users access the show view
   def track_metadata_view
     track_action
     MetadataViewFingerprint.create do |mvf|

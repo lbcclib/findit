@@ -4,16 +4,17 @@ class ArticleSearch < Search
     include ERB::Util
     attr_reader :articles, :facets, :search_opts
 
+    # Make sure that a record is complete enough to be useful to the user
     def enough_data_exists_in(record)
         return true
     end
 
     # Create a new search object
     #
-    # q: a query string
-    # page: a page number (can be an int or string)
-    # requested_facets: an array
-    # api_connection: and ApiConnection object or one of its descendants
+    # q:: a query string
+    # page:: a page number (can be an int or string)
+    # requested_facets:: an array
+    # api_connection:: an ApiConnection object or one of its descendants
     def initialize(q, search_field, page, requested_facets = [], api_connection)
         search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
         @q = q || 'Linn-Benton Community College'
@@ -44,11 +45,13 @@ class ArticleSearch < Search
         return search_opts
     end
 
+    # Send the search to the Article API
     def send_search
         records = Array.new
 
         if @api_connection.ready?
             results = @api_connection.send_search search_opts
+	    logger.info("Article API response: #{results}")
             if results.records
                 results.records.each do |record|
                     if enough_data_exists_in record

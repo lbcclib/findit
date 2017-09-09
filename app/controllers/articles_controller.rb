@@ -24,6 +24,7 @@ class ArticlesController < CatalogController
 
     protected
 
+    # Add an entry to the analytics table each time a user accesses the show view of an article
     def track_metadata_view
         MetadataViewFingerprint.create do |mvf|
           mvf.document_id = @document.id
