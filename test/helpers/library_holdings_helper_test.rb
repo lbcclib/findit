@@ -7,22 +7,6 @@ class LibraryHoldingsHelperTest < ActionView::TestCase
 
   setup :set_session_var
 
-  test "simple_library_holdings is parseable HTML" do
-    assert Nokogiri::HTML.parse(display_simple_library_holdings 346217)
-  end
-
-  test "simple_library_holdings is returning actual results" do
-    assert_not_equal 'Ask a librarian for information about this item.', display_simple_library_holdings(346217)
-  end
-
-  test "full_library_holdings is parseable HTML" do
-    assert Nokogiri::HTML.parse(display_full_library_holdings 346217)
-  end
-
-  test "full_library_holdings is returning actual results" do
-    assert_not_equal 'Ask a librarian for information about this item.', display_full_library_holdings(346217)
-  end
-
   test "can get status object for a TCN that exists" do
     assert_instance_of EvergreenHoldings::Status, get_status(346217)
   end
