@@ -18,7 +18,7 @@ class ArticleSearch < Search
     def initialize(q, search_field, page, requested_facets = [], api_connection)
         search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
         @q = q || 'Linn-Benton Community College'
-        @search_field_code = search_fields[search_field] || 'TX'
+        @search_field_code = search_fields[search_field] || 'AND'
         @page = page
         @api_connection = api_connection
         @articles = Array.new
