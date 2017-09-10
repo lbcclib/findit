@@ -1,14 +1,14 @@
 # Find It
 
-[![Build Status](https://travis-ci.org/lbcclib/discovery_layer.svg?branch=master)](https://travis-ci.org/lbcclib/discovery_layer)
-[![Coverage Status](https://coveralls.io/repos/github/lbcclib/discovery_layer/badge.svg?branch=master)](https://coveralls.io/github/lbcclib/discovery_layer?branch=master)
-[![security](https://hakiri.io/github/lbcclib/discovery_layer/master.svg)](https://hakiri.io/github/lbcclib/discovery_layer/master)
+[![Build Status](https://travis-ci.org/lbcclib/findit.svg?branch=master)](https://travis-ci.org/lbcclib/discovery_layer)
+[![Coverage Status](https://coveralls.io/repos/github/lbcclib/findit/badge.svg?branch=master)](https://coveralls.io/github/lbcclib/discovery_layer?branch=master)
+[![security](https://hakiri.io/github/lbcclib/findit/master.svg)](https://hakiri.io/github/lbcclib/discovery_layer/master)
 
 Find It is a discovery layer for [Linn-Benton Community College's library](http://library.linnbenton.edu/).  This tool searches across most of the library's print and electronic resources so that students don't get stuck in just one silo of information.
 
 Find It is based on [Blacklight](http://projectblacklight.org/), with a few other gems thrown in.  This repository represents the changes we made from a basic installation of blacklight.
 
-In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/lbcclib/discovery_layer/issues/60), but has only been tested in the following environments:
+In theory, you should be able to get this to work on Windows and Linux boxes using [Ruby or JRuby](https://github.com/lbcclib/findit/issues/60), but has only been tested in the following environments:
 
 * JRuby on Windows Server 2013
 * Ruby on Ubuntu 15.10 and 16.10
@@ -46,8 +46,8 @@ If you are feeling lucky, you can try the following, much shorter installation p
 It exists primarily to get a quick testing environment put together for CI purposes, but theoretically should also get a basic development install put together for you.
 
 ```
-git clone https://github.com/lbcclib/discovery_layer
-cd discovery_layer
+git clone https://github.com/lbcclib/findit
+cd findit
 rails _4.2.7_ new -s .
 rake findit:install
 ````
@@ -77,8 +77,8 @@ rake findit:install
 
 1. Open Terminal
 2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all`
-3. `git clone https://github.com/lbcclib/discovery_layer`
-4. `cd discovery_layer`
+3. `git clone https://github.com/lbcclib/findit`
+4. `cd findit`
 5. `sudo gem install pg`
 6. `sudo gem install sqlite3 -v '1.3.13'`
 7. `bundle install`
