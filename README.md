@@ -1,8 +1,8 @@
 # Find It
 
-[![Build Status](https://travis-ci.org/lbcclib/findit.svg?branch=master)](https://travis-ci.org/lbcclib/discovery_layer)
-[![Coverage Status](https://coveralls.io/repos/github/lbcclib/findit/badge.svg?branch=master)](https://coveralls.io/github/lbcclib/discovery_layer?branch=master)
-[![security](https://hakiri.io/github/lbcclib/findit/master.svg)](https://hakiri.io/github/lbcclib/discovery_layer/master)
+[![Build Status](https://travis-ci.org/lbcclib/findit.svg?branch=master)](https://travis-ci.org/lbcclib/findit)
+[![Coverage Status](https://coveralls.io/repos/github/lbcclib/findit/badge.svg?branch=master)](https://coveralls.io/github/lbcclib/findit?branch=master)
+[![security](https://hakiri.io/github/lbcclib/findit/master.svg)](https://hakiri.io/github/lbcclib/findit/master)
 
 Find It is a discovery layer for [Linn-Benton Community College's library](http://library.linnbenton.edu/).  This tool searches across most of the library's print and electronic resources so that students don't get stuck in just one silo of information.
 
