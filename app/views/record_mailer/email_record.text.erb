@@ -1,19 +1,14 @@
 <% @documents.each do |document| %>
-<%= document.to_email_text %>
-<%= t('blacklight.email.text.url', :url =>polymorphic_url(document, @url_gen_params)) %>
-<%# Logic to determine if resource is a book or online, displays appropriate link, or if you need to talk to a librarian %>
-<% if document['eg_tcn_t'] != nil %>
-<%= t('blacklight.email.text.bookmessage', :bookmessage => @bookmessage ) -%>
-<% if document['eg_tcn_t'].kind_of? Array %>
-<%= document['eg_tcn_t'].first -%>
-<% else %>
-<%= document['eg_tcn_t'] -%>
-<% end %>
-<%= t('blacklight.email.text.urlend', :urlend => @urlend ) %>
-<% elsif document['url_fulltext_display'] %>
-<%= t('blacklight.email.text.urlmessage', :urlmessage => @urlmessage ) -%>
-<%= document['url_fulltext_display'].first %>
-<% else %>
-Speak with a librarian to find out how to access this resource.
-<% end %>
+	<%= document.to_email_text %>
+	<%= t('blacklight.email.text.url', :url =>polymorphic_url(document, @url_gen_params)) %>
+	<%# Logic to determine if resource is a book or online, displays appropriate link, or if you need to talk to a librarian %>
+	<% if document['eg_tcn_t'] != nil %>
+		<%= t('blacklight.email.text.bookmessage', :bookmessage => @bookmessage ) -%>
+		<%= url_for_evergreen_hold document['eg_tcn_t'] %>
+	<% elsif document['url_fulltext_display'] %>
+		<%= t('blacklight.email.text.urlmessage', :urlmessage => @urlmessage ) -%>
+		<%= document['url_fulltext_display'].first %>
+	<% else %>
+		<%= t('blacklight.askalibrarian') %>
+	<% end %>
 <% end %>

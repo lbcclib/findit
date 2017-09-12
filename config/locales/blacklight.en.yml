@@ -1,5 +1,6 @@
 en:
   blacklight:
+    askalibrarian: 'Ask a librarian how to access this resource.'
     search:
       form:
         q: 'Search'
@@ -83,11 +84,9 @@ en:
     tog_nav: 'Toggle Navigation'
     email:
       text:
-        bookmessage: "Follow this link to go to reserve your book: https://libcat.linnbenton.edu/eg/opac/place_hold?hold_target="
-        urlend: "&hold_type=T"
+        bookmessage: "Follow this link to reserve your book:"
         urlmessage: "Follow this link to access this online resource: "
     sms:
       text:
-        bookmessage: "Follow this link to go to reserve your book: https://libcat.linnbenton.edu/eg/opac/place_hold?hold_target="
-        urlend: "&hold_type=T"
+        bookmessage: "Follow this link to go to reserve your book: "
         urlmessage: "Follow this link to access this online resource: "
