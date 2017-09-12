@@ -82,7 +82,7 @@ module CoverImagesController
     def get_image_url identifier, identifier_type, size
         begin
             return URI.parse('https://covers.openlibrary.org/b/' + identifier_type + '/' + identifier + '-' + size + '.jpg?default=false')
-        rescue
+        rescue URI::BadURIError, URI::InvalidURIError
             return false
         end
     end
