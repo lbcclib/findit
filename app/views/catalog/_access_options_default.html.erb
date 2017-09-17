@@ -4,7 +4,7 @@
 	<% elsif @document.has? 'eg_tcn_t' and @document.has? 'is_electronic_facet' and (@document['is_electronic_facet'].include? 'Healthcare Occupations Center' or @document['is_electronic_facet'].include? 'Albany Campus Library') %>
 		<%= render 'catalog/place_hold_link', document: @document %>
 	<% elsif @document.has? 'eg_tcn_t' and @document.has? 'is_electronic_facet' and @document['is_electronic_facet'].include? 'Partner Libraries' %>
-		<%= render 'catalog/resource_sharing_link', document: @document %>
+		<div class="row"><%= render 'catalog/resource_sharing_link', document: @document %></div>
 	<% end %>
 	<% if session[:evergreen_connection] %>
 	        <% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'], org_unit: 1, descendants: true %>
