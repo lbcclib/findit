@@ -12,7 +12,7 @@
 			<% lbcc_copy_displayed = false %>
 	                <% stat.libraries[7][:copies].first(5).each do |copy| %>
 	                        <% if 'Available' == copy.status %>
-                                	<%= render 'catalog/available_lbcc', call_number: copy.call_number %>
+                                	<%= render 'catalog/available_lbcc', call_number: copy.call_number, location: copy.location %>
 					<% lbcc_copy_displayed = true %>
 	                        <% elsif 'Checked out' == copy.status %>
                                 	<%= render 'catalog/checked_out', due_date: copy.due_date %>

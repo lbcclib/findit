@@ -3,7 +3,7 @@
 	<% if stat.copies and stat.copies.size > 0 %>
 		<% stat.libraries[7][:copies].each do |copy| %>
 			<% if 'Available' == copy.status %>
-				<%= render 'catalog/available_lbcc', call_number: copy.call_number %>
+				<%= render 'catalog/available_lbcc', call_number: copy.call_number, location: copy.location %>
 				<% break %>
 			<% end %>
 		<% end %>
