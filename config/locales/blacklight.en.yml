@@ -33,6 +33,7 @@ en:
     authors_search_display_false: 'creator'
     abstract_display: 'Abstract'
     abstract_search_display: 'description'
+    enter_keyword: 'Please enter a keyword to begin your search'
     journal_display: 'Journal'
     journal_search_display: 'title'
     partner_library_has: 'Available from Partner Library'
