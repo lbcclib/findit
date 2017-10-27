@@ -7,4 +7,7 @@ class UserTest < ActiveSupport::TestCase
       assert_not_empty user.email
     end
   end
+  test "can access azariah's email addresses" do
+    assert_not_empty users(:azariah).email
+  end
 end
