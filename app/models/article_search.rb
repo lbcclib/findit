@@ -18,7 +18,8 @@ class ArticleSearch < Search
     def initialize(q, search_field, page, requested_facets = [], api_connection)
         search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
         @q = q || 'Linn-Benton Community College'
-        @search_field_code = search_fields[search_field] || 'AND'
+        @search_field = search_field || 'all_fields'
+        @search_field_code = search_fields[search_field] || 'KW'
         @page = page
         @api_connection = api_connection
         @articles = Array.new
@@ -28,21 +29,15 @@ class ArticleSearch < Search
 
     # Assemble the requested filters, search options, and defaults for an article search
     def search_opts
-        search_opts = Array.new
-        search_opts << ['query-1', @search_field_code + ':' + @q.gsub(/[[:punct:]]/, '')] # remove punctuation, because EDS responds poorly to it (particularly : and ,)
-        search_opts << ['limiter', 'FT:y']
-        search_opts << ['resultsperpage', '10']
-        search_opts << ['view', 'detailed']
-        i = 1
-        @requested_facets.each do |facet|
+       i = 1
+       facet_filters = Array.new
+       @requested_facets.each do |facet|
             facet[1].each do |term|
-                search_opts << ['facetfilter', (i.to_s + ', ' + facet[0].gsub(/\s+/, '') + ':' + term)]
+                facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => facet[0].gsub(/\s+/, ''), 'Value' => term}]}
                 i = i + 1
             end
         end
-        search_opts << ['pagenumber', @page.to_s]
-        search_opts << ['highlight', 'n']
-        return search_opts
+       return {query: @search_field_code + ':' + @q, start: (@page - 1), rows: '10', search_field: @search_field, limiters: ['FT:y'], facet_filters: facet_filters}
     end
 
     # Send the search to the Article API
@@ -60,7 +55,7 @@ class ArticleSearch < Search
                         records.push current_article
                     end
                 end
-                @articles = Kaminari.paginate_array(records, total_count: results.hitcount).page(@page).per(10)
+                @articles = Kaminari.paginate_array(records, total_count: results.stat_total_hits).page(@page).per(10)
 
 	        if results.facets.respond_to? :each
                     results.facets.each do |facet|

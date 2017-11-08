@@ -9,35 +9,34 @@ class Article < SolrDocument
         #if record['PLink'] and record['RecordInfo']['BibRecord']['BibEntity']['Titles'].first['TitleFull']
             @_source[:title] = ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(record.title).text).html_safe
 	    @_source[:url_fulltext_display] = [PROXY_PREFIX + record.record['PLink']]
-            @_source[:db] = record.dbid
-            @_source[:id] = record.an
-            if record.pubtype
-                @_source[:pubtype] = record.pubtype
-            end
-            @_source[:article_author_display] = record.authors_raw
+	    @_source[:db] = record.database_id
+            @_source[:id] = record.accession_number
+            @_source[:pubtype] = record.publication_type
+            @_source[:article_author_display] = record.authors
             @_source[:article_language_facet] = record.languages
-	    @_source[:article_subject_facet] = Array.new
-	    record.subjects_raw.each do |raw_sub|
-                @_source[:article_subject_facet] << raw_sub['SubjectFull']
-            end
-            @_source[:pub_date] = record.pubyear
-            extract_journal_name_from_api_response record
-            record.record['Items'].each do |item|
-                if 'Abstract' == item['Name']
-                    @_source[:abstract_display] =  ActionView::Base.full_sanitizer.sanitize(Nokogiri::HTML.parse(item['Data']).text).html_safe
-                end
-            end
+	    @_source[:article_subject_facet] = record.subjects
+            @_source[:database_display] = record.database_name
+	    @_source[:pub_date] = record.publication_year
+
+            @_source[:bibtex_t] = try_to_extract record, :retrieve_bibtex
+	    @_source[:journal_display] = try_to_extract record, :source_title
+	    @_source[:abstract_display] = try_to_extract record, :abstract
+	    @_source[:doi_display] = try_to_extract record, :doi
+	    @_source[:page_count_display] = try_to_extract record, :page_count
+	    @_source[:page_number_display] = try_to_extract record, :page_start
+	    @_source[:publisher_info_display] = try_to_extract record, :publication_info
+	    @_source[:thumbnail_url_display] = try_to_extract record, :cover_thumb_url
+	    @_source[:volume_display] = try_to_extract record, :volume
+	    @_source[:issue_display] = try_to_extract record, :issue
+	    @_source[:notes_display] = try_to_extract record, :notes
         end
     end
 
     private
-    def extract_journal_name_from_api_response record
-        begin
-            @_source[:journal_display] = record.record['RecordInfo']['BibRecord']['BibRelationships']['IsPartOfRelationships'].first['BibEntity']['Titles'].first['TitleFull']
-        rescue NoMethodError
-            @_source[:journal_display] = "Unknown journal"	
-        end
+    def try_to_extract record, field
+      return record.send field
+    rescue NoMethodError
+      return false
     end
-
 
 end

@@ -2,14 +2,25 @@
 class ArticlesController < CatalogController
     after_filter :track_metadata_view, :only => :show
 
+    rescue_from 'EBSCO::EDS::BadRequest' do |exception|
+      raise exception unless params[:q].present?
+        flash[:alert] = t('blacklight.enter_keyword')
+        redirect_to root_path
+      end
+
     configure_blacklight do |config|
       config.add_show_field 'article_author_display', :label => 'Authors', :work => true, :itemprop => 'contributor', :helper_method => 'link_to_article_search'
       config.add_show_field 'journal_display', :label => 'Journal', :instance => true, :itemprop => 'isPartOf', :helper_method => 'link_to_article_search'
       config.add_show_field 'article_subject_facet', :label => 'Subject', :work => true, :itemprop => 'about', :helper_method => 'link_to_article_search'
       config.add_show_field 'article_language_facet', :label => 'Language', :instance => true, :itemprop => 'inLanguage'
       config.add_show_field 'pubtype', :label => 'Publication type', :instance => true, :itemprop => 'description'
+      config.add_show_field 'doi_display', :label => 'DOI', :instance => true, :itemprop => 'description'
+      config.add_show_field 'page_count_display', :label => 'Number of pages', :instance => true, :itemprop => 'description'
+      config.add_show_field 'volume_display', :label => 'Volume', :instance => true, :itemprop => 'description'
+      config.add_show_field 'issue_display', :label => 'Issue', :instance => true, :itemprop => 'description'
     end
-    
+
+
     # Create article object named @document and fill it with data from the API so that it's all ready to display
     def show
         @document = Article.new

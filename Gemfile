@@ -71,6 +71,7 @@ gem "csl-styles"
 gem "exception_notification"
 
 gem 'ebsco-discovery-service-api', '1.1.12'
+gem 'ebsco-eds'
 gem 'evergreen_holdings', '~>0.2.1'
 gem 'browser', '=1.1.0'
 
