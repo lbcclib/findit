@@ -33,11 +33,11 @@ class ArticleSearch < Search
        facet_filters = Array.new
        @requested_facets.each do |facet|
             facet[1].each do |term|
-                facet_filters << (i.to_s + ',' + facet[0].gsub(/\s+/, '') + ':' + term)
+                facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => facet[0].gsub(/\s+/, ''), 'Value' => term}]}
                 i = i + 1
             end
         end
-       return {'q' => @q, 'start' => (@page - 1), 'rows' => '10', 'search_field' => @search_field, 'facet_filters' => facet_filters.join}
+       return {query: @q, start: (@page - 1), rows: '10', search_field: @search_field, limiters: ['FT:y'], facet_filters: facet_filters}
     end
 
     # Send the search to the Article API
