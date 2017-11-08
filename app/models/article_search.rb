@@ -19,7 +19,7 @@ class ArticleSearch < Search
         search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
         @q = q || 'Linn-Benton Community College'
         @search_field = search_field || 'all_fields'
-        @search_field_code = search_fields[search_field] || 'AND'
+        @search_field_code = search_fields[search_field] || 'KW'
         @page = page
         @api_connection = api_connection
         @articles = Array.new
@@ -37,7 +37,7 @@ class ArticleSearch < Search
                 i = i + 1
             end
         end
-       return {query: @q, start: (@page - 1), rows: '10', search_field: @search_field, limiters: ['FT:y'], facet_filters: facet_filters}
+       return {query: @search_field_code + ':' + @q, start: (@page - 1), rows: '10', search_field: @search_field, limiters: ['FT:y'], facet_filters: facet_filters}
     end
 
     # Send the search to the Article API
