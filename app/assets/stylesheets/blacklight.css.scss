@@ -81,10 +81,6 @@ body {
    color: #000;
 }
 
-.navbar-nav li a:focus {
-   color: #F2824F;
-}
-
 .btn-success {
   color: #f8f7f2;
   background-color: #76a5d3;
@@ -117,12 +113,15 @@ body {
   background-color: #f8f7f2;
 }
 
-.navbar .navbar-nav li a {
+.navbar .navbar-nav li a, .new-search-link, .about-link {
   color: #23527c;
+  text-decoration: underline;
 }
 
-a.bookmarks_nav {
+.navbar .navbar-nav li a:hover, .new-search-link:hover, .about-link:hover {
   color: #23527c;
+  text-decoration: underline !important;
+  background-color: #fff !important;
 }
 
 #search-navbar.navbar-default {
