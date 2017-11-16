@@ -26,10 +26,12 @@ RSpec.describe CoverImage, type: :model do
         expect(cover).to_not be_valid
     end
     it "Redirects if url returns a 302" do
-        #allow(Net::HTTP).to receive(:get_response).and_return('')
-        stub_request(:get_response, 'http://heartland.com').to_return(status: 302, headers:{'Location' => 'http://newfoundland.com'})
-        cover = CoverImage.new(thumbnail_url: 'http://heartland.com')
-        #cover.check_for_redirection()
-        expect(cover.thumbnail_url).to eq('http://newfoundland.com')
+        
+        #stub_request(:any, 'http://covers.openlibrary.org/b/isbn/9780671623241-S.jpg').to_return(status: 302, body: "", headers:{'Location' => 'http://newfoundland.com'})
+        #Uncomment the Webmock.* lines if you get an error about webmock disallowing RealHTTP connections
+        #WebMock.allow_net_connect!
+        cover = CoverImage.new(thumbnail_url: 'http://covers.openlibrary.org/b/isbn/9780671623241-S.jpg')
+        expect(cover.thumbnail_url).to eq('http://ia601407.us.archive.org/zipview.php?zip=/29/items/olcovers653/olcovers653-S.zip&file=6532617-S.jpg')
+        #WebMock.disable_net_connect!
     end
 end
