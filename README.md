@@ -40,17 +40,19 @@ Rails.application.config.assets.precompile += %w( blacklight/findit.png )
 Rails.application.config.assets.precompile += %w( *.png )
 ```
 
-## Adventurous Installation
+## Adventurous Installation for Windows
 
-If you are feeling lucky, you can try the following, much shorter installation process.
-It exists primarily to get a quick testing environment put together for CI purposes, but theoretically should also get a basic development install put together for you.
-
+1. Download RailsInstaller: http://railsinstaller.org/en
+2. Download Postgres: http://www.enterprisedb.com/products/pgdownload.do#windows
 ```
-git clone https://github.com/lbcclib/findit
+gem install bundle
+git clone https://github.com/lbcclib/findit -b rails_5
 cd findit
-rails _4.2.7_ new -s .
-rake findit:install
+bundle install
+rake db:migrate
 ````
+
+Then, go ahead and edit config/articles.yml and config/database.yml.
 
 ## Contributing to this software
 
@@ -64,7 +66,7 @@ rake findit:install
   * Click New Pull Request.
   * Verify your changes, then click "Create pull request".
 
-## Ben's Adventurous-ish Installation Guide (Using VM)
+## Ben's Adventurous-ish Installation Guide (Using an Ubuntu VM)
 
 ### Setting up Virtual Machine: 
 
@@ -76,7 +78,7 @@ rake findit:install
 ### After Virtual Machine is set up:
 
 1. Open Terminal
-2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all`
+2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all zlib1g-dev liblzma-dev`
 3. `git clone https://github.com/lbcclib/findit`
 4. `cd findit`
 5. `sudo gem install pg`
