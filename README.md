@@ -78,7 +78,7 @@ Then, go ahead and edit config/articles.yml and config/database.yml.
 ### After Virtual Machine is set up:
 
 1. Open Terminal
-2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all`
+2. `sudo apt-get install ruby ruby-dev rails postgresql sqlite3 libsqlite3-dev rake git postgresql-server-dev-all zlib1g-dev liblzma-dev`
 3. `git clone https://github.com/lbcclib/findit`
 4. `cd findit`
 5. `sudo gem install pg`
