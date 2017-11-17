@@ -46,9 +46,8 @@ Rails.application.config.assets.precompile += %w( *.png )
 2. Download Postgres: http://www.enterprisedb.com/products/pgdownload.do#windows
 ```
 gem install bundle
-git clone https://github.com/lbcclib/findit
+git clone https://github.com/lbcclib/findit -b rails_5
 cd findit
-git checkout rails_5
 bundle install
 rake db:migrate
 ````
