@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   end
 
+  resource :articles, only: [:index], as: 'articles', path: '/articles', controller: 'articles' do
+    concerns :searchable
+  end
+
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 

@@ -20,6 +20,25 @@ class ArticlesController < CatalogController
       config.add_show_field 'issue_display', :label => 'Issue', :instance => true, :itemprop => 'description'
     end
 
+    def index
+        if has_search_parameters? 
+            current_page = params[:page].present? ? Integer(params[:page]) : 1 
+            response = ArticleSearch.new params[:q], params[:search_field], current_page, params[:f], session[:article_api_connection]
+            response.send_search
+	    @articles = response.articles
+	    @facets = response.facets
+        end
+    end
+=begin
+    def results
+        if has_search_parameters? 
+            current_page = params[:page].present? ? Integer(params[:page]) : 1 
+            response = ArticleSearch.new params[:q], params[:search_field], current_page, params[:f], session[:article_api_connection]
+            response.send_search
+	    @articles = response.articles
+        end
+    end
+=end
 
     # Create article object named @document and fill it with data from the API so that it's all ready to display
     def show
