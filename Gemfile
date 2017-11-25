@@ -18,6 +18,7 @@ group :development, :test do
     gem 'sqlite3', :platforms => :ruby
     gem 'activeuuid'
     gem 'jettywrapper'
+    gem 'rspec-rails', '~> 3.6'
 end
 
 # Use SCSS for stylesheets
@@ -51,6 +52,9 @@ end
 group :test do
   gem 'faker'
   gem 'rake'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
