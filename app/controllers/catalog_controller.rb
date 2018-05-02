@@ -45,6 +45,7 @@ class CatalogController < ApplicationController
 	subject_geo_facet
 	subtitle_t
 	title_t^2.0
+        title_and_statement_of_responsibility_t
       ].join(' '),
       :rows => 10,
       :fl => '*',
