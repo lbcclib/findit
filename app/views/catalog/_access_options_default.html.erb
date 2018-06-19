@@ -6,7 +6,7 @@
 	<% elsif @document.has? 'eg_tcn_t' and @document.has? 'is_electronic_facet' and @document['is_electronic_facet'].include? 'Partner Libraries' %>
 		<div class="row"><%= render 'catalog/resource_sharing_link', document: @document %></div>
 	<% end %>
-	<% if session[:evergreen_connection] %>
+	<% if session[:evergreen_connection] and @document.has? 'eg_tcn_t' %>
 	        <% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'], org_unit: 1, descendants: true %>
 	        <% if stat.copies.size > 0 %>
 			<% lbcc_copy_displayed = false %>
