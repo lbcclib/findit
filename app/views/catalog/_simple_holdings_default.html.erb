@@ -1,4 +1,5 @@
 <% if session[:evergreen_connection] %>
+<% begin %>
 	<% stat = session[:evergreen_connection].get_holdings document['eg_tcn_t'], org_unit: 8, descendants: true %>
 	<% if stat.copies and stat.copies.size > 0 %>
 		<% stat.libraries[7][:copies].each do |copy| %>
@@ -15,4 +16,6 @@
 		<% end %>
 
 	<% end %>
+<% rescue NoCatalogIdProvidedError %>
+<% end %>
 <% end %>
