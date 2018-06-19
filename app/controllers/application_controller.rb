@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
         else
             session[:evergreen_connection] = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
         end
-    rescue CouldNotConnectToEvergreenError
+    rescue CouldNotConnectToEvergreenError, NoCatalogIdProvidedError
         session[:evergreen_connection] = nil
     end
   end
