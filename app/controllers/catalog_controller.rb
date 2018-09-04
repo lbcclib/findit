@@ -29,6 +29,7 @@ class CatalogController < ApplicationController
 	authority_data_t^0.5
 	author_t^1.5
 	contents_t
+        course_t
 	followed_by_t
 	has_part_t
 	is_part_of_t
@@ -37,6 +38,7 @@ class CatalogController < ApplicationController
 	language_facet
 	note_t
 	preceeded_by_t
+        professor_t
 	subject_t
 	subject_additional_t
 	subject_name_facet
