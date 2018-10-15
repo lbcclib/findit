@@ -40,22 +40,21 @@ en:
     pubyear_display: 'Publication year'
     pubyear_search_display: 'date'
     cat_about_main: >
-      The LBCC Library offers countless books, research databases, ebooks, media, streaming content, and research tools to our patrons.
-      Rather than searching just one collection of books or articles at a time, Find It searches all of the Library's print and electronic resources at once.  This simplifies the research process and empowers you to select the exact resources that meet your needs.
+            Research your topic in a single step by entering the search terms in this box. Results will include everything the LBCC Library offers on the search including books, journal articles, e-books, media, and streaming content.  Ask a reference librarian if you'd like to know more about this great research tool.
     cat_about_what: 'What am I searching?'
     cat_about_included: 'Find It searches the following research databases:'
     cat_dblist_alex: 'Alexander Street Press titles (American history in video, American song, Classical music library, Smithsonian global sound)'
     cat_dblist_credo: 'Credo reference -- at the reference book level'
-    cat_dblist_ebrary: 'eBrary'
+    cat_dblist_ebrary: 'Ebook Central'
     cat_dblist_ebsco: 'All EBSCO databases'
-    cat_dblist_ebscoeb: 'EBSCO ebooks (but need to set up a different delivery method -- EDX?)'
-    cat_dblist_everg: 'Evergreen catalog (LBCC non-reserve holdings only)'
+    cat_dblist_ebscoeb: 'EBSCO ebooks'
+    cat_dblist_everg: 'Evergreen catalog (including partner libraries)'
     cat_dblist_filmsond: 'Films on demand'
     cat_dblist_gale: 'Gale Opposing Viewpoints in context, American history in context'
     cat_dblist_galevrl: 'Gale Virtual Reference Library'
-    cat_dblist_oapubdom: 'Several open access and public domain ebook sources: HathiTrust, DOAB, NCBI bookshelf, Wright American Fiction'
+    cat_dblist_oapubdom: 'Several open access and public domain ebook sources: HathiTrust, Open Textbook Library, DOAB, NCBI bookshelf, Wright American Fiction'
     cat_about_excluded: 'It does not currently search:'
-    cat_excl_rsrv: 'Resrves items'
+    cat_excl_rsrv: 'Reserves items'
     cat_excl_evgother: 'Evergreen catalog for other consortium members'
     cat_excl_evgweb: 'Evergreen Web site records'
     cat_excl_otherj: 'Other journal databases (but we could pay EBSCO for these data)'
