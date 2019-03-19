@@ -1,1 +1,5 @@
-<%= link_to fa_icon('external-link') + ' ' + t('blacklight.access.online'), document['url_fulltext_display'].first, class: 'btn btn-success', target: '_blank'  %>
+<% if document['pubtype'] == 'Review' %>
+  <%= link_to fa_icon('star') + fa_icon('star') + fa_icon('star-o') + ' ' + t('blacklight.access.review'), document['url_fulltext_display'].first, class: 'btn btn-warning', target: '_blank'  %>
+<% else %>
+  <%= link_to fa_icon('external-link') + ' ' + t('blacklight.access.online'), document['url_fulltext_display'].first, class: 'btn btn-success', target: '_blank'  %>
+<% end %>

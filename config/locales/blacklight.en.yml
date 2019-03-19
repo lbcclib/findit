@@ -8,6 +8,7 @@ en:
       due_back_on: 'Due back on'
       hold: 'Place a hold'
       online: 'Available online'
+      review: 'Book review available online'
       resource_sharing: 'Request from partner library'
       available:
         hoc: 'Healthcare Occupations Center'
