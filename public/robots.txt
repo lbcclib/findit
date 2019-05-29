@@ -1,8 +1,8 @@
 User-agent: *
-Crawl-delay: 20
 Disallow: /? # blocks search results pages
 Disallow: /articles # blocks articles pages
 Disallow: /catalog? # blocks search results pages
 Disallow: /catalog/citation # blocks citation pages
 Disallow: /catalog/facet # blocks facet pages
 Disallow: /catalog/range_limit # blocks range limit pages
+Crawl-delay: 20
