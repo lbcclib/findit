@@ -6,5 +6,7 @@ Disallow: /catalog/citation # blocks citation pages
 Disallow: /catalog/facet # blocks facet pages
 Disallow: /catalog/range_limit # blocks range limit pages
 Disallow: /*.atom$
+Disallow: /*.marc$
+Disallow: /*.marcxml$
 Disallow: /*.rss$
 Crawl-delay: 20
