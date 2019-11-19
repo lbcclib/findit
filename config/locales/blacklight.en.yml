@@ -24,8 +24,8 @@ en:
       SourceType: 'Source type'
       SubjectEDS: 'Subject'
     more_article_results: 'More articles'
-    more_solr_results: 'More books and media'
-    solr_results_label: 'Books and media'
+    more_solr_results: 'More books and videos'
+    solr_results_label: 'Books and videos'
     solr_results_description: 'E-books, streaming video and music, library books and more'
     about_resource_header: 'About this resource'
     about_edition_header: 'About this edition'
@@ -41,7 +41,7 @@ en:
     pubyear_display: 'Publication year'
     pubyear_search_display: 'date'
     cat_about_main: >
-            Research your topic in a single step by entering the search terms in this box. Results will include everything the LBCC Library offers on the search including books, journal articles, e-books, media, and streaming content.  Ask a reference librarian if you'd like to know more about this great research tool.
+            Research your topic in a single step by entering the search terms in this box. Results will include everything the LBCC Library offers on the search including books, journal articles, e-books, and streaming content.  Ask a reference librarian if you'd like to know more about this research tool.
     cat_about_what: 'What am I searching?'
     cat_about_included: 'Find It searches the following research databases:'
     cat_dblist_alex: 'Alexander Street Press titles (American history in video, American song, Classical music library, Smithsonian global sound)'
