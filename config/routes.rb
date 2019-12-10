@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
   mount Blacklight::Engine => '/'
 
-  Blacklight::Marc.add_routes(self)
+  concern :marc_viewable, Blacklight::Marc::Routes::MarcViewable.new
   root to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new
 
@@ -13,15 +13,11 @@ Rails.application.routes.draw do
 
   end
 
-  resource :articles, only: [:index], as: 'articles', path: '/articles', controller: 'articles' do
-    concerns :searchable
-  end
-
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
-    concerns :exportable
+    concerns [:exportable, :marc_viewable]
   end
 
   resources :bookmarks do
@@ -33,10 +29,8 @@ Rails.application.routes.draw do
   end
 
   # Static pages
-  get '/about' => 'catalog#about'
-  get '/more' => 'catalog#more'
-
-  get 'articles/:db/:id' => 'articles#show', :constraints => { :id => /[^\/]+/ }
+  #get '/about' => 'catalog#about'
+  #get '/more' => 'catalog#more'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
