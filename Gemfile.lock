@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/sandbergja/blacklight-locale_picker
+  revision: 92ced9c606d26a413183e6d8a79529144f171a67
+  specs:
+    blacklight-locale_picker (0.1.0)
+      rails (>= 5.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,7 +90,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
-    builder (3.2.3)
+    builder (3.2.4)
     byebug (11.0.1)
     capybara (3.29.0)
       addressable
@@ -319,6 +326,7 @@ PLATFORMS
 
 DEPENDENCIES
   blacklight (~> 7.4.2)
+  blacklight-locale_picker!
   blacklight-marc (>= 7.0.0.rc1, < 8)
   blacklight_range_limit
   bootsnap (>= 1.4.2)

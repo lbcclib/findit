@@ -67,4 +67,5 @@ gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 gem 'blacklight_range_limit'
+gem 'blacklight-locale_picker', :git => 'https://github.com/sandbergja/blacklight-locale_picker'
 gem 'dotenv-rails', groups: [:development, :test]
