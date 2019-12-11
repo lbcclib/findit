@@ -55,10 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'blacklight', '~>7.4.2'
 
-group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
-end
-
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'bootstrap', '~> 4.0'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
@@ -69,3 +65,4 @@ gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 gem 'blacklight_range_limit'
 gem 'blacklight-locale_picker', :git => 'https://github.com/sandbergja/blacklight-locale_picker'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'material_design_icons'

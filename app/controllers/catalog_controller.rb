@@ -21,8 +21,36 @@ class CatalogController < ApplicationController
     # config.raw_endpoint.enabled = false
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
-    config.default_solr_params = {
-      rows: 10
+    config.default_solr_params = { 
+      :qt => 'search',
+      :qf => %w[
+        abstract_t
+	authority_data_t^0.5
+	author_t^1.5
+	contents_t
+        course_t
+	followed_by_t
+	has_part_t
+	is_part_of_t
+	isbn_t
+	isbn_of_alternate_edition_t
+	language_facet
+	note_t
+	preceeded_by_t
+        professor_t
+	subject_t
+	subject_additional_t
+	subject_name_facet
+	subject_topic_facet^2.0
+	subject_era_facet
+	subject_geo_facet
+	subtitle_t
+	title_t^2.0
+        title_and_statement_of_responsibility_t
+      ].join(' '),
+      :rows => 10,
+      :fl => '*',
+      :bq => 'is_electronic_facet:"Albany Campus Library"^250.0 "Healthcare Occupations Center"^175.0 Online^30.0 record_source_facet:"eBrary Academic Complete"^25.0 "NCBI Bookshelf"^35.0 pub_date_sort:[2015 TO *]^10.0 [1923 TO *]^30.0',
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -33,8 +61,8 @@ class CatalogController < ApplicationController
     #config.per_page = [10,20,50,100]
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_tsim'
-    #config.index.display_type_field = 'format'
+    config.index.title_field = 'title_display'
+    config.index.display_type_field = 'format'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
     config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
@@ -79,22 +107,18 @@ class CatalogController < ApplicationController
     # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
+    config.add_facet_field 'is_electronic_facet', :label => 'Get it', :collapse => false
+    config.add_facet_field 'format', :label => 'Format', :collapse => false
+    config.add_facet_field 'pub_date', :label => 'Publication year', :range => true, :collapse => false
+    config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20, :sort => 'count'
+    config.add_facet_field 'language_facet', :label => 'Language', :limit => true, :sort => 'count'
+    config.add_facet_field 'subject_geo_facet', :label => 'Region of focus', :limit => true, :sort => 'count'
+    #config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
+    #config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
+    #config.add_facet_field 'genre_facet', :label => 'Genre', :limit => true, :sort => 'count'
+    config.add_facet_field 'series_facet', :label => 'Series', :limit => true, :sort => 'count'
+    config.add_facet_field 'record_source_facet', :label => 'Source database', :limit => true
 
-    config.add_facet_field 'format', label: 'Format'
-    config.add_facet_field 'pub_date_ssim', label: 'Publication Year', single: true
-    config.add_facet_field 'subject_ssim', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-    config.add_facet_field 'language_ssim', label: 'Language', limit: true
-    config.add_facet_field 'lc_1letter_ssim', label: 'Call Number'
-    config.add_facet_field 'subject_geo_ssim', label: 'Region'
-    config.add_facet_field 'subject_era_ssim', label: 'Era'
-
-    config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_ssim']
-
-    config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
-       :years_5 => { label: 'within 5 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 5 } TO *]" },
-       :years_10 => { label: 'within 10 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
-       :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
-    }
 
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -104,15 +128,16 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_tsim', label: 'Title'
-    config.add_index_field 'title_vern_ssim', label: 'Title'
-    config.add_index_field 'author_tsim', label: 'Author'
-    config.add_index_field 'author_vern_ssim', label: 'Author'
-    config.add_index_field 'format', label: 'Format'
-    config.add_index_field 'language_ssim', label: 'Language'
-    config.add_index_field 'published_ssim', label: 'Published'
-    config.add_index_field 'published_vern_ssim', label: 'Published'
-    config.add_index_field 'lc_callnum_ssim', label: 'Call number'
+    config.add_index_field 'title_vern_display', :label => 'Title'
+    config.add_index_field 'author_display', :label => 'Author'
+    config.add_index_field 'author_vern_display', :label => 'Author'
+    config.add_index_field 'format', :label => 'Format'
+    config.add_index_field 'language_facet', :label => 'Language'
+    config.add_index_field 'pub_date', :label => 'Publication year'
+    config.add_index_field 'abstract_display', :label => 'Abstract'
+    config.add_index_field 'journal_display', :label => 'Journal'
+    config.add_index_field 'article_author_display', :label => 'Author'
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -189,10 +214,10 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_si desc, title_si asc', label: 'relevance'
-    config.add_sort_field 'pub_date_si desc, title_si asc', label: 'year'
-    config.add_sort_field 'author_si asc, title_si asc', label: 'author'
-    config.add_sort_field 'title_si asc, pub_date_si desc', label: 'title'
+    #config.add_sort_field "relevance", sort: "score desc", label: 'relevance'
+    #config.add_sort_field "year", sort: "pub_date desc", label: 'year'
+    #config.add_sort_field "author", sort: "author_sort asc", label: 'author'
+    #config.add_sort_field "title", sort: "title_sort asc", label: 'title'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
