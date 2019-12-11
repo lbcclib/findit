@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   # Static pages
-  #get '/about' => 'catalog#about'
+  get '/about' => 'static#about'
   #get '/more' => 'catalog#more'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
