@@ -1,6 +1,9 @@
-wget https://www-us.apache.org/dist/lucene/solr/8.3.1/solr-8.3.1.tgz
-tar xzvf solr-8.3.1.tgz
-cp schema.xml solr-8.3.1/example/files/conf/schema.xml
-solr-8.3.1/bin/solr start
-solr-8.3.1/bin/solr create_core -c blacklight-core -d solr-8.3.1/example/files/conf/
-git checkout https://github.com/sandbergja/findit_data_tools
+#!/bin/bash
+SOLR_VERSION=8.3.1
+rm -rf solr-$SOLR_VERSION*
+wget https://www-us.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
+tar xzvf solr-$SOLR_VERSION.tgz
+cp schema.xml solr-$SOLR_VERSION/example/files/conf/schema.xml
+solr-$SOLR_VERSION/bin/solr start
+solr-$SOLR_VERSION/bin/solr create_core -c blacklight-core -d solr-$SOLR_VERSION/example/files/conf/
+git clone https://github.com/lbcclib/findit_data_tools
