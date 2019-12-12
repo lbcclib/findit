@@ -14,3 +14,9 @@ en:
         <a href="https://github.com/lbcclib/findit/issues/new">
         let us know about it on GitHub</a>. You will need to
         register for an account on GitHub first.
+  obtain:
+    ebook: Read ebook online
+    source: "Available from %{source}"
+  show:
+    work_heading: About this work
+    instance_heading: About this edition

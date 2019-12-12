@@ -1,3 +1,9 @@
 es:
   about:
     h1: Bienvenidos a Find It
+  obtain:
+    ebook: Leer ebook
+    source: "Proporcionado por %{source}"
+  show:
+    work_heading: Sobre la obra
+    instance_heading: Sobre la edición
