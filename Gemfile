@@ -6,7 +6,13 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+if RUBY_PLATFORM=~ /jruby/ or RUBY_PLATFORM =~ /java/
+  # THe custom git repository will not be needed as soon as they release version 60.0 to rubygems.org
+  gem 'activerecord-jdbcpostgresql-adapter', :git => 'https://github.com/sandbergja/activerecord-jdbc-adapter'
+  gem 'activerecord-jdbc-adapter', :git => 'https://github.com/sandbergja/activerecord-jdbc-adapter'
+else
+  gem 'pg', '>= 0.18', '< 2.0'
+end
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
