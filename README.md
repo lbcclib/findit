@@ -23,7 +23,7 @@ Rails.application.config.assets.precompile += %w( icons/* )
 Rails.application.config.assets.precompile += %w( blacklight/findit.png )
 Rails.application.config.assets.precompile += %w( *.png )
 ```
-6. Get solr running
+6. Get solr running with `cd solr && ./set_up_solr.sh`
 7. `rails s`
 
 ## Contributing to this software
@@ -38,3 +38,16 @@ Rails.application.config.assets.precompile += %w( *.png )
   * Click New Pull Request.
   * Verify your changes, then click "Create pull request".
 
+## Working with EDS
+
+First, add a .env.local file with the correct credentials.
+
+Then you can open the rails console -- `rails c` -- where you can type:
+
+```
+mySession = EBSCO::EDS::Session.new
+mySession.session_token
+article = {:dbid => 'a9h', :an => '138929081'}
+mySession.retrieve article
+myDuplicateSession = EBSCO::EDS::Session.new session_token: mySession.session_token
+```

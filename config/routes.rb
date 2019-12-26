@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   end
 
+  resource :articles, only: [:index], as: 'articles', path: '/articles', controller: 'articles' do
+    concerns :searchable
+  end
+
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
@@ -31,6 +35,9 @@ Rails.application.routes.draw do
   # Static pages
   get '/about' => 'static#about'
   #get '/more' => 'catalog#more'
+
+  # Article view
+  get 'articles/:db/:id' => 'articles#show', :constraints => { :id => /[^\/]+/ }
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
