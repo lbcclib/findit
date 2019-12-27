@@ -7,3 +7,6 @@ cp schema.xml solr-$SOLR_VERSION/example/files/conf/schema.xml
 solr-$SOLR_VERSION/bin/solr start
 solr-$SOLR_VERSION/bin/solr create_core -c blacklight-core -d solr-$SOLR_VERSION/example/files/conf/
 git clone https://github.com/lbcclib/findit_data_tools
+cd findit_data_tools
+ruby findit_data.rb -i eg ../eg.mrc 
+cd -
