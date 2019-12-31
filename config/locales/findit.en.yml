@@ -16,6 +16,7 @@ en:
         register for an account on GitHub first.
   obtain:
     ebook: Read ebook online
+    general_online: "Access %{type} online"
     source: "Available from %{source}"
   show:
     work_heading: About this work

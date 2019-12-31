@@ -1,0 +1,6 @@
+<% evergreen = EvergreenRecord.new record_id, session %>
+<% if evergreen.on_shelf_at_lbcclib? %>
+<% evergreen.status.libraries[7][:copies].first(5).each do |copy| %>
+	<%= copy.call_number %>
+<% end %>
+<% end %>

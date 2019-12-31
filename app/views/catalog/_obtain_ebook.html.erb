@@ -1,2 +1,2 @@
 <%= link_to "#{t('obtain.ebook')} #{ mdi_svg('open-in-new')}".html_safe,
-  document['url_fulltext_display'].first, class: 'btn btn-success', target: '_blank'  %>
+  document.first('url_fulltext_display'), class: 'btn btn-success', target: '_blank'  %>
