@@ -1,7 +1,7 @@
 #!/bin/bash
-SOLR_VERSION=8.3.1
+SOLR_VERSION=8.4.0
 rm -rf solr-$SOLR_VERSION*
-wget https://www-us.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
+wget http://apache.osuosl.org/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
 tar xzvf solr-$SOLR_VERSION.tgz
 cp schema.xml solr-$SOLR_VERSION/example/files/conf/schema.xml
 solr-$SOLR_VERSION/bin/solr start
