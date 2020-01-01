@@ -12,6 +12,10 @@ class EvergreenRecord
     @record_id = id
   end
 
+  def items_only_available_elsewhere?
+    return (!self.on_shelf_at_lbcclib? && !self.on_shelf_at_lbcchoc? && self.status.any_copies_available?)
+  end
+
   def on_shelf_at_lbcclib?
     self.on_shelf_at 7
   end
