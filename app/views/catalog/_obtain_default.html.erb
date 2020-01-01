@@ -1,2 +1,5 @@
+<% if is_online_record? document %>
+<%= render partial: 'obtain_online', locals: {type: document.first('format'), url: document.first('url_fulltext_display')}%>
+<% else %>
 <%= render partial: 'obtain_evergreen', locals: {record_id: document.first('eg_tcn_t')} if is_evergreen_record? document%>
-<%= render partial: 'obtain_online', locals: {type: document.first('format'), url: document.first('url_fulltext_display')} if is_online_record? document%>
+<% end %>

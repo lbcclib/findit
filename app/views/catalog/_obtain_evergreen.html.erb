@@ -1,21 +1,12 @@
 <% evergreen = EvergreenRecord.new record_id, session %>
-<% if evergreen.on_shelf_at_lbcclib? %>
-        <% item = evergreen.first_available_item_at 7 %>
-	<div class="row">
-	<span class="badge badge-success">
-		<%= mdi_svg('library') %>
-		Available
-	</span>
-	<%= t('obtain.available_at', library: t('libraries.lbcclib'), location: item.location, call_number: item.call_number) %>
-	</div>
+<%= render partial: 'brief_item_info', locals: {library_id: 7, library_i18n_key: 'libraries.lbcclib', library_icon: 'library', record_id: record_id} if evergreen.on_shelf_at_lbcclib? %>
+<%= render partial: 'brief_item_info', locals: {library_id: 9, library_i18n_key: 'libraries.lbcchoc', library_icon: 'hospital', record_id: record_id} if evergreen.on_shelf_at_lbcchoc? %>
+<% if evergreen.items_only_available_elsewhere? %>
+<div class="row">
+  <%= t('obtain.available_at_partner_libraries') %>
+</div>
 <% end %>
-<% if evergreen.on_shelf_at_lbcchoc? %>
-        <% item = evergreen.first_available_item_at 9 %>
-	<div class="row">
-	<span class="badge badge-success">
-		<%= mdi_svg('hospital') %>	
-		Available
-	</span>
-	<%= t('obtain.available_at', library: t('libraries.lbcchoc'), location: item.location, call_number: item.call_number) %>
-	</div>
-<% end %>
+<div class="row">
+<%= link_to "#{t('obtain.place_hold')} #{ mdi_svg('open-in-new')}".html_safe,
+  url_for_evergreen_hold(record_id), class: 'btn btn-primary', target: '_blank'  %>
+</div>

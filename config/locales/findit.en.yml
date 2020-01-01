@@ -19,9 +19,12 @@ en:
     lbcchoc: Healthcare Occupations Center Library
     lbcclib: Albany Campus Library
   obtain:
+    available: Available
     available_at: "Available at %{library} (%{location}): %{call_number}"
+    available_at_partner_libraries: Available at Partner Libraries
     ebook: Read ebook online
     general_online: "Access %{type} online"
+    place_hold: Place hold
     source: "Available from %{source}"
   show:
     work_heading: About this work
