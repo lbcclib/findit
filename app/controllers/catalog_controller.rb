@@ -8,6 +8,27 @@ class CatalogController < ApplicationController
 
 
   configure_blacklight do |config|
+    config.citeproc = {
+      bibtex_field: 'bibtex_t',
+      fields: {
+        address: 'place_of_publication_display',
+        author: 'author_display',
+        edition: 'edition_display',
+        publisher: 'publisher_display',
+        title: 'title_t',
+        url: 'url_fulltext_display',
+        year: 'pub_date'
+      },
+      styles: %w(apa chicago-fullnote-bibliography modern-language-association ieee council-of-science-editors),
+      format: {
+        field: 'format',
+        default_format: :book,
+        mappings: {
+          book: ['Book', 'Musical Score', 'Ebook'],
+          misc: ['Map/Globe', 'Non-musical Recording', 'Musical Recording', 'Image', 'Software/Data', 'Video/Film'],
+        }
+      }
+    }
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #

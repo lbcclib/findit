@@ -104,7 +104,6 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     autoprefixer-rails (9.7.3)
       execjs
-    bcrypt (3.1.13)
     bcrypt (3.1.13-java)
     bibtex-ruby (5.0.1)
       latex-decode (~> 0.0)
@@ -115,6 +114,10 @@ GEM
       jbuilder (~> 2.7)
       kaminari (>= 0.15)
       rails (>= 5.1, < 7)
+    blacklight-citeproc (0.0.4)
+      bibtex-ruby (>= 4.4.6)
+      citeproc-ruby (~> 1.1)
+      csl-styles (~> 1.0.1.9)
     blacklight-marc (7.0.0.rc1)
       blacklight (> 7.0.0.a, < 8.a)
       library_stdnums
@@ -124,8 +127,6 @@ GEM
       traject (~> 3.0)
     blacklight_range_limit (7.4.0)
       blacklight (>= 7.0)
-    bootsnap (1.4.5)
-      msgpack (~> 1.0)
     bootsnap (1.4.5-java)
       msgpack (~> 1.0)
     bootstrap (4.4.1)
@@ -133,7 +134,6 @@ GEM
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
-    byebug (11.0.1)
     capybara (3.30.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -177,13 +177,12 @@ GEM
     evergreen_holdings (0.3.0)
       nokogiri (~> 1.10.4)
     execjs (2.7.0)
-    faraday (0.17.1)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     faraday-detailed_logger (2.1.3)
       faraday (~> 0.8)
     faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.11.3)
     ffi (1.11.3-java)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -248,25 +247,18 @@ GEM
     method_source (0.9.2)
     mimemagic (0.3.3)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
     minitest (5.13.0)
-    msgpack (1.3.1)
     msgpack (1.3.1-java)
     multi_json (1.14.1)
     multipart-post (2.1.1)
     namae (1.0.1)
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
-    nio4r (2.5.2)
     nio4r (2.5.2-java)
-    nokogiri (1.10.7)
-      mini_portile2 (~> 2.4.0)
     nokogiri (1.10.7-java)
     orm_adapter (0.5.0)
     popper_js (1.14.5)
-    public_suffix (4.0.1)
-    puma (4.3.1)
-      nio4r (~> 2.0)
+    public_suffix (4.0.2)
     puma (4.3.1-java)
       nio4r (~> 2.0)
     rack (2.0.8)
@@ -325,7 +317,7 @@ GEM
       sprockets-rails
       tilt
     scrub_rb (1.0.1)
-    selenium-webdriver (3.142.6)
+    selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     slop (3.6.0)
@@ -337,7 +329,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (1.0.1)
-    thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     tilt (2.0.10)
     traject (3.3.0)
@@ -362,10 +353,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.3)
       tzinfo (>= 1.0.0)
-    unf (0.1.4)
-      unf_ext
     unf (0.1.4-java)
-    unf_ext (0.0.7.6)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -373,7 +361,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.1.3)
+    webdrivers (4.2.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
@@ -381,8 +369,6 @@ GEM
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
-    websocket-driver (0.7.1)
-      websocket-extensions (>= 0.1.0)
     websocket-driver (0.7.1-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
@@ -393,14 +379,13 @@ GEM
 
 PLATFORMS
   java
-  ruby
 
 DEPENDENCIES
   activerecord-jdbc-adapter!
   activerecord-jdbcpostgresql-adapter!
   activerecord-session_store
-  bibtex-ruby
   blacklight (~> 7.4.2)
+  blacklight-citeproc (>= 0.0.4)
   blacklight-locale_picker!
   blacklight-marc (>= 7.0.0.rc1, < 8)
   blacklight_range_limit
@@ -408,8 +393,6 @@ DEPENDENCIES
   bootstrap (~> 4.0)
   byebug
   capybara (>= 2.15)
-  citeproc-ruby
-  csl-styles
   devise
   devise-guests (~> 0.6)
   dotenv-rails
@@ -432,7 +415,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.5.7p206
+   ruby 2.5.7p0 (jruby 9.2.9.0)
 
 BUNDLED WITH
    2.0.2

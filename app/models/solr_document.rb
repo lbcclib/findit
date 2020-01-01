@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class SolrDocument
   include Blacklight::Solr::Document
+  use_extension(Blacklight::Document::Bibtex)
+
       # The following shows how to setup this blacklight document to display marc documents
   extension_parameters[:marc_source_field] = :marc_display
   extension_parameters[:marc_format_type] = :marcxml
