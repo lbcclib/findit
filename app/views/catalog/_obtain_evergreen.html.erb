@@ -1,6 +1,21 @@
 <% evergreen = EvergreenRecord.new record_id, session %>
 <% if evergreen.on_shelf_at_lbcclib? %>
-<% evergreen.status.libraries[7][:copies].first(5).each do |copy| %>
-	<%= copy.call_number %>
+        <% item = evergreen.first_available_item_at 7 %>
+	<div class="row">
+	<span class="badge badge-success">
+		<%= mdi_svg('library') %>
+		Available
+	</span>
+	<%= t('obtain.available_at', library: t('libraries.lbcclib'), location: item.location, call_number: item.call_number) %>
+	</div>
 <% end %>
+<% if evergreen.on_shelf_at_lbcchoc? %>
+        <% item = evergreen.first_available_item_at 9 %>
+	<div class="row">
+	<span class="badge badge-success">
+		<%= mdi_svg('hospital') %>	
+		Available
+	</span>
+	<%= t('obtain.available_at', library: t('libraries.lbcchoc'), location: item.location, call_number: item.call_number) %>
+	</div>
 <% end %>

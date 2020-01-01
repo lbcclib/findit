@@ -16,8 +16,18 @@ class EvergreenRecord
     self.on_shelf_at 7
   end
 
-  def on_shelf_at_lbcchoc? id
+  def on_shelf_at_lbcchoc?
     self.on_shelf_at 9
+  end
+
+  def first_available_item_at library_id
+    status = self.status
+    status.libraries[library_id][:copies].each do |copy|
+      if 'Available' == copy.status
+        return copy
+      end
+    end
+    return nil
   end
 
   def status
@@ -31,13 +41,8 @@ class EvergreenRecord
 
   protected
   def on_shelf_at library_id
-    status = self.status
-    status.libraries[library_id][:copies].each do |copy|
-      if 'Available' == copy.status
-        return true
-      end
-    end
-    return false
+    return false if self.first_available_item_at(library_id).nil?
+    true
   end
 
 end
