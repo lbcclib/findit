@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   mount Blacklight::Citeproc::Engine => '/'
 
 
-  concern :marc_viewable, Blacklight::Marc::Routes::MarcViewable.new
   root to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new
 
@@ -23,7 +22,7 @@ Rails.application.routes.draw do
   concern :exportable, Blacklight::Routes::Exportable.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
-    concerns [:exportable, :marc_viewable]
+    concerns [:exportable]
   end
 
   resources :bookmarks do
