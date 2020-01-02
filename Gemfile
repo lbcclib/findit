@@ -66,7 +66,7 @@ gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'blacklight_range_limit'
 gem 'blacklight-locale_picker', :git => 'https://github.com/sandbergja/blacklight-locale_picker'
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 gem 'material_design_icons'
 gem 'activerecord-session_store'
 gem 'ebsco-eds', :github => 'sandbergja/edsapi-ruby'
