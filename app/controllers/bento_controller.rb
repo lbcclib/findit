@@ -7,6 +7,7 @@ class BentoController < ApplicationController
         redirect_to controller: 'articles', params: request.query_parameters
       elsif params[:showCatalog] and !params[:showArticles]
         redirect_to controller: 'catalog', params: request.query_parameters
+      else
       end
     else
       redirect_to action: 'home'

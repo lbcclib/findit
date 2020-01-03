@@ -1,2 +1,32 @@
-<%= @q %>
-Bento
+<div class="row">
+  <section id="content" class="col-lg-9 order-last">
+    <h2>Articles</h2>
+    Emerging research and news articles -- great sources for your next paper
+    <h2>Books and videos</h2>
+    E-books, streaming video and music, library books and more
+  </section>
+  <section id="sidebar" class="page-sidebar col-lg-3 order-first">
+    <div id="facets" class="facets sidenav facets-toggleable-md">
+      <div class="card facet-limit">
+        <h3 class="card-header p-0 facet-field-heading">
+          <%= t('blacklight.articles.format') %>
+        </h3>
+        <div class="panel-collapse facet-content collapse show">
+          <div class="card-body">
+            <ul class="facet-values list-unstyled">
+              <li>
+                <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
+              </li>
+              <li>
+                <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
+              </li>
+              <li>
+                <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
