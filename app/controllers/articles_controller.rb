@@ -9,7 +9,7 @@ class ArticlesController < CatalogController
       search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
       @search_field = params[:search_field] || 'all_fields'
       @search_field_code = search_fields[@search_field] || 'KW'
-      @requested_facets = params[:f].to_a || []
+      @requested_facets = params[:f] || []
 
       connection = EdsService.get_valid_connection session
       results = connection.search search_opts
@@ -49,9 +49,9 @@ class ArticlesController < CatalogController
   def search_opts
     i = 1
     facet_filters = Array.new
-    @requested_facets.each do |facet|
-      facet[1].each do |term|
-        facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => facet[0].gsub(/\s+/, ''), 'Value' => term}]}
+    @requested_facets.each do |key, values|
+      values.each do |value|
+        facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => key.gsub(/\s+/, ''), 'Value' => value}]}
         i = i + 1
       end
     end
