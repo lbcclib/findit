@@ -1,7 +1,2 @@
-<% doc_presenter = show_presenter(@document) %>
-<div class="col-md-9 col-sm-8 show-document">
-<h1><%= @document[:title] %></h1>
-<%= render partial: 'catalog/fulltext_link', locals: {document: @document}  %>
-<%= render partial: 'catalog/show_work_default', locals: {document: @document} %>
-<%= render partial: 'catalog/show_instance_default', locals: {document: @document} %>
-</div>
+<%= render 'catalog/show_work_default', document: @document %>
+<%= render 'catalog/show_instance_default', document: @document %>

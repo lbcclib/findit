@@ -1,0 +1,35 @@
+en:
+  about:
+    h1: Welcome to Find It
+    intro: >
+      Research your topic in a single step by entering the
+      search terms in this box. Results will include countless
+      LBCC Library holdings including books, journal articles,
+      e-books, and streaming videos. Ask a reference librarian
+      if you'd like to know more about this research tool. 
+    report_issue:
+      heading: I have found a problem!
+      how_to_html: >
+        If you'd like us to add a feature or fix a bug,
+        <a href="https://github.com/lbcclib/findit/issues/new">
+        let us know about it on GitHub</a>. You will need to
+        register for an account on GitHub first.
+  bento:
+    all_articles: "All %{number} articles"
+    all_catalog: "All %{number} books and videos"
+  libraries:
+    lbccbc: Benton Center Learning Center
+    lbcchoc: Healthcare Occupations Center Library
+    lbcclib: Albany Campus Library
+  obtain:
+    article: Read article online
+    available: Available
+    available_at: "Available at %{library} (%{location}): %{call_number}"
+    available_at_partner_libraries: Available at Partner Libraries
+    ebook: Read ebook online
+    general_online: "Access %{type} online"
+    place_hold: Place hold
+    source: "Available from %{source}"
+  show:
+    work_heading: About this work
+    instance_heading: About this edition

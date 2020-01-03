@@ -1,10 +1,10 @@
-<% @facets.each do |facet| %>
-  <div class="panel panel-default facet_limit">
-    <div aria-expanded="true" class="collapse-toggle panel-heading">
-      <h5 class="panel-title facet-field-heading"><a data-no-turbolink="true" href="#"><%= t('blacklight.articles.' + facet.name) %></a></h5>
-    </div>
-    <div style="" aria-expanded="true" class="panel-collapse facet-content collapse in">
-      <div class="panel-body">
+<% facets.each do |facet| %>
+  <div class="card facet-limit">
+    <h3 class="card-header p-0 facet-field-heading">
+      <%= t('blacklight.articles.' + facet.name) %>
+    </h3>
+    <div class="panel-collapse facet-content collapse show">
+      <div class="card-body">
         <ul class="facet-values list-unstyled">
         <% facet.items.each do |item| %>
           <li><%= render_facet_item facet.name, item %></li>
@@ -14,3 +14,4 @@
     </div>
   </div>
 <% end %>
+

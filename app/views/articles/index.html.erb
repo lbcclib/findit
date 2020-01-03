@@ -1,14 +1,14 @@
 <% if has_search_parameters? %>
-    <div class="articles">
-	    <div id="sidebar" class="col-md-3 col-sm-4"><div id="facets" class="facets sidenav"><%= render partial: 'facets' %></div></div>
-      <div id="content" class="col-md-7 col-sm-8">
-        <%= render partial: 'catalog/constraints' %>
-        <%= render partial: 'catalog/paginate_compact', object: @articles %>
-	<%= render 'search_results' %>
-        <%= render partial: 'catalog/results_pagination', locals: {:@response => @articles} %>
-      </div>
+  <div class="articles">
+    <section id="sidebar" class="page-sidebar col-lg-3 order-first"><div id="facets" class="facets sidenav facets-toggleable-md"><%= render 'facets', facets: @facets %></div></div>
+    <div id="content" class="col-md-7 col-sm-8">
+      <%= render 'catalog/constraints' %>
+      <%= render partial: 'catalog/paginate_compact', object: @articles %>
+      <%= render 'search_results', articles: @articles  %>
+      <%= render partial: 'catalog/results_pagination', locals: {:@response => @articles} %>
     </div>
-    </div>
+  </div>
+</div>
 <% else #show home page if no search params %>
   <div id="content">
     <%= render 'catalog/home' %>

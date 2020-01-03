@@ -1,0 +1,26 @@
+<div class="row large-search-container">
+   <form id="search-box" class="form-search" method="get" action="search">
+      <fieldset> 
+        <div class="row align-items-center">
+          <input name="q" type="text" class="form-control form-control-lg" aria-label="search terms" autofocus />
+        </div>
+        <div class="row search-option-buttons">
+          <button type="submit" class="btn btn-success btn-lg col-xs-offset-1 col-xs-10 col-sm-4" style="white-space: normal;"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
+        </div>
+
+      <%= render partial: 'catalog/search_field_dropdown', locals: {select_class_name: 'form-control'} %>
+      <div class="form-check">
+        <input class="form-check-input" name="showArticles" type="checkbox" id="showArticles" checked>
+        <label class="form-check-label" for="showArticles">
+          <%= t('bento.include_articles') %>
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" name="showCatalog" type="checkbox" id="showCatalog" checked>
+        <label class="form-check-label" for="showCatalog">
+          <%= t('bento.include_catalog') %>
+        </label>
+      </div>
+      </fieldset>
+   </form>
+</div>
