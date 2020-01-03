@@ -1,0 +1,27 @@
+<div class="document" itemtype="http://schema.org/Thing">
+  <div class="documentHeader row">
+
+    <h5 class="index_title">
+      <span class="document-counter">
+        <%= article_counter.to_s + '.' if article_counter %>
+      </span>
+      <%= link_to article[:title], controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
+    </h5>
+  </div>
+
+  <div class="row">
+    <%= render 'catalog/obtain_online', url: article[:url_fulltext_display], type: article[:format] %>
+  </div>
+
+  <dl class="document-metadata dl-horizontal dl-invert">
+    <% doc_presenter = index_presenter(article) %> 
+    <% index_fields(article).each do |field_name, field| -%>
+      <% if article.has? field_name %>
+        <dt class="blacklight-<%= field_name.parameterize %>"><%= render_index_field_label article, field: field_name %></dt>
+        <dd class="blacklight-<%= field_name.parameterize %>"><%= doc_presenter.field_value field %></dd>
+      <% end -%>
+    <% end -%>
+
+  </dl>
+</div>
+
