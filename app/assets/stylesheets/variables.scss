@@ -6,3 +6,16 @@ $theme-colors: (
   "danger": #873D5A
 );
 $card-cap-bg: #E1E0DC;
+
+nav.bg-dark {
+  background-color: #873D5A !important;
+}
+
+.navbar-dark .navbar-nav a.nav-link {
+  color: #FFF;
+}
+
+.navbar-dark .navbar-nav a.nav-link:focus, .navbar-dark .navbar-nav a.nav-link:hover {
+  color: #FFF;
+  border-bottom: #E1E0DC solid 3px;
+}

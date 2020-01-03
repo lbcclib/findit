@@ -9,8 +9,11 @@ class BentoController < ApplicationController
         redirect_to controller: 'catalog', params: request.query_parameters
       end
     else
-      render 'home'
+      redirect_to action: 'home'
     end
+  end
+
+  def home
   end
 
 end

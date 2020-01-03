@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
   mount Blacklight::Citeproc::Engine => '/'
 
-  root 'bento#index'
+  root 'bento#home'
+  get '/search' => 'bento#index'
 
   get '/catalog', to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new
