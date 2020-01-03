@@ -14,11 +14,15 @@ en:
         <a href="https://github.com/lbcclib/findit/issues/new">
         let us know about it on GitHub</a>. You will need to
         register for an account on GitHub first.
+  bento:
+    all_articles: "All %{number} articles"
+    all_catalog: "All %{number} books and videos"
   libraries:
     lbccbc: Benton Center Learning Center
     lbcchoc: Healthcare Occupations Center Library
     lbcclib: Albany Campus Library
   obtain:
+    article: Read article online
     available: Available
     available_at: "Available at %{library} (%{location}): %{call_number}"
     available_at_partner_libraries: Available at Partner Libraries

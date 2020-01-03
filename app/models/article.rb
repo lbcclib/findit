@@ -5,10 +5,14 @@ class Article < SolrDocument
     # Fills an Article object up with data from an API
     def initialize record
         @_source = HashWithIndifferentAccess.new
-
         if record.title
             @_source[:title] = record.title
-	    #@_source[:url_fulltext_display] = [PROXY_PREFIX + record.fulltext_link().first[:link_url]]
+            record.eds_fulltext_links.each do |link|
+              if ('detail' != link[:url])
+                @_source[:url_fulltext_display] = PROXY_PREFIX + link[:url]
+                break
+              end
+            end
 	    @_source[:db] = record.eds_database_id
             @_source[:id] = record.eds_accession_number
             @_source[:pubtype] = record.eds_publication_type

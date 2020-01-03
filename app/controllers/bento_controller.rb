@@ -8,6 +8,31 @@ class BentoController < ApplicationController
       elsif params[:showCatalog] and !params[:showArticles]
         redirect_to controller: 'catalog', params: request.query_parameters
       else
+        connection = EdsService.get_valid_connection session
+        search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
+        search_field = params[:search_field] || 'all_fields'
+        search_field_code = search_fields[@search_field] || 'AND'
+        results = ArticleSearch.send connection, page: 1, q: @q, search_field_code: search_field_code, num_rows: 3 
+
+        @articles = []
+        @num_article_hits = results.stat_total_hits
+
+        if results.records
+          results.records.each do |record|
+            current_article = Article.new record
+            @articles.push current_article
+          end
+        end
+
+        catalog_search = Blacklight::SearchService.new config: CatalogController.blacklight_config, user_params: {page: 1, per_page: 3, q: @q} 
+        solr, @catalog_records = catalog_search.search_results
+	@num_catalog_hits = solr['response']['numFound']
+        puts "$$$$$$$$$$$$$$$$$$"
+        puts "$$$$$$$$$$$$$$$$$$"
+puts solr
+        puts "$$$$$$$$$$$$$$$$$$"
+        puts "$$$$$$$$$$$$$$$$$$"
+        puts "$$$$$$$$$$$$$$$$$$"
       end
     else
       redirect_to action: 'home'
