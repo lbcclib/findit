@@ -48,7 +48,14 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :warning
+
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: '[FINDIT ERROR] ',
+      sender_address: %{"libref" <libref@linnbenton.edu>},
+      exception_recipients: %w{sandbej@linnbenton.edu},
+  }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
