@@ -4,7 +4,7 @@ class Article < SolrDocument
 
     # Fills an Article object up with data from an API
     def initialize record
-        @_source = {}
+        @_source = HashWithIndifferentAccess.new
 
         if record.title
             @_source[:title] = record.title
