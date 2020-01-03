@@ -11,11 +11,11 @@ Rails.application.routes.draw do
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
     concerns :range_searchable
-
   end
 
   resource :articles, only: [:index], as: 'articles', path: '/articles', controller: 'articles' do
     concerns :searchable
+    concerns :range_searchable
   end
 
   devise_for :users
@@ -39,6 +39,9 @@ Rails.application.routes.draw do
 
   # Article view
   get 'articles/:db/:id' => 'articles#show', :constraints => { :id => /[^\/]+/ }
+
+  # Articles don't have their own range limit
+  get 'articles/range_limit', to: redirect(path: '/catalog/range_limit')
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,9 +1,14 @@
 class ArticlesController < CatalogController
-  def show
-    begin
+
+  include BlacklightRangeLimit::ControllerOverride
+
+  def index
       connection = EdsService.get_valid_connection session
-      @document = connection.retrieve dbid: params[:db], an: params[:id]
-    rescue
-    end
+  end
+
+  def show
+    connection = EdsService.get_valid_connection session
+    raw_article = connection.retrieve dbid: params[:db], an: params[:id]
+    @document = Article.new raw_article
   end
 end
