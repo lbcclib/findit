@@ -27,12 +27,6 @@ class BentoController < ApplicationController
         catalog_search = Blacklight::SearchService.new config: CatalogController.blacklight_config, user_params: {page: 1, per_page: 3, q: @q} 
         solr, @catalog_records = catalog_search.search_results
 	@num_catalog_hits = solr['response']['numFound']
-        puts "$$$$$$$$$$$$$$$$$$"
-        puts "$$$$$$$$$$$$$$$$$$"
-puts solr
-        puts "$$$$$$$$$$$$$$$$$$"
-        puts "$$$$$$$$$$$$$$$$$$"
-        puts "$$$$$$$$$$$$$$$$$$"
       end
     else
       redirect_to action: 'home'
