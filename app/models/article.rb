@@ -7,12 +7,18 @@ class Article < SolrDocument
         @_source = HashWithIndifferentAccess.new
         if record.title
             @_source[:title] = record.title
+
+            #Use the fulltext link if available, otherwise the plink
             record.eds_fulltext_links.each do |link|
               if ('detail' != link[:url])
                 @_source[:url_fulltext_display] = PROXY_PREFIX + link[:url]
                 break
               end
             end
+            unless @_source.key? :url_fulltext_display
+              @_source[:url_fulltext_display] = PROXY_PREFIX + record.eds_plink
+            end
+
 	    @_source[:db] = record.eds_database_id
             @_source[:id] = record.eds_accession_number
             @_source[:pubtype] = record.eds_publication_type
