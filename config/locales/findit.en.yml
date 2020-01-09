@@ -17,6 +17,7 @@ en:
   bento:
     all_articles: "All %{number} articles"
     all_catalog: "All %{number} books and videos"
+    search_options: Search options
   libraries:
     lbccbc: Benton Center Learning Center
     lbcchoc: Healthcare Occupations Center Library

@@ -4,6 +4,7 @@ es:
   bento:
     all_articles: "Ver los %{number} artículos"
     all_catalog: "Ver los %{number} libros y videos"
+    search_options: Herramientas de búsqueda
   obtain:
     ebook: Leer ebook
     source: "Proporcionado por %{source}"

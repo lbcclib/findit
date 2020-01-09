@@ -1,27 +1,38 @@
 <div class="row large-search-container">
-   <form id="search-box" class="form-search" method="get" action="search">
+   <form id="home-bento-search" class="container-fluid" method="get" action="search">
       <fieldset> 
-        <div class="row align-items-center">
-          <input name="q" type="text" class="form-control form-control-lg" aria-label="search terms" autofocus />
+        <div class="row align-items-center vertical-center">
+          <input name="q" type="text" class="form-control form-control-lg col-12 col-md-9" aria-label="search terms" autofocus />
           <input name="locale" type="hidden" value="<%= I18n.locale %>" />
-        </div>
-        <div class="row search-option-buttons">
-          <button type="submit" class="btn btn-success btn-lg col-xs-offset-1 col-xs-10 col-sm-4" style="white-space: normal;"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
+          <input name="search_field" type="hidden" value="all_fields" id="search_field" />
+          <div class="col-6 col-md-3 btn-group">
+            <button type="submit" class="btn btn-success btn-lg" style="white-space: normal;"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
+            <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-split" type="button" id="searchOptionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              aria-label="<%= t('bento.search_options') %>">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="searchOptionsButton">
+              <span class="form-check dropdown-item">
+                <input class="form-check-input" name="showArticles" type="checkbox" id="showArticles" checked>
+                <label class="form-check-label" for="showArticles">
+                  <%= t('bento.include_articles') %>
+                </label>
+              </span>
+              <span class="form-check dropdown-item">
+                <input class="form-check-input" name="showCatalog" type="checkbox" id="showCatalog" checked>
+                <label class="form-check-label" for="showCatalog">
+                  <%= t('bento.include_catalog') %>
+                </label>
+              </span>
+              <div class="dropdown-divider"></div>
+              <% search_fields.each do |field| %>
+                <button class="btn-light dropdown-item" onclick="document.getElementById('search_field').setAttribute('value', '<%= field[1] %>');">
+                  Search <%= field[0] %>
+                </button>
+              <% end %>
+            </div>
+          </div>
         </div>
 
-      <%= render partial: 'catalog/search_field_dropdown', locals: {select_class_name: 'form-control'} %>
-      <div class="form-check">
-        <input class="form-check-input" name="showArticles" type="checkbox" id="showArticles" checked>
-        <label class="form-check-label" for="showArticles">
-          <%= t('bento.include_articles') %>
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" name="showCatalog" type="checkbox" id="showCatalog" checked>
-        <label class="form-check-label" for="showCatalog">
-          <%= t('bento.include_catalog') %>
-        </label>
-      </div>
       </fieldset>
    </form>
 </div>
