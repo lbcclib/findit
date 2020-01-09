@@ -4,5 +4,12 @@
 
 @import "bootstrap";
 
-@import "blacklight/blacklight"
+@import "blacklight/blacklight";
 
+.card .facet-label {
+  word-wrap: normal;
+}
+.facet-values .facet-count {
+  display: initial;
+  @include float-right;
+}

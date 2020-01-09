@@ -36,20 +36,37 @@
     <div id="facets" class="facets sidenav facets-toggleable-md">
       <div class="card facet-limit">
         <h3 class="card-header p-0 facet-field-heading">
-          <%= t('blacklight.articles.format') %>
+          <span class="btn btn-block p-2 text-left">
+            <%= t('blacklight.articles.format') %>
+          </span>
         </h3>
         <div class="panel-collapse facet-content collapse show">
           <div class="card-body">
             <ul class="facet-values list-unstyled">
-              <li>
-                <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
-              </li>
-              <li>
-                <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
-              </li>
-              <li>
-                <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
-              </li>
+              <% if @num_article_hits %>
+                <li>
+                  <span class="facet-label">
+                    <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
+                  </span>
+                  <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
+                </li>
+              <% end %>
+              <% if @catalog_format_facets.key? 'Book' %>
+                <li>
+                  <span class="facet-label">
+                    <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
+                  </span>
+                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
+                </li>
+              <% end %>
+              <% if @catalog_format_facets.key? 'Ebook' %>
+                <li>
+                  <span class="facet-label">
+                    <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
+                  </span>
+                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>

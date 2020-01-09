@@ -1,5 +1,5 @@
 <% if has_search_parameters? %>
-  <div class="articles">
+  <div class="articles row">
     <section id="content" class="col-lg-9 order-last">
       <%= render 'catalog/constraints' %>
       <%= render partial: 'catalog/paginate_compact', object: @articles %>

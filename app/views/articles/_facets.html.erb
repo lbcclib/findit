@@ -1,7 +1,9 @@
 <% facets.each do |facet| %>
   <div class="card facet-limit">
     <h3 class="card-header p-0 facet-field-heading">
-      <%= t('blacklight.articles.' + facet.name) %>
+      <span class="btn btn-block p-2 text-left">
+        <%= t('blacklight.articles.' + facet.name) %>
+      </span>
     </h3>
     <div class="panel-collapse facet-content collapse show">
       <div class="card-body">

@@ -26,6 +26,7 @@ class BentoController < ApplicationController
 
         catalog_search = Blacklight::SearchService.new config: CatalogController.blacklight_config, user_params: {page: 1, per_page: 3, q: @q} 
         solr, @catalog_records = catalog_search.search_results
+	@catalog_format_facets = Hash[*solr['facet_counts']['facet_fields']['format']]
 	@num_catalog_hits = solr['response']['numFound']
       end
     else
