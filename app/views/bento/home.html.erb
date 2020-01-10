@@ -2,11 +2,13 @@
    <form id="home-bento-search" class="container-fluid" method="get" action="search">
       <fieldset> 
         <div class="row align-items-center vertical-center">
-          <input name="q" type="text" class="form-control form-control-lg col-12 col-md-9" aria-label="search terms" autofocus />
+          <input name="q" type="text" id="home-searchbox" class="form-control form-control-lg col-12 col-md-9" aria-label="search terms" autofocus />
           <input name="locale" type="hidden" value="<%= I18n.locale %>" />
           <input name="search_field" type="hidden" value="all_fields" id="search_field" />
           <div class="col-6 col-md-3 btn-group">
-            <button type="submit" class="btn btn-success btn-lg" style="white-space: normal;"><span class="fa fa-search" aria-hidden="true"></span> Search</button>
+            <button type="submit" class="btn btn-success btn-lg" id="home-search-button" style="white-space: normal;">
+              Search
+            </button>
             <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-split" type="button" id="searchOptionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
               aria-label="<%= t('bento.search_options') %>">
             </button>
