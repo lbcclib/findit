@@ -5,7 +5,7 @@
     <ol>
       <% @articles.each do |article| %>
         <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: article[:id]} %>
-          <%= link_to "#{t('obtain.article')} #{ mdi_svg('open-in-new')}".html_safe,
+          <%= link_to "#{t('obtain.article')} #{ white_icon('open-in-new')}".html_safe,
             article[:url_fulltext_display], class: 'badge badge-success' %>
         </li>
       <% end %>
@@ -21,9 +21,9 @@
       <% @catalog_records.each do |record| %>
         <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
 	<% if is_online_record? record %>
-          <%= link_to "#{t('obtain.catalog_record')} #{ mdi_svg('open-in-new')}".html_safe, record[:url_fulltext_display], class: 'badge badge-success' %>
+          <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record[:url_fulltext_display], class: 'badge badge-success' %>
         <% elsif(is_evergreen_record? record) %>
-          <%= link_to "#{t('obtain.place_hold')} #{ mdi_svg('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
+          <%= link_to "#{t('obtain.place_hold')} #{ white_icon('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
         <% end %>
         </li>
       <% end %>
