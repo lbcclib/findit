@@ -6,6 +6,7 @@ es:
     all_catalog: "Ver los %{number} libros y videos"
     search_options: Herramientas de búsqueda
   obtain:
+    catalog_record: Acceder a este recurso
     ebook: Leer ebook
     source: "Proporcionado por %{source}"
   show:
