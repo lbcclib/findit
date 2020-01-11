@@ -21,7 +21,7 @@
       <% @catalog_records.each do |record| %>
         <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
 	<% if is_online_record? record %>
-          <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record[:url_fulltext_display], class: 'badge badge-success' %>
+          <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record.first(:url_fulltext_display), class: 'badge badge-success' %>
         <% elsif(is_evergreen_record? record) %>
           <%= link_to "#{t('obtain.place_hold')} #{ white_icon('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
         <% end %>
