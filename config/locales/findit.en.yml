@@ -27,6 +27,7 @@ en:
     available: Available
     available_at: "Available at %{library} (%{location}): %{call_number}"
     available_at_partner_libraries: Available at Partner Libraries
+    catalog_record: Access resource online
     ebook: Read ebook online
     general_online: "Access %{type} online"
     place_hold: Place hold
