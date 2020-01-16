@@ -4,7 +4,7 @@
     Emerging research and news articles -- great sources for your next paper
     <ol>
       <% @articles.each do |article| %>
-        <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: article[:id]} %>
+        <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
           <%= link_to "#{t('obtain.article')} #{ white_icon('open-in-new')}".html_safe,
             article[:url_fulltext_display], class: 'badge badge-success' %>
         </li>
