@@ -23,7 +23,12 @@ class ArticleSearch
         i = i + 1
       end
     end
-    return {query: search_field_code + ':' + q, page: page, results_per_page: num_rows, limiters: ['FT:y'], facet_filters: facet_filters}
+    return {:query => search_field_code + ':' + q,
+      'page' => page,
+      :results_per_page => num_rows,
+      :limiters => ['FT:y'],
+      :facet_filters => facet_filters
+    }
   end
 
 end

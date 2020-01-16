@@ -21,7 +21,7 @@ class ArticlesController < CatalogController
           current_article = Article.new record
           records.push current_article
         end
-        @articles = Kaminari.paginate_array(records, total_count: results.stat_total_hits).page(@page).per(10)
+        @articles = Kaminari.paginate_array(records, total_count: results.stat_total_hits).page(page).per(10)
 
         if results.facets.respond_to? :each
           results.facets.each do |facet|
