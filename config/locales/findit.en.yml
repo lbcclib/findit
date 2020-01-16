@@ -32,6 +32,7 @@ en:
     general_online: "Access %{type} online"
     place_hold: Place hold
     source: "Available from %{source}"
+    streaming_video: Stream this video
   show:
     work_heading: About this work
     instance_heading: About this edition

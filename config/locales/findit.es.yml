@@ -9,6 +9,7 @@ es:
     catalog_record: Acceder a este recurso
     ebook: Leer ebook
     source: "Proporcionado por %{source}"
+    streaming_video: Mirar este video en streaming
   show:
     work_heading: Sobre la obra
     instance_heading: Sobre la edición
