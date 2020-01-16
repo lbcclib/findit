@@ -45,9 +45,12 @@ First, add a .env.local file with the correct credentials.
 Then you can open the rails console -- `rails c` -- where you can type:
 
 ```
-mySession = EBSCO::EDS::Session.new
-mySession.session_token
-article = {:dbid => 'a9h', :an => '138929081'}
-mySession.retrieve article
+mySession = EBSCO::EDS::Session.new # one of these sessions is required for article searches and retrieval
+mySession.session_token # you can use this session_token to recreate an existing session
 myDuplicateSession = EBSCO::EDS::Session.new session_token: mySession.session_token
+
+article = {:dbid => 'a9h', :an => '138929081'}
+mySession.retrieve article #retrieve an article
+
+ArticleSearch.send mySession, page: 2, q: 'Britney Spears' #get some search results
 ```
