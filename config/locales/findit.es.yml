@@ -8,6 +8,7 @@ es:
   obtain:
     catalog_record: Acceder a este recurso
     ebook: Leer ebook
+    general_online: "Aceder %{type} en línea"
     source: "Proporcionado por %{source}"
     streaming_video: Mirar este video en streaming
   show:
