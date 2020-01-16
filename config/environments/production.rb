@@ -56,6 +56,18 @@ Rails.application.configure do
       sender_address: %{"libref" <libref@linnbenton.edu>},
       exception_recipients: %w{sandbej@linnbenton.edu},
   }
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_options = {from: 'libref@linnbenton.edu'}
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => '587',
+    :domain => 'linnbenton.edu',
+    :authentication => :plain,
+    :enable_starttls_auto => true,
+    :user_name => ENV['GMAIL_USERNAME'],
+    :user_name => ENV['GMAIL_PASSWORD']
+  }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
