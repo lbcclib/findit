@@ -26,12 +26,13 @@ class Article < SolrDocument
 
             @_source[:db] = record.eds_database_id
             @_source[:id] = record.eds_accession_number
-            @_source[:pubtype] = record.eds_publication_type
+            @_source[:format] = record.eds_publication_type
             @_source[:article_author_display] = record.eds_authors
             @_source[:article_language_facet] = record.eds_languages
             @_source[:article_subject_facet] = record.eds_subjects
             @_source[:database_display] = record.eds_database_name
             @_source[:pub_date] = record.eds_publication_year
+            @_source[:record_source_facet] = record.eds_database_name
 
             @_source[:journal_display] = try_to_extract record, :eds_source_title
             @_source[:abstract_display] = try_to_extract record, :eds_abstract

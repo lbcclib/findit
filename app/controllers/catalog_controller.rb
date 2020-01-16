@@ -171,6 +171,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'original_title_t', :label => 'Original title', :work => true, :itemprop => 'alternativeHeadline'
     config.add_show_field 'author_display', :label => 'Author', :link_to_facet => :author_facet, :link_to_search => :author_facet, :itemprop => 'author', :work => true
     config.add_show_field 'author_vern_display', :label => 'Author', :itemprop => 'author', :work => true
+    config.add_show_field 'article_author_display', :label => 'Authors', :work => true, :itemprop => 'contributor', :helper_method => 'link_to_article_author_search'
     config.add_show_field 'subject_topic_facet', :label => 'Topic terms', :limit => 20, :work => true, :itemprop => 'about', :link_to_facet => :subject_topic_facet, :link_to_search => :subject_topic_facet
     config.add_show_field 'subject_geo_facet', :label => 'Region' , :work => true, :itemprop => 'spatialCoverage', :link_to_facet => :subject_geo_facet, :link_to_search => :subject_topic_facet
     config.add_show_field 'subject_era_facet', :label => 'Era'  , :work => true, :itemprop => 'temporalCoverage', :link_to_facet => :subject_era_facet, :link_to_search => :subject_topic_facet
@@ -178,9 +179,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'abstract_display', :label => 'Abstract', :work => true, :itemprop => 'description'
     config.add_show_field 'preceeded_by_display', :label => 'Preceded by', :work => true, :link_to_facet => :title_facet, :link_to_search => :title_facet
     config.add_show_field 'followed_by_display', :label => 'Followed by', :work => true, :link_to_facet => :title_facet, :link_to_search => :title_facet
+    #config.add_show_field 'article_subject_facet', :label => 'Subject', :work => true, :itemprop => 'about', :helper_method => 'link_to_article_keyword_search'
+    config.add_show_field 'article_language_facet', :label => 'Language', :instance => true, :itemprop => 'inLanguage'
+
 
 
     config.add_show_field 'edition_display', :label => 'Edition', :instance => true, :itemprop => 'disambiguatingDescription'
+    config.add_show_field 'journal_display', :label => 'Journal', :instance => true, :itemprop => 'source'
     config.add_show_field 'course_t', :label => 'Used for course', :instance => true, :itemprop => 'description'
     config.add_show_field 'professor_t', :label => 'Assigned by professor', :instance => true, :itemprop => 'description'
     config.add_show_field 'contributor_display', :label => 'Contributors', :link_to_facet => :author_facet, :link_to_search => :author_facet, :itemprop => 'contributor', :instance => true
