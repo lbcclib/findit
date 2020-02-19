@@ -5,15 +5,18 @@ class EvergreenRecord
     if (session.key? 'evergreen_holdings_connection') && (session['evergreen_connection_timestamp'] > 2.hours.ago)
       @evergreen_connection = session['evergreen_holdings_connection']
     else
-      @evergreen_connection = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
-      session['evergreen_holdings_connection'] = @evergreen_connection
-      session['evergreen_connection_timestamp'] = Time.now
+      begin
+        @evergreen_connection = EvergreenHoldings::Connection.new 'http://libcat.linnbenton.edu'
+        session['evergreen_holdings_connection'] = @evergreen_connection
+        session['evergreen_connection_timestamp'] = Time.now
+      rescue
+      end
     end
     @record_id = id
   end
 
   def items_only_available_elsewhere?
-    return (!self.on_shelf_at_lbcclib? && !self.on_shelf_at_lbcchoc? && self.status.any_copies_available?)
+    return (!self.on_shelf_at_lbcclib? && !self.on_shelf_at_lbcchoc? && self.status && self.status.any_copies_available?)
   end
 
   def on_shelf_at_lbcclib?
@@ -26,9 +29,11 @@ class EvergreenRecord
 
   def first_available_item_at library_id
     status = self.status
-    status.libraries[library_id][:copies].each do |copy|
-      if 'Available' == copy.status
-        return copy
+    if self.status
+      status.libraries[library_id][:copies].each do |copy|
+        if 'Available' == copy.status
+          return copy
+        end
       end
     end
     return nil
@@ -39,7 +44,11 @@ class EvergreenRecord
     if defined? @last_status
       @last_status
     else
-      @last_status = @evergreen_connection.get_holdings @record_id
+      begin
+        @last_status = @evergreen_connection.get_holdings @record_id
+      rescue
+        return nil
+      end
     end
   end
 
@@ -50,3 +59,4 @@ class EvergreenRecord
   end
 
 end
+
