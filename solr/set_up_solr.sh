@@ -1,5 +1,5 @@
 #!/bin/bash
-SOLR_VERSION=8.4.0
+SOLR_VERSION=8.4.1
 rm -rf solr-$SOLR_VERSION*
 wget http://apache.osuosl.org/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
 tar xzvf solr-$SOLR_VERSION.tgz
