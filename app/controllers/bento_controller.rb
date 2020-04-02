@@ -35,6 +35,11 @@ class BentoController < ApplicationController
     end
   end
 
+  def search_action_url(options = nil)
+    opt = (options || {}).merge(action: 'index', controller: 'bento')
+    url_for opt
+  end
+
   def home
   end
 
