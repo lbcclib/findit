@@ -1,10 +1,8 @@
-<% article_counter = 1 %>
 <% if articles.empty? %>
-	<%= render partial: 'catalog/zero_results' %>
+  <%= render partial: 'catalog/zero_results' %>
 <% else %>
-    <% articles.each do |article| %>
-             <%= render partial: 'articles/index_default', locals: {article: article, article_counter: article_counter} %>
-             <% article_counter += 1 %>
-     <% end %>
+  <% articles.each do |article| %>
+    <%= render partial: 'articles/index_default', locals: {article: article} %>
+   <% end %>
 <% end %>
 

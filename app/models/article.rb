@@ -46,6 +46,7 @@ class Article < SolrDocument
             @_source[:volume_display] = try_to_extract record, :eds_volume
             @_source[:issue_display] = try_to_extract record, :eds_issue
             @_source[:notes_display] = try_to_extract record, :eds_notes
+            @_source[:result_number] = try_to_extract record, :eds_result_id
         end
     end
 
