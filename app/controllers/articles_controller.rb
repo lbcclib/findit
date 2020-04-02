@@ -29,9 +29,23 @@ class ArticlesController < CatalogController
             facet[:values].take(10).each do |value|
               items.push(OpenStruct.new hits: value[:hitcount], value: value[:action].gsub(/addfacetfilter\(\w+\:(.*)\)/, '\1').gsub(/\\(\(|\))/, '\1'), label: value[:value])
             end
-	    new_facet = Blacklight::Solr::Response::Facets::FacetField.new facet[:id], items
+            new_facet = Blacklight::Solr::Response::Facets::FacetField.new facet[:id], items
             @facets << new_facet
           end
+
+          # Rearrange to a better order
+          desired_order = [
+            'SourceType',
+            'PublicationYear',
+            'SubjectEDS',
+            'Journal',
+            'Language',
+            'SubjectGeographic',
+            'Publisher',
+            'CollectionLibrary',
+            'ContentProvider'
+          ]
+          @facets.sort_by! {|f| desired_order.index f.name}
         end
       end
     end
