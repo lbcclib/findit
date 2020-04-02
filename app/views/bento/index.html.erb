@@ -51,20 +51,28 @@
                   <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
                 </li>
               <% end %>
-              <% if @catalog_format_facets.key? 'Book' %>
-                <li>
-                  <span class="facet-label">
-                    <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
-                  </span>
-                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
-                </li>
-              <% end %>
               <% if @catalog_format_facets.key? 'Ebook' %>
                 <li>
                   <span class="facet-label">
                     <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
                   </span>
                   <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
+                </li>
+              <% end %>
+              <% if @catalog_format_facets.key? 'Streaming video' %>
+                <li>
+                  <span class="facet-label">
+                    <%= link_to t('format.streaming_video'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
+                  </span>
+                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Musical recording']) %></span>
+                </li>
+              <% end %>
+              <% if @catalog_format_facets.key? 'Book' %>
+                <li>
+                  <span class="facet-label">
+                    <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
+                  </span>
+                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
                 </li>
               <% end %>
             </ul>
