@@ -3,7 +3,7 @@
 
     <h5 class="index_title">
       <span class="document-counter">
-        <%= article_counter.to_s + '.' if article_counter %>
+        <%= article[:result_number] %>.
       </span>
       <%= link_to article[:title], controller: 'articles', action: 'show', db: url_encode(article[:db]), id: url_encode(article[:id]) %>
     </h5>
