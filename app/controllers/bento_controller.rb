@@ -9,9 +9,9 @@ class BentoController < ApplicationController
         redirect_to controller: 'catalog', params: request.query_parameters
       else
         connection = EdsService.get_valid_connection session
-        search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
+        search_fields = {'author' => 'AU:', 'title' =>  'TI:', 'all_fields' => '', 'subject' => 'SU:'}
         search_field = params[:search_field] || 'all_fields'
-        search_field_code = search_fields[@search_field] || 'AND'
+        search_field_code = search_fields[@search_field] || ''
         results = ArticleSearch.send connection, page: 1, q: @q, search_field_code: search_field_code, num_rows: 3 
 
         @articles = []

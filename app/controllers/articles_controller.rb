@@ -6,9 +6,9 @@ class ArticlesController < CatalogController
     if has_search_parameters?
       page = params[:page].present? ? Integer(params[:page]) : 1
       q = params[:q] || 'Linn-Benton Community College'
-      search_fields = {'author' => 'AU', 'title' =>  'TI', 'all_fields' => 'AND', 'subject' => 'SU'}
+      search_fields = {'author' => 'AU:', 'title' =>  'TI:', 'all_fields' => '', 'subject' => 'SU:'}
       search_field = params[:search_field] || 'all_fields'
-      search_field_code = search_fields[@search_field] || 'AND'
+      search_field_code = search_fields[@search_field] || ''
       requested_facets = params[:f] || []
 
       connection = EdsService.get_valid_connection session
