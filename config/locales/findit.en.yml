@@ -14,6 +14,17 @@ en:
         <a href="https://github.com/lbcclib/findit/issues/new">
         let us know about it on GitHub</a>. You will need to
         register for an account on GitHub first.
+  articles:
+    facets:
+      CollectionLibrary: Collection library
+      ContentProvider: Database
+      Journal: Journal
+      Language: Language
+      PublicationYear: Publication year
+      Publisher: Publisher
+      SourceType: Format
+      SubjectEDS: Topic
+      SubjectGeographic: Region of focus
   bento:
     all_articles: "All %{number} articles"
     all_catalog: "All %{number} books and videos"
