@@ -19,7 +19,7 @@ class ArticleSearch
     facet_filters = Array.new
     requested_facets.each do |key, values|
       values.each do |value|
-        facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => key.gsub(/\s+/, ''), 'Value' => value}]}
+        facet_filters << {'FilterId' => i, 'FacetValues' => [{'Id' => key.gsub(/\s+/, ''), 'Value' => value.gsub('\\', '')}]}
         i = i + 1
       end
     end
