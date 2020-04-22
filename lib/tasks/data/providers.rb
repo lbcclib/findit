@@ -1,7 +1,11 @@
 module FindIt
     module Data
         module Providers
-            def record_providers
+            def find_by_name name
+                record_providers[name]
+            end
+
+            def all
                 return {
                     'opentextbooks' => {
                         'fetch_url' => 'https://open.umn.edu/opentextbooks/MARC/OTL20180209.mrc',
@@ -102,7 +106,7 @@ module FindIt
                         'fetch_method' => 'http',
                         'fetch_url' => 'https://jomi.com/jomiRecords.mrc',
                         'file_prefix' => 'jomi',
-                        'traject_configuration_files' => ['jomi.rb','proxy.rb'],
+                        'traject_configuration_files' => ['marc', 'jomi','proxy'],
                         },
                 }
             end
