@@ -6,32 +6,33 @@ module FindIt
     module Data
         module Fetch
 
-            # Fetches a MARC file given the URL and the prefix you'd like to save it to
-            def fetch_http urls, prefix, opts = {}
-                if urls.kind_of? Proc
-                    urls_to_fetch = [urls.call].flatten(1)
+            # Fetches a MARC file over http given the config
+            def http config
+                if config['fetch_url'].kind_of? Proc
+                    urls_to_fetch = [config['fetch_url'].call].flatten(1)
 	            else
-                    urls_to_fetch = [urls].flatten(1)
+                    urls_to_fetch = [config['fetch_url']].flatten(1)
 	            end
                 files_written = []
-                filename = Rails.root.join('lib', 'tasks', 'data', 'new', prefix + '_' + date_downloaded + '.mrc')
+                filename = Rails.root.join('lib', 'tasks', 'data', 'new', config['file_prefix'] + '_' + date_downloaded + '.mrc')
                 if File.exist? filename
                     File.delete filename
                 end
                 urls_to_fetch.each do |url|
-	                uri = URI.parse url
-                    if opts.key? 'user'
-                        uri.http_basic_authentication = opts['user'], opts['pass']
-                    end
+                    uri = URI.parse url
                     open(filename, 'ab') do |file|
-                        IO.copy_stream(open(uri, 'rb'), file)
+                        if config.key? 'user'
+                            IO.copy_stream(open(uri, :http_basic_authentication => [config['user'], config['pass']]), file)
+			            else
+                            IO.copy_stream(open(uri, 'rb'), file)
+                        end
                     end
                     files_written << (filename)
                 end
                 return files_written.uniq
             end
 
-            def fetch_ftp server, prefix, credentials, opts = {}
+            def ftp server, prefix, credentials, opts = {}
                 files_written = []
                 ftp = Net::FTP.new server
 	            ftp.passive = true

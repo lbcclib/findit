@@ -4,6 +4,8 @@ include FindIt::Data::Fetch
 require_relative './data/providers'
 include FindIt::Data::Providers
 
+require 'dotenv/tasks'
+
 namespace :findit do
   namespace :data do
 
@@ -11,11 +13,11 @@ namespace :findit do
       namespace :fetch do
         desc "Fetch MARC record from #{config['record_provider_facet']}"
         task provider do
-          FindIt::Data::Fetch::fetch_http config['fetch_url'], config['file_prefix']
+          FindIt::Data::Fetch::http config
         end
       end
 
-      namespace :index do
+      namespace :index, [:filename] do
         desc "Index MARC records from #{config['record_provider_facet']}"
         task provider do |task, args|
 
@@ -32,7 +34,7 @@ namespace :findit do
       namespace :fetch_and_index do
         desc "Fetch and index MARC records from #{config['record_provider_facet']}"
         task provider do
-          filenames = FindIt::Data::Fetch::fetch_http config['fetch_url'], config['file_prefix']
+          filenames = FindIt::Data::Fetch::http config
           filenames.each do |filename|
             Rake::Task["findit:data:index:#{provider}"].execute({filename: filename})
           end

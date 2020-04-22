@@ -1,3 +1,4 @@
+require 'dotenv/tasks'
 module FindIt
     module Data
         module Providers
@@ -38,8 +39,8 @@ module FindIt
                     'eg' => {
                         'record_provider_facet' => 'LBCC Evergreen Catalog',
                         'fetch_method' => 'http',
-                        'fetch_opts' => {'user' => 'lbcc',
-                            'pass' => ENV['EVERGREEN_PASSWORD']},
+                        'user' => 'lbcc',
+                        'pass' => ENV['EVERGREEN_PASSWORD'],
                         'fetch_url' => lambda {
                                 today = DateTime.now
                                 sunday = today - today.wday
@@ -47,13 +48,13 @@ module FindIt
                                 return prefix + sunday.strftime('%F') + '.mrc'
                             },
                         'file_prefix' => 'eg_lbcc',
-                        'traject_configuration_files' => ['eg_lbcc.rb',],
+                        'traject_configuration_files' => ['eg','marc'],
                         },
                     'eg_online' => {
                         'record_provider_facet' => 'LBCC Evergreen Catalog',
                         'fetch_method' => 'http',
-                        'fetch_opts' => {'user' => 'lbcc',
-                            'pass' => ENV['EVERGREEN_PASSWORD']},
+                        'user' => 'lbcc',
+                        'pass' => ENV['EVERGREEN_PASSWORD'],
                         'fetch_url' => lambda {
                                 today = DateTime.now
                                 sunday = today - today.wday
@@ -66,8 +67,8 @@ module FindIt
                     'eg_online_with_authority_control' => {
                         'record_provider_facet' => 'LBCC Evergreen Catalog',
                         'fetch_method' => 'http',
-                        'fetch_opts' => {'user' => 'lbcc',
-                            'pass' => ENV['EVERGREEN_PASSWORD']},
+                        'user' => 'lbcc',
+                        'pass' => ENV['EVERGREEN_PASSWORD'],
                         'fetch_url' => lambda {
                                 today = DateTime.now
                                 sunday = today - today.wday
@@ -80,8 +81,8 @@ module FindIt
                     'eg_with_authority_control' => {
                         'record_provider_facet' => 'LBCC Evergreen Catalog',
                         'fetch_method' => 'http',
-                        'fetch_opts' => {'user' => 'lbcc',
-                            'pass' => ENV['EVERGREEN_PASSWORD']},
+                        'user' => 'lbcc',
+                        'pass' => ENV['EVERGREEN_PASSWORD'],
                         'fetch_url' => lambda {
                                 today = DateTime.now
                                 sunday = today - today.wday
@@ -89,7 +90,7 @@ module FindIt
                                 return prefix + sunday.strftime('%F') + '.mrc'
                             },
                         'file_prefix' => 'eg_lbcc',
-                        'traject_configuration_files' => ['eg_lbcc.rb', 'eg_authorities.rb'],
+                        'traject_configuration_files' => ['eg', 'eg_authorities'],
                         },
                     'oclc' => {
                         'record_provider_facet' => 'OCLC',
@@ -103,7 +104,7 @@ module FindIt
                         },
                     'jomi' => {
                         'record_provider_facet' => 'JoMI Surgical Videos',
-                        'fetch_method' => 'http',
+                        'fetch_method' => :http,
                         'fetch_url' => 'https://jomi.com/jomiRecords.mrc',
                         'file_prefix' => 'jomi',
                         'traject_configuration_files' => ['marc', 'jomi','proxy'],
