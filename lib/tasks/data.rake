@@ -1,7 +1,3 @@
-require 'traject'
-require 'traject/array_writer'
-require 'traject/indexer'
-require 'traject/marc_reader'
 require_relative './data/fetch'
 include FindIt::Data::Fetch
 
@@ -16,15 +12,11 @@ namespace :findit do
     namespace :index do
       desc 'Index MARC record from JOMI'
       task :jomi, [:filename] do |task, args|
-        file = File.new(Rails.root + args[:filename])
-        settings = Traject::Indexer::Settings.new()
-        indexer = Traject::Indexer.new(
-            'solr_writer.commit_on_close' => true,
-            'solr.url' => Blacklight.connection_config[:url] 
-        )
-        indexer.load_config_file Rails.root.join('lib', 'tasks', 'data', 'config', 'config.rb')
-        reader = Traject::MarcReader.new(file, settings)
-        writer = indexer.process_with(reader.to_a, Traject::ArrayWriter.new)
+
+        marc_file = Rails.root.join(args[:filename]).to_s
+        config_dir = Rails.root.join('lib', 'tasks', 'data', 'config').to_s
+        args = "-c #{config_dir}/config.rb -c #{config_dir}/jomi.rb -c #{config_dir}/proxy.rb -I #{config_dir} -s solrj_writer.commit_on_close=true"
+        system("bundle exec traject #{args} #{marc_file}")
       end
     end
   end

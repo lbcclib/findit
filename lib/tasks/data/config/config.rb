@@ -1,3 +1,4 @@
+require 'traject'
 # To have access to various built-in logic
 # for pulling things out of MARC21, like `marc_languages`
 require 'traject/macros/marc21_semantics'
@@ -17,7 +18,7 @@ settings do
 end
 
 
-to_field "id",                  extract_marc("001", :first => true)
+#to_field "id",                  extract_marc("001", :first => true)
 to_field "marc_display",        serialized_marc(:format => "xml")
 
 
