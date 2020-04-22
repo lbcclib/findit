@@ -1,12 +1,15 @@
 require_relative './data/fetch'
 include FindIt::Data::Fetch
 
+require_relative './data/providers'
+include FindIt::Data::Providers
+
 namespace :findit do
   namespace :data do
     namespace :fetch do
       desc 'Fetch MARC record from JOMI'
       task :jomi do
-        file_names = FindIt::Data::Fetch::fetch_http ['https://jomi.com/jomiRecords.mrc'], 'jomi'
+        filenames = FindIt::Data::Fetch::fetch_http ['https://jomi.com/jomiRecords.mrc'], 'jomi'
       end
     end
     namespace :index do
@@ -19,6 +22,16 @@ namespace :findit do
         system("bundle exec traject #{args} #{marc_file}")
       end
     end
+    namespace :fetch_and_index do
+      desc 'Fetch and Index MARC records from JOMI'
+      task :jomi do
+        filenames = FindIt::Data::Fetch::fetch_http ['https://jomi.com/jomiRecords.mrc'], 'jomi'
+        filenames.each do |filename|
+          Rake::Task['findit:data:index:jomi'].execute({filename: filename})
+        end
+      end
+    end
+
   end
 
 end
