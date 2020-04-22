@@ -17,17 +17,17 @@ namespace :findit do
         end
       end
 
-      namespace :index, [:filename] do
+      namespace :index do
         desc "Index MARC records from #{config['record_provider_facet']}"
-        task provider do |task, args|
+        task provider, [:filename] do |task, args|
 
           marc_file = Rails.root.join(args[:filename]).to_s
           config_dir = Rails.root.join('lib', 'tasks', 'data', 'config').to_s
-          config_string = '-c #{config_dir}/config.rb' 
+          config_string = "-c #{config_dir}/config.rb" 
           config['traject_configuration_files'].each do |config_file|
-            config_string = "#{config_string} -c  #{config_dir}/#{config_file}.rb "
+            config_string << " -c  #{config_dir}/#{config_file}.rb "
           end
-          args = "-c #{config_dir}/marc.rb -c #{config_dir}/jomi.rb -c #{config_dir}/proxy.rb -I #{config_dir} -s solrj_writer.commit_on_close=true"
+          args = "#{config_string} -I #{config_dir} -s solr.url=#{Blacklight.connection_config[:url]} -s solrj_writer.commit_on_close=true"
           system("bundle exec traject #{args} #{marc_file}")
         end
       end

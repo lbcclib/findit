@@ -3,8 +3,8 @@ require 'traject'
 # for pulling things out of MARC21, like `marc_languages`
 require 'traject/macros/marc21_semantics'
 extend  Traject::Macros::Marc21Semantics
-require_relative 'bibtex_generator'
-extend Traject::Macros::BibtexForTraject
+require_relative 'bibtex.macro'
+extend FindIt::Macros::Bibtex
 require 'traject/macros/marc_format_classifier'
 extend Traject::Macros::MarcFormats
 require 'traject/macros/marc21'

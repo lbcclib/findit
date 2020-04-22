@@ -1,6 +1,11 @@
 require 'traject'
-require 'lbcc_format_classifier'
+require_relative 'cover_images.macro'
+extend FindIt::Macros::CoverImages
+require_relative 'lbcc_format.macro'
 extend Traject::Macros::LbccFormats
+
+
+to_field "thumbnail_path_ss", cover_image
 
 to_field "id", extract_marc("001", :first => true)
 
@@ -12,7 +17,7 @@ to_field 'is_electronic_facet' do |record, accumulator|
 		library = field['b']
 		if "LBCCHOC" == library
 			accumulator << "Healthcare Occupations Center"
-		if "LBCCBC" == library
+		elsif "LBCCBC" == library
 			accumulator << "Benton Center"
 		elsif "LBCCLIB" == library
 			accumulator << "Albany Campus Library"

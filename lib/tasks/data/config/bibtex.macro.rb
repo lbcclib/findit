@@ -1,14 +1,19 @@
 require 'bibtex'
-module Traject
+require 'traject/macros/marc21'
+require 'traject/macros/marc21_semantics'
+#include Traject::Macros::Marc21
+#include Traject::Macros::Marc21
+
+
+module FindIt
   module Macros
-    #     require 'traject/macros/generate_bibtex'
     #     extend Traject::Macros::BibTeX
     #     to_field "bibtex_t", generate_bibtex
-    module BibtexForTraject
+    module Bibtex
       # macro that generates a basic bibtex entry for an item
       def generate_bibtex
         lambda do |record, accumulator|
-            accumulator.concat Traject::Macros::BibtexGenerator.new(record).bibtex_string
+            accumulator.concat FindIt::Macros::BibtexGenerator.new(record).bibtex_string
         end
       end
     end
@@ -28,7 +33,7 @@ module Traject
 
       def compile_string
         m245 = record['245']
-	title = Marc21.trim_punctuation(m245['a'].strip)
+	title = ::Traject::Macros::Marc21.trim_punctuation(m245['a'].strip)
 
         author_fields = ['100', '700']
         authors = []
@@ -76,7 +81,7 @@ module Traject
         unless publishers.empty?
           bib_data['publisher'] = publishers[0]
         end
-	bib_data['year'] = Marc21Semantics.publication_date(record, 15, 1000, Time.new.year + 6)
+	bib_data['year'] = ::Traject::Macros::Marc21Semantics.publication_date(record, 15, 1000, Time.new.year + 6)
         unless url.nil?
           bib_data['url'] = url
         end
