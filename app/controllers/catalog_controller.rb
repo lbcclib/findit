@@ -83,7 +83,7 @@ class CatalogController < ApplicationController
     # solr field configuration for search results/index views
     config.index.title_field = 'title_display'
     config.index.display_type_field = 'format'
-    #config.index.thumbnail_field = 'thumbnail_path_ss'
+    config.index.thumbnail_field = 'thumbnail_path_ss'
     config.index.partials = [:index_header, :obtain, :thumbnail, :index]
     config.show.partials = [:show_header, :show_obtain, :show_work, :show_instance]
 
