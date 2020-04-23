@@ -6,7 +6,5 @@ tar xzvf solr-$SOLR_VERSION.tgz
 cp schema.xml solr-$SOLR_VERSION/example/files/conf/schema.xml
 solr-$SOLR_VERSION/bin/solr start
 solr-$SOLR_VERSION/bin/solr create_core -c blacklight-core -d solr-$SOLR_VERSION/example/files/conf/
-git clone https://github.com/lbcclib/findit_data_tools
-cd findit_data_tools
-ruby findit_data.rb -i eg ../eg.mrc 
-cd -
+rake findit:data:index:eg[solr/eg.mrc]
+rake findit:data:fetch_and_index:jomi
