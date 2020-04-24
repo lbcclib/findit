@@ -38,7 +38,7 @@ module FindIt
                         },
                     'eg' => {
                         'record_provider_facet' => 'LBCC Evergreen Catalog',
-                        'fetch_method' => 'http',
+                        'fetch_method' => :http,
                         'user' => 'lbcc',
                         'pass' => ENV['EVERGREEN_PASSWORD'],
                         'fetch_url' => lambda {
@@ -94,13 +94,12 @@ module FindIt
                         },
                     'oclc' => {
                         'record_provider_facet' => 'OCLC',
-                        'fetch_method' => 'ftp',
+                        'fetch_method' => :ftp,
                         'file_prefix' => 'oclc',
-                        'remote_server' => 'ftp2.oclc.org',
-                        'credentials' => {
-                            'user' => 'olx',
-                            'password' => ENV['OCLC_PASSWORD']},
-                        'traject_configuration_files' => ['oclc.rb'],
+                        'server' => 'ftp2.oclc.org',
+                        'user' => 'olx',
+                        'pass' => ENV['OCLC_PASSWORD'],
+                        'traject_configuration_files' => ['oclc', 'marc'],
                         },
                     'jomi' => {
                         'record_provider_facet' => 'JoMI Surgical Videos',

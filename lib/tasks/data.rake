@@ -13,7 +13,8 @@ namespace :findit do
       namespace :fetch do
         desc "Fetch MARC record from #{config['record_provider_facet']}"
         task provider do
-          FindIt::Data::Fetch::http config
+          method = FindIt::Data::Fetch.method(config['fetch_method'])
+          method.call(config)
         end
       end
 
@@ -34,7 +35,8 @@ namespace :findit do
       namespace :fetch_and_index do
         desc "Fetch and index MARC records from #{config['record_provider_facet']}"
         task provider do
-          filenames = FindIt::Data::Fetch::http config
+          method = FindIt::Data::Fetch.method(config['fetch_method'])
+          filenames = method.call(config)
           filenames.each do |filename|
             Rake::Task["findit:data:index:#{provider}"].execute({filename: filename})
           end

@@ -32,19 +32,19 @@ module FindIt
                 return files_written.uniq
             end
 
-            def ftp server, prefix, credentials, opts = {}
+            def ftp config
                 files_written = []
-                ftp = Net::FTP.new server
+                ftp = Net::FTP.new config['server']
 	            ftp.passive = true
-                ftp.login credentials['user'], credentials['password']
+                ftp.login config['user'], config['pass']
                 files = ftp.chdir('metacoll/out/ongoing/new')
-                files_written += fetch_latest_files_by_ftp ftp, 'new', prefix
+                files_written += fetch_latest_files_by_ftp ftp, 'new', config['file_prefix']
                 files = ftp.chdir('../updates')
-                files_written += fetch_latest_files_by_ftp ftp, 'update', prefix
-                files = ftp.chdir('../deletes')
-                files_written += fetch_latest_files_by_ftp ftp, 'delete', prefix
-                return files_written
+                files_written += fetch_latest_files_by_ftp ftp, 'update', config['file_prefix']
+                #files = ftp.chdir('../deletes')
+                #files_written += fetch_latest_files_by_ftp ftp, 'delete', config['file_prefix']
                 ftp.close
+                return files_written
             end
 
             private
@@ -57,7 +57,7 @@ module FindIt
                 files = ftp.nlst('*.mrc')
                 files.each do |file|
                     if (Time.now - (7*24*60*60)) < (ftp.mtime file)
-                        filename = directory + '/' + prefix + '_' + date_downloaded + '.mrc'
+                        filename = Rails.root.join('lib', 'tasks', 'data', directory, prefix + '_' + date_downloaded + '.mrc').to_s
                         puts file + ' is saving as ' + filename
                         ftp.getbinaryfile(file, filename)
                         files_written << filename
