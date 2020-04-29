@@ -10,7 +10,7 @@ class Article < SolrDocument
 
             #Use the fulltext link if available, otherwise the plink
             record.eds_fulltext_links.each do |link|
-                if ('detail' != link[:url])
+                if (('detail' != link[:url]) and ('cataloglink' != link[:type]))
                     # Don't need to add the proxy prefix to Open Access stuff like DOAJ and arXiv
                     no_proxy_needed = ['doaj.org/article',
                         'arxiv.org/']
