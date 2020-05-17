@@ -71,3 +71,8 @@ gem 'exception_notification'
 gem 'warbler', '>=1.4.0'
 gem 'solr_wrapper'
 gem 'traject'
+
+# 4.1.x is currently the latest version of http that we can use,
+# since later versions depend on http-client, which is incompatible
+# with warbler, see https://github.com/jruby/warbler/issues/482
+gem 'http', '~>4.1.1'
