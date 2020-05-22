@@ -33,3 +33,5 @@ services:
       - /opt/solr/conf
       - "-Xms256m"
       - "-Xmx512m"
+    ports:
+      - "8983:8983"
