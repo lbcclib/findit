@@ -59,7 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'blacklight', '~>7.4.2'
 
 gem 'rsolr', '>= 1.0', '< 3'
-gem 'bootstrap', '4.1.3'
+gem 'bootstrap', '4.3.1'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'jquery-rails'
 gem 'devise'
