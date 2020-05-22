@@ -70,7 +70,7 @@ class CatalogController < ApplicationController
       ].join(' '),
       :rows => 10,
       :fl => '*',
-      :bq => 'is_electronic_facet:"Albany Campus Library"^150.0 "Healthcare Occupations Center"^75.0 Online^120.0 record_source_facet:"EBSCO eBook Subscription Academic Collection - North America"^150.0 "Ebook Central Academic Complete"^250.0 "Academic Video Online: Premium United States"^80.0 "Films on Demand"^80.0 "NCBI Bookshelf"^35.0 pub_date_sort:[2017 TO *]^40.0 [1924 TO *]^60.0',
+      :bq => 'is_electronic_facet:"Albany Campus Library"^150.0 is_electronic_facet:"Healthcare Occupations Center"^75.0 is_electronic_facet:Online^120.0 record_source_facet:"EBSCO eBook Subscription Academic Collection - North America"^150.0 record_source_facet:"Ebook Central Academic Complete"^250.0 record_source_facet:"Academic Video Online: Premium United States"^80.0 record_source_facet:"Films on Demand"^80.0 record_source_facet:"NCBI Bookshelf"^35.0 pub_date_sort:[2010 TO *]^80.0 pub_date_sort:[1924 TO *]^60.0',
     }
 
     # solr path which will be added to solr base url before the other solr params.

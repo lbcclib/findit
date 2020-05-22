@@ -688,7 +688,6 @@
             http://wiki.apache.org/solr/LocalParams
        -->
         <str name="qf">
-          abstract_t
 	  authority_data_t^0.5
 	  author_t^1.5
 	  contents_t
@@ -713,7 +712,34 @@
           title_and_statement_of_responsibility_t
         </str>
         <str name="pf">
-          all_text_timv^10
+          abstract_t
+        </str>
+        <str name="bq">
+          is_electronic_facet:"Albany Campus Library"^150.0
+        </str>
+        <str name="bq">
+          is_electronic_facet:"Healthcare Occupations Center"^75.0
+        </str>
+        <str name="bq">
+          is_electronic_facet:Online^120.0
+        </str>
+        <str name="bq">
+          record_source_facet:"Ebook Central Academic Complete"^250.0
+        </str>
+        <str name="bq">
+          record_source_facet:"Academic Video Online: Premium United States"^80.0
+        </str>
+        <str name="bq">
+          record_source_facet:"Films on Demand"^80.0
+        </str>
+        <str name="bq">
+          record_source_facet:"NCBI Bookshelf"^35.0
+        </str>
+        <str name="bq">
+          pub_date_sort:[2017 TO *]^40.0
+        </str>
+        <str name="bq">
+          pub_date_sort:[1925 TO *]^60.0
         </str>
 
        <str name="author_qf">
@@ -758,19 +784,6 @@
       <str>spellcheck</str>
     </arr>
   </requestHandler>
-
-  <!-- A request handler that returns indented JSON by default -->
-  <requestHandler name="/query" class="solr.SearchHandler">
-    <lst name="defaults">
-      <str name="echoParams">explicit</str>
-      <str name="wt">json</str>
-      <str name="indent">true</str>
-    </lst>
-  </requestHandler>
-
-
-  <!--These useParams values are available in params.json-->
-  <requestHandler name="/browse" class="solr.SearchHandler" useParams="query,facets,velocity,browse"/>
 
   <initParams path="/update/**">
     <lst name="defaults">
