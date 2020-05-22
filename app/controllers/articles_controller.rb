@@ -33,6 +33,9 @@ class ArticlesController < CatalogController
             @facets << new_facet
           end
 
+          # CollectionLibrary facet is not very useful; reject it!
+          @facets.reject! {|f| 'CollectionLibrary' == f.name}
+
           # Rearrange to a better order
           desired_order = [
             'SourceType',
