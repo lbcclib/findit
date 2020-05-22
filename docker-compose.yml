@@ -7,6 +7,7 @@ services:
       - .:/var/www/findit/
     environment:
       - FINDIT_DATABASE_HOST=db
+      - FINDIT_TEST_DATABASE_HOST=test_db
       - FINDIT_DATABASE_NAME=findit
       - FINDIT_DATABASE_USERNAME=findit
       - FINDIT_DATABASE_PASSWORD=findit
@@ -17,6 +18,12 @@ services:
       - "3000:3000"
 
   db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=findit
+      - POSTGRES_USER=findit
+      - POSTGRES_PASSWORD=findit
+  test_db:
     image: postgres:12
     environment:
       - POSTGRES_DB=findit

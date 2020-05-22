@@ -12,6 +12,9 @@ module Findit
     config.load_defaults 6.0
     config.read_encrypted_secrets = true
 
+    config.generators.test_framework :rspec
+    config.generators.integration_tool :rspec
+
     Bundler.require(*Rails.groups)
     Dotenv::Railtie.load
 

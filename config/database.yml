@@ -60,6 +60,7 @@ development:
 test:
   <<: *default
   database: <%= ENV['FINDIT_DATABASE_NAME'] %>
+  host: <%= ENV['FINDIT_TEST_DATABASE_HOST'] {localhost} %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
