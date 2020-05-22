@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/var/www/findit/
+    environment:
+      - FINDIT_DATABASE_HOST=db
+      - FINDIT_DATABASE_NAME=findit
+      - FINDIT_DATABASE_USERNAME=findit
+      - FINDIT_DATABASE_PASSWORD=findit
+      - SOLR_URL=http://solr:8983/solr/blacklight-core
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=findit
+      - POSTGRES_USER=findit
+      - POSTGRES_PASSWORD=findit
+  solr:
+    image: solr:8
+    volumes:
+      - ./solr/conf:/opt/solr/conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - blacklight-core
+      - /opt/solr/conf
+      - "-Xms256m"
+      - "-Xmx512m"

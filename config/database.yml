@@ -21,6 +21,7 @@ default: &default
   username: <%= ENV['FINDIT_DATABASE_USERNAME'] %>
   password: <%= ENV['FINDIT_DATABASE_PASSWORD'] %>
   port: <%= ENV['FINDIT_DATABASE_PORT'] {5432} %>
+  host: <%= ENV['FINDIT_DATABASE_HOST'] {localhost} %>
 
 development:
   <<: *default
