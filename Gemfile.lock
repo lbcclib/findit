@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/sandbergja/activerecord-jdbc-adapter
-  revision: a5adddaeafffd7b9d27db91c53cb57feb311e0a2
-  specs:
-    activerecord-jdbc-adapter (60.0)
-      activerecord (~> 6.0.0)
-    activerecord-jdbcpostgresql-adapter (60.0)
-      activerecord-jdbc-adapter (= 60.0)
-      jdbc-postgres (>= 9.4, < 43)
-    jdbc-postgres (42.2.6)
-
-GIT
   remote: https://github.com/sandbergja/blacklight-locale_picker
   revision: 92ced9c606d26a413183e6d8a79529144f171a67
   specs:
@@ -213,18 +202,18 @@ GEM
       thor (>= 0.14, < 2.0)
     jruby-jars (9.2.11.1)
     jruby-rack (1.1.21)
-    kaminari (1.2.0)
+    kaminari (1.2.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.0)
-      kaminari-activerecord (= 1.2.0)
-      kaminari-core (= 1.2.0)
-    kaminari-actionview (1.2.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
       actionview
-      kaminari-core (= 1.2.0)
-    kaminari-activerecord (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
       activerecord
-      kaminari-core (= 1.2.0)
-    kaminari-core (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     latex-decode (0.3.1)
     loofah (2.5.0)
       crass (~> 1.0.2)
@@ -261,6 +250,7 @@ GEM
     parallel (1.19.1)
     parser (2.7.1.2)
       ast (~> 2.4.0)
+    pg (1.2.3)
     popper_js (1.16.0)
     public_suffix (4.0.5)
     puma (4.3.5)
@@ -440,8 +430,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-jdbc-adapter!
-  activerecord-jdbcpostgresql-adapter!
   activerecord-session_store
   blacklight (~> 7.4.2)
   blacklight-citeproc (>= 0.0.4)
@@ -461,6 +449,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   material_design_icons
+  pg (>= 0.18, < 2.0)
   puma (~> 4.3)
   rack-mini-profiler
   rails (~> 6.0.3)
