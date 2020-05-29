@@ -9,12 +9,11 @@ module FindIt
             def all
                 return {
                     'opentextbooks' => {
-                        'fetch_url' => 'https://open.umn.edu/opentextbooks/MARC/OTL20180209.mrc',
-                         # Manually change this URL per http://open.umn.edu/opentextbooks/Discovery.aspx
+                        'fetch_url' => 'https://open.umn.edu/opentextbooks/download.marc',
                         'record_provider_facet' => 'Open Textbook Library',
-                        'traject_configuration_files' => ['opentextbooks.rb'],
+                        'traject_configuration_files' => ['marc', 'opentextbooks'],
                         'file_prefix' => 'umn_otl',
-                        'fetch_method' => 'http',
+                        'fetch_method' => :http,
                         },
                     'galedbs' => {
                         'record_provider_facet' => 'Gale Databases',
@@ -92,6 +91,13 @@ module FindIt
                         'file_prefix' => 'eg_lbcc',
                         'traject_configuration_files' => ['eg', 'eg_authorities'],
                         },
+                    'jomi' => {
+                        'record_provider_facet' => 'JoMI Surgical Videos',
+                        'fetch_method' => :http,
+                        'fetch_url' => 'https://jomi.com/jomiRecords.mrc',
+                        'file_prefix' => 'jomi',
+                        'traject_configuration_files' => ['marc', 'jomi','proxy'],
+                        },
                     'oclc' => {
                         'record_provider_facet' => 'OCLC',
                         'fetch_method' => :ftp,
@@ -100,13 +106,6 @@ module FindIt
                         'user' => 'olx',
                         'pass' => ENV['OCLC_PASSWORD'],
                         'traject_configuration_files' => ['oclc', 'marc'],
-                        },
-                    'jomi' => {
-                        'record_provider_facet' => 'JoMI Surgical Videos',
-                        'fetch_method' => :http,
-                        'fetch_url' => 'https://jomi.com/jomiRecords.mrc',
-                        'file_prefix' => 'jomi',
-                        'traject_configuration_files' => ['marc', 'jomi','proxy'],
                         },
                 }
             end
