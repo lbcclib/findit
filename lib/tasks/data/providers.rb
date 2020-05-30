@@ -8,22 +8,6 @@ module FindIt
 
             def all
                 return {
-                    'opentextbooks' => {
-                        'fetch_url' => 'https://open.umn.edu/opentextbooks/download.marc',
-                        'record_provider_facet' => 'Open Textbook Library',
-                        'traject_configuration_files' => ['marc', 'opentextbooks'],
-                        'file_prefix' => 'umn_otl',
-                        'fetch_method' => :http,
-                        },
-                    'galedbs' => {
-                        'record_provider_facet' => 'Gale Databases',
-                        'fetch_method' => 'http',
-                        'fetch_url' => ['http://access.gale.com/api/dropoff/resources/ovic.mrc',
-                            'http://access.gale.com/api/dropoff/resources/uhic.mrc',
-                            'http://access.gale.com/api/dropoff/resources/ngma.mrc'],
-                        'file_prefix' => 'gale_dbs',
-                        'traject_configuration_files' => ['galedbs.rb'],
-                        },
                     'globe' => {
                         #This one is fetched manually from http://www.dramaonlinelibrary.com/pages/marc-records,
         	            #because it's a zip file.  Go to Video Collections > Globe on Screen
@@ -91,6 +75,15 @@ module FindIt
                         'file_prefix' => 'eg_lbcc',
                         'traject_configuration_files' => ['eg', 'eg_authorities'],
                         },
+                    'gale' => {
+                        'record_provider_facet' => 'Gale Databases',
+                        'fetch_method' => :http,
+                        'fetch_url' => ['http://access.gale.com/api/dropoff/resources/ovic.mrc',
+                            'http://access.gale.com/api/dropoff/resources/uhic.mrc',
+                            'http://access.gale.com/api/dropoff/resources/ngma.mrc'],
+                        'file_prefix' => 'gale',
+                        'traject_configuration_files' => ['marc', 'gale', 'proxy'],
+                        },
                     'jomi' => {
                         'record_provider_facet' => 'JoMI Surgical Videos',
                         'fetch_method' => :http,
@@ -106,6 +99,13 @@ module FindIt
                         'user' => 'olx',
                         'pass' => ENV['OCLC_PASSWORD'],
                         'traject_configuration_files' => ['oclc', 'marc'],
+                        },
+                    'opentextbooks' => {
+                        'fetch_url' => 'https://open.umn.edu/opentextbooks/download.marc',
+                        'record_provider_facet' => 'Open Textbook Library',
+                        'traject_configuration_files' => ['marc', 'opentextbooks'],
+                        'file_prefix' => 'umn_otl',
+                        'fetch_method' => :http,
                         },
                 }
             end
