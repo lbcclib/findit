@@ -4,6 +4,9 @@ include FindIt::Data::Fetch
 require_relative './data/providers'
 include FindIt::Data::Providers
 
+require_relative './data/delete'
+include FindIt::Data::Delete
+
 require 'dotenv/tasks'
 require 'marc'
 
@@ -49,6 +52,12 @@ namespace :findit do
           filenames.each do |filename|
             Rake::Task["findit:data:index:#{provider}"].execute({filename: filename})
           end
+        end
+      end
+      namespace :delete do
+        desc "Delete all solr records from #{config['record_provider_facet']}"
+        task provider do
+          FindIt::Data::Delete.by_record_provider_facet config['record_provider_facet']
         end
       end
     end
