@@ -3,6 +3,7 @@
 # This controller is responsible for the Bento results presentation,
 # which shows the user search results from Solr AND the articles API
 class BentoController < ApplicationController
+  helper_method :no_results?
   def index
     if params[:q]
       @q = params[:q]
@@ -73,5 +74,9 @@ class BentoController < ApplicationController
 
   def only_have_catalog_results?
     @num_catalog_hits.positive? && @num_article_hits.zero?
+  end
+
+  def no_results?
+    @num_article_hits.zero? && @num_catalog_hits.zero?
   end
 end

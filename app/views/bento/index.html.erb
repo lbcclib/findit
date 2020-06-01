@@ -1,84 +1,88 @@
-<div class="row">
-  <section id="content" class="col-lg-9 order-last">
-    <h2>Articles</h2>
-    Emerging research and news articles -- great sources for your next paper
-    <ol>
-      <% @articles.each do |article| %>
-        <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
-          <%= link_to "#{t('obtain.article')} #{ white_icon('open-in-new')}".html_safe,
-            article[:url_fulltext_display], class: 'badge badge-success' %>
-        </li>
-      <% end %>
-    </ol>
-    <%= mdi_svg('arrow-right-circle').html_safe %>
-    <%= link_to t('bento.all_articles', number: number_to_human(@num_article_hits)), request.query_parameters.merge({controller: 'articles'}) %>
-
-    <hr>
-
-    <h2>Books and videos</h2>
-    E-books, streaming video and music, library books and more
-    <ol>
-      <% @catalog_records.each do |record| %>
-        <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
-	<% if is_online_record? record %>
-          <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record.first(:url_fulltext_display), class: 'badge badge-success' %>
-        <% elsif(is_evergreen_record? record) %>
-          <%= link_to "#{t('obtain.place_hold')} #{ white_icon('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
+<%- if no_results? %> 
+  <%= render 'catalog/zero_results' %>
+<%- else %>
+  <div class="row">
+    <section id="content" class="col-lg-9 order-last">
+      <h2>Articles</h2>
+      Emerging research and news articles -- great sources for your next paper
+      <ol>
+        <% @articles.each do |article| %>
+          <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
+            <%= link_to "#{t('obtain.article')} #{ white_icon('open-in-new')}".html_safe,
+              article[:url_fulltext_display], class: 'badge badge-success' %>
+          </li>
         <% end %>
-        </li>
-      <% end %>
-    </ol>
-    <%= mdi_svg('arrow-right-circle').html_safe %>
-    <%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}) %>
-  </section>
+      </ol>
+      <%= mdi_svg('arrow-right-circle').html_safe %>
+      <%= link_to t('bento.all_articles', number: number_to_human(@num_article_hits)), request.query_parameters.merge({controller: 'articles'}) %>
 
-  <section id="sidebar" class="page-sidebar col-lg-3 order-first">
-    <div id="facets" class="facets sidenav facets-toggleable-md">
-      <div class="card facet-limit">
-        <h3 class="card-header p-0 facet-field-heading">
-          <span class="btn btn-block p-2 text-left">
-            <%= t('blacklight.articles.format') %>
-          </span>
-        </h3>
-        <div class="panel-collapse facet-content collapse show">
-          <div class="card-body">
-            <ul class="facet-values list-unstyled">
-              <% if @num_article_hits %>
-                <li>
-                  <span class="facet-label">
-                    <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
-                  </span>
-                  <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
-                </li>
-              <% end %>
-              <% if @catalog_format_facets.key? 'Ebook' %>
-                <li>
-                  <span class="facet-label">
-                    <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
-                  </span>
-                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
-                </li>
-              <% end %>
-              <% if @catalog_format_facets.key? 'Streaming video' %>
-                <li>
-                  <span class="facet-label">
-                    <%= link_to t('format.streaming_video'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
-                  </span>
-                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Musical recording']) %></span>
-                </li>
-              <% end %>
-              <% if @catalog_format_facets.key? 'Book' %>
-                <li>
-                  <span class="facet-label">
-                    <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
-                  </span>
-                  <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
-                </li>
-              <% end %>
-            </ul>
+      <hr>
+
+      <h2>Books and videos</h2>
+      E-books, streaming video and music, library books and more
+      <ol>
+        <% @catalog_records.each do |record| %>
+          <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
+          <% if is_online_record? record %>
+            <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record.first(:url_fulltext_display), class: 'badge badge-success' %>
+          <% elsif(is_evergreen_record? record) %>
+            <%= link_to "#{t('obtain.place_hold')} #{ white_icon('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
+          <% end %>
+          </li>
+        <% end %>
+      </ol>
+      <%= mdi_svg('arrow-right-circle').html_safe %>
+      <%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}) %>
+    </section>
+
+    <section id="sidebar" class="page-sidebar col-lg-3 order-first">
+      <div id="facets" class="facets sidenav facets-toggleable-md">
+        <div class="card facet-limit">
+          <h3 class="card-header p-0 facet-field-heading">
+            <span class="btn btn-block p-2 text-left">
+              <%= t('blacklight.articles.format') %>
+            </span>
+          </h3>
+          <div class="panel-collapse facet-content collapse show">
+            <div class="card-body">
+              <ul class="facet-values list-unstyled">
+                <% if @num_article_hits %>
+                  <li>
+                    <span class="facet-label">
+                      <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
+                    </span>
+                    <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
+                  </li>
+                <% end %>
+                <% if @catalog_format_facets.key? 'Ebook' %>
+                  <li>
+                    <span class="facet-label">
+                      <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
+                    </span>
+                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
+                  </li>
+                <% end %>
+                <% if @catalog_format_facets.key? 'Streaming video' %>
+                  <li>
+                    <span class="facet-label">
+                      <%= link_to t('format.streaming_video'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
+                    </span>
+                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Musical recording']) %></span>
+                  </li>
+                <% end %>
+                <% if @catalog_format_facets.key? 'Book' %>
+                  <li>
+                    <span class="facet-label">
+                      <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
+                    </span>
+                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+<%- end %>
