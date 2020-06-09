@@ -47,34 +47,6 @@ module FindIt
                         'file_prefix' => 'eg_lbcc',
                         'traject_configuration_files' => ['eg_lbcc_online.rb', 'link.rb', 'eg_authorities.rb'],
                         },
-                    'eg_online_with_authority_control' => {
-                        'record_provider_facet' => 'LBCC Evergreen Catalog',
-                        'fetch_method' => 'http',
-                        'user' => 'lbcc',
-                        'pass' => ENV['EVERGREEN_PASSWORD'],
-                        'fetch_url' => lambda {
-                                today = DateTime.now
-                                sunday = today - today.wday
-                                prefix = 'http://libweb.cityofalbany.net/filepile/discovery_layer_exports/lbcc_marc_records_uris.'
-                                return prefix + sunday.strftime('%F') + '.mrc'
-                            },
-                        'file_prefix' => 'eg_lbcc',
-                        'traject_configuration_files' => ['eg_authorities.rb', 'eg_lbcc_online.rb', 'link.rb', 'eg_authorities.rb'],
-                        },
-                    'eg_with_authority_control' => {
-                        'record_provider_facet' => 'LBCC Evergreen Catalog',
-                        'fetch_method' => 'http',
-                        'user' => 'lbcc',
-                        'pass' => ENV['EVERGREEN_PASSWORD'],
-                        'fetch_url' => lambda {
-                                today = DateTime.now
-                                sunday = today - today.wday
-                                prefix = 'http://libweb.cityofalbany.net/filepile/discovery_layer_exports/lbcc_marc_records_items.'
-                                return prefix + sunday.strftime('%F') + '.mrc'
-                            },
-                        'file_prefix' => 'eg_lbcc',
-                        'traject_configuration_files' => ['eg', 'eg_authorities'],
-                        },
                     'gale' => {
                         'record_provider_facet' => 'Gale Databases',
                         'fetch_method' => :http,
