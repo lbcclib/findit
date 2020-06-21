@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.circleci
+    volumes:
+      - .:/var/www/findit/
+    environment:
+      - FINDIT_DATABASE_HOST=db
+      - FINDIT_TEST_DATABASE_HOST=test_db
+      - FINDIT_DATABASE_NAME=findit
+      - FINDIT_DATABASE_USERNAME=findit
+      - FINDIT_DATABASE_PASSWORD=findit
+      - SOLR_URL=http://solr:8983/solr/blacklight-core
+    depends_on:
+      - test_db
+    ports:
+      - "3000:3000"
+
+  test_db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=findit
+      - POSTGRES_USER=findit
+      - POSTGRES_PASSWORD=findit
+  solr:
+    image: solr:8
+    volumes:
+      - ./solr/conf:/opt/solr/conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - blacklight-core
+      - /opt/solr/conf
+      - "-Xms256m"
+      - "-Xmx512m"
+    ports:
+      - "8983:8983"

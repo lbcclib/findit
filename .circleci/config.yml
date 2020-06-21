@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker-compose up -d
+          command: docker-compose -f docker-compose.circleci.yml up -d
       - run:
-          command: docker exec -it -e RAILS_ENV=test project_app_1 bundle exec rake db:migrate
+          command: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate
       - run:
-          command: docker exec -it -e RAILS_ENV=test project_app_1 bundle exec rspec
+          command: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
