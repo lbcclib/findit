@@ -7,3 +7,7 @@ jobs:
       - checkout
       - run:
           command: docker-compose up -d
+      - run:
+          command: docker exec -it -e RAILS_ENV=test project_app_1 bundle exec rake db:migrate
+      - run:
+          command: docker exec -it -e RAILS_ENV=test project_app_1 bundle exec rspec
