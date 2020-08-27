@@ -53,9 +53,9 @@ module FindIt
           'gale' => {
             'record_provider_facet' => 'Gale Databases',
             'fetch_method' => :http,
-            'fetch_url' => ['http://access.gale.com/api/dropoff/resources/ovic.mrc',
-                            'http://access.gale.com/api/dropoff/resources/uhic.mrc',
-                            'http://access.gale.com/api/dropoff/resources/ngma.mrc'],
+            'fetch_url' => ['https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=ovic_portals',
+                            'https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=uhic_portals',
+                            'https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=ngma'],
             'file_prefix' => 'gale',
             'traject_configuration_files' => %w[marc gale proxy]
           },
