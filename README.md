@@ -7,24 +7,21 @@ Find It is a discovery layer for [Linn-Benton Community College's library](http:
 
 Find It is based on [Blacklight](http://projectblacklight.org/), Postgres, and various other projects.
 
-## Installing Find It
+## Creating a FindIt Dev Environment
 
 Here's how to get this running for yourself:
 
-1. Make sure that Ruby, Rails, Git, and Java are installed on your computer.
-  * For folks running Linux, the OpenJDK version of Java should be sufficient; I haven't needed to use Oracle Java for this setup.
-  * For folks running Windows, install [JRuby](http://jruby.org/), then run the command `gem install rails -v 4.2.7`. Also download and install [Git](https://git-scm.com/download/win)
-2. Clone this repository.
-3. Add the appropriate info to .env
-4. `rake db:migrate`
-5. You may also need to add the following three lines to app/config/initializers/assets.rb:
 ```
-Rails.application.config.assets.precompile += %w( icons/* )
-Rails.application.config.assets.precompile += %w( blacklight/findit.png )
-Rails.application.config.assets.precompile += %w( *.png )
+git clone https://github.com/lbcclib/findit
+cd findit
+# Edit .env.local file to include the correct EDS_USER and EDS_PASS values
+docker-compose up -d
+docker-compose exec app bin/rake db:migrate
+docker-compose exec app bin/rake findit:data:fetch_and_index:jomi
 ```
-6. Get solr running with `cd solr && ./set_up_solr.sh`
-7. `rails s`
+
+You can then see FindIt in your browser at localhost:3000.  You can make changes to the local directory, and it will be reflected in docker.  You may need to restart the app container for certain changes to take effect: `docker-compose restart app`
+
 
 ## Contributing to this software
 
