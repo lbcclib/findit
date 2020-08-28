@@ -15,7 +15,7 @@ module FindIt
             # This one is fetched manually from http://www.dramaonlinelibrary.com/pages/marc-records,
             # because it's a zip file.  Go to Video Collections > Globe on Screen
             'record_provider_facet' => 'Drama Online Library',
-            'traject_configuration_files' => ['globe.rb', 'proxy.rb']
+            'traject_configuration_files' => %w[globe proxy marc]
           },
           'gvrl' => {
             # This one is fetched manually from support.gale.com
