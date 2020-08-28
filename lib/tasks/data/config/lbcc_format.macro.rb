@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Traject
   module Macros
     # To use the lbcc_format macro, in your configuration file:
@@ -20,7 +22,6 @@ module Traject
       end
     end
 
-
     # A tool for classifiying MARC records according to format/form/genre/type,
     # just using our own custom vocabulary for those things.
     #
@@ -41,38 +42,34 @@ module Traject
       # See also individual methods which you can use you seperate into
       # different facets or do other custom things.
       def formats(options = {})
-        options = {:default => "Unknown"}.merge(options)
+        options = { default: 'Unknown' }.merge(options)
 
         formats = []
 
         formats.concat genre
 
-	begin
-            f8_23 = record['008'].value[23]
-	rescue NoMethodError
-	    return []
-	end
-        if 'o' == f8_23
-            if formats.include? 'Book'
-                formats.delete('Book')
-                formats << 'Ebook'
-            elsif formats.include? 'Serial'
-                formats.delete('Serial')
-                formats << 'Electronic journal'
-            elsif formats.include? 'Video'
-                formats.delete('Video')
-                formats << 'Streaming video'
-            end
+        begin
+          f8_23 = record['008'].value[23]
+        rescue NoMethodError
+          return []
+        end
+        if f8_23 == 'o'
+          if formats.include? 'Book'
+            formats.delete('Book')
+            formats << 'Ebook'
+          elsif formats.include? 'Serial'
+            formats.delete('Serial')
+            formats << 'Electronic journal'
+          elsif formats.include? 'Video'
+            formats.delete('Video')
+            formats << 'Streaming video'
+          end
         end
 
-        if formats.empty?
-          formats << options[:default]
-        end
+        formats << options[:default] if formats.empty?
 
-        return Array(formats[0])
+        Array(formats[0])
       end
-
-
 
       # Returns 1 or more values in an array from:
       # Book; Journal/Newspaper; Musical Score; Map/Globe; Non-musical Recording; Musical Recording
@@ -83,17 +80,15 @@ module Traject
       # Gets actual labels from marc_genre_leader and marc_genre_007 translation maps,
       # so you can customize labels if you want.
       def genre
-        marc_genre_leader = Traject::TranslationMap.new("marc_genre_leader_lbcc")
-        marc_genre_007    = Traject::TranslationMap.new("marc_genre_007_lbcc")
+        marc_genre_leader = Traject::TranslationMap.new('marc_genre_leader_lbcc')
+        marc_genre_007    = Traject::TranslationMap.new('marc_genre_007_lbcc')
 
-        results = marc_genre_leader[ record.leader.slice(6,2) ] ||
-          marc_genre_leader[ record.leader.slice(6)] ||
-          record.find_all {|f| f.tag == "007"}.collect {|f| marc_genre_007[f.value.slice(0)]}
+        results = marc_genre_leader[record.leader.slice(6, 2)] ||
+                  marc_genre_leader[record.leader.slice(6)] ||
+                  record.find_all { |f| f.tag == '007' }.collect { |f| marc_genre_007[f.value.slice(0)] }
 
         [results].flatten
       end
-
     end
   end
 end
-
