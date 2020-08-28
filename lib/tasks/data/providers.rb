@@ -48,7 +48,7 @@ module FindIt
                              return prefix + sunday.strftime('%F') + '.mrc'
                            },
             'file_prefix' => 'eg_lbcc',
-            'traject_configuration_files' => ['eg_lbcc_online.rb', 'link.rb', 'eg_authorities.rb']
+            'traject_configuration_files' => %w[eg_online marc]
           },
           'gale' => {
             'record_provider_facet' => 'Gale Databases',
