@@ -20,7 +20,7 @@ module FindIt
           'gvrl' => {
             # This one is fetched manually from support.gale.com
             'record_provider_facet' => 'Gale Virtual Reference Library',
-            'traject_configuration_files' => ['gvrl.rb']
+            'traject_configuration_files' => %w[gvrl marc]
           },
           'eg' => {
             'record_provider_facet' => 'LBCC Evergreen Catalog',
