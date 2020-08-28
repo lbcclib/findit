@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3'
+gem 'rails', '6.0.3.2'
 # Use postgresql as the database for Active Record
 if RUBY_PLATFORM=~ /jruby/ or RUBY_PLATFORM =~ /java/
   # THe custom git repository will not be needed as soon as they release version 60.0 to rubygems.org
