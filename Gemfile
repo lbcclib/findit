@@ -36,6 +36,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development do
   gem 'rack-mini-profiler'
+  gem 'brakeman'
 end
 
 group :development, :test do
