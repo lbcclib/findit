@@ -44,6 +44,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rspec-solr'
 end
 
 group :test do
