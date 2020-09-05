@@ -24,4 +24,16 @@ RSpec.describe "solr relevance spec" do
     relevant_id = '535879'
     expect(resp).to include(relevant_id).as_first
   end
+
+  it 'search for keyword Business in China' do
+    relevant_ids = %w[292648 292667]
+    resp = solr_resp_doc_ids_only({'q'=>'business in china'})
+    expect(resp).to include(relevant_ids).in_first(3).results
+  end
+
+  it 'can do a title search' do
+    resp = solr_resp_doc_ids_only({q: 'animal genetics', pf: '${title_pf}', qf: '${title_qf}'})
+    relevant_id = 'ocn896839764'
+    expect(resp).to include(relevant_id).as_first
+  end
 end

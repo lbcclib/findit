@@ -706,7 +706,7 @@
 	  subject_name_facet
 	  subject_topic_facet^2.0
 	  subject_era_facet
-	  subject_geo_facet
+	  subject_geo_facet^3.0
 	  subtitle_t
 	  title_t^2.0
           title_and_statement_of_responsibility_t
@@ -714,6 +714,7 @@
         <str name="pf">
           abstract_t^150
           author_t^20
+	      contents_t^5
           course_t^100
           subject_t^100
           subtitle_t^100
@@ -748,22 +749,29 @@
         </str>
 
        <str name="author_qf">
-          author_tsim
+          author_t
        </str>
        <str name="author_pf">
        </str>
        <str name="title_qf">
-          title_tsim
-          full_title_tsim
-          short_title_tsim
-          alternative_title_tsim
+          title_addl_t
+          title_t^5.0
+          subtitle_t
        </str>
        <str name="title_pf">
+          title_t^2.0
+          subtitle_t
        </str>
        <str name="subject_qf">
-          subject_tsim
+	      subject_t
+	      subject_additional_t
+	      subject_name_facet
+	      subject_topic_facet^2.0
+	      subject_era_facet
+	      subject_geo_facet^3.0
        </str>
        <str name="subject_pf">
+	      subject_t
        </str>
 
        <str name="fl">

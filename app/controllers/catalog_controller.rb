@@ -43,34 +43,8 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
       :qt => 'search',
-      :qf => %w[
-        abstract_t
-	authority_data_t^0.5
-	author_t^1.5
-	contents_t
-        course_t
-	followed_by_t
-	has_part_t
-	is_part_of_t
-	isbn_t
-	isbn_of_alternate_edition_t
-	language_facet
-	note_t
-	preceeded_by_t
-        professor_t
-	subject_t
-	subject_additional_t
-	subject_name_facet
-	subject_topic_facet^2.0
-	subject_era_facet
-	subject_geo_facet
-	subtitle_t
-	title_t^2.0
-        title_and_statement_of_responsibility_t
-      ].join(' '),
       :rows => 10,
       :fl => '*',
-      :bq => 'is_electronic_facet:"Albany Campus Library"^150.0 is_electronic_facet:"Healthcare Occupations Center"^75.0 is_electronic_facet:Online^120.0 record_source_facet:"EBSCO eBook Subscription Academic Collection - North America"^150.0 record_source_facet:"Ebook Central Academic Complete"^250.0 record_source_facet:"Academic Video Online: Premium United States"^80.0 record_source_facet:"Films on Demand"^80.0 record_source_facet:"NCBI Bookshelf"^35.0 pub_date_sort:[2010 TO *]^80.0 pub_date_sort:[1924 TO *]^60.0',
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -237,7 +211,6 @@ class CatalogController < ApplicationController
     config.add_search_field('title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
       field.solr_parameters = {
-        'spellcheck.dictionary': 'title',
         qf: '${title_qf}',
         pf: '${title_pf}'
       }
@@ -245,7 +218,6 @@ class CatalogController < ApplicationController
 
     config.add_search_field('author') do |field|
       field.solr_parameters = {
-        'spellcheck.dictionary': 'author',
         qf: '${author_qf}',
         pf: '${author_pf}'
       }
@@ -257,7 +229,6 @@ class CatalogController < ApplicationController
     config.add_search_field('subject') do |field|
       field.qt = 'search'
       field.solr_parameters = {
-        'spellcheck.dictionary': 'subject',
         qf: '${subject_qf}',
         pf: '${subject_pf}'
       }
