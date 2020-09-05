@@ -1,4 +1,5 @@
 # Synonym mappings
+animal,livestock
 college,university,campus
 
 # Spelling corrections

@@ -689,7 +689,7 @@
        -->
         <str name="qf">
 	  authority_data_t^0.5
-	  author_t^1.5
+	  author_t^50
 	  contents_t
           course_t
 	  followed_by_t
@@ -708,7 +708,7 @@
 	  subject_era_facet
 	  subject_geo_facet^3.0
 	  subtitle_t
-	  title_t^2.0
+	  title_t^28.0
           title_and_statement_of_responsibility_t
         </str>
         <str name="pf">
@@ -718,7 +718,7 @@
           course_t^100
           subject_t^100
           subtitle_t^100
-          title_t^250
+          title_t^350
         </str>
         <str name="bq">
           is_electronic_facet:"Albany Campus Library"^150.0
