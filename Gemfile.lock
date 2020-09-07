@@ -9,13 +9,6 @@ GIT
       jdbc-postgres (>= 9.4, < 43)
 
 GIT
-  remote: https://github.com/sandbergja/blacklight-locale_picker
-  revision: 92ced9c606d26a413183e6d8a79529144f171a67
-  specs:
-    blacklight-locale_picker (0.1.0)
-      rails (>= 5.2.3)
-
-GIT
   remote: https://github.com/sandbergja/edsapi-ruby.git
   revision: 1bca24e9cd120fb2e73e2401b9afd3acd7d1cac6
   specs:
@@ -118,6 +111,8 @@ GEM
       bibtex-ruby (>= 4.4.6)
       citeproc-ruby (~> 1.1)
       csl-styles (~> 1.0.1.9)
+    blacklight-locale_picker (0.2.0)
+      rails (>= 5.2.3, < 6.1)
     blacklight_range_limit (7.9.1)
       blacklight (~> 7.0)
     bootsnap (1.4.8)
@@ -452,7 +447,7 @@ DEPENDENCIES
   activerecord-session_store
   blacklight (~> 7.4.2)
   blacklight-citeproc (>= 0.0.4)
-  blacklight-locale_picker!
+  blacklight-locale_picker
   blacklight_range_limit
   bootsnap (>= 1.4.2)
   bootstrap (= 4.1.3)
