@@ -689,8 +689,9 @@
        -->
         <str name="qf">
 	  authority_data_t^0.5
+          abstract_t^1.4
 	  author_t^50
-	  contents_t
+	  contents_t^1.1
           course_t
 	  followed_by_t
 	  has_part_t
@@ -714,8 +715,9 @@
         <str name="pf">
           abstract_t^150
           author_t^20
-	      contents_t^5
+	  contents_t^5
           course_t^100
+	  subject_geo_facet^63.0
           subject_t^100
           subtitle_t^100
           title_t^350
@@ -740,6 +742,9 @@
         </str>
         <str name="bq">
           record_source_facet:"NCBI Bookshelf"^35.0
+        </str>
+        <str name="bq">
+          subject_geo_facet:"United States"^5.0
         </str>
         <str name="bq">
           pub_date_sort:[2017 TO *]^40.0

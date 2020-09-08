@@ -1,6 +1,10 @@
 # Synonym mappings
 animal,livestock
 college,university,campus
+freedom,rights,equality,ACLU,liberty,liberties
+in the us,United States
+reproductive freedom,reproductive rights
+us,U.S.,United States
 
 # Spelling corrections
 immingration => immigration
