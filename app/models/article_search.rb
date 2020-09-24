@@ -29,6 +29,8 @@ class ArticleSearch
       'page' => page,
       :results_per_page => num_rows,
       :limiters => ['FT:y'],
+      :view => opts[:view] || 'detailed',
+      :include_facets => opts[:include_facets] || true,
       :facet_filters => facet_filters }
   end
 end
