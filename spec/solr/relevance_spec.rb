@@ -18,4 +18,11 @@ RSpec.describe 'solr general relevance spec' do
     relevant_id = 'ocn896839764'
     expect(resp).to include(relevant_id).as_first
   end
+
+  it 'does not weight the author name too heavily' do
+    resp = solr_resp_doc_ids_only({ q: 'dolphins' })
+    relevant_id = '519341'
+    irrelevant_id = 'ocn797917515'
+    expect(resp).to include(relevant_id).before(irrelevant_id)
+  end
 end

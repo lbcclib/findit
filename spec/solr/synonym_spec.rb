@@ -18,4 +18,10 @@ RSpec.describe 'solr synonym spec' do
     relevant_id = '505189'
     expect(resp).to include(relevant_id).in_first(2).results
   end
+
+  it 'knows that tech and technology are synonyms' do
+    resp = solr_resp_doc_ids_only({ q: 'classroom tech' })
+    relevant_id = 'ocn828694721'
+    expect(resp).to include(relevant_id).as_first
+  end
 end

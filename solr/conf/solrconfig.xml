@@ -689,10 +689,11 @@
        -->
         <str name="qf">
 	  authority_data_t^0.5
-          abstract_t^1.4
-	  author_t^50
+    abstract_t^1.4
+	  author_t^12
 	  contents_t^1.1
-          course_t
+    contributor_t^1.2
+    course_t
 	  followed_by_t
 	  has_part_t
 	  is_part_of_t
@@ -702,15 +703,15 @@
 	  note_t
 	  preceeded_by_t
           professor_t
-	  subject_t
+	  subject_t^410.0
 	  subject_additional_t
 	  subject_name_facet
-	  subject_topic_facet^2.0
+	  subject_topic_facet^27.0
 	  subject_era_facet
-	  subject_geo_facet^3.0
+	  subject_geo_facet^38.0
 	  subtitle_t
-	  title_t^28.0
-          title_and_statement_of_responsibility_t
+	  title_t^390.0
+          title_and_statement_of_responsibility_t^3
         </str>
         <str name="pf">
           abstract_t^150
@@ -751,6 +752,12 @@
         </str>
         <str name="bq">
           pub_date_sort:[1925 TO *]^60.0
+        </str>
+        <str name="bq">
+          language_facet:English^70000
+        </str>
+        <str name="bq">
+          language_facet:Spanish^75000
         </str>
 
        <str name="author_qf">
