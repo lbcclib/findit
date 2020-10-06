@@ -26,7 +26,7 @@
           <% if is_online_record? record %>
             <%= link_to "#{t('obtain.catalog_record')} #{ white_icon('open-in-new')}".html_safe, record.first(:url_fulltext_display), class: 'badge badge-success' %>
           <% elsif(is_evergreen_record? record) %>
-            <%= link_to "#{t('obtain.place_hold')} #{ white_icon('open-in-new')}".html_safe, url_for_evergreen_hold(record[:eg_tcn_t]), class: 'badge badge-success' %>
+            <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id)) %>
           <% end %>
           </li>
         <% end %>

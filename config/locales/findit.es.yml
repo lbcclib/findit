@@ -10,6 +10,7 @@ es:
     ebook: Leer ebook
     general_online: "Aceder %{type} en línea"
     place_hold: Recogida en la acera
+    request_scan: Extracto en PDF
     source: "Proporcionado por %{source}"
     streaming_video: Mirar este video en streaming
   show:
