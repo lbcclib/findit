@@ -47,8 +47,6 @@ class EvergreenService
   def best_items(bib_id, limit = 5)
     ITEM_TIERS.each do |criteria|
       matches = holdings_data(bib_id).copies.select(&criteria)
-      puts 'tier'
-      puts matches.length
       return matches.first(limit) if matches.any?
     end
   end
