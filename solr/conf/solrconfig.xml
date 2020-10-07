@@ -754,10 +754,10 @@
           pub_date_sort:[1925 TO *]^60.0
         </str>
         <str name="bq">
-          language_facet:English^70000
+          language_facet:English^700
         </str>
         <str name="bq">
-          language_facet:Spanish^75000
+          language_facet:Spanish^705
         </str>
 
        <str name="author_qf">
