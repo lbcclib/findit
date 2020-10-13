@@ -28,6 +28,7 @@ en:
   bento:
     all_articles: "All %{number} articles"
     all_catalog: "All %{number} books and videos"
+    needs_query: Please enter some search keywords
     search_options: Search options
   libraries:
     lbccbc: Benton Center Learning Center

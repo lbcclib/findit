@@ -5,14 +5,14 @@
 class BentoController < ApplicationController
   helper_method :no_results?
   def index
-    if params[:q]
+    if params[:q].blank?
+      redirect_to root_url, notice: t('bento.needs_query')
+    else
       @q = params[:q]
       redirect_to_desired_controller
       article_results
       solr_results
       redirect_to_most_useful_controller
-    else
-      redirect_to action: 'home'
     end
   end
 

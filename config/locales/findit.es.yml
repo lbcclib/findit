@@ -4,6 +4,7 @@ es:
   bento:
     all_articles: "Ver los %{number} artículos"
     all_catalog: "Ver los %{number} libros y videos"
+    needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_options: Herramientas de búsqueda
   obtain:
     catalog_record: Acceder a este recurso
