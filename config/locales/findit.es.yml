@@ -7,6 +7,8 @@ es:
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_options: Herramientas de búsqueda
   obtain:
+    available: Disponible
+    available_at: "Disponible en %{library} (%{location}): %{call_number}"
     catalog_record: Acceder a este recurso
     ebook: Leer ebook
     general_online: "Aceder %{type} en línea"

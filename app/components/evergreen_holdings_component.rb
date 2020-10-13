@@ -19,14 +19,4 @@ class EvergreenHoldingsComponent < ViewComponent::Base
     item.location == 'LBCC Healthcare Occupations Center' ? 'local_hospital' : 'local_library'
   end
 
-  def library_i18n_key_for(item)
-    case item.owning_lib
-    when 'LBCC Albany Campus Library'
-      'libraries.lbcclib'
-    when 'LBCC Benton Center'
-      'libraries.lbccbc'
-    when 'LBCC Healthcare Occupations Center'
-      'libraries.lbcchoc'
-    end
-  end
 end
