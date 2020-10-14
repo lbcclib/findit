@@ -24,7 +24,7 @@ class BentoController < ApplicationController
   def home; end
 
   def article_results
-    connection = EdsService.get_valid_connection session
+    connection = EdsService.connect
     search_fields = { 'author' => 'AU:', 'title' => 'TI:', 'all_fields' => '', 'subject' => 'SU:' }
     search_field = params[:search_field] || 'all_fields'
     search_field_code = search_fields[search_field] || ''
@@ -40,7 +40,11 @@ class BentoController < ApplicationController
   end
 
   def solr_results
-    catalog_search = Blacklight::SearchService.new config: CatalogController.blacklight_config, user_params: { page: 1, per_page: 3, q: @q }
+    search_config = {
+      config: CatalogController.blacklight_config,
+      user_params: { page: 1, per_page: 3, q: @q }
+    }
+    catalog_search = Blacklight::SearchService.new search_config
     solr, @catalog_records = catalog_search.search_results
     logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
     @catalog_format_facets = Hash[*solr['facet_counts']['facet_fields']['format']]

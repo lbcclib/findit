@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for searching article API
 class ArticlesController < CatalogController
   include BlacklightRangeLimit::ControllerOverride
 
@@ -12,7 +13,7 @@ class ArticlesController < CatalogController
       search_field_code = search_fields[search_field] || ''
       requested_facets = params[:f]
 
-      connection = EdsService.get_valid_connection session
+      connection = EdsService.connect
       results = ArticleSearch.send connection, page: page, q: q, search_field: search_field, search_field_code: search_field_code, requested_facets: requested_facets
       records = []
       @facets = []
