@@ -101,12 +101,13 @@ GEM
     bcrypt (3.1.16-java)
     bibtex-ruby (5.1.4)
       latex-decode (~> 0.0)
-    blacklight (7.4.2)
+    blacklight (7.12.1)
       deprecation
       globalid
       jbuilder (~> 2.7)
       kaminari (>= 0.15)
       rails (>= 5.1, < 7)
+      view_component
     blacklight-citeproc (0.0.5)
       bibtex-ruby (>= 4.4.6)
       citeproc-ruby (~> 1.1)
@@ -449,7 +450,7 @@ DEPENDENCIES
   activerecord-jdbc-adapter!
   activerecord-jdbcpostgresql-adapter!
   activerecord-session_store
-  blacklight (~> 7.4.2)
+  blacklight (~> 7.12.0)
   blacklight-citeproc (>= 0.0.4)
   blacklight-locale_picker
   blacklight_range_limit

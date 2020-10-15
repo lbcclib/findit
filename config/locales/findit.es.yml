@@ -6,6 +6,15 @@ es:
     all_catalog: "Ver los %{number} libros y videos"
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_options: Herramientas de búsqueda
+  facets:
+    database: Base de datos
+    format: Formato
+    geographic: Geografía
+    journal: Publicación
+    language: Lengua
+    pub_year: Año de edición
+    publisher: Editorial
+    subject: Tema
   obtain:
     available: Disponible
     available_at: "Disponible en %{library} (%{location}): %{call_number}"
