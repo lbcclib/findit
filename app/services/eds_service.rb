@@ -8,9 +8,14 @@ class EdsService
     end
   end
 
-  def self.eds_facets_from_param(param)
-    selected_facets = param.blank? ? {} : param.to_unsafe_h
-    criteria = ::EBSCO::EDS::SearchCriteria.new({ f: selected_facets }.with_indifferent_access, EdsService.connect.info)
-    criteria.FacetFilters
+  def self.blacklight_style_search(params)
+    connection = connect
+    connection.search eds_style(params.to_unsafe_h), false, false
+  end
+
+  def self.eds_style(params)
+    # EDS gem doesn't understand the all_fields search_field
+    params['search_field'] = 'KW' if (params.key? 'search_field') && (params['search_field'] == 'all_fields')
+    params.with_indifferent_access
   end
 end
