@@ -3,5 +3,4 @@ class ApplicationController < ActionController::Base
   include Blacklight::Controller
   include Blacklight::LocalePicker::Concern
   layout :determine_layout if respond_to? :layout
-
 end

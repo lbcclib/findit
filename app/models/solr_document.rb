@@ -1,16 +1,15 @@
 # frozen_string_literal: true
+
 class SolrDocument
   include Blacklight::Solr::Document
   use_extension(Blacklight::Document::Bibtex)
 
-  field_semantics.merge!(    
-                         :title => "title_ssm",
-                         :author => "author_ssm",
-                         :language => "language_ssim",
-                         :format => "format"
-                         )
-
-
+  field_semantics.merge!(
+    title: 'title_ssm',
+    author: 'author_ssm',
+    language: 'language_ssim',
+    format: 'format'
+  )
 
   # self.unique_key = 'id'
 

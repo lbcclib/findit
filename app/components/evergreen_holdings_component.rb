@@ -18,5 +18,4 @@ class EvergreenHoldingsComponent < ViewComponent::Base
   def library_icon_for(item)
     item.location == 'LBCC Healthcare Occupations Center' ? 'local_hospital' : 'local_library'
   end
-
 end
