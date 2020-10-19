@@ -37,6 +37,8 @@ ITEM_TIERS = [
 class EvergreenService
   # Return a single item from the highest possible tier
   def best_item(bib_id)
+    return [] unless holdings_data
+
     ITEM_TIERS.each do |criteria|
       match = holdings_data(bib_id).copies.find(criteria)
       return match if match
@@ -45,6 +47,8 @@ class EvergreenService
 
   # Return an array of items, all from the same, highest possible tier
   def best_items(bib_id, limit = 5)
+    return [] unless holdings_data
+
     ITEM_TIERS.each do |criteria|
       matches = holdings_data(bib_id).copies.select(&criteria)
       return matches.first(limit) if matches.any?
@@ -54,6 +58,8 @@ class EvergreenService
   # Return items, possibly from multiple different tiers
   def items(bib_id, limit = 10)
     all_matches = []
+    return all_matches unless holdings_data
+
     ITEM_TIERS.each do |criteria|
       matches = holdings_data(bib_id).copies.select(&criteria)
       matches.each do |match|
