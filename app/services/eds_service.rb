@@ -15,9 +15,6 @@ class EdsService
   end
 
   def self.eds_style(params)
-    # EDS gem doesn't understand the all_fields search_field
-    params['search_field'] = 'KW' if params['search_field'] == 'all_fields'
-
     # EDS defaults to 20 pages, which is more than we want
     params['results_per_page'] ||= 10
     params.with_indifferent_access
