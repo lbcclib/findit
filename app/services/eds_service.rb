@@ -4,7 +4,7 @@
 class EdsService
   def self.connect
     Rails.cache.fetch('eds-session', expires_in: 12.minutes) do
-      ::EBSCO::EDS::Session.new
+      ::EBSCO::EDS::Session.new max_attempts: 10
     end
   end
 
