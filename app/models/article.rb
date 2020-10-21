@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 # Journal and newspaper articles taken from an external API
 class Article < SolrDocument
   PROXY_PREFIX = 'https://ezproxy.libweb.linnbenton.edu/login?url='
@@ -47,6 +49,7 @@ class Article < SolrDocument
 
       @_source[:journal_display] = try_to_extract record, :eds_source_title
       @_source[:abstract_display] = try_to_extract record, :eds_abstract
+      @_source[:abstract_display] = CGI.unescapeHTML(@_source[:abstract_display]) if @_source[:abstract_display]
       @_source[:doi_display] = try_to_extract record, :eds_doi
       @_source[:page_count_display] = try_to_extract record, :eds_page_count
       @_source[:page_number_display] = try_to_extract record, :eds_page_start

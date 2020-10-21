@@ -20,6 +20,7 @@ class ArticlesController < CatalogController
       redirect_to root_url, notice: t('bento.needs_query')
     else
       page = params[:page].present? ? Integer(params[:page]) : 1
+      params[:view] = 'detailed'
       results = EdsService.blacklight_style_search params
 
       if results.records
