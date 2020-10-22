@@ -22,4 +22,4 @@ describe 'gale config' do
       expect(@output['url_fulltext_display'].first).to include('u=oregon_sl')
     end
   end
-end 
+end

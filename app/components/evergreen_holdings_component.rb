@@ -2,7 +2,7 @@
 
 # Display info about Evergreen Holdings in useful ways
 class EvergreenHoldingsComponent < ViewComponent::Base
-  def initialize(size: :medium, record_id:)
+  def initialize(record_id:, size: :medium)
     @size = size
     @record_id = record_id
     service = EvergreenService.new
