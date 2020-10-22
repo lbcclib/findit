@@ -24,7 +24,7 @@ es:
     place_hold: Recogida en la acera
     request_scan: Extracto en PDF
     source: "Proporcionado por %{source}"
-    streaming_video: Mirar este video en streaming
+    streaming_video: Mirar este video streaming
   show:
     work_heading: Sobre la obra
     instance_heading: Sobre la edición
