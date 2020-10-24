@@ -8,8 +8,10 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.0.3.3'
 # Use postgresql as the database for Active Record
-gem 'activerecord-jdbc-adapter', '~> 60.2'
-gem 'activerecord-jdbcpostgresql-adapter'
+platforms :jruby do
+  gem 'activerecord-jdbc-adapter', '~> 60.2'
+  gem 'activerecord-jdbcpostgresql-adapter'
+end
 
 group :production, :development, :test do
   # Use Puma as the app server
@@ -86,6 +88,7 @@ gem 'http', '~>4.1.1'
 
 gem 'library_stdnums'
 gem 'openlibrary-covers', github: 'sandbergja/openlibrary-covers', branch: 'main'
+gem 'rack-cors'
 
 group :indexer do
   gem 'activerecord-nulldb-adapter'
