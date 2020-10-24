@@ -89,3 +89,4 @@ gem 'rubocop', require: false
 
 gem 'view_component', require: 'view_component/engine'
 gem 'material_icons'
+gem 'rack-cors'

@@ -267,6 +267,8 @@ GEM
     puma (4.3.6-java)
       nio4r (~> 2.0)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-mini-profiler (2.2.0)
       rack (>= 1.2.0)
     rack-proxy (0.6.5)
@@ -471,6 +473,7 @@ DEPENDENCIES
   material_design_icons
   material_icons
   puma (~> 4.3)
+  rack-cors
   rack-mini-profiler
   rails (= 6.0.3.3)
   rails-i18n
