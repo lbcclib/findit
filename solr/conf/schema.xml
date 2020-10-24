@@ -239,8 +239,8 @@
 
 
     <!-- suggest and spelling -->
-    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
-    <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="false" multiValued="true" />
+    <dynamicField name="*spell" type="textSpell" indexed="true" stored="true" multiValued="true" />
+    <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="true" multiValued="true" />
 
     <dynamicField name="*_display" type="string" indexed="false" stored="true" multiValued="true" />
     <dynamicField name="*_facet" type="string" indexed="true" stored="false" multiValued="true" />
@@ -262,6 +262,9 @@
   <copyField source="*_ssim" dest="all_text_timv" maxChars="3000"/>
   <copyField source="*_si" dest="all_text_timv" maxChars="3000"/>
 
+  <copyField source="*_display" dest="suggest"/>
+  <copyField source="*_facet" dest="suggest"/>
+  <copyField source="*_t" dest="suggest"/>
   <copyField source="*_tsim" dest="suggest"/>
   <copyField source="*_tesim" dest="suggest"/>
   <copyField source="*_ssim" dest="suggest"/>
@@ -397,7 +400,7 @@
       </analyzer>
     </fieldType>
 
-    <fieldType  name="textSuggest" class="solr.TextField" positionIncrementGap="100">
+    <fieldType class="solr.TextField" name="textSuggest" positionIncrementGap="100">
        <analyzer>
           <tokenizer class="solr.KeywordTokenizerFactory"/>
           <filter class="solr.LowerCaseFilterFactory"/>
