@@ -275,10 +275,11 @@
   <copyField source="*_tesim" dest="spell"/>
   <copyField source="*_ssim" dest="spell"/>
   <copyField source="*_si" dest="spell"/>
+  <copyField source="*_facet" dest="spell"/>
 
-  <copyField source="author_tsim" dest="author_spell"/>
-  <copyField source="subject_ssim" dest="subject_spell"/>
-  <copyField source="title_tsim" dest="title_spell"/>
+  <copyField source="author_display" dest="author_spell"/>
+  <copyField source="subject_display" dest="subject_spell"/>
+  <copyField source="title_display" dest="title_spell"/>
 
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />

@@ -9,7 +9,7 @@ class BentoController < ApplicationController
       redirect_to root_url, notice: t('bento.needs_query')
     else
       @q = params[:q]
-      redirect_to_desired_controller
+      #redirect_to_desired_controller
       article_results
       solr_results
       redirect_to_most_useful_controller
@@ -45,10 +45,10 @@ class BentoController < ApplicationController
       user_params: { page: 1, per_page: 3, q: @q }
     }
     catalog_search = Blacklight::SearchService.new search_config
-    solr, @catalog_records = catalog_search.search_results
+    @response, @catalog_records = catalog_search.search_results
     logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
-    @catalog_format_facets = Hash[*solr['facet_counts']['facet_fields']['format']]
-    @num_catalog_hits = solr['response']['numFound']
+    @catalog_format_facets = Hash[*@response['facet_counts']['facet_fields']['format']]
+    @num_catalog_hits = @response['response']['numFound']
   end
 
   # If the user passed along some params that indicate they might just want articles or catalog,
