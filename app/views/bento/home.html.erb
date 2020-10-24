@@ -2,7 +2,7 @@
    <form id="home-bento-search" class="container-fluid" method="get" action="search">
       <fieldset> 
         <div class="row align-items-center vertical-center">
-          <input name="q" type="text" id="home-searchbox" class="form-control form-control-lg col-12 col-md-9" aria-label="search terms" autofocus />
+          <%= text_field_tag :q, '', id: 'home-searchbox', class: "form-control form-control-lg col-lg-12 col-md-9", 'aria-label' => "search terms", autofocus: true, data: { autocomplete_enabled: true, autocomplete_path: url_for(controller: 'catalog', action: :suggest) }  %>
           <input name="locale" type="hidden" value="<%= I18n.locale %>" />
           <input name="search_field" type="hidden" value="all_fields" id="search_field" />
           <div class="col-6 col-md-3 btn-group">
