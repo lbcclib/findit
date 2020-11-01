@@ -68,7 +68,7 @@
                     <span class="facet-label">
                       <%= link_to t('format.streaming_video'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
                     </span>
-                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Musical recording']) %></span>
+                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Streaming video']) %></span>
                   </li>
                 <% end %>
                 <% if @catalog_format_facets.key? 'Book' %>
