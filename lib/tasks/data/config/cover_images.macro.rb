@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'net/http'
+require 'openlibrary/covers'
 
 IDENTIFIER_TYPES_FOR_COVER_IMAGES = {
   'isbn' => '020',
@@ -14,30 +14,26 @@ module FindIt
     # for a given record, using a variety of identifiers
     module CoverImages
       def logger
-        @logger ||= Yell.new(STDERR, level: 'debug')
+        @logger ||= Yell.new($stderr, level: 'debug')
       end
 
       def cover_image
         proc do |record, accumulator|
           IDENTIFIER_TYPES_FOR_COVER_IMAGES.each do |id_type, tag|
-            image_url = fetch_valid_image_url id_type, tag, record
-            if image_url
-              accumulator << image_url
+            image = image_for id_type, tag, record
+            if image.found?
+              accumulator << image.url
               break
             end
           end
         end
       end
 
-      def fetch_valid_image_url(id_type, tag, record)
+      def image_for(id_type, tag, record)
         identifiers = extract_identifiers tag, record
-        identifiers.each do |identifier|
-          next unless image_exists id_type, identifier
-
-          logger.info("Found image for record #{record['001']} using #{id_type} #{identifier}")
-          return ol_url(id_type, identifier, 'M')
-        end
-        false
+        image = Openlibrary::Covers::Image.new identifiers, id_type
+        logger.info("Found image for record #{record['001']}: #{image.url}") if image.found?
+        image
       end
 
       def extract_identifiers(tag, record)
@@ -48,23 +44,6 @@ module FindIt
           end
         end
         identifiers
-      end
-
-      def ol_url(type, identifier, size)
-        "https://covers.openlibrary.org/b/#{type}/#{identifier}-#{size}.jpg?default=false"
-      end
-
-      def image_exists(type, identifier)
-        begin
-          # Try fetching a small version of the image to reduce network load
-          response = Net::HTTP.get_response(URI.parse(ol_url(type, identifier, 'S')))
-        rescue StandardError
-          return false
-        end
-        return false if response.body.include? 'not found'
-        return true if %w[200 301 302].include? response.code
-
-        false
       end
     end
   end

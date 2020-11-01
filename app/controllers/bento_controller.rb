@@ -9,7 +9,7 @@ class BentoController < ApplicationController
       redirect_to root_url, notice: t('bento.needs_query')
     else
       @q = params[:q]
-      #redirect_to_desired_controller
+      redirect_to_desired_controller
       article_results
       solr_results
       redirect_to_most_useful_controller

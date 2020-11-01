@@ -1,1 +1,1 @@
-Blacklight::LocalePicker::Engine.config.available_locales = ['en', 'es']
+Blacklight::LocalePicker::Engine.config.available_locales = %w[en es]

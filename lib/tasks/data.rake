@@ -54,12 +54,13 @@ namespace :findit do
       end
     end
     namespace :index do
-      desc "Index sample data (perhaps for running tests)"
+      desc 'Index sample data (perhaps for running tests)'
       task :sample do
         fixture_providers = %w[eg gale oclc]
         fixture_providers.each do |fixture_provider|
           Rake::Task["findit:data:index:#{fixture_provider}"].execute({
-            filename: "spec/fixtures/files/#{fixture_provider}.mrc"})
+                                                                        filename: "spec/fixtures/files/#{fixture_provider}.mrc"
+                                                                      })
         end
       end
     end

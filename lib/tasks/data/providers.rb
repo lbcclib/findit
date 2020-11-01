@@ -31,7 +31,7 @@ module FindIt
                              today = DateTime.now
                              sunday = today - today.wday
                              prefix = 'https://libweb.cityofalbany.net/filepile/discovery_layer_exports/lbcc_marc_records_items.'
-                             return prefix + sunday.strftime('%F') + '.mrc'
+                             return "#{prefix}#{sunday.strftime('%F')}.mrc"
                            },
             'file_prefix' => 'eg_lbcc',
             'traject_configuration_files' => %w[eg marc]
@@ -45,7 +45,7 @@ module FindIt
                              today = DateTime.now
                              sunday = today - today.wday
                              prefix = 'https://libweb.cityofalbany.net/filepile/discovery_layer_exports/lbcc_marc_records_uris.'
-                             return prefix + sunday.strftime('%F') + '.mrc'
+                             return "#{prefix}#{sunday.strftime('%F')}.mrc"
                            },
             'file_prefix' => 'eg_lbcc',
             'traject_configuration_files' => %w[eg_online marc]

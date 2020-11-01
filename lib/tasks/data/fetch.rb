@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'net/ftp'
 require 'net/http'
 require 'time'
@@ -14,7 +15,7 @@ module FindIt
                           [config['fetch_url']].flatten(1)
                         end
         files_written = []
-        filename = Rails.root.join('lib', 'tasks', 'data', 'new', config['file_prefix'] + '_' + date_downloaded + '.mrc')
+        filename = Rails.root.join('lib', 'tasks', 'data', 'new', "#{config['file_prefix']}_#{date_downloaded}.mrc")
         File.delete filename if File.exist? filename
         urls_to_fetch.each do |url|
           uri = URI.parse url
@@ -57,8 +58,8 @@ module FindIt
         files.each do |file|
           next unless (Time.now - (7 * 24 * 60 * 60)) < (ftp.mtime file)
 
-          filename = Rails.root.join('lib', 'tasks', 'data', directory, prefix + '_' + date_downloaded + '.mrc').to_s
-          puts file + ' is saving as ' + filename
+          filename = Rails.root.join('lib', 'tasks', 'data', directory, "#{prefix}_#{date_downloaded}.mrc").to_s
+          puts "#{file} is saving as #{filename}"
           ftp.getbinaryfile(file, filename)
           files_written << filename
         end

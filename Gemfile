@@ -6,10 +6,10 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.0.3.3'
 # Use postgresql as the database for Active Record
-if RUBY_PLATFORM=~ /jruby/ or RUBY_PLATFORM =~ /java/
+if RUBY_PLATFORM =~ (/jruby/) || RUBY_PLATFORM =~ (/java/)
   # THe custom git repository will not be needed as soon as they release version 60.0 to rubygems.org
-  gem 'activerecord-jdbcpostgresql-adapter', :git => 'https://github.com/sandbergja/activerecord-jdbc-adapter'
-  gem 'activerecord-jdbc-adapter', :git => 'https://github.com/sandbergja/activerecord-jdbc-adapter'
+  gem 'activerecord-jdbc-adapter', git: 'https://github.com/sandbergja/activerecord-jdbc-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter', git: 'https://github.com/sandbergja/activerecord-jdbc-adapter'
 else
   gem 'pg', '>= 0.18', '< 2.0'
 end
@@ -35,16 +35,19 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development do
-  gem 'rack-mini-profiler'
   gem 'brakeman'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec'
   gem 'rspec-rails'
   gem 'rspec-solr'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
 end
 
 group :test do
@@ -56,36 +59,35 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'blacklight', '~>7.12.0'
 
-gem 'rsolr', '>= 1.0', '< 3'
+gem 'activerecord-session_store'
+gem 'blacklight-citeproc', '>=0.0.4'
+gem 'blacklight-locale_picker'
+gem 'blacklight_range_limit'
 gem 'bootstrap', '4.1.3'
-gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
-gem 'jquery-rails'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
-gem 'blacklight_range_limit'
-gem 'blacklight-locale_picker'
 gem 'dotenv-rails'
-gem 'material_design_icons'
-gem 'activerecord-session_store'
-gem 'ebsco-eds', :github => 'sandbergja/edsapi-ruby'
+gem 'ebsco-eds', github: 'sandbergja/edsapi-ruby'
 gem 'evergreen_holdings', '>=0.3.0'
-gem 'blacklight-citeproc', '>=0.0.4'
-gem 'rails-i18n'
 gem 'exception_notification'
-gem 'warbler', '>=1.4.0'
+gem 'jquery-rails'
+gem 'material_design_icons'
+gem 'rails-i18n'
+gem 'rsolr', '>= 1.0', '< 3'
 gem 'solr_wrapper'
 gem 'traject'
+gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
+gem 'warbler', '>=1.4.0'
 
 # 4.1.x is currently the latest version of http that we can use,
 # since later versions depend on http-client, which is incompatible
 # with warbler, see https://github.com/jruby/warbler/issues/482
 gem 'http', '~>4.1.1'
 
-gem 'rubocop', require: false
-
-gem 'view_component', require: 'view_component/engine'
 gem 'material_icons'
+gem 'openlibrary-covers'
+gem 'view_component', require: 'view_component/engine'

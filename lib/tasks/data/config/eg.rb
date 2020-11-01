@@ -16,13 +16,14 @@ to_field 'is_electronic_facet' do |record, accumulator|
   field852s = record.find_all { |f| f.tag == '852' }
   field852s.each do |field|
     library = field['b']
-    accumulator << if library == 'LBCCHOC'
+    accumulator << case library
+                   when 'LBCCHOC'
                      'Healthcare Occupations Center'
-                   elsif library == 'LBCCBC'
+                   when 'LBCCBC'
                      'Benton Center'
-                   elsif library == 'LBCCLIB'
+                   when 'LBCCLIB'
                      'Albany Campus Library'
-                   elsif library == 'LBCC'
+                   when 'LBCC'
                      'Online'
                    else
                      'Partner Libraries'
