@@ -68,15 +68,15 @@ class BentoController < ApplicationController
 
   # If we only got results from one data source, redirect to that one
   def redirect_to_most_useful_controller
-    redirect_to controller: 'articles', params: request.query_parameters if only_have_article_results?
-    redirect_to controller: 'catalog', params: request.query_parameters if only_have_catalog_results?
+    redirect_to controller: 'articles', params: request.query_parameters if article_results_are_more_promising?
+    redirect_to controller: 'catalog', params: request.query_parameters if catalog_results_are_more_promising?
   end
 
-  def only_have_article_results?
-    @num_article_hits.positive? && @num_catalog_hits.zero?
+  def article_results_are_more_promising?
+    @num_article_hits > 100 && @num_catalog_hits.zero?
   end
 
-  def only_have_catalog_results?
+  def catalog_results_are_more_promising?
     @num_catalog_hits.positive? && @num_article_hits.zero?
   end
 
