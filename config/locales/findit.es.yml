@@ -15,6 +15,17 @@ es:
     pub_year: Año de edición
     publisher: Editorial
     subject: Tema
+  format:
+    articles:
+      label: Artículos
+      description: Nuevos artículos de investigación y noticias
+    books_and_media:
+      label: Libros y videos
+      description: Libros electrónicos, video y música streaming, libros de la biblioteca y más
+    ebooks:
+      label: Libros Electrónicos
+    streaming_video:
+      label: Videos Streaming
   obtain:
     available: Disponible
     available_at: "Disponible en %{library} (%{location}): %{call_number}"

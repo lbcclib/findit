@@ -28,6 +28,17 @@ en:
     pub_year: Publication year
     publisher: Publisher
     subject: Topic
+  format:
+    articles:
+      label: Articles
+      description: Emerging research and news articles -- great sources for your next paper
+    books_and_media:
+      label: Books and videos
+      description: E-books, streaming video and music, library books and more
+    ebooks:
+      label: Ebooks
+    streaming_video:
+      label: Streaming Video
   libraries:
     lbccbc: Benton Center Learning Center
     lbcchoc: Healthcare Occupations Center Library

@@ -4,8 +4,8 @@
 <%- else %>
   <div class="row">
     <section id="content" class="col-lg-9 order-last">
-      <h2>Articles</h2>
-      Emerging research and news articles -- great sources for your next paper
+      <h2><%= t('format.articles.label') %></h2>
+      <%= t('format.articles.description') %>
       <ol>
         <% @articles.each do |article| %>
           <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
@@ -19,8 +19,8 @@
 
       <hr>
 
-      <h2>Books and videos</h2>
-      E-books, streaming video and music, library books and more
+      <h2><%= t('format.books_and_media.label') %></h2>
+      <%= t('format.books_and_media.description') %>
       <ol>
         <% @catalog_records.each do |record| %>
           <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
@@ -41,7 +41,7 @@
         <div class="card facet-limit">
           <h3 class="card-header p-0 facet-field-heading">
             <span class="btn btn-block p-2 text-left">
-              <%= t('blacklight.articles.format') %>
+              <%= t('facets.format') %>
             </span>
           </h3>
           <div class="panel-collapse facet-content collapse show">
@@ -50,7 +50,7 @@
                 <% if @num_article_hits %>
                   <li>
                     <span class="facet-label">
-                      <%= link_to t('format.articles'), request.query_parameters.merge({controller: 'articles'}) %>
+                      <%= link_to t('format.articles.label'), request.query_parameters.merge({controller: 'articles'}) %>
                     </span>
                     <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
                   </li>
@@ -58,7 +58,7 @@
                 <% if @catalog_format_facets.key? 'Ebook' %>
                   <li>
                     <span class="facet-label">
-                      <%= link_to t('format.ebooks'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
+                      <%= link_to t('format.ebooks.label'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
                     </span>
                     <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
                   </li>
@@ -66,7 +66,7 @@
                 <% if @catalog_format_facets.key? 'Streaming video' %>
                   <li>
                     <span class="facet-label">
-                      <%= link_to t('format.streaming_video'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
+                      <%= link_to t('format.streaming_video.label'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
                     </span>
                     <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Streaming video']) %></span>
                   </li>
