@@ -15,8 +15,6 @@ extend Traject::Macros::Marc21
 to_field 'bibtex_t', generate_bibtex
 
 settings do
-  provide 'solr.url', 'http://localhost:8983/solr/blacklight-core'
-  provide 'solr_writer.max_skipped', -1
   provide 'marc_source.encoding', 'UTF-8'
 end
 

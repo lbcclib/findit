@@ -32,7 +32,7 @@ namespace :findit do
             config_string += " -c  #{config_dir}/#{config_file}.rb "
           end
           marc_file = Rails.root.join(args[:filename]).to_s
-          args = "#{config_string} -I #{config_dir} -s solr.url=#{Blacklight.connection_config[:url]} -s solrj_writer.commit_on_close=true"
+          args = "#{config_string} -I #{config_dir} -s solr.url=#{Blacklight.connection_config[:url]}"
           system("bundle exec traject #{args} #{marc_file}")
         end
       end
