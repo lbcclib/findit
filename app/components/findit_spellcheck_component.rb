@@ -6,6 +6,6 @@ class FinditSpellcheckComponent < Blacklight::Response::SpellcheckComponent
   # @param [Array<String>] options explicit spellcheck options to render
   def initialize(response:, options: nil)
     super
-    @options.unshift(@response&.spelling&.collation)
+    @options.unshift(@response.spelling.collation) if @response&.spelling&.collation
   end
 end
