@@ -19,6 +19,11 @@ en:
     all_catalog: "All %{number} books and videos"
     needs_query: Please enter some search keywords
     search_options: Search options
+  blacklight:
+    search:
+      fields:
+        format: Format
+        pub_date: Publication year
   facets:
     database: Database
     format: Format

@@ -6,6 +6,11 @@ es:
     all_catalog: "Ver los %{number} libros y videos"
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_options: Herramientas de búsqueda
+  blacklight:
+    search:
+      fields:
+        format: Formato
+        pub_date: Año de edición
   facets:
     database: Base de datos
     format: Formato
