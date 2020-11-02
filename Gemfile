@@ -89,5 +89,5 @@ gem 'warbler', '>=1.4.0'
 gem 'http', '~>4.1.1'
 
 gem 'material_icons'
-gem 'openlibrary-covers'
+gem 'openlibrary-covers', github: 'sandbergja/openlibrary-covers', branch: 'main'
 gem 'view_component', require: 'view_component/engine'
