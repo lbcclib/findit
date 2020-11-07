@@ -36,9 +36,13 @@ module FindIt
         @@cache.fetch(cache_id(authority_id)) do
           eg_authority_url = 'http://libcat.linnbenton.edu/opac/extras/supercat/'\
                              "retrieve/marcxml/authority/#{authority_id}"
-          URI.parse(eg_authority_url).open do |file|
-            record = MARC::XMLReader.new(file).first
-            extract_keywords_from_authority_record record if record
+          begin
+            URI.parse(eg_authority_url).open do |file|
+              record = MARC::XMLReader.new(file).first
+              extract_keywords_from_authority_record record if record
+            end
+          rescue Errno::ECONNREFUSED
+            []
           end
         end
       end
