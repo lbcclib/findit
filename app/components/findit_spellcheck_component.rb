@@ -7,5 +7,6 @@ class FinditSpellcheckComponent < Blacklight::Response::SpellcheckComponent
   def initialize(response:, options: nil)
     super
     @options.unshift(@response.spelling.collation) if @response&.spelling&.collation
+    @options.uniq!
   end
 end
