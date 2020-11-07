@@ -163,7 +163,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'pub_date', instance: true, itemprop: 'datePublished'
     config.add_show_field 'language_facet', label: 'Language', link_to_facet: :language_facet, link_to_search: :language_facet, itemprop: 'inLanguage', instance: true
     config.add_show_field 'note_display', label: 'Note', instance: true, itemprop: 'description'
-    config.add_show_field 'contents_display', label: 'Contents', instance: true, itemprop: 'description'
+    config.add_show_field 'contents_t', label: I18n.t('blacklight.search.fields.contents'), instance: true, itemprop: 'description'
     config.add_show_field 'isbn_t', label: 'ISBN', itemprop: 'isbn', instance: true
     config.add_show_field 'is_part_of_display', label: 'Is part of', instance: true, link_to_facet: :title_facet, link_to_search: :title_facet, itemprop: 'isPartOf'
     config.add_show_field 'has_part_of_display', label: 'Has part', instance: true, link_to_facet: :title_facet, link_to_search: :title_facet, itemprop: 'hasPart'

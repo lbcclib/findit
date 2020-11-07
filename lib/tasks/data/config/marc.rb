@@ -29,7 +29,6 @@ to_field 'author_facet',        extract_marc('100abcdq:110abcdgnu:111acdenqu:700
 to_field 'author_t',            extract_marc('100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu')
 to_field 'author_vern_display', extract_marc('100abcdq:110:111', alternate_script: :only)
 
-to_field 'contents_display',    extract_marc('505')
 to_field 'contents_t',          extract_marc('505')
 
 to_field 'contributor_display', extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu:505r')
