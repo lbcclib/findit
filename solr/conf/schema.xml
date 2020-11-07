@@ -262,20 +262,16 @@
   <copyField source="*_ssim" dest="all_text_timv" maxChars="3000"/>
   <copyField source="*_si" dest="all_text_timv" maxChars="3000"/>
 
-  <copyField source="*_display" dest="suggest"/>
-  <copyField source="*_facet" dest="suggest"/>
-  <copyField source="*_t" dest="suggest"/>
-  <copyField source="*_tsim" dest="suggest"/>
-  <copyField source="*_tesim" dest="suggest"/>
-  <copyField source="*_ssim" dest="suggest"/>
-  <copyField source="*_si" dest="suggest"/>
+  <copyField source="author_display" dest="suggest"/>
+  <copyField source="subject_topic_facet" dest="suggest"/>
+  <copyField source="subtitle_display" dest="suggest"/>
+  <copyField source="title_t" dest="suggest"/>
 
-  <!-- TODO: Look into if these are actually being used. -->
-  <copyField source="*_tsim" dest="spell"/>
-  <copyField source="*_tesim" dest="spell"/>
-  <copyField source="*_ssim" dest="spell"/>
-  <copyField source="*_si" dest="spell"/>
-  <copyField source="*_facet" dest="spell"/>
+  <copyField source="author_display" dest="spell"/>
+  <copyField source="contents_t" dest="spell"/>
+  <copyField source="subject_topic_facet" dest="spell"/>
+  <copyField source="subtitle_display" dest="spell"/>
+  <copyField source="title_t" dest="spell"/>
 
   <copyField source="author_display" dest="author_spell"/>
   <copyField source="subject_display" dest="subject_spell"/>

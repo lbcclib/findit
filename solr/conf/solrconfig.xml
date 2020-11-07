@@ -703,15 +703,13 @@
 	  note_t
 	  preceeded_by_t
           professor_t
-	  subject_t^410.0
-	  subject_additional_t
-	  subject_name_facet
-	  subject_topic_facet^27.0
-	  subject_era_facet
-	  subject_geo_facet^38.0
+	  subject_name_facet^410.0
+	  subject_topic_facet^437.0
+	  subject_era_facet^370.0
+	  subject_geo_facet^448.0
 	  subtitle_t
-	  title_t^390.0
-          title_and_statement_of_responsibility_t^3
+    title_t^390.0
+
         </str>
         <str name="pf">
           abstract_t^150
@@ -720,7 +718,7 @@
           course_t^100
 	  subject_geo_facet^63.0
           subject_t^100
-          subtitle_t^100
+          subtitle_t^210
           title_t^350
         </str>
         <str name="bq">
