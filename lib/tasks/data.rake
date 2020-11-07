@@ -61,8 +61,8 @@ namespace :findit do
           Rake::Task["findit:data:index:#{fixture_provider}"].execute({
                                                                         filename: "spec/fixtures/files/#{fixture_provider}.mrc"
                                                                       })
-          Rake::Task['findit:data:commit'].execute
         end
+        Rake::Task['findit:data:commit'].execute
       end
     end
     task commit: :environment do
