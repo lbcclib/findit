@@ -11,7 +11,7 @@ RSpec.describe 'solr phrase relevance spec' do
   it 'search for keyword Digital Divide' do
     relevant_ids = %w[556265 529813 524094 344167]
     resp = solr_resp_doc_ids_only({ 'q' => 'digital divide' })
-    expect(resp).to include(relevant_ids).in_first(5).results
+    expect(resp).to include(relevant_ids).in_first(6).results
   end
 
   it 'search for keyword Love and Fear' do

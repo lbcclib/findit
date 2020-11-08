@@ -13,8 +13,8 @@ RSpec.describe 'solr synonym spec' do
     expect(resp).to include(relevant_id).as_first
   end
 
-  it 'delivers good results for query: reproductive freedom for women in the us' do
-    resp = solr_resp_doc_ids_only({ 'q' => 'reproductive freedom for women in the us' })
+  it 'delivers good results for query: reproductive freedom for women' do
+    resp = solr_resp_doc_ids_only({ 'q' => 'reproductive freedom for women' })
     relevant_id = '505189'
     expect(resp).to include(relevant_id).in_first(2).results
   end

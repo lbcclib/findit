@@ -77,7 +77,7 @@ class BentoController < ApplicationController
   end
 
   def catalog_results_are_more_promising?
-    @num_catalog_hits.positive? && @num_article_hits.zero?
+    @num_catalog_hits.positive? && @num_article_hits < 5
   end
 
   def no_results?

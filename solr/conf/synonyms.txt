@@ -6,6 +6,7 @@ in the us,United States
 reproductive freedom,reproductive rights
 tech,technology
 us,U.S.,United States
+violence,assault
 
 # Spelling corrections
 immingration => immigration

@@ -37,26 +37,6 @@
     we use 'tint' for faster range-queries. -->
     <field name="pub_date_sort" type="tint" indexed="true" stored="true" multiValued="false"/>
 
-
-    <!-- LBCC custom fields -->
-    <field name="abstract_display" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="bibtex_t" type="string" indexed="true" stored="true" multiValued="false" />
-    <field name="contributor_display" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="eg_tcn_t" type="string" indexed="true" stored="true" multiValued="false"/>
-    <field name="genre_facet" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="is_electronic_facet" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="is_part_of_t" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="note_display" type="string" indexed="false" stored="true" multiValued="true" />
-    <field name="oclcn_t" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="place_of_publication_display" type="string" indexed="false" stored="true" multiValued="true"/>
-    <field name="place_of_publication_vern_display" type="string" indexed="false" stored="true" multiValued="true"/>
-    <field name="publication_note_display" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="publisher_display" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="publisher_vern_display" type="string" indexed="false" stored="true" multiValued="true"/>
-    <field name="record_source_facet" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="record_provider_facet" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="serial_coverage_display" type="string" indexed="false" stored="true" multiValued="true"/>
-    <field name="subject_name_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/>
 
     <field name="lat" type="tdouble" stored="true" indexed="true" multiValued="false"/>
