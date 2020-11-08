@@ -36,12 +36,10 @@ module FindIt
         ftp = Net::FTP.new config['server']
         ftp.passive = true
         ftp.login config['user'], config['pass']
-        ftp.chdir('metacoll/out/ongoing/new')
-        files_written += fetch_latest_files_by_ftp ftp, 'new', config['file_prefix']
-        ftp.chdir('../updates')
-        files_written += fetch_latest_files_by_ftp ftp, 'update', config['file_prefix']
-        # ftp.chdir('../deletes')
-        # files_written += fetch_latest_files_by_ftp ftp, 'delete', config['file_prefix']
+        config['directories'].each do |directory|
+          ftp.chdir directory[:remote]
+          files_written += fetch_latest_files_by_ftp ftp, directory[:local], config['file_prefix']
+        end
         ftp.close
         files_written
       end

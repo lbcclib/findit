@@ -70,9 +70,16 @@ module FindIt
             'record_provider_facet' => 'OCLC',
             'fetch_method' => :ftp,
             'file_prefix' => 'oclc',
-            'server' => 'ftp2.oclc.org',
-            'user' => 'olx',
+            'server' => 'filex-m1.oclc.org',
+            'user' => 'fx_olx',
             'pass' => ENV['OCLC_PASSWORD'],
+            'directories' => [{
+              remote: '/xfer/metacoll/out/ongoing/new',
+              local: 'new'
+            }, {
+              remote: '/xfer/metacoll/out/ongoing/updates',
+              local: 'update'
+            }],
             'traject_configuration_files' => %w[oclc marc]
           },
           'opentextbooks' => {
