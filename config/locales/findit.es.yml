@@ -9,6 +9,7 @@ es:
   blacklight:
     search:
       fields:
+        contents: Tabla de contenido
         format: Formato
         pub_date: Año de edición
   facets:
