@@ -10,3 +10,14 @@ Disallow: /*.marc$
 Disallow: /*.marcxml$
 Disallow: /*.rss$
 Crawl-delay: 20
+
+User-agent: AhrefsBot
+Disallow: /
+User-agent: BLEXBot
+Crawl-delay: 20
+User-agent: Barkrowler
+Disallow: /
+User-agent: PetalBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
