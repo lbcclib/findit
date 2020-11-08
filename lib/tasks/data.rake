@@ -62,6 +62,7 @@ namespace :findit do
       task all: :environment do
         FindIt::Data::Providers.all.select { |_provider, config| config['fetch_method'] }
                                .each { |provider, _config| Rake::Task["findit:data:fetch_and_index:#{provider}"].execute }
+        Rake::Task['findit:data:commit'].execute
       end
     end
 
