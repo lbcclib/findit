@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/sandbergja/openlibrary-covers.git
-  revision: 707213fbbeff8745d023f3753e6619367a9b3244
+  revision: ebb3d3e3cfd4e537ea851f276c8c4f8778f19c82
   branch: main
   specs:
     openlibrary-covers (0.1.0)
