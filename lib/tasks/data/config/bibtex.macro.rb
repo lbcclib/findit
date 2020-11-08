@@ -6,6 +6,8 @@ require 'traject/macros/marc21_semantics'
 # include Traject::Macros::Marc21
 # include Traject::Macros::Marc21
 
+PUBLICATION_TAGS = %w[260 264].freeze
+
 module FindIt
   module Macros
     #     extend Traject::Macros::BibTeX
@@ -46,7 +48,7 @@ module FindIt
 
         addresses = []
         publishers = []
-        pub_fields = record.find_all { |f| %w[260 264].include? f.tag }
+        pub_fields = record.find_all { |f| PUBLICATION_TAGS.include? f.tag }
         pub_fields.each do |field|
           addresses << field['a']
           publishers << field['b']

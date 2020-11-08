@@ -8,6 +8,8 @@ IDENTIFIER_TYPES_FOR_COVER_IMAGES = {
   'oclc' => '035'
 }.freeze
 
+IDENTIFIER_SUBFIELDS = %w[a z].freeze
+
 module FindIt
   module Macros
     # Checks OpenLibrary to see if a cover image exists
@@ -39,9 +41,10 @@ module FindIt
       def extract_identifiers(tag, record)
         identifiers = []
         record.each_by_tag(tag) do |field|
-          field.find_all do |sf|
-            identifiers << sf.value.delete('^0-9') if %w[a z].include? sf.code
-          end
+          identifiers.concat(
+            field.select { |sf| IDENTIFIER_SUBFIELDS.include? sf.code }
+                 .map { |sf| sf.value.delete('^0-9') }
+          )
         end
         identifiers
       end
