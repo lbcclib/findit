@@ -15,14 +15,6 @@ namespace :findit do
     include FindIt::Data::Delete
 
     FindIt::Data::Providers.all.each do |provider, config|
-      namespace :fetch do
-        desc "Fetch MARC record from #{config['record_provider_facet']}"
-        task provider => :environment do
-          method = FindIt::Data::Fetch.method(config['fetch_method'])
-          method.call(config)
-        end
-      end
-
       namespace :index do
         desc "Index MARC records from #{config['record_provider_facet']}"
         task provider, [:filename] => :environment do |_task, args|
@@ -36,6 +28,23 @@ namespace :findit do
           system("bundle exec traject #{args} #{marc_file}")
         end
       end
+      namespace :delete do
+        desc "Delete all solr records from #{config['record_provider_facet']}"
+        task provider => :environment do
+          FindIt::Data::Delete.by_record_provider_facet config['record_provider_facet']
+        end
+      end
+    end
+
+    FindIt::Data::Providers.all.select { |_provider, config| config['fetch_method'] }
+                           .each do |provider, config|
+      namespace :fetch do
+        desc "Fetch MARC record from #{config['record_provider_facet']}"
+        task provider => :environment do
+          method = FindIt::Data::Fetch.method(config['fetch_method'])
+          method.call(config)
+        end
+      end
       namespace :fetch_and_index do
         desc "Fetch and index MARC records from #{config['record_provider_facet']}"
         task provider => :environment do
@@ -46,13 +55,16 @@ namespace :findit do
           end
         end
       end
-      namespace :delete do
-        desc "Delete all solr records from #{config['record_provider_facet']}"
-        task provider => :environment do
-          FindIt::Data::Delete.by_record_provider_facet config['record_provider_facet']
-        end
+    end
+
+    namespace :fetch_and_index do
+      desc 'Fetch and index from all sources that can be fetched automatically'
+      task all: :environment do
+        FindIt::Data::Providers.all.select { |_provider, config| config['fetch_method'] }
+                               .each { |provider, _config| Rake::Task["findit:data:fetch_and_index:#{provider}"].execute }
       end
     end
+
     namespace :index do
       desc 'Index sample data (perhaps for running tests)'
       task sample: :environment do
