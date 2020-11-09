@@ -21,6 +21,7 @@ module FindIt
       end
     end
 
+    # Create a Bibtex bibliography entry for a given MARC record
     class BibtexGenerator
       attr_reader :record
 
