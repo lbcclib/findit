@@ -13,7 +13,7 @@ class CsvCreator
   end
 
   def write
-    CSV.open('test.csv', 'wb', col_sep: @delimiter, headers: @headers, write_headers: @write_headers) do |csv|
+    CSV.open(filename, 'wb', col_sep: @delimiter, headers: @headers, write_headers: @write_headers) do |csv|
       @docs.each do |doc|
         extract_isbns_from_doc(doc).each do |isbn|
           row = [isbn]
@@ -27,13 +27,21 @@ class CsvCreator
   private
 
   def get_config_from_file(config)
-    @delimiter = config['delimiter'] || ','
-    @headers = %w[ISBN]
-    @headers.concat(config['non_isbn_solr_fields']&.map { |f| f['label'] })
+    get_field_configs config
+    get_output_settings config
+  end
+
+  def get_field_configs(config)
+    @headers = %w[ISBN].concat(config['non_isbn_solr_fields']&.map { |f| f['label'] })
     @isbn_fl = config['fields_containing_isbns']
     @non_isbn_fl = config['non_isbn_solr_fields'] ? config['non_isbn_solr_fields'].map { |f| f['field'] } : []
     @fl = @isbn_fl + @non_isbn_fl
+  end
+
+  def get_output_settings(config)
+    @delimiter = config['delimiter'] || ','
     @write_headers = config['include_header_row'] || false
+    @prefix = config['output_prefix'] || ''
   end
 
   def extract_isbns_from_doc(doc)
@@ -41,8 +49,12 @@ class CsvCreator
     @isbn_fl.each do |field|
       next unless doc[field]
 
-      isbns.concat(doc[field].map { |isbn| ::StdNum::ISBN.normalize isbn})
+      isbns.concat(doc[field].map { |isbn| ::StdNum::ISBN.normalize isbn })
     end
     isbns.uniq
+  end
+
+  def filename
+    "#{@prefix}#{Time.current.strftime('%Y%m%d%H%M%S')}.csv"
   end
 end
