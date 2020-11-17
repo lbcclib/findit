@@ -60,8 +60,13 @@ namespace :findit do
     namespace :fetch_and_index do
       desc 'Fetch and index from all sources that can be fetched automatically'
       task all: :environment do
-        FindIt::Data::Providers.all.select { |_provider, config| config['fetch_method'] }
-                               .each { |provider, _config| Rake::Task["findit:data:fetch_and_index:#{provider}"].execute }
+        FindIt::Data::Providers.all
+                               .select { |_provider, config| config['fetch_method'] }
+                               .map do |provider, _config|
+          Thread.new do
+            Rake::Task["findit:data:fetch_and_index:#{provider}"].execute
+          end
+        end.each(&:join)
         Rake::Task['findit:data:commit'].execute
       end
     end
