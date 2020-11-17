@@ -15,6 +15,14 @@ namespace :findit do
           csv.write
         end
       end
+      desc 'Export a solr backup'
+      task as_solr: :environment do |_task|
+        solr = RSolr.connect url: ENV['SOLR_URL']
+        solr.get 'replication', params: {
+          command: 'backup',
+          name: 'new'
+        }
+      end
     end
   end
 end

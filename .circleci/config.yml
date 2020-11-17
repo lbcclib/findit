@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  build_and_test:
     machine:
       image: 'ubuntu-1604:201903-01'
     steps:
@@ -13,3 +13,21 @@ jobs:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rake findit:data:index:sample
       - run:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
+  index:
+    machine:
+      image: 'ubuntu-1604:201903-01'
+    steps:
+      - checkout
+      - run:
+          command: docker-compose up -d solr app
+      - run:
+          command: docker-compose exec app bundle exec rake findit:data:fetch_and_index:all
+      - run:
+          command: docker cp findit_solr_1:/var/solr/data/blacklight-core/data/snapshot.new .
+      - store_artifacts:
+          path: snapshot.new
+workflows:
+  main:
+    jobs:
+      - build_and_test
+      - index
