@@ -32,6 +32,8 @@
     <field name="subject_era_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="subject_geo_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="record_source_facet" type="string" indexed="true" stored="true" multiValued="true" />
+    <!-- is_electronic_facet is used for CSV exports, so has to be stored-->
+    <field name="is_electronic_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <!-- pub_date is used for facet and display so it must be indexed and stored -->
     <field name="pub_date" type="string" indexed="true" stored="true" multiValued="true"/>
     <!-- pub_date sort uses new trie-based int fields, which are recommended for any int and are displayable, sortable, and range-quer

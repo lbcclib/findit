@@ -230,6 +230,7 @@ GEM
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
     latex-decode (0.3.2)
+    library_stdnums (1.6.0)
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -482,6 +483,7 @@ DEPENDENCIES
   http (~> 4.1.1)
   jbuilder (~> 2.7)
   jquery-rails
+  library_stdnums
   material_design_icons
   material_icons
   openlibrary-covers!

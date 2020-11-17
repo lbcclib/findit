@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -88,6 +90,7 @@ gem 'warbler', '>=1.4.0'
 # with warbler, see https://github.com/jruby/warbler/issues/482
 gem 'http', '~>4.1.1'
 
+gem 'library_stdnums'
 gem 'material_icons'
 gem 'openlibrary-covers', github: 'sandbergja/openlibrary-covers', branch: 'main'
 gem 'view_component', require: 'view_component/engine'

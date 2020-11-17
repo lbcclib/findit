@@ -1,0 +1,27 @@
+coutts:
+  output_prefix: LINzz.
+  fields_containing_isbns:
+    - isbn_t
+  non_isbn_solr_fields:
+    - field: is_electronic_facet
+      label: site
+  write_filenames_to_stdout: true
+  query: "*:*"
+  include_header_row: true
+gobi:
+  delimiter: "|"
+  output_prefix: ybp_
+  fields_containing_isbns:
+    - isbn_t
+    - isbn_of_alternate_edition_t
+  non_isbn_solr_fields:
+    - field: record_source_facet
+      character_limit: 10
+  literal_fields:
+    - account_number: <%= ENV["GOBI_ACCOUNT_NUMBER"] %>
+textbooks:
+  output_prefix: textbooks_
+  fields_containing_isbns:
+    - isbn_t
+    - isbn_of_alternate_edition_t
+  query: format:Ebook
