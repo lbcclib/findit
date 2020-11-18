@@ -23,7 +23,9 @@ jobs:
       - run:
           command: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
       - run:
-          command: docker-compose up -d solr indexer
+          command: docker-compose up -d solr
+      - run:
+          command: docker-compose up indexer
       - run:
           command: docker cp findit_solr_1:/var/solr/data/blacklight-core/data/snapshot.new .
       - store_artifacts:
