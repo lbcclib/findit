@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/sandbergja/activerecord-jdbc-adapter
-  revision: a5adddaeafffd7b9d27db91c53cb57feb311e0a2
-  specs:
-    activerecord-jdbc-adapter (60.0)
-      activerecord (~> 6.0.0)
-    activerecord-jdbcpostgresql-adapter (60.0)
-      activerecord-jdbc-adapter (= 60.0)
-      jdbc-postgres (>= 9.4, < 43)
-
-GIT
   remote: https://github.com/sandbergja/edsapi-ruby.git
   revision: 1bca24e9cd120fb2e73e2401b9afd3acd7d1cac6
   specs:
@@ -82,6 +72,18 @@ GEM
     activerecord (6.0.3.3)
       activemodel (= 6.0.3.3)
       activesupport (= 6.0.3.3)
+    activerecord-jdbc-adapter (60.2)
+      activerecord (>= 2.2)
+    activerecord-jdbc-adapter (60.2-java)
+      activerecord (~> 6.0.0)
+    activerecord-jdbcpostgresql-adapter (60.2)
+      activerecord-jdbc-adapter (~> 60.2)
+      jdbc-postgres (>= 9.4, < 43)
+    activerecord-jdbcpostgresql-adapter (60.2-java)
+      activerecord-jdbc-adapter (= 60.2)
+      jdbc-postgres (>= 9.4, < 43)
+    activerecord-nulldb-adapter (0.5.0)
+      activerecord (>= 5.2.0)
     activerecord-session_store (1.1.3)
       actionpack (>= 4.0)
       activerecord (>= 4.0)
@@ -421,7 +423,7 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     tzinfo-data (1.2020.3)
       tzinfo (>= 1.0.0)
@@ -455,21 +457,22 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yell (2.2.2)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.1)
 
 PLATFORMS
   java
   ruby
 
 DEPENDENCIES
-  activerecord-jdbc-adapter!
-  activerecord-jdbcpostgresql-adapter!
+  activerecord-jdbc-adapter (~> 60.2)
+  activerecord-jdbcpostgresql-adapter
+  activerecord-nulldb-adapter
   activerecord-session_store
   blacklight (~> 7.12.0)
   blacklight-citeproc (>= 0.0.4)
   blacklight-locale_picker
   blacklight_range_limit
-  bootsnap (>= 1.4.2)
+  bootsnap (~> 1.4.8)
   bootstrap (= 4.1.3)
   brakeman
   byebug

@@ -8,12 +8,8 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.0.3.3'
 # Use postgresql as the database for Active Record
-if RUBY_PLATFORM =~ (/jruby/) || RUBY_PLATFORM =~ (/java/)
-  gem 'activerecord-jdbc-adapter'
-  gem 'activerecord-jdbcpostgresql-adapter'
-else
-  gem 'pg', '>= 0.18', '< 2.0'
-end
+gem 'activerecord-jdbc-adapter', '~> 60.2'
+gem 'activerecord-jdbcpostgresql-adapter'
 
 group :production, :development, :test do
   # Use Puma as the app server
