@@ -3,4 +3,9 @@ require:
   - rubocop-rails
 AllCops:
   NewCops: enable
-
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - indexer

@@ -4,7 +4,7 @@ FROM jruby:9.2-jdk
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-RUN apt-get update;apt-get install -y git vim nodejs
+RUN apt-get update;apt-get install -y git make nodejs
 
 RUN mkdir -p /var/www/findit
 COPY . /var/www/findit

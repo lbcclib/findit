@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker-compose up -d
+          command: docker-compose up -d solr app test_db
       - run:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate
       - run:
@@ -23,9 +23,7 @@ jobs:
       - run:
           command: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
       - run:
-          command: docker-compose up -d solr app
-      - run:
-          command: docker-compose exec app bundle exec rake findit:data:fetch_and_index:all
+          command: docker-compose up -d solr indexer
       - run:
           command: docker cp findit_solr_1:/var/solr/data/blacklight-core/data/snapshot.new .
       - store_artifacts:

@@ -1,0 +1,7 @@
+*.csv
+*.mrc
+*.git
+./tmp
+./log
+./lib/tasks/data/new/*.mrc
+./lib/tasks/data/update/*.mrc

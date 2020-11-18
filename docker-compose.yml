@@ -12,8 +12,6 @@ services:
       - FINDIT_DATABASE_USERNAME=findit
       - FINDIT_DATABASE_PASSWORD=findit
       - SOLR_URL=http://solr:8983/solr/blacklight-core
-    depends_on:
-      - db
     ports:
       - "3000:3000"
 
@@ -23,6 +21,18 @@ services:
       - POSTGRES_DB=findit
       - POSTGRES_USER=findit
       - POSTGRES_PASSWORD=findit
+
+  indexer:
+    build:
+      context: .
+      dockerfile: .docker/Indexer.Dockerfile
+    volumes:
+      - .:/var/www/findit/
+    environment:
+      - SOLR_URL=http://solr:8983/solr/blacklight-core
+    depends_on:
+      - solr
+
   test_db:
     image: postgres:12
     environment:

@@ -84,3 +84,6 @@ test:
 production:
   <<: *default
   database: <%= ENV['FINDIT_DATABASE_NAME'] %>
+
+indexer:
+  adapter: nulldb

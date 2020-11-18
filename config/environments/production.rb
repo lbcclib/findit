@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -67,7 +70,7 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true,
     user_name: ENV['GMAIL_USERNAME'],
-    user_name: ENV['GMAIL_PASSWORD']
+    password: ENV['GMAIL_PASSWORD']
   }
 
   # Prepend all log lines with the following tags.
