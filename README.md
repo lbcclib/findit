@@ -13,8 +13,7 @@ git clone https://github.com/lbcclib/findit
 cd findit
 # Edit .env.local file to include the correct EDS_USER and EDS_PASS values
 docker-compose up -d app solr db
-docker-compose exec app bin/rake db:migrate
-docker-compose exec app bin/rake findit:data:index:sample
+docker-compose exec app bin/rake db:migrate findit:data:index:sample
 ```
 
 You can then see FindIt in your browser at localhost:3000.  You can make changes to the local directory, and it will be reflected in docker.  You may need to restart the app container for certain changes to take effect: `docker-compose restart app`
