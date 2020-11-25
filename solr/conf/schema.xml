@@ -221,8 +221,8 @@
 
 
     <!-- suggest and spelling -->
-    <dynamicField name="*spell" type="textSpell" indexed="true" stored="true" multiValued="true" />
-    <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="true" multiValued="true" />
+    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
+    <dynamicField name="*suggest" type="textSuggest" indexed="true" stored="false" multiValued="true" />
 
     <dynamicField name="*_display" type="string" indexed="false" stored="true" multiValued="true" />
     <dynamicField name="*_facet" type="string" indexed="true" stored="false" multiValued="true" />
