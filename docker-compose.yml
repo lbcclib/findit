@@ -16,7 +16,7 @@ services:
       - "3000:3000"
 
   db:
-    image: postgres:12
+    image: postgres:12-alpine
     environment:
       - POSTGRES_DB=findit
       - POSTGRES_USER=findit
@@ -34,7 +34,7 @@ services:
       - solr
 
   test_db:
-    image: postgres:12
+    image: postgres:12-alpine
     environment:
       - POSTGRES_DB=findit
       - POSTGRES_USER=findit
