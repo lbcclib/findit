@@ -9,9 +9,7 @@ RUN mkdir -p /var/www/findit
 COPY . /var/www/findit
 RUN gem install bundler
 WORKDIR /var/www/findit
-RUN bundle config set without 'production development test'
-RUN rm Gemfile.lock
-RUN bundle install
+RUN bundle install --without=production development test
 
 # Main process is indexing and backing up the data
 CMD ["bundle", "exec", "rake", "findit:data:fetch_and_index:all", "findit:data:export:as_solr"]
