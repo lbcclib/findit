@@ -54,11 +54,11 @@ Rails.application.configure do
   config.log_level = :warn
 
   config.middleware.use ExceptionNotification::Rack,
+                        ignore_exceptions: ['Blacklight::Exceptions::RecordNotFound', 'BlacklightRangeLimit::InvalidRange'] + ExceptionNotifier.ignored_exceptions,
                         email: {
                           email_prefix: '[FINDIT ERROR] ',
                           sender_address: %("libref" <libref@linnbenton.edu>),
                           exception_recipients: %w[sandbej@linnbenton.edu],
-                          ignore_exceptions: ['Blacklight::Exceptions::RecordNotFound', 'BlacklightRangeLimit::InvalidRange'] + ExceptionNotifier.ignored_exceptions
                         }
 
   config.action_mailer.delivery_method = :smtp
