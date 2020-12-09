@@ -23,6 +23,7 @@ namespace :findit do
           config['traject_configuration_files'].each do |config_file|
             config_string += " -c  #{config_dir}/#{config_file}.rb "
           end
+          config_string += " -s processing_thread_pool=#{(Rails.env == 'indexer') ? 80 : 3}"
           marc_file = Rails.root.join(args[:filename]).to_s
           args = "#{config_string} -I #{config_dir} -s solr.url=#{Blacklight.connection_config[:url]}"
           system("bundle exec traject #{args} #{marc_file}")
