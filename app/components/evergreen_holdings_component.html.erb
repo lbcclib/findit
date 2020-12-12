@@ -13,13 +13,7 @@
 <% end %>
 <% if @items.any? %>
   <% if @size != :small %><div><% end %>
-    <% if @items.first.location == 'Reserves' %>
-      <%= link_to "#{t('obtain.request_scan')} #{tag.span 'picture_as_pdf', class: 'material-icons'}".html_safe,
-        'https://docs.google.com/forms/d/e/1FAIpQLSeS5ZoLgY2DwPOR_Q7s35i3aPZZ2RrXtifGH8AAQ_r9r3QCgg/viewform?usp=sf_link',
-        class: @btn_class, target: '_blank' %>
-    <% else %>
-      <%= link_to "#{t('obtain.place_hold')}  #{tag.span 'directions_car', class: 'material-icons'}".html_safe,
-        url_for_evergreen_hold(@record_id), class: @btn_class, target: '_blank' %>
-    <% end %>
+    <%= link_to "#{t('obtain.place_hold')}  #{tag.span 'directions_car', class: 'material-icons'}".html_safe,
+      url_for_evergreen_hold(@record_id), class: @btn_class, target: '_blank' %>
   <% if @size != :small %></div><% end %>
 <% end %>
