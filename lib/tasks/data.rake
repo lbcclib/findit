@@ -68,6 +68,7 @@ namespace :findit do
       task all: :environment do
         FindIt::Data::Providers.all
                                .select { |_provider, config| config['fetch_method'] }
+                               .sort_by { |_provider, config| config['needs_many_processing_threads'] ? 0 : 1 }
                                .map do |provider, _config|
           Thread.new do
             Rake::Task["findit:data:fetch_and_index:#{provider}"].execute
