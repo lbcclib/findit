@@ -41,7 +41,7 @@ module FindIt
               record = MARC::XMLReader.new(file).first
               extract_keywords_from_authority_record record if record
             end
-          rescue Errno::ECONNREFUSED, OpenSSL::SSL::SSLError, OpenURI::HTTPError, Net::OpenTimeout, SocketError
+          rescue Errno::ECONNREFUSED, Errno::ECONNRESET, OpenSSL::SSL::SSLError, OpenURI::HTTPError, Net::OpenTimeout, SocketError
             []
           end
         end
