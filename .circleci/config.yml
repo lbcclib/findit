@@ -8,9 +8,7 @@ jobs:
       - run:
           command: docker-compose up -d solr app test_db
       - run:
-          command: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate
-      - run:
-          command: docker-compose exec -e RAILS_ENV=test app bundle exec rake findit:data:index:sample
+          command: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate findit:data:index:sample
       - run:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
   index:
