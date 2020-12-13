@@ -3,5 +3,5 @@
       params: search_state.params_for_search.except(:qt),
       search_fields: Deprecation.silence(Blacklight::ConfigurationHelperBehavior) { search_fields },
       presenter: presenter,
-      autocomplete_path: url_for(controller: 'catalog', action: :suggest))) %>
+      autocomplete_path: url_for(controller: '/catalog', action: :suggest))) %>
 
