@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.3.3'
+gem 'rails', '~> 6.0'
 # Use postgresql as the database for Active Record
 platforms :jruby do
   gem 'activerecord-jdbc-adapter', '~> 60.2'
@@ -15,7 +15,7 @@ end
 
 group :production, :development, :test do
   # Use Puma as the app server
-  gem 'puma', '~> 4.3'
+  gem 'puma'
   # Use SCSS for stylesheets
   gem 'sass-rails', '~> 5.1.0'
   # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -23,7 +23,7 @@ group :production, :development, :test do
   # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
   gem 'turbolinks', '~> 5'
   # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-  gem 'jbuilder', '~> 2.7'
+  gem 'jbuilder'
 
   gem 'activerecord-session_store'
   gem 'blacklight-locale_picker'
@@ -71,7 +71,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'blacklight', '~>7.12.0'
+gem 'blacklight', '~>7.13'
 
 gem 'dotenv-rails'
 gem 'rsolr', '>= 1.0', '< 3'
