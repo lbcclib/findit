@@ -19,12 +19,6 @@ ebook_providers = [
   'NCBI Bookshelf'
 ]
 
-needs_fod_url_changes = [
-  'Films on Demand',
-  'Films on Demand: Archival Films & Newsreels Collection - Academic',
-  'Films on Demand: Master Career and Technical Education Collection - Academic'
-]
-
 needs_proxy = [
   'American History in Video United States',
   'Music Online: Classical Music Library - United States',
@@ -72,8 +66,6 @@ to_field 'url_fulltext_display' do |record, accumulator|
     value = field['u']
     accumulator << if needs_proxy.include? db
                      "http://ezproxy.libweb.linnbenton.edu:2048/login?url=#{value}"
-                   elsif needs_fod_url_changes.include? db
-                     value.sub(/(aid=|wid=\z)/, 'wID=102565').sub('portalPlaylists', 'PortalPlaylists')
                    elsif db == 'Ebook Central Academic Complete'
                      value.sub('lib//detail.action', 'lib/linnbenton-ebooks/detail.action')
                    else
