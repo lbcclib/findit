@@ -110,7 +110,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_geo_facet', label: 'Region of focus', limit: true, sort: 'count'
     # config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
     # config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
-    # config.add_facet_field 'genre_facet', :label => 'Genre', :limit => true, :sort => 'count'
+    config.add_facet_field 'genre_facet', label: I18n.t('facets.genre'), limit: true, sort: 'count'
     config.add_facet_field 'series_facet', label: 'Series', limit: true, sort: 'count'
     config.add_facet_field 'record_source_facet', label: I18n.t('facets.database'), limit: true
 
