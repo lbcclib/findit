@@ -708,8 +708,8 @@
 	  subject_era_facet^370.0
 	  subject_geo_facet^528.0
 	  subtitle_t^60.0
-    title_t^790.0
-
+          title_t^490.0
+          title_and_statement_of_responsibility_t^90.0
         </str>
         <str name="pf">
           abstract_t^150
@@ -719,6 +719,7 @@
 	  subject_geo_facet^63.0
           subject_t^100
           subtitle_t^310
+          title_and_statement_of_responsibility_t^90.0
           title_t^450
         </str>
         <str name="bq">

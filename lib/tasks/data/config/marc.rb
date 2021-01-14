@@ -25,7 +25,8 @@ to_field 'abstract_display',    extract_marc('520a')
 to_field 'abstract_t',          extract_marc('520')
 
 to_field 'author_display',      extract_marc('100abcdq:110:111', alternate_script: false, first: true)
-to_field 'author_facet',        extract_marc('100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu', trim_punctuation: true)
+to_field 'author_facet',
+         extract_marc('100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu', trim_punctuation: true)
 to_field 'author_t',            extract_marc('100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu')
 to_field 'author_vern_display', extract_marc('100abcdq:110:111', alternate_script: :only)
 
@@ -133,11 +134,15 @@ to_field 'subject_geo_facet',   extract_marc('651z:650z', trim_punctuation: true
 to_field 'subtitle_display',    extract_marc('245b', trim_punctuation: true, first: true, alternate_script: false)
 to_field 'subtitle_vern_display',
          extract_marc('245b', trim_punctuation: true, first: true, alternate_script: :only)
-to_field 'subtitle_t',          extract_marc('245b')
+to_field 'subtitle_t', extract_marc('245b')
 
-to_field 'title_addl_t',        extract_marc('245abnps:130:240abcdefgklmnopqrs:210ab:222ab:242abnp:243abcdefgklmnopqrs:246abcdefgnp:247abcdefgnp')
-to_field 'title_added_entry_t', extract_marc('511a:700gklmnoprst:710fgklmnopqrst:711fgklnpst:730abcdefgklmnopqrst:740anp')
-to_field 'title_display',       extract_marc('245a', first: true, trim_punctuation: true, alternate_script: false)
-to_field 'title_series_t',      extract_marc('440a:490a:800abcdt:400abcd:810abcdt:410abcd:811acdeft:411acdef:830adfgklmnoprst:760ast:762ast')
+to_field 'title_addl_t',
+         extract_marc('245abnps:130:240abcdefgklmnopqrs:210ab:222ab:242abnp:243abcdefgklmnopqrs:246abcdefgnp:247abcdefgnp')
+to_field 'title_added_entry_t',
+         extract_marc('511a:700gklmnoprst:710fgklmnopqrst:711fgklnpst:730abcdefgklmnopqrst:740anp')
+to_field 'title_display', extract_marc('245a', first: true, trim_punctuation: true, alternate_script: false)
+to_field 'title_series_t',
+         extract_marc('440a:490a:800abcdt:400abcd:810abcdt:410abcd:811acdeft:411acdef:830adfgklmnoprst:760ast:762ast')
 to_field 'title_t',             extract_marc('245ak', trim_punctuation: true)
 to_field 'title_vern_display',  extract_marc('245a', trim_punctuation: true, alternate_script: :only)
+to_field 'title_and_statement_of_responsibility_t', extract_marc('245abc')

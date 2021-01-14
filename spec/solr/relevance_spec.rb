@@ -13,6 +13,12 @@ RSpec.describe 'solr general relevance spec' do
     expect(resp).to include(relevant_id).as_first
   end
 
+  it 'can do a keyword search including an author and title, ebook' do
+    resp = solr_resp_doc_ids_only({ 'q' => 'picture this bang' })
+    relevant_id = '593170'
+    expect(resp).to include(relevant_id).as_first
+  end
+
   it 'can do a title search' do
     resp = solr_resp_doc_ids_only({ q: 'animal genetics', pf: '${title_pf}', qf: '${title_qf}' })
     relevant_id = 'ocn896839764'
