@@ -34,8 +34,7 @@ module FindIt
                              return "#{prefix}#{sunday.strftime('%F')}.mrc"
                            },
             'file_prefix' => 'eg_lbcc',
-            'traject_configuration_files' => %w[eg marc],
-            'needs_many_processing_threads' => true
+            'traject_configuration_files' => %w[eg marc]
           },
           'eg_online' => {
             'record_provider_facet' => 'LBCC Evergreen Catalog',
