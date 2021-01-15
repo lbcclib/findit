@@ -1,0 +1,16 @@
+<%= render(@layout.new(facet_field: @facet_field)) do |component| %>
+  <% component.with(:label) do %>
+    <%= @facet_field.label %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= link_to t('facets.last_5_years'),
+          url_for( params.permit(EdsService.safe_params).merge(range: {
+          @facet_field.key => {
+            begin: @five_years_ago,
+            end: @this_year
+          }
+        }))
+
+    %>
+  <% end %>
+<% end %>

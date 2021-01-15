@@ -6,7 +6,7 @@ class ArticlesController < CatalogController
 
   configure_blacklight do |config|
     config.add_facet_field 'eds_publication_type_facet', label: I18n.t('facets.format'), collapse: false, limit: 5
-    config.add_facet_field 'eds_publication_year_facet', label: I18n.t('facets.pub_year'), limit: 5
+    config.add_facet_field 'pub_year_tisim', label: I18n.t('facets.pub_year'), component: ArticleRangeFacetComponent
     config.add_facet_field 'eds_subject_topic_facet', label: I18n.t('facets.subject'), limit: 5
     config.add_facet_field 'eds_journal_facet', label: I18n.t('facets.journal'), limit: 5
     config.add_facet_field 'eds_language', label: I18n.t('facets.language'), limit: 5
@@ -32,7 +32,7 @@ class ArticlesController < CatalogController
       # Rearrange to a better order
       @facet_fields = %w[
         eds_publication_type_facet
-        eds_publication_year_facet
+        pub_year_tisim
         eds_subject_topic_facet
         eds_journal_facet
         eds_language_facet

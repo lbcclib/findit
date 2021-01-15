@@ -21,6 +21,7 @@ es:
     pub_year: Año de edición
     publisher: Editorial
     subject: Tema
+    last_5_years: Últimos 5 años
   format:
     articles:
       label: Artículos

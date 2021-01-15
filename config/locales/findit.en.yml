@@ -34,6 +34,7 @@ en:
     pub_year: Publication year
     publisher: Publisher
     subject: Topic
+    last_5_years: Last 5 years
   format:
     articles:
       label: Articles
