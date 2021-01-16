@@ -28,7 +28,7 @@ group :production, :development, :test do
   gem 'activerecord-session_store'
   gem 'blacklight-locale_picker'
   gem 'bootstrap', '4.1.3'
-  gem 'devise-guests', '~> 0.6'
+  gem 'devise-guests'
   gem 'ebsco-eds', github: 'sandbergja/edsapi-ruby'
   gem 'evergreen_holdings', '>=0.3.0'
   gem 'exception_notification'
@@ -42,7 +42,7 @@ group :production, :development, :test do
 end
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '~> 1.4.8', require: false
+gem 'bootsnap', require: false
 
 group :development do
   gem 'brakeman'
@@ -71,7 +71,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'blacklight', '~>7.13'
+gem 'blacklight', '~>7.14'
 
 gem 'dotenv-rails'
 gem 'rsolr', '>= 1.0', '< 3'
