@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_support'
-require 'active_support/cache/memory_store'
+require 'active_support/cache/mem_cache_store'
 
 AUTHORIZED_BIB_TAGS = %w[100 110 111 600 610 611 630 650 651 700 710].freeze
 INTERESTING_AUTHORITY_TAGS = %w[400 410 411 430 447 448 450 451 455 500 510 511 530 550 551
@@ -13,7 +13,7 @@ module FindIt
     # Checks the Evergreen authority file for additional
     # keywords to index
     module EgAuthorityControl
-      @@cache = ::ActiveSupport::Cache::MemoryStore.new # rubocop:disable Style/ClassVars
+      @@cache = ::ActiveSupport::Cache::MemCacheStore.new 'memcached:11211' # rubocop:disable Style/ClassVars
 
       @@logger = Yell.new($stderr, level: 'debug') # rubocop:disable Style/ClassVars
 

@@ -155,6 +155,7 @@ GEM
       namae (~> 1.0)
     csl-styles (1.0.1.10)
       csl (~> 1.0)
+    dalli (2.7.11)
     deprecation (1.1.0)
       activesupport
     devise (4.7.3)
@@ -478,6 +479,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara (>= 2.15)
+  dalli
   devise
   devise-guests
   dotenv-rails

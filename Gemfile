@@ -93,3 +93,5 @@ gem 'rack-cors'
 group :indexer do
   gem 'activerecord-nulldb-adapter'
 end
+
+gem 'dalli'

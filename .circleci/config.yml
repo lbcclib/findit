@@ -21,7 +21,7 @@ jobs:
       - run:
           command: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
       - run:
-          command: docker-compose up -d solr
+          command: docker-compose up -d solr memcached
       - run:
           command: docker-compose up indexer
       - run:

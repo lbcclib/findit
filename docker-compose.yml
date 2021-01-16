@@ -52,3 +52,5 @@ services:
       - "-Xmx512m"
     ports:
       - "8983:8983"
+  memcached:
+    image: memcached:alpine
