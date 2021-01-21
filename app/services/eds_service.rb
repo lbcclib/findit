@@ -12,7 +12,7 @@ class EdsService
 
   def self.blacklight_style_search(params)
     connection = connect
-    permitted_params = params.permit(self.safe_params)
+    permitted_params = params.permit(safe_params)
     connection.search eds_style(permitted_params.to_h), false, false
   end
 
@@ -24,6 +24,6 @@ class EdsService
   end
 
   def self.safe_params
-    [:q, :page, :search_field, :db, :highlight, :view, range: {}, f: {}]
+    [:q, :page, :search_field, :db, :highlight, :view, { range: {}, f: {} }]
   end
 end

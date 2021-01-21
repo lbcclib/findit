@@ -28,15 +28,11 @@ class BentoController < ApplicationController
     search_fields = { 'author' => 'AU:', 'title' => 'TI:', 'all_fields' => '', 'subject' => 'SU:' }
     search_field = params[:search_field] || 'all_fields'
     search_field_code = search_fields[search_field] || ''
-    results = ArticleSearch.send connection, page: 1, q: @q, search_field_code: search_field_code, num_rows: 3, view: 'title', include_facets: false
+    results = ArticleSearch.send connection, page: 1, q: @q, search_field_code: search_field_code, num_rows: 3,
+                                             view: 'title', include_facets: false
 
-    @articles = []
     @num_article_hits = results.stat_total_hits
-
-    results.records&.each do |record|
-      current_article = Article.new record
-      @articles.push current_article
-    end
+    @articles = results.records&.map { |record| Article.new record }
   end
 
   def solr_results

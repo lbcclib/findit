@@ -23,27 +23,28 @@ module FindIt
             accumulator.concat(field.find_all { |subfield| subfield.code == '0' }
                  .map do |subfield|
                                  Thread.new do
-                                   fetch_and_extract_authority_record subfield.value.delete('^0-9')
+                                   get_authority_terms subfield.value.delete('^0-9')
                                  end
                                end.map(&:value))
           end
         end
       end
 
-      def fetch_and_extract_authority_record(authority_id)
+      def get_authority_terms(authority_id)
         @@logger.info "Found cached authority record #{authority_id}" if @@cache.exist? cache_id(authority_id)
         @@cache.fetch(cache_id(authority_id)) do
-          eg_authority_url = 'http://libcat.linnbenton.edu/opac/extras/supercat/'\
-                             "retrieve/marcxml/authority/#{authority_id}"
-          begin
-            URI.parse(eg_authority_url).open do |file|
-              record = MARC::XMLReader.new(file).first
-              extract_keywords_from_authority_record record if record
-            end
-          rescue Errno::ECONNREFUSED, Errno::ECONNRESET, OpenSSL::SSL::SSLError, OpenURI::HTTPError, Net::OpenTimeout, SocketError
-            []
-          end
+          fetch_and_extract_authority_record authority_id
         end
+      end
+
+      def fetch_and_extract_authority_record(authority_id)
+        URI.parse(authority_record_url(authority_id)).open do |file|
+          record = MARC::XMLReader.new(file).first
+          extract_keywords_from_authority_record record if record
+        end
+      rescue Errno::ECONNREFUSED, Errno::ECONNRESET, OpenSSL::SSL::SSLError, OpenURI::HTTPError, Net::OpenTimeout,
+             SocketError
+        []
       end
 
       def extract_keywords_from_authority_record(record)
@@ -58,8 +59,13 @@ module FindIt
         keywords
       end
 
-      def cache_id(authority_record_id)
-        "authority_record_#{authority_record_id}"
+      def cache_id(authority_id)
+        "authority_record_#{authority_id}"
+      end
+
+      def authority_record_url(authority_id)
+        'http://libcat.linnbenton.edu/opac/extras/supercat/'\
+        "retrieve/marcxml/authority/#{authority_id}"
       end
     end
   end
