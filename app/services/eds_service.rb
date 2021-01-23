@@ -31,7 +31,7 @@ class EdsService
   end
 
   def self.safe_params
-    [:q, :page, :search_field, :db, :highlight, :view, { range: {}, f: {} }]
+    [:q, :page, :search_field, :db, :highlight, :view, 'results_per_page', { range: {}, f: {} }]
   end
 
   def self.send_to_eds
