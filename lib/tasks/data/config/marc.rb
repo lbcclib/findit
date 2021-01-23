@@ -32,7 +32,10 @@ to_field 'author_vern_display', extract_marc('100abcdq:110abcdgn:111acdegnq', al
 
 to_field 'contents_t',          extract_marc('505')
 
-to_field 'contributor_display', extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu:505r')
+to_field 'contributor_display', extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu'),
+         gsub(/(\w+),\s(.*)/, '\2 \1')
+to_field 'contributor_display', extract_marc('505r', trim_punctuation: true),
+         gsub(/\s--\Z/, '')
 to_field 'contributor_t',       extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu:505r', trim_punctuation: true)
 
 to_field 'edition_display',     extract_marc('250a')
