@@ -7,8 +7,6 @@ class ArticleRangeFacetComponent < ::Blacklight::FacetFieldListComponent
     @this_year = Time.zone.now.year
     @five_years_ago = @this_year - 5
     @hits_in_last_five = @facet_field.display_facet.items
-                                     .select {|f| (@five_years_ago..@this_year).cover? f.value.to_i }
-                                     .map(&:hits)
-                                     .sum
+                                     .select { |f| (@five_years_ago..@this_year).cover? f.value.to_i }.sum(&:hits)
   end
 end
