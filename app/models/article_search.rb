@@ -3,9 +3,9 @@
 # This model represents a search in the external
 # API for articles
 class ArticleSearch
-  def self.send(connection, search_opts)
+  def self.send(search_opts)
     opts = self.search_opts search_opts
-    connection.search opts, false, false
+    EdsService.search opts
   end
 
   # Assemble the requested filters, search options, and defaults for an article search

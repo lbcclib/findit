@@ -44,8 +44,7 @@ class ArticlesController < CatalogController
   end
 
   def show
-    connection = EdsService.connect
-    raw_article = connection.retrieve dbid: params[:db], an: CGI.unescape(params[:id])
+    raw_article = EdsService.retrieve params[:db], CGI.unescape(params[:id])
     @document = Article.new raw_article
   end
 
