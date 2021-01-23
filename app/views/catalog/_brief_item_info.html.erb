@@ -2,7 +2,7 @@
 <% item = evergreen.first_available_item_at library_id %>
 <div class="row">
   <span class="badge badge-success">
-    <%= white_icon library_icon %>
+    <%= content_tag :span, 'local_library', class: 'material-icons' %>
     <%= t('obtain.available') %>
   </span>
   <%= t('obtain.available_at', library: t(library_i18n_key), location: item.location, call_number: item.call_number) %>

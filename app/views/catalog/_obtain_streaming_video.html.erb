@@ -1,2 +1,2 @@
-<%= link_to "#{t('obtain.streaming_video')} #{ white_icon('open-in-new')}".html_safe,
+<%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.streaming_video')} "),
   document.first('url_fulltext_display'), class: 'btn btn-success', target: '_blank'  %>

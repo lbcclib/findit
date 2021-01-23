@@ -33,7 +33,6 @@ group :production, :development, :test do
   gem 'evergreen_holdings', '>=0.3.0'
   gem 'exception_notification'
   gem 'jquery-rails'
-  gem 'material_design_icons'
   gem 'material_icons'
   gem 'rails-i18n'
   gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
