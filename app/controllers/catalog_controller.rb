@@ -113,6 +113,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'genre_facet', label: I18n.t('facets.genre'), limit: true, sort: 'count'
     config.add_facet_field 'series_facet', label: 'Series', limit: true, sort: 'count'
     config.add_facet_field 'record_source_facet', label: I18n.t('facets.database'), limit: true
+    config.add_facet_field 'author_facet', show: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

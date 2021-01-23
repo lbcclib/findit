@@ -259,6 +259,9 @@
   <copyField source="subject_display" dest="subject_spell"/>
   <copyField source="title_display" dest="title_spell"/>
 
+  <copyField source="author_display" dest="author_facet"/>
+  <copyField source="contributor_display" dest="author_facet"/>
+
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+INVERTED_NAME = /^([^,]*),\s([^,.]*)(\s[^,\s]*)?(,\s\S*)?/.freeze
+DIRECT_ORDER_NAME = '\2\3 \1\4'
+
 require 'traject'
 # To have access to various built-in logic
 # for pulling things out of MARC21, like `marc_languages`
@@ -24,19 +27,26 @@ to_field 'marc_display',        serialized_marc(format: 'xml')
 to_field 'abstract_display',    extract_marc('520a')
 to_field 'abstract_t',          extract_marc('520')
 
-to_field 'author_display',      extract_marc('100abcdq:110abcdgn:111acdegnq', alternate_script: false, first: true)
-to_field 'author_facet',
-         extract_marc('100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu', trim_punctuation: true)
+to_field 'author_display',      extract_marc('100abcdq', first: true),
+         gsub(INVERTED_NAME, DIRECT_ORDER_NAME)
 to_field 'author_t',            extract_marc('100abcdq:110abcdgn:111acdegnq:700abcdq:710abcdgnu:711acdenqu')
-to_field 'author_vern_display', extract_marc('100abcdq:110abcdgn:111acdegnq', alternate_script: :only)
 
 to_field 'contents_t',          extract_marc('505')
 
-to_field 'contributor_display', extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu'),
-         gsub(/(\w+),\s(.*)/, '\2 \1')
-to_field 'contributor_display', extract_marc('505r', trim_punctuation: true),
-         gsub(/\s--\Z/, '')
-to_field 'contributor_t',       extract_marc('511a:700abcegqu:710abcdegnu:711acdegjnqu:505r', trim_punctuation: true)
+to_field 'contributor_display', extract_marc('110abcdgn:111acdegnq:710abcdegnu:711acdegjnqu'),
+         trim_punctuation
+to_field 'contributor_display', extract_marc('700abcgqu'),
+         gsub(INVERTED_NAME, DIRECT_ORDER_NAME),
+         trim_punctuation
+to_field 'contributor_display', extract_marc('511a'),
+         split(', '),
+         gsub(/\(.*\)/, '')
+to_field 'contributor_display', extract_marc('505r'),
+         gsub(/\s--\Z/, ''),
+         split(' and '),
+         split(', '),
+         trim_punctuation
+to_field 'contributor_t',       extract_marc('505r:511a:700abcegqu:710abcdegnu:711acdegjnqu')
 
 to_field 'edition_display',     extract_marc('250a')
 
@@ -83,9 +93,7 @@ to_field 'note_t',              extract_marc('500:508:518:524:534:545:586:585')
 to_field 'oclcn_t',             oclcnum
 
 to_field 'place_of_publication_display',
-         extract_marc('260a:264a', trim_punctuation: true, first: true, alternate_script: false)
-to_field 'place_of_publication_vern_display',
-         extract_marc('260a:264a', trim_punctuation: true, first: true, alternate_script: :only)
+         extract_marc('260a:264a', trim_punctuation: true, first: true)
 
 to_field 'preceeded_by_display',
          extract_marc('785at')
@@ -93,9 +101,7 @@ to_field 'preceeded_by_t',      extract_marc('785')
 
 to_field 'pub_date',            marc_publication_date
 
-to_field 'publisher_display',   extract_marc('260b:264b', trim_punctuation: true, alternate_script: false)
-to_field 'publisher_vern_display',
-         extract_marc('260b:264b', trim_punctuation: true, alternate_script: :only)
+to_field 'publisher_display',   extract_marc('260b:264b', trim_punctuation: true)
 to_field 'publisher_t',         extract_marc('260b:264b', trim_punctuation: true)
 to_field 'publisher_info_t',    extract_marc('260abef:261abef:262ab:264ab', trim_punctuation: true)
 
@@ -134,9 +140,7 @@ end
 to_field 'subject_era_facet',   extract_marc('650y:651y:654y:655y', trim_punctuation: true)
 to_field 'subject_geo_facet',   extract_marc('651z:650z', trim_punctuation: true)
 
-to_field 'subtitle_display',    extract_marc('245b', trim_punctuation: true, first: true, alternate_script: false)
-to_field 'subtitle_vern_display',
-         extract_marc('245b', trim_punctuation: true, first: true, alternate_script: :only)
+to_field 'subtitle_display',    extract_marc('245b', trim_punctuation: true)
 to_field 'subtitle_t', extract_marc('245b')
 
 to_field 'title_addl_t',
