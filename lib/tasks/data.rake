@@ -99,7 +99,7 @@ namespace :findit do
 end
 
 def num_threads(environment, needs_many_processing_threads)
-  return 35 if environment == 'indexer' && needs_many_processing_threads
+  return 6 if environment == 'indexer' && needs_many_processing_threads
 
   3
 end
