@@ -8,11 +8,10 @@ class BentoController < ApplicationController
     if params[:q].blank?
       redirect_to root_url, notice: t('bento.needs_query')
     else
+      @q = params[:q]
       redirect_to_desired_controller
-      initialize_search_data
-      long_running_thread = Thread.new { article_results }
+      article_results
       solr_results
-      long_running_thread.join
       redirect_to_most_useful_controller
     end
   end
@@ -24,11 +23,10 @@ class BentoController < ApplicationController
 
   def home; end
 
-  private
-
   def article_results
-    require Rails.root.join('app/models/article') # Autoloading not always available to threads
-    results = fetch_articles
+    params[:view] = 'title'
+    params[:results_per_page] = 3
+    results = EdsService.blacklight_style_search params
     @num_article_hits = results.stat_total_hits
     @articles = results.records&.map { |record| Article.new record }
   end
@@ -61,7 +59,7 @@ class BentoController < ApplicationController
     params[:showCatalog] && !params[:showArticles]
   end
 
-  # If we only got good results from one data source, redirect to that one
+  # If we only got results from one data source, redirect to that one
   def redirect_to_most_useful_controller
     redirect_to controller: 'articles', params: request.query_parameters if article_results_are_more_promising?
     redirect_to controller: 'catalog', params: request.query_parameters if catalog_results_are_more_promising?
@@ -77,17 +75,5 @@ class BentoController < ApplicationController
 
   def no_results?
     @num_article_hits.zero? && @num_catalog_hits.zero?
-  end
-
-  def fetch_articles
-    require Rails.root.join('app/services/eds_service') # Autoloading not always available to threads
-    params[:view] = 'title'
-    params[:results_per_page] = 3
-    EdsService.blacklight_style_search params
-  end
-
-  def initialize_search_data
-    @num_article_hits = 0
-    @q = params[:q]
   end
 end
