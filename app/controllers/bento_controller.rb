@@ -24,6 +24,14 @@ class BentoController < ApplicationController
 
   def home; end
 
+  def article_results_are_more_promising?
+    @num_article_hits > 100 && @num_catalog_hits.zero?
+  end
+
+  def catalog_results_are_more_promising?
+    @num_catalog_hits.positive? && @num_article_hits < 5
+  end
+
   private
 
   def article_results
@@ -65,14 +73,6 @@ class BentoController < ApplicationController
   def redirect_to_most_useful_controller
     redirect_to controller: 'articles', params: request.query_parameters if article_results_are_more_promising?
     redirect_to controller: 'catalog', params: request.query_parameters if catalog_results_are_more_promising?
-  end
-
-  def article_results_are_more_promising?
-    @num_article_hits > 100 && @num_catalog_hits.zero?
-  end
-
-  def catalog_results_are_more_promising?
-    @num_catalog_hits.positive? && @num_article_hits < 5
   end
 
   def no_results?
