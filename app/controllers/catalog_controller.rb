@@ -246,4 +246,9 @@ class CatalogController < ApplicationController
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
   end
+
+  def index
+    @evergreen_service = EvergreenService.new
+    super
+  end
 end

@@ -30,7 +30,7 @@ group :production, :development, :test do
   gem 'bootstrap', '4.1.3'
   gem 'devise-guests'
   gem 'ebsco-eds', github: 'sandbergja/edsapi-ruby'
-  gem 'evergreen_holdings', '>=0.3.0'
+  gem 'evergreen_holdings'
   gem 'exception_notification'
   gem 'jquery-rails'
   gem 'material_icons'

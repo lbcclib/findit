@@ -28,7 +28,7 @@
             <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.catalog_record')} "),
                   record.first(:url_fulltext_display), class: 'badge badge-success' %>
           <% elsif(is_evergreen_record? record) %>
-            <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id)) %>
+            <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id, service: @evergreen_service)) %>
           <% end %>
           </li>
         <% end %>

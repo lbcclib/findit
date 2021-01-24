@@ -35,6 +35,12 @@ ITEM_TIERS = [
 
 # Service that pulls only the most helpful holdings info from Evergreen
 class EvergreenService
+  def initialize
+    @evergreen_connection = Rails.cache.fetch('evergreen_connection', expires_in: 1.day) do
+      EvergreenHoldings::Connection.new 'https://libcat.linnbenton.edu'
+    end
+  end
+
   # Return a single item from the highest possible tier
   def best_item(bib_id)
     return [] unless holdings_exist_for? bib_id
@@ -75,14 +81,9 @@ class EvergreenService
 
   def holdings_data(bib_id)
     Rails.cache.fetch("evergreen-#{bib_id}", expires_in: 1.day) do
-      begin
-        evergreen_connection = Rails.cache.fetch('evergreen_connection', expires_in: 1.day) do
-          EvergreenHoldings::Connection.new 'https://libcat.linnbenton.edu'
-        end
-        evergreen_connection.get_holdings bib_id
-      rescue StandardError
-        nil
-      end
+      @evergreen_connection.get_holdings bib_id
+    rescue StandardError
+      nil
     end
   end
 

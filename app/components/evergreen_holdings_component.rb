@@ -2,10 +2,10 @@
 
 # Display info about Evergreen Holdings in useful ways
 class EvergreenHoldingsComponent < ViewComponent::Base
-  def initialize(record_id:, size: :medium)
+  def initialize(record_id:, size: :medium, service: nil)
     @size = size
     @record_id = record_id
-    service = EvergreenService.new
+    service ||= EvergreenService.new
     @items = service.best_item @record_id
     @btn_class = @size == :small ? 'badge badge-success' : 'btn btn-success mt-1'
   end

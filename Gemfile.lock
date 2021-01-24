@@ -175,7 +175,7 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
-    evergreen_holdings (0.3.1)
+    evergreen_holdings (0.4.0)
       nokogiri (~> 1.11)
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
@@ -483,7 +483,7 @@ DEPENDENCIES
   devise-guests
   dotenv-rails
   ebsco-eds!
-  evergreen_holdings (>= 0.3.0)
+  evergreen_holdings
   exception_notification
   http (~> 4.1.1)
   jbuilder
@@ -519,4 +519,4 @@ RUBY VERSION
    ruby 2.5.7p0 (jruby 9.2.9.0)
 
 BUNDLED WITH
-   2.2.5
+   2.2.6

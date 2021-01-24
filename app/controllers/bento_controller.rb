@@ -41,6 +41,7 @@ class BentoController < ApplicationController
     logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
     @catalog_format_facets = Hash[*@response['facet_counts']['facet_fields']['format']]
     @num_catalog_hits = @response['response']['numFound']
+    @evergreen_service = EvergreenService.new
   end
 
   # If the user passed along some params that indicate they might just want articles or catalog,
