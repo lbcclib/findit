@@ -59,7 +59,8 @@ Rails.application.configure do
                           email_prefix: '[FINDIT ERROR] ',
                           sender_address: %("libref" <libref@linnbenton.edu>),
                           exception_recipients: %w[sandbej@linnbenton.edu],
-                        }
+                        },
+                        error_grouping: true
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_options = { from: 'libref@linnbenton.edu' }
