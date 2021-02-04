@@ -1,0 +1,28 @@
+<section id="sidebar" class="page-sidebar col-lg-3 order-first">
+    <div id="facets" class="facets sidenav facets-toggleable-md">
+    <div class="card facet-limit">
+        <h3 class="card-header p-0 facet-field-heading">
+        <span class="btn btn-block p-2 text-left">
+            <%= t('facets.format') %>
+        </span>
+        </h3>
+        <div class="panel-collapse facet-content collapse show">
+        <div class="card-body">
+            <ul class="facet-values list-unstyled">
+            <% if @num_article_hits %>
+                <li>
+                <span class="facet-label">
+                    <%= link_to t('format.articles.label'), request.query_parameters.merge({controller: 'articles'}) %>
+                </span>
+                <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
+                </li>
+            <% end %>
+            <%= render Bento::CatalogFacetComponent.new(facet_key: 'Ebook', label: t('format.ebooks.label'), catalog_format_facets: @catalog_format_facets) %>
+            <%= render Bento::CatalogFacetComponent.new(facet_key: 'Streaming video', label: t('format.streaming_video.label'), catalog_format_facets: @catalog_format_facets) %>
+            <%= render Bento::CatalogFacetComponent.new(facet_key: 'Book', label: t('format.books'), catalog_format_facets: @catalog_format_facets) %>
+            </ul>
+        </div>
+        </div>
+    </div>
+    </div>
+</section>
