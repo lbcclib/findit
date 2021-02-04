@@ -19,11 +19,11 @@ module FindIt
         File.delete filename if File.exist? filename
         urls_to_fetch.each do |url|
           uri = URI.parse url
-          open(filename, 'ab') do |file|
+          File.open(filename, 'ab') do |file|
             if config.key? 'user'
-              IO.copy_stream(open(uri, http_basic_authentication: [config['user'], config['pass']]), file)
+              IO.copy_stream(uri.open(http_basic_authentication: [config['user'], config['pass']]), file)
             else
-              IO.copy_stream(open(uri, 'rb'), file)
+              IO.copy_stream(uri.open, file)
             end
           end
           files_written << filename
@@ -54,7 +54,7 @@ module FindIt
         files_written = []
         files = ftp.nlst('*.mrc')
         files.each do |file|
-          next unless (Time.now - (7 * 24 * 60 * 60)) < (ftp.mtime file)
+          next unless (Time.zone.now - (7 * 24 * 60 * 60)) < (ftp.mtime file)
 
           filename = Rails.root.join('lib', 'tasks', 'data', directory, "#{prefix}_#{date_downloaded}.mrc").to_s
           puts "#{file} is saving as #{filename}"

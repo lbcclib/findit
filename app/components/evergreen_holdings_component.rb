@@ -3,6 +3,7 @@
 # Display info about Evergreen Holdings in useful ways
 class EvergreenHoldingsComponent < ViewComponent::Base
   def initialize(record_id:, size: :medium, service: nil)
+    super
     @size = size
     @record_id = record_id
     service ||= EvergreenService.new
@@ -11,8 +12,8 @@ class EvergreenHoldingsComponent < ViewComponent::Base
   end
 
   def url_for_evergreen_hold(tcn)
-    'https://libcat.linnbenton.edu/eg/opac/place_hold?query=locg=8;detail_record_view=1;hold_target=' +
-      Array.wrap(tcn).first.to_s + ';hold_type=T'
+    'https://libcat.linnbenton.edu/eg/opac/place_hold?'\
+    "query=locg=8;detail_record_view=1;hold_target=#{Array.wrap(tcn).first};hold_type=T"
   end
 
   def library_icon_for(item)

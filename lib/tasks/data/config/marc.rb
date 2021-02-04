@@ -14,6 +14,8 @@ require 'traject/macros/marc_format_classifier'
 extend Traject::Macros::MarcFormats
 require 'traject/macros/marc21'
 extend Traject::Macros::Marc21
+require_relative 'subject.macro'
+extend FindIt::Macros::TopicSubject
 
 to_field 'bibtex_t', generate_bibtex
 
@@ -122,20 +124,7 @@ to_field 'subject_name_facet', extract_marc('600abcdq:610ab:611ab',
     value.gsub(/\A[a-z]/, &:upcase)
   end
 end
-to_field 'subject_topic_facet', extract_marc('630aa:650aa:654ab',
-                                             trim_punctuation: true) do |_record, accumulator|
-  # upcase first letter if needed, in MeSH sometimes inconsistently downcased
-  ['Electronic book',
-   'Electronic books',
-   'History',
-   'Internet videos',
-   'Streaming video'].each do |bad_subject|
-    accumulator.delete(bad_subject)
-  end
-  accumulator.collect! do |value|
-    value.gsub(/\A[a-z]/, &:upcase)
-  end
-end
+to_field 'subject_topic_facet', topic_subject
 
 to_field 'subject_era_facet',   extract_marc('650y:651y:654y:655y', trim_punctuation: true)
 to_field 'subject_geo_facet',   extract_marc('651z:650z', trim_punctuation: true)
@@ -144,7 +133,8 @@ to_field 'subtitle_display',    extract_marc('245b', trim_punctuation: true)
 to_field 'subtitle_t', extract_marc('245b')
 
 to_field 'title_addl_t',
-         extract_marc('245abnps:130:240abcdefgklmnopqrs:210ab:222ab:242abnp:243abcdefgklmnopqrs:246abcdefgnp:247abcdefgnp')
+         extract_marc('245abnps:130:'\
+                      '240abcdefgklmnopqrs:210ab:222ab:242abnp:243abcdefgklmnopqrs:246abcdefgnp:247abcdefgnp')
 to_field 'title_added_entry_t',
          extract_marc('511a:700gklmnoprst:710fgklmnopqrst:711fgklnpst:730abcdefgklmnopqrst:740anp')
 to_field 'title_display', extract_marc('245a', first: true, trim_punctuation: true, alternate_script: false)

@@ -11,6 +11,8 @@ jobs:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate findit:data:index:sample
       - run:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
+      - run:
+          command: docker-compose exec bundle exec rubocop -a app lib
   index:
     machine:
       image: 'ubuntu-2004:202010-01'

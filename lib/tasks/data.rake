@@ -9,12 +9,11 @@ namespace :findit do
     include FindIt::Data::Fetch
 
     require_relative './data/providers'
-    include FindIt::Data::Providers
 
     require_relative './data/delete'
     include FindIt::Data::Delete
 
-    FindIt::Data::Providers.all.each do |provider, config|
+    RECORD_PROVIDERS.each do |provider, config|
       namespace :index do
         desc "Index MARC records from #{config['record_provider_facet']}"
         task provider, [:filename] => :environment do |_task, args|
@@ -40,8 +39,8 @@ namespace :findit do
       end
     end
 
-    FindIt::Data::Providers.all.select { |_provider, config| config['fetch_method'] }
-                           .each do |provider, config|
+    RECORD_PROVIDERS.select { |_provider, config| config['fetch_method'] }
+                    .each do |provider, config|
       namespace :fetch do
         desc "Fetch MARC record from #{config['record_provider_facet']}"
         task provider => :environment do
@@ -56,7 +55,7 @@ namespace :findit do
           filenames = method.call(config)
           filenames.map do |filename|
             Thread.new do
-              Rake::Task["findit:data:index:#{provider}"].execute({ filename: filename })
+              execute_index_task provider: provider, filename: filename
             end
           end.each(&:join)
         end
@@ -66,10 +65,9 @@ namespace :findit do
     namespace :fetch_and_index do
       desc 'Fetch and index from all sources that can be fetched automatically'
       task all: :environment do
-        FindIt::Data::Providers.all
-                               .select { |_provider, config| config['fetch_method'] }
-                               .sort_by { |_provider, config| config['needs_many_processing_threads'] ? 0 : 1 }
-                               .map do |provider, _config|
+        RECORD_PROVIDERS.select { |_provider, config| config['fetch_method'] }
+                        .sort_by { |_provider, config| config['needs_many_processing_threads'] ? 0 : 1 }
+                        .map do |provider, _config|
           Thread.new do
             Rake::Task["findit:data:fetch_and_index:#{provider}"].execute
           end
@@ -82,10 +80,8 @@ namespace :findit do
       desc 'Index sample data (perhaps for running tests)'
       task sample: :environment do
         fixture_providers = %w[eg eg_online gale oclc]
-        fixture_providers.each do |fixture_provider|
-          Rake::Task["findit:data:index:#{fixture_provider}"].execute({
-                                                                        filename: "spec/fixtures/files/#{fixture_provider}.mrc"
-                                                                      })
+        fixture_providers.each do |provider|
+          execute_index_task provider: provider, filename: fixture_filename(provider)
         end
         Rake::Task['findit:data:commit'].execute
       end
@@ -102,4 +98,12 @@ def num_threads(environment, needs_many_processing_threads)
   return 6 if environment == 'indexer' && needs_many_processing_threads
 
   3
+end
+
+def execute_index_task(provider:, filename:)
+  Rake::Task["findit:data:index:#{provider}"].execute(filename: filename)
+end
+
+def fixture_filename(provider)
+  "spec/fixtures/files/#{provider}.mrc"
 end

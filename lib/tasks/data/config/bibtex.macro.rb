@@ -3,9 +3,10 @@
 require 'bibtex'
 require 'traject/macros/marc21'
 require 'traject/macros/marc21_semantics'
-# include Traject::Macros::Marc21
-# include Traject::Macros::Marc21
+require 'active_support/core_ext/module' # Allows us to delegate to Bibtex
+require_relative './helpers'
 
+AUTHOR_TAGS = %w[100 700].freeze
 PUBLICATION_TAGS = %w[260 264].freeze
 
 module FindIt
@@ -15,74 +16,60 @@ module FindIt
     module Bibtex
       # macro that generates a basic bibtex entry for an item
       def generate_bibtex
-        lambda do |record, accumulator|
-          accumulator.concat FindIt::Macros::BibtexGenerator.new(record).bibtex_string
+        proc do |record, accumulator|
+          accumulator << FindIt::Macros::BibtexGenerator.new(record).to_s
         end
       end
     end
 
     # Create a Bibtex bibliography entry for a given MARC record
     class BibtexGenerator
-      attr_reader :record
+      include FindIt::Data
+      delegate :to_s, to: :@entry
 
       def initialize(marc_record)
+        @entry = BibTeX::Entry.new
         @record = marc_record
+        add_metadata
       end
 
-      def bibtex_string(_options = {})
-        Array(compile_string)
+      private
+
+      def add_metadata
+        add_authors
+        add_publication_info
+        add_title
+        add_type
+        add_url
       end
 
-      def compile_string
-        m245 = record['245']
-        title = ::Traject::Macros::Marc21.trim_punctuation(m245['a'].strip)
+      def add_authors
+        authors = @record.find_all { |f| AUTHOR_TAGS.include? f.tag }
+                         .map { |f| f.find { |sf| sf.code == 'a' }.value }
+        @entry.author = authors.join(' and ') if authors
+      end
 
-        author_fields = %w[100 700]
-        authors = []
-        auth_fields = record.find_all { |f| author_fields.include? f.tag }
-        auth_fields.each do |field|
-          auth_subfields = field.find_all { |sf| sf.code == 'a' }
-          auth_subfields.each do |sf|
-            authors << sf.value
-          end
-        end
+      def add_publication_info
+        pub_field = @record.find { |f| PUBLICATION_TAGS.include? f.tag }
+        @entry.address = pub_field['a'] if pub_field && pub_field['a']
+        @entry.publisher = pub_field['b'] if pub_field && pub_field['b']
+      end
 
-        addresses = []
-        publishers = []
-        pub_fields = record.find_all { |f| PUBLICATION_TAGS.include? f.tag }
-        pub_fields.each do |field|
-          addresses << field['a']
-          publishers << field['b']
-        end
+      def add_type
+        @entry.type = online_resource?(@record) ? :misc : :book
+      end
 
-        url = nil
+      def add_title
+        @entry.title = ::Traject::Macros::Marc21.trim_punctuation @record['245']['a']
+      end
 
-        begin
-          f8_23 = record['008'].value[23]
-          if f8_23 == 'o'
-            bibtex_type = 'misc'
-            urls = record.find_all { |f| f.tag == '856' }
-            url = urls.first['u']
-          else
-            bibtex_type = 'book'
-          end
-        rescue NoMethodError
-          bibtex_type = 'book'
-        end
+      def add_url
+        url = @record.find { |f| f.tag == '856' }
+        @entry.url = url['u'] if url
+      end
 
-        bib_data = {
-          bibtex_type: bibtex_type,
-          title: title
-        }
-        bib_data['author'] = authors.join(' and ') unless authors.empty?
-        bib_data['address'] = addresses[0] unless addresses.empty?
-        bib_data['publisher'] = publishers[0] unless publishers.empty?
-        bib_data['year'] = ::Traject::Macros::Marc21Semantics.publication_date(record, 15, 1000, Time.new.year + 6)
-        bib_data['url'] = url unless url.nil?
-        biblio = BibTeX::Bibliography.new
-        biblio << BibTeX::Entry.new(bib_data)
-        biblio[0].key = 'resource'
-        biblio.to_s
+      def add_year
+        @entry.year = ::Traject::Macros::Marc21Semantics.publication_date(@record)
       end
     end
   end

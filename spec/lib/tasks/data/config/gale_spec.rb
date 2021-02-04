@@ -11,7 +11,7 @@ include Traject::Macros::Marc21
 describe 'gale config' do
   before do
     @indexer = Traject::Indexer.new
-    config = Rails.root.join('lib', 'tasks', 'data', 'config', 'gale.rb')
+    config = Rails.root.join('lib/tasks/data/config/gale.rb')
     @indexer.load_config_file config
     @record = MARC::Reader.new(file_fixture('gale.mrc').to_s).to_a.first
     @output = @indexer.map_record(@record)

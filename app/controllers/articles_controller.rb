@@ -16,31 +16,13 @@ class ArticlesController < CatalogController
   end
 
   def index
-    if params[:q].blank?
-      redirect_to root_url, notice: t('bento.needs_query')
-    else
-      page = params[:page].present? ? Integer(params[:page]) : 1
-      params[:view] = 'detailed'
-      results = EdsService.blacklight_style_search params
+    redirect_to root_url, notice: t('bento.needs_query') if params[:q].blank?
 
-      if results.records
-        records = results.records.map { |record| Article.new record }
-        @solr_response = Blacklight::Solr::Response.new(results.to_solr, {})
-        @articles = Kaminari.paginate_array(records, total_count: results.stat_total_hits).page(page).per(10)
-      end
+    params[:view] = 'detailed'
+    run_index_search
+    return unless @results.records
 
-      # Rearrange to a better order
-      @facet_fields = %w[
-        eds_publication_type_facet
-        pub_year_tisim
-        eds_subject_topic_facet
-        eds_journal_facet
-        eds_language_facet
-        eds_subjects_geographic_facet
-        eds_publisher_facet
-        eds_content_provider_facet
-      ]
-    end
+    process_article_results
   end
 
   def show
@@ -52,12 +34,8 @@ class ArticlesController < CatalogController
     @facet = blacklight_config.facet_fields[params[:id]]
     raise ActionController::RoutingError, 'Not Found' unless @facet
 
-    results = EdsService.blacklight_style_search params
-    @response = Blacklight::Solr::Response.new(results.to_solr, {})
+    run_index_search
 
-    @display_facet = @response.aggregations[@facet.field]
-    @presenter = (@facet.presenter || Blacklight::FacetFieldPresenter).new(@facet, @display_facet, view_context)
-    @pagination = @presenter.paginator
     respond_to do |format|
       format.html do
         # Draw the partial for the "more" facet modal window:
@@ -66,5 +44,38 @@ class ArticlesController < CatalogController
       end
       format.json
     end
+  end
+
+  private
+
+  def run_index_search
+    @results = EdsService.blacklight_style_search params
+    @solr_response = Blacklight::Solr::Response.new(@results.to_solr, {})
+  end
+
+  def process_article_results
+    page = params[:page].present? ? Integer(params[:page]) : 1
+    records = @results.records.map { |record| Article.new record }
+    @articles = Kaminari.paginate_array(records, total_count: @results.stat_total_hits).page(page).per(10)
+    set_facet_field_order
+  end
+
+  def process_facet_results
+    @display_facet = @solr_response.aggregations[@facet.field]
+    @presenter = (@facet.presenter || Blacklight::FacetFieldPresenter).new(@facet, @display_facet, view_context)
+    @pagination = @presenter.paginator
+  end
+
+  def set_facet_field_order
+    @facet_fields = %w[
+      eds_publication_type_facet
+      pub_year_tisim
+      eds_subject_topic_facet
+      eds_journal_facet
+      eds_language_facet
+      eds_subjects_geographic_facet
+      eds_publisher_facet
+      eds_content_provider_facet
+    ]
   end
 end

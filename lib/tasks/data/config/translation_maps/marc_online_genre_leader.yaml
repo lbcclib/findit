@@ -1,0 +1,23 @@
+# First try to map leader bytes 6+7 combined, then if nothing
+# try to map just leader byte 6. 
+
+# first some mappings from leader bytes 6 and 7 combined:
+
+'aa': Ebook
+'ab': Electronic journal
+'ai': Research guide
+'am': Ebook
+'as': Electronic journal
+'ta': Ebook
+'tm': Ebook
+
+
+# Now some from just byte 6
+'c': Online musical score
+'d': Online musical score
+'e': Online map
+'f': Online map
+'g': Streaming video
+'i': Audiobook
+'j': Streaming music
+'k': Image
