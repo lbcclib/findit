@@ -1,0 +1,13 @@
+<% if @catalog_format_facets.key? @facet_key %>
+  <li>
+    <span class="facet-label">
+      <%= link_to @label,
+                  request.query_parameters.merge({
+                      controller: 'catalog',
+                      f: {'format' => [@facet_key]}}) %>
+    </span>
+    <span class="facet-count">
+      <%= number_with_delimiter(@catalog_format_facets[@facet_key]) %>
+    </span>
+  </li>
+<% end %>

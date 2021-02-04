@@ -1,90 +1,13 @@
 <%= render 'catalog/did_you_mean' %>
-<%- if no_results? %> 
+<%- if no_results? %>
   <%= render 'catalog/zero_results' %>
 <%- else %>
   <div class="row">
     <section id="content" class="col-lg-9 order-last">
-      <h2><%= t('format.articles.label') %></h2>
-      <%= t('format.articles.description') %>
-      <ol>
-        <% @articles.each do |article| %>
-          <li><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
-            <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.article')} "),
-              article[:url_fulltext_display], class: 'badge badge-success' %>
-          </li>
-        <% end %>
-      </ol>
-      <span class="material-icons">arrow_forward</span>
-      <%= link_to t('bento.all_articles', number: number_to_human(@num_article_hits)), request.query_parameters.merge({controller: 'articles'}) %>
-
+      <%= render 'articles_results' %>
       <hr>
-
-      <h2><%= t('format.books_and_media.label') %></h2>
-      <%= t('format.books_and_media.description') %>
-      <ol>
-        <% @catalog_records.each do |record| %>
-          <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
-          <% if online_record? record %>
-            <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.catalog_record')} "),
-                  record.first(:url_fulltext_display), class: 'badge badge-success' %>
-          <% elsif(evergreen_record? record) %>
-            <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id, service: @evergreen_service)) %>
-          <% end %>
-          </li>
-        <% end %>
-      </ol>
-      <span class="material-icons">arrow_forward</span>
-      <%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}) %>
+      <%= render 'catalog_results' %>
     </section>
-
-    <section id="sidebar" class="page-sidebar col-lg-3 order-first">
-      <div id="facets" class="facets sidenav facets-toggleable-md">
-        <div class="card facet-limit">
-          <h3 class="card-header p-0 facet-field-heading">
-            <span class="btn btn-block p-2 text-left">
-              <%= t('facets.format') %>
-            </span>
-          </h3>
-          <div class="panel-collapse facet-content collapse show">
-            <div class="card-body">
-              <ul class="facet-values list-unstyled">
-                <% if @num_article_hits %>
-                  <li>
-                    <span class="facet-label">
-                      <%= link_to t('format.articles.label'), request.query_parameters.merge({controller: 'articles'}) %>
-                    </span>
-                    <span class="facet-count"><%= number_with_delimiter(@num_article_hits) %></span>
-                  </li>
-                <% end %>
-                <% if @catalog_format_facets.key? 'Ebook' %>
-                  <li>
-                    <span class="facet-label">
-                      <%= link_to t('format.ebooks.label'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Ebook']}}) %>
-                    </span>
-                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Ebook']) %></span>
-                  </li>
-                <% end %>
-                <% if @catalog_format_facets.key? 'Streaming video' %>
-                  <li>
-                    <span class="facet-label">
-                      <%= link_to t('format.streaming_video.label'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Streaming video']}}) %>
-                    </span>
-                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Streaming video']) %></span>
-                  </li>
-                <% end %>
-                <% if @catalog_format_facets.key? 'Book' %>
-                  <li>
-                    <span class="facet-label">
-                      <%= link_to t('format.books'), request.query_parameters.merge({controller: 'catalog', f: {'format' => ['Book']}}) %>
-                    </span>
-                    <span class="facet-count"><%= number_with_delimiter(@catalog_format_facets['Book']) %></span>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <%= render 'facets' %>
   </div>
 <%- end %>

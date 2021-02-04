@@ -1,16 +1,21 @@
 <div class="row large-search-container">
    <form id="home-bento-search" class="container-fluid" method="get" action="search">
-      <fieldset> 
+      <fieldset>
         <div class="row align-items-center vertical-center">
-          <%= text_field_tag :q, '', id: 'home-searchbox', class: "form-control form-control-lg col-lg-12 col-md-9", 'aria-label' => "search terms", autofocus: true, data: { autocomplete_enabled: true, autocomplete_path: url_for(controller: 'catalog', action: :suggest) }  %>
-          <input name="locale" type="hidden" value="<%= I18n.locale %>" />
-          <input name="search_field" type="hidden" value="all_fields" id="search_field" />
+          <%= text_field_tag :q, '', id: 'home-searchbox', autofocus: true,
+                             class: 'form-control form-control-lg col-lg-12 col-md-9',
+                             'aria-label' => t('bento.search_terms'),
+                             data: { autocomplete_enabled: true,
+                             autocomplete_path: url_for(controller: 'catalog', action: :suggest) } %>
+          <input name="locale" type="hidden" value="<%= I18n.locale %>">
+          <input name="search_field" type="hidden" value="all_fields" id="search_field">
           <div class="col-6 col-md-3 btn-group">
             <button type="submit" class="btn btn-success btn-lg" id="home-search-button" style="white-space: normal;">
               <%= t('blacklight.search.form.submit') %>
               <span class="material-icons" aria-hidden="true">search</span>
             </button>
-            <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-split" type="button" id="searchOptionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            <button class="btn btn-success btn-lg dropdown-toggle dropdown-toggle-split" type="button"
+              id="searchOptionsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
               aria-label="<%= t('bento.search_options') %>">
             </button>
             <div class="dropdown-menu" aria-labelledby="searchOptionsButton">
@@ -28,7 +33,8 @@
               </span>
               <div class="dropdown-divider"></div>
               <% blacklight_config.search_fields.each do |_key, field| %>
-                <button class="btn-light dropdown-item" onclick="document.getElementById('search_field').setAttribute('value', '<%= field.key %>');">
+                <button class="btn-light dropdown-item"
+                  onclick="document.getElementById('search_field').setAttribute('value', '<%= field.key %>');">
                   <%= t('bento.search_by', field: label_for_search_field(field.key)) %>
                 </button>
               <% end %>

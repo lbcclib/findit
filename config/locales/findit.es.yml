@@ -7,6 +7,7 @@ es:
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_by: "Buscar por %{field}"
     search_options: Herramientas de búsqueda
+    search_terms: Términos de búsqueda
   blacklight:
     search:
       fields:
@@ -31,6 +32,7 @@ es:
     articles:
       label: Artículos
       description: Nuevos artículos de investigación y noticias
+    books: Libros
     books_and_media:
       label: Libros y videos
       description: Libros electrónicos, video y música streaming, libros de la biblioteca y más
@@ -39,6 +41,7 @@ es:
     streaming_video:
       label: Videos Streaming
   obtain:
+    article: Leer artículo
     available: Disponible
     available_at: "Disponible en %{library} (%{location}): %{call_number}"
     catalog_record: Acceder a este recurso

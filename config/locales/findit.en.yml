@@ -20,6 +20,7 @@ en:
     needs_query: Please enter some search keywords
     search_by: "Search %{field}"
     search_options: Search options
+    search_terms: Search terms
   blacklight:
     search:
       fields:
