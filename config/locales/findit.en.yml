@@ -18,13 +18,18 @@ en:
     all_articles: "All %{number} articles"
     all_catalog: "All %{number} books and videos"
     needs_query: Please enter some search keywords
+    search_by: "Search %{field}"
     search_options: Search options
   blacklight:
     search:
       fields:
+        all_fields: All fields
+        author: Author
         contents: Contents
         format: Format
         pub_date: Publication year
+        subject: Subject
+        title: Title
   facets:
     database: Database
     format: Format

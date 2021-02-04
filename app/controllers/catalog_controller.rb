@@ -122,9 +122,9 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_vern_display', label: 'Title'
-    config.add_index_field 'author_display', label: 'Author'
-    config.add_index_field 'author_vern_display', label: 'Author'
+    config.add_index_field 'title_vern_display', label: I18n.t('blacklight.search.fields.title')
+    config.add_index_field 'author_display', label: I18n.t('blacklight.search.fields.author')
+    config.add_index_field 'author_vern_display', label: I18n.t('blacklight.search.fields.author')
     config.add_index_field 'format'
     config.add_index_field 'language_facet', label: 'Language'
     config.add_index_field 'pub_date'
@@ -134,14 +134,14 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title', label: 'Title', work: true, itemprop: 'name'
-    config.add_show_field 'title_display', label: 'Title', work: true
-    config.add_show_field 'title_vern_display', label: 'Title', work: true, itemprop: 'alternativeHeadline'
+    config.add_show_field 'title', label: I18n.t('blacklight.search.fields.title'), work: true, itemprop: 'name'
+    config.add_show_field 'title_display', label: I18n.t('blacklight.search.fields.title'), work: true
+    config.add_show_field 'title_vern_display', label: I18n.t('blacklight.search.fields.title'), work: true, itemprop: 'alternativeHeadline'
     config.add_show_field 'subtitle_display', label: 'Subtitle', work: true, itemprop: 'alternativeHeadline'
     config.add_show_field 'subtitle_vern_display', label: 'Subtitle', work: true, itemprop: 'alternativeHeadline'
     config.add_show_field 'original_title_t', label: 'Original title', work: true, itemprop: 'alternativeHeadline'
-    config.add_show_field 'author_display', label: 'Author', link_to_facet: :author_facet, link_to_search: :author_facet, itemprop: 'author', work: true
-    config.add_show_field 'author_vern_display', label: 'Author', itemprop: 'author', work: true
+    config.add_show_field 'author_display', label: I18n.t('blacklight.search.fields.author'), link_to_facet: :author_facet, link_to_search: :author_facet, itemprop: 'author', work: true
+    config.add_show_field 'author_vern_display', label: I18n.t('blacklight.search.fields.author'), itemprop: 'author', work: true
     config.add_show_field 'article_author_display', label: 'Authors', work: true, itemprop: 'contributor', helper_method: 'link_to_article_author_search'
     config.add_show_field 'subject_topic_facet', label: 'Topic terms', limit: 20, work: true, itemprop: 'about', link_to_facet: :subject_topic_facet, link_to_search: :subject_topic_facet
     config.add_show_field 'subject_geo_facet', label: 'Region', work: true, itemprop: 'spatialCoverage', link_to_facet: :subject_geo_facet, link_to_search: :subject_topic_facet
@@ -194,7 +194,7 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    config.add_search_field 'all_fields', label: 'All Fields'
+    config.add_search_field 'all_fields', label: I18n.t('blacklight.search.fields.all_fields')
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
@@ -206,6 +206,7 @@ class CatalogController < ApplicationController
         qf: '${title_qf}',
         pf: '${title_pf}'
       }
+      field.label = I18n.t('blacklight.search.fields.title')
     end
 
     config.add_search_field('author') do |field|
@@ -213,6 +214,7 @@ class CatalogController < ApplicationController
         qf: '${author_qf}',
         pf: '${author_pf}'
       }
+      field.label = I18n.t('blacklight.search.fields.author')
     end
 
     # Specifying a :qt only to show it's possible, and so our internal automated
@@ -224,6 +226,7 @@ class CatalogController < ApplicationController
         qf: '${subject_qf}',
         pf: '${subject_pf}'
       }
+      field.label = I18n.t('blacklight.search.fields.subject')
     end
 
     # "sort results by" select (pulldown)

@@ -5,13 +5,18 @@ es:
     all_articles: "Ver los %{number} artículos"
     all_catalog: "Ver los %{number} libros y videos"
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
+    search_by: "Buscar por %{field}"
     search_options: Herramientas de búsqueda
   blacklight:
     search:
       fields:
+        all_fields: Palabra clave
+        author: Autor
         contents: Tabla de contenido
         format: Formato
         pub_date: Año de edición
+        subject: Tema
+        title: Título
   facets:
     database: Base de datos
     format: Formato

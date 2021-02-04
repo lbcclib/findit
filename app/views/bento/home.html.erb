@@ -27,9 +27,9 @@
                 </label>
               </span>
               <div class="dropdown-divider"></div>
-              <% search_fields.each do |field| %>
-                <button class="btn-light dropdown-item" onclick="document.getElementById('search_field').setAttribute('value', '<%= field[1] %>');">
-                  Search <%= field[0] %>
+              <% blacklight_config.search_fields.each do |_key, field| %>
+                <button class="btn-light dropdown-item" onclick="document.getElementById('search_field').setAttribute('value', '<%= field.key %>');">
+                  <%= t('bento.search_by', field: label_for_search_field(field.key)) %>
                 </button>
               <% end %>
             </div>
