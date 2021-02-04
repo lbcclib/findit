@@ -9,66 +9,87 @@ class Article < SolrDocument
     'doaj.org/article',
     'arxiv.org/'
   ].freeze
+  CORE_METADATA_MAPPING = {
+    db: :eds_database_id,
+    id: :eds_accession_number,
+    format: :eds_publication_type,
+    article_author_display: :eds_authors,
+    article_language_facet: :eds_languages,
+    article_subject_facet: :eds_subjects,
+    database_display: :eds_database_name,
+    pub_date: :eds_publication_year,
+    record_source_facet: :eds_database_name
+  }.freeze
+
+  ADDITIONAL_METADATA_MAPPING = {
+    journal_display: :eds_source_title,
+    doi_display: :eds_doi,
+    page_count_display: :eds_page_count,
+    page_number_display: :eds_page_start,
+    publisher_info_display: :eds_publication_info,
+    thumbnail_url_display: :eds_cover_thumb_url,
+    volume_display: :eds_volume,
+    issue_display: :eds_issue,
+    notes_display: :eds_notes,
+    result_number: :eds_result_id
+  }.freeze
 
   # Fills an Article object up with data from an API
   # rubocop:disable Lint/MissingSuper
   def initialize(record)
-    @_source = HashWithIndifferentAccess.new
     return unless record.title
 
-    @_source[:title] = record.title
-
-    # The best full text links that EDS has to offer
-    best_url = record.eds_fulltext_links.find do |link|
-      ((link[:url] != 'detail') && (link[:type] != 'cataloglink') && (link[:label] != 'Full Text Finder'))
-    end
-
-    # The second tier of EDS links
-    if best_url.nil?
-      best_url = record.eds_fulltext_links.find do |link|
-        ((link[:url] != 'detail') && (link[:type] != 'cataloglink'))
-      end
-    end
-
-    # If we haven't found any good links yet, use the Plink
-    best_url = best_url ? best_url[:url] : record.eds_plink
-
-    @_source[:url_fulltext_display] = if DOMAINS_THAT_DONT_NEED_PROXY.any? { |domain| best_url.include? domain }
-                                        best_url
-                                      else
-                                        PROXY_PREFIX + best_url
-                                      end
-
-    @_source[:db] = record.eds_database_id
-    @_source[:id] = record.eds_accession_number
-    @_source[:format] = record.eds_publication_type
-    @_source[:article_author_display] = record.eds_authors
-    @_source[:article_language_facet] = record.eds_languages
-    @_source[:article_subject_facet] = record.eds_subjects
-    @_source[:database_display] = record.eds_database_name
-    @_source[:pub_date] = record.eds_publication_year
-    @_source[:record_source_facet] = record.eds_database_name
-
-    @_source[:journal_display] = try_to_extract record, :eds_source_title
-    @_source[:abstract_display] = try_to_extract record, :eds_abstract
-    @_source[:abstract_display] = CGI.unescapeHTML(@_source[:abstract_display]) if @_source[:abstract_display]
-    @_source[:doi_display] = try_to_extract record, :eds_doi
-    @_source[:page_count_display] = try_to_extract record, :eds_page_count
-    @_source[:page_number_display] = try_to_extract record, :eds_page_start
-    @_source[:publisher_info_display] = try_to_extract record, :eds_publication_info
-    @_source[:thumbnail_url_display] = try_to_extract record, :eds_cover_thumb_url
-    @_source[:volume_display] = try_to_extract record, :eds_volume
-    @_source[:issue_display] = try_to_extract record, :eds_issue
-    @_source[:notes_display] = try_to_extract record, :eds_notes
-    @_source[:result_number] = try_to_extract record, :eds_result_id
+    extract_metadata record
   end
   # rubocop:enable Lint/MissingSuper
 
   private
 
+  def extract_metadata(record)
+    @_source = HashWithIndifferentAccess.new
+    @_source[:title] = record.title
+    @_source[:url_fulltext_display] = best_url_in record
+
+    CORE_METADATA_MAPPING.each { |ours, theirs| @_source[ours] = record.send theirs }
+
+    ADDITIONAL_METADATA_MAPPING.each do |ours, theirs|
+      @_source[ours] = try_to_extract record, theirs
+    end
+
+    add_abstract record
+  end
+
+  # Abstract requires special handling, since it may contain HTML tags
+  def add_abstract(record)
+    abstract = try_to_extract(record, :eds_abstract)
+    @_source[:abstract_display] = CGI.unescapeHTML(abstract) if abstract
+  end
+
   def try_to_extract(record, field)
-    record.send field
-  rescue NoMethodError
-    false
+    record.respond_to?(field) ? record.send(field) : false
+  end
+
+  def best_url_in(record)
+    # The best full text links that EDS has to offer
+    best_url = record.eds_fulltext_links.find { |link| non_ftf_catalog_link? link } ||
+               record.eds_fulltext_links.find { |link| catalog_link? link }
+
+    apply_proxy_if_appropriate best_url ? best_url[:url] : record.eds_plink
+  end
+
+  def apply_proxy_if_appropriate(url)
+    if DOMAINS_THAT_DONT_NEED_PROXY.any? { |domain| url.include? domain }
+      url
+    else
+      PROXY_PREFIX + url
+    end
+  end
+
+  def catalog_link?(link)
+    (link[:url] != 'detail') && (link[:type] != 'cataloglink')
+  end
+
+  def non_ftf_catalog_link?(link)
+    catalog_link?(link) && (link[:label] != 'Full Text Finder')
   end
 end

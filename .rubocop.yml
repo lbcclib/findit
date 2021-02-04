@@ -15,9 +15,15 @@ AllCops:
     - app/models/user.rb
   TargetRubyVersion: 2.5
   NewCops: enable
+Metrics/BlockLength:
+  Exclude:
+    - lib/tasks/data.rake
 Rails/UnknownEnv:
   Environments:
     - production
     - development
     - test
     - indexer
+Style/MixinUsage:
+  Exclude:
+    - lib/tasks/data/config/*.rb

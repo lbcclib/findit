@@ -4,11 +4,9 @@ require_relative './helpers'
 
 module Traject
   module Macros
+    # very opionated macro that just adds a grab bag of format/genre/types
+    # from our own custom vocabulary, all into one field.
     module LbccFormats
-      # very opionated macro that just adds a grab bag of format/genre/types
-      # from our own custom vocabulary, all into one field.
-      # You may want to build your own from MarcFormatClassifier functions instead.
-      #
       def lbcc_formats
         lambda do |record, accumulator|
           accumulator.concat Traject::Macros::LbccFormatClassifier.new(record).formats
@@ -33,32 +31,12 @@ module Traject
       # all the possible format/genre/types into one array of 1 to N elements.
       #
       # If no other values are present, the default value "Other" will be used.
-      #
-      # See also individual methods which you can use you seperate into
-      # different facets or do other custom things.
       def formats(options = {})
         options = { default: 'Unknown' }.merge(options)
 
         formats = []
-
         formats.concat online_resource?(record) ? online_format : physical_format
-
-        field = record['008']&.value
-        if field && (field[23] == 'o')
-          if formats.include? 'Book'
-            formats.delete('Book')
-            formats << 'Ebook'
-          elsif formats.include? 'Serial'
-            formats.delete('Serial')
-            formats << 'Electronic journal'
-          elsif formats.include? 'Video'
-            formats.delete('Video')
-            formats << 'Streaming video'
-          end
-        end
-
         formats << options[:default] if formats.empty?
-
         Array(formats[0])
       end
 

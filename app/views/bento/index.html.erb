@@ -24,10 +24,10 @@
       <ol>
         <% @catalog_records.each do |record| %>
           <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
-          <% if is_online_record? record %>
+          <% if online_record? record %>
             <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.catalog_record')} "),
                   record.first(:url_fulltext_display), class: 'badge badge-success' %>
-          <% elsif(is_evergreen_record? record) %>
+          <% elsif(evergreen_record? record) %>
             <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id, service: @evergreen_service)) %>
           <% end %>
           </li>

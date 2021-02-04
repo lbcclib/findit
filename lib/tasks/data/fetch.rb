@@ -9,23 +9,12 @@ module FindIt
     # Fetches metadata from external sources
     module Fetch
       def http(config)
-        urls_to_fetch = if config['fetch_url'].is_a? Proc
-                          [config['fetch_url'].call].flatten(1)
-                        else
-                          [config['fetch_url']].flatten(1)
-                        end
+        urls_to_fetch = handle_fetch_url config['fetch_url']
         files_written = []
         filename = Rails.root.join('lib', 'tasks', 'data', 'new', "#{config['file_prefix']}_#{date_downloaded}.mrc")
         File.delete filename if File.exist? filename
         urls_to_fetch.each do |url|
-          uri = URI.parse url
-          File.open(filename, 'ab') do |file|
-            if config.key? 'user'
-              IO.copy_stream(uri.open(http_basic_authentication: [config['user'], config['pass']]), file)
-            else
-              IO.copy_stream(uri.open, file)
-            end
-          end
+          fetch_file_by_http url: url, filename: filename, config: config
           files_written << filename
         end
         files_written.uniq
@@ -46,8 +35,11 @@ module FindIt
 
       private
 
-      def date_downloaded
-        DateTime.now.strftime('%F-%H-%M-%S')
+      def fetch_file_by_http(url:, filename:, config:)
+        uri = URI.parse url
+        opts = {}
+        opts['http_basic_authentication'] = [config['user'], config['pass']] if config.key? 'user'
+        File.open(filename, 'ab') { |file| IO.copy_stream(uri.open(opts), file) }
       end
 
       def fetch_latest_files_by_ftp(ftp, directory, prefix)
@@ -57,11 +49,22 @@ module FindIt
           next unless (Time.zone.now - (7 * 24 * 60 * 60)) < (ftp.mtime file)
 
           filename = Rails.root.join('lib', 'tasks', 'data', directory, "#{prefix}_#{date_downloaded}.mrc").to_s
-          puts "#{file} is saving as #{filename}"
           ftp.getbinaryfile(file, filename)
           files_written << filename
         end
         files_written
+      end
+
+      def handle_fetch_url(url)
+        if url.is_a? Proc
+          [url.call].flatten(1)
+        else
+          [url].flatten(1)
+        end
+      end
+
+      def date_downloaded
+        DateTime.now.strftime('%F-%H-%M-%S')
       end
     end
   end
