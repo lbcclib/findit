@@ -12,7 +12,7 @@ jobs:
       - run:
           command: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
       - run:
-          command: docker-compose exec bundle exec rubocop -a app lib
+          command: docker-compose exec app bundle exec rubocop -a app lib
   index:
     machine:
       image: 'ubuntu-2004:202010-01'
