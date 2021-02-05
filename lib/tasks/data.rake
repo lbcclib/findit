@@ -95,9 +95,11 @@ namespace :findit do
 end
 
 def num_threads(environment, needs_many_processing_threads)
-  return 6 if environment == 'indexer' && needs_many_processing_threads
-
-  3
+  if environment == 'indexer'
+    needs_many_processing_threads ? 8 : 1
+  else
+    3
+  end
 end
 
 def execute_index_task(provider:, filename:)
