@@ -37,9 +37,12 @@ module FindIt
 
       def fetch_file_by_http(url:, filename:, config:)
         uri = URI.parse url
-        opts = {}
-        opts['http_basic_authentication'] = [config['user'], config['pass']] if config.key? 'user'
-        File.open(filename, 'ab') { |file| IO.copy_stream(uri.open(opts), file) }
+        remote_open = if config.key? 'user'
+                        uri.open(http_basic_authentication: [config['user'], config['pass']])
+                      else
+                        uri.open
+                      end
+        File.open(filename, 'ab') { |file| IO.copy_stream(remote_open, file) }
       end
 
       def fetch_latest_files_by_ftp(ftp, directory, prefix)
