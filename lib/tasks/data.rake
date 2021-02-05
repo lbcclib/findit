@@ -96,7 +96,7 @@ end
 
 def num_threads(environment, needs_many_processing_threads)
   if environment == 'indexer'
-    needs_many_processing_threads ? 8 : 1
+    needs_many_processing_threads ? 5 : 1
   else
     3
   end
