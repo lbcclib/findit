@@ -92,3 +92,4 @@ group :indexer do
 end
 
 gem 'dalli'
+gem 'i18n', '1.8.7' # Pinned to this version while waiting for a fix to this issue: https://github.com/ruby-i18n/i18n/issues/555 / https://github.com/jruby/jruby/issues/6547
