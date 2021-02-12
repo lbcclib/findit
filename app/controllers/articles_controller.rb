@@ -35,6 +35,7 @@ class ArticlesController < CatalogController
     raise ActionController::RoutingError, 'Not Found' unless @facet
 
     run_index_search
+    process_facet_results
 
     respond_to do |format|
       format.html do
