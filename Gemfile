@@ -41,7 +41,7 @@ group :production, :development, :test do
 end
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '1.7.1', require: false # Pinning, because this won't install on jruby windows atm
+gem 'bootsnap', '1.5.1', require: false # Pinning, because this won't install on jruby windows atm
 
 group :development do
   gem 'brakeman'
