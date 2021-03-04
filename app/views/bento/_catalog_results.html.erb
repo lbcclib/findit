@@ -13,4 +13,4 @@
 <% end %>
 </ol>
 <span class="material-icons">arrow_forward</span>
-<%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}) %>
+<%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}).without(:f, :range, :results_per_page) %>
