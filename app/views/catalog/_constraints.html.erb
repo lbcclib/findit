@@ -1,0 +1,12 @@
+<% if Deprecation.silence(Blacklight::RenderConstraintsHelperBehavior) { query_has_constraints? } %>
+<div id="appliedParams" class="clearfix constraints-container">
+    <h2 class="sr-only"><%= t('blacklight.search.search_constraints_header') %></h2>
+
+    <%= render 'start_over' %>
+    <%= render(Blacklight::ConstraintLayoutComponent.new(
+          value: t("format.#{(controller_name == 'articles') ? 'articles' : 'books_and_media'}.label"),
+          remove_path: request.query_parameters.merge({controller: 'bento'}))) %>
+    <span class="constraints-label sr-only"><%= t('blacklight.search.filters.title') %></span>
+    <%= render_constraints(controller.params != params ? params : search_state) %>
+</div>
+<% end %>
