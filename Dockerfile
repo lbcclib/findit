@@ -10,7 +10,7 @@ RUN mkdir -p /var/www/findit
 COPY . /var/www/findit
 RUN gem install bundler
 WORKDIR /var/www/findit
-RUN bundle install
+RUN bundle install --jobs=4
 
 COPY .docker/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
