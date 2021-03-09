@@ -45,7 +45,7 @@ module FindIt
 
       def add_authors
         authors = @record.find_all { |f| AUTHOR_TAGS.include? f.tag }
-                         .map { |f| f.find { |sf| sf.code == 'a' }.value }
+                         .map { |f| f.find { |sf| sf.code == 'a' }&.value }
         @entry.author = authors.join(' and ') if authors
       end
 
