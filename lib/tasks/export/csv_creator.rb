@@ -17,7 +17,7 @@ class CsvCreator
       @docs.each do |doc|
         extract_isbns_from_doc(doc).each do |isbn|
           row = [isbn]
-          row.concat(@non_isbn_fl.map { |f| doc[f].first })
+          row.concat(@non_isbn_fl.map { |f| doc[f]&.first })
           csv << row
         end
       end
