@@ -73,7 +73,7 @@ gem 'devise'
 gem 'http', '~>4.1.1'
 
 gem 'library_stdnums'
-gem 'openlibrary-covers', github: 'sandbergja/openlibrary-covers', branch: 'main'
+gem 'openlibrary-covers'
 gem 'rack-cors'
 
 group :indexer do
