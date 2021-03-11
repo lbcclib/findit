@@ -32,6 +32,7 @@ services:
       - SOLR_URL=http://solr:8983/solr/blacklight-core
     depends_on:
       - solr
+    profiles: ["indexer"]
 
   test_db:
     image: postgres:12-alpine

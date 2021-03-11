@@ -12,7 +12,7 @@ Here's how to get this running for yourself:
 git clone https://github.com/lbcclib/findit
 cd findit
 # Edit .env.local file to include the correct EDS_USER and EDS_PASS values
-docker-compose up -d app solr db test_db memcached
+docker-compose up -d
 docker-compose exec app bin/rake db:migrate findit:data:index:sample
 ```
 
