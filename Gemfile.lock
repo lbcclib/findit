@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/sandbergja/edsapi-ruby.git
-  revision: 68e54cba9e3f31dfb7fb267b0b3ff14e817e64c6
+  remote: https://github.com/ebsco/edsapi-ruby.git
+  revision: 0bd58dfa89e8ec9ef1002db585aece81ff57a669
   specs:
-    ebsco-eds (1.1.0)
+    ebsco-eds (1.1.1)
       activesupport (>= 5.2, < 6.1)
       bibtex-ruby (>= 5.1.0, < 7.0)
       citeproc (>= 1.0.4, < 2.0)
