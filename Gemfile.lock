@@ -72,12 +72,6 @@ GEM
       jdbc-postgres (>= 9.4, < 43)
     activerecord-nulldb-adapter (0.7.0)
       activerecord (>= 5.2.0, < 6.3)
-    activerecord-session_store (2.0.0)
-      actionpack (>= 5.2.4.1)
-      activerecord (>= 5.2.4.1)
-      multi_json (~> 1.11, >= 1.11.2)
-      rack (>= 2.0.8, < 3)
-      railties (>= 5.2.4.1)
     activestorage (6.0.3.5)
       actionpack (= 6.0.3.5)
       activejob (= 6.0.3.5)
@@ -226,9 +220,8 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
-    multi_json (1.15.0)
     multipart-post (2.1.1)
-    namae (1.0.2)
+    namae (1.1.0)
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
     nio4r (2.5.7)
@@ -437,7 +430,6 @@ DEPENDENCIES
   activerecord-jdbc-adapter (~> 60.2)
   activerecord-jdbcpostgresql-adapter
   activerecord-nulldb-adapter
-  activerecord-session_store
   blacklight (~> 7.15)
   blacklight-citeproc (>= 0.0.4)
   blacklight-locale_picker
@@ -484,4 +476,4 @@ RUBY VERSION
    ruby 2.5.7p0 (jruby 9.2.9.0)
 
 BUNDLED WITH
-   2.2.13
+   2.2.14
