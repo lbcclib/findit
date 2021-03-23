@@ -55,6 +55,7 @@ to_field 'contributor_t',       extract_marc('505r:511a:700abcegqu:710abcdegnu:7
 to_field 'department_facet' do |rec, acc|
   rec.find_all { |f| f.tag == '050' }
      .map { |f| f.find { |sf| sf.code == 'a' }&.value }
+     .compact
      .each { |call_number| acc.concat(CallNumberRanges::CallNumber.disciplines(call_number)) }
 end
 
