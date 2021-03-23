@@ -78,7 +78,7 @@ end
 to_field 'has_part_display',    extract_marc('774at')
 to_field 'has_part_t',          extract_marc('774')
 
-to_field 'is_electronic_facet', extract_marc('950b', first: true) # I can move this out of the python script
+to_field 'is_electronic_facet', extract_marc('950b', first: true)
 
 to_field 'is_part_of_display',  extract_marc('772at:773at')
 to_field 'is_part_of_t',        extract_marc('772:773')
