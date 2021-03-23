@@ -2,14 +2,14 @@
 
 require_relative './helpers'
 
-module Traject
+module FindIt
   module Macros
     # very opionated macro that just adds a grab bag of format/genre/types
     # from our own custom vocabulary, all into one field.
-    module LbccFormats
-      def lbcc_formats
+    module LBCCFormats
+      def self.lbcc_formats
         lambda do |record, accumulator|
-          accumulator.concat Traject::Macros::LbccFormatClassifier.new(record).formats
+          accumulator.concat FindIt::Macros::LBCCFormatClassifier.new(record).formats
         end
       end
     end
@@ -19,7 +19,7 @@ module Traject
     #
     # used by the `lbcc_formats` macro, but you can also use it directly
     # for a bit more control.
-    class LbccFormatClassifier
+    class LBCCFormatClassifier
       include FindIt::Data
       attr_reader :record
 
@@ -29,15 +29,9 @@ module Traject
 
       # A very opinionated method that just kind of jams together
       # all the possible format/genre/types into one array of 1 to N elements.
-      #
-      # If no other values are present, the default value "Other" will be used.
-      def formats(options = {})
-        options = { default: 'Unknown' }.merge(options)
-
-        formats = []
-        formats.concat online_resource?(record) ? online_format : physical_format
-        formats << options[:default] if formats.empty?
-        Array(formats[0])
+      def formats
+        formats = online_resource?(record) ? online_format : physical_format
+        any_found?(formats) ? Array(formats[0]) : nil
       end
 
       private
@@ -63,6 +57,10 @@ module Traject
       def marc_format_from_leader(map)
         map[@record.leader.slice(6, 2)] ||
           map[@record.leader.slice(6)]
+      end
+
+      def any_found?(formats)
+        formats.any? && formats.first
       end
     end
   end

@@ -4,7 +4,6 @@ require 'traject'
 require_relative 'cover_images.macro'
 extend FindIt::Macros::CoverImages
 require_relative 'lbcc_format.macro'
-extend Traject::Macros::LbccFormats
 
 require_relative 'eg_authority_control.macro'
 extend FindIt::Macros::EgAuthorityControl
@@ -34,7 +33,7 @@ to_field 'is_electronic_facet' do |record, accumulator|
   end
 end
 
-to_field 'format', lbcc_formats
+to_field 'format', FindIt::Macros::LBCCFormats.lbcc_formats, default('Book')
 to_field 'owning_lib_facet', extract_marc('852b')
 to_field 'url_fulltext_display', extract_marc('856|40|u')
 
