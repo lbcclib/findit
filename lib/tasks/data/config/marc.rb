@@ -17,6 +17,8 @@ extend Traject::Macros::Marc21
 require_relative 'subject.macro'
 extend FindIt::Macros::TopicSubject
 
+require 'call_number_ranges'
+
 to_field 'bibtex_t', generate_bibtex
 
 settings do
@@ -49,6 +51,12 @@ to_field 'contributor_display', extract_marc('505r'),
          split(', '),
          trim_punctuation
 to_field 'contributor_t',       extract_marc('505r:511a:700abcegqu:710abcdegnu:711acdegjnqu')
+
+to_field 'department_facet' do |rec, acc|
+  rec.find_all { |f| f.tag == '050' }
+     .map { |f| f.find { |sf| sf.code == 'a' }&.value }
+     .each { |call_number| acc.concat(CallNumberRanges::CallNumber.disciplines(call_number)) }
+end
 
 to_field 'edition_display',     extract_marc('250a')
 

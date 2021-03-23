@@ -33,6 +33,7 @@ en:
         title: Title
   facets:
     database: Database
+    department: Academic discipline
     format: Format
     geographic: Region of focus
     journal: Journal

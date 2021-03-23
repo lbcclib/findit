@@ -68,9 +68,9 @@ gem 'traject'
 # with warbler, see https://github.com/jruby/warbler/issues/482
 gem 'blacklight-citeproc', '>=0.0.4'
 gem 'blacklight_range_limit'
+gem 'call_number_ranges'
 gem 'devise'
 gem 'http', '~>4.1.1'
-
 gem 'library_stdnums'
 gem 'openlibrary-covers'
 gem 'rack-cors'

@@ -20,6 +20,7 @@ es:
         title: Título
   facets:
     database: Base de datos
+    department: Departamento academico
     format: Formato
     geographic: Geografía
     journal: Publicación
