@@ -11,7 +11,7 @@ namespace :findit do
       styles.each do |style, config|
         desc "Export CSV file for #{style}"
         task style => :environment do |_task|
-          csv = CsvCreator.new config
+          csv = CsvCreator.new config: config
           csv.write
         end
       end
