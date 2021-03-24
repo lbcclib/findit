@@ -9,7 +9,8 @@ module FindIt
     module LBCCFormats
       def self.lbcc_formats
         lambda do |record, accumulator|
-          accumulator.concat FindIt::Macros::LBCCFormatClassifier.new(record).formats
+          proposed_formats = FindIt::Macros::LBCCFormatClassifier.new(record).formats
+          accumulator.concat proposed_formats if proposed_formats
         end
       end
     end
