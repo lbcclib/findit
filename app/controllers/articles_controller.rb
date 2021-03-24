@@ -72,11 +72,11 @@ class ArticlesController < CatalogController
       eds_publication_type_facet
       pub_year_tisim
       eds_subject_topic_facet
+      eds_content_provider_facet
       eds_journal_facet
       eds_language_facet
       eds_subjects_geographic_facet
       eds_publisher_facet
-      eds_content_provider_facet
     ]
   end
 end
