@@ -35,6 +35,7 @@ en:
     database: Database
     department: Academic discipline
     format: Format
+    genre: Genre
     geographic: Region of focus
     journal: Journal
     language: Language
