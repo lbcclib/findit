@@ -1,14 +1,16 @@
 <% if @size != :small %>
   <% @items.each do |item| %>
-    <% if item.status == 'Available' %>
-      <div class="row">
-        <span class="badge badge-success">
-          <% tag.span library_icon_for(item), class: 'material-icons' %>
-          <%= t('obtain.available') %>
-        </span>
+    <div class="row">
+      <span class="badge <%= badge_class_for item.status %>">
+        <% tag.span library_icon_for(item), class: 'material-icons' %>
+        <%= t(string_for item.status) %>
+      </span>
+      <% if item.status == 'Available' %>
         <%= t('obtain.available_at', library: item.owning_lib, location: item.location, call_number: item.call_number) %>
-      </div>
-    <% end %>
+      <% else %>
+        <%= t('obtain.unavailable_at', library: item.owning_lib) %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
 <% if @items.any? %>

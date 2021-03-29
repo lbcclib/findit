@@ -61,7 +61,9 @@ en:
   obtain:
     article: Read article online
     available: Available
+    unavailable: Unavailable
     available_at: "Available at %{library} (%{location}): %{call_number}"
+    unavailable_at: "%{library} owns a copy, but it is currently unavailable."
     available_at_partner_libraries: Available at Partner Libraries
     catalog_record: Access resource online
     ebook: Read ebook online
