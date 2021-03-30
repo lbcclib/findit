@@ -9,5 +9,5 @@
   </div>
 
 <% elsif @response %>
-  <%= render(FinditSpellcheckComponent.new(response: @response)) %>
+  <%= @view_context.render(FinditSpellcheckComponent.new(response: @response)) %>
 <% end %>
