@@ -24,6 +24,7 @@ es:
     database: Base de datos
     department: Departamento academico
     format: Formato
+    genre: Género literario
     geographic: Geografía
     journal: Publicación
     language: Lengua
