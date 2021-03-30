@@ -4,6 +4,8 @@ es:
   bento:
     all_articles: "Ver los %{number} artículos"
     all_catalog: "Ver los %{number} libros y videos"
+    include_articles: "Buscar artículos"
+    include_catalog: "Buscar libros y videos"
     needs_query: Por favor, introduzca palabras clave que describan lo que desea buscar
     search_by: "Buscar por %{field}"
     search_options: Herramientas de búsqueda

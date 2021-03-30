@@ -17,6 +17,8 @@ en:
   bento:
     all_articles: "All %{number} articles"
     all_catalog: "All %{number} books and videos"
+    include_articles: Include articles
+    include_catalog: Include catalog
     needs_query: Please enter some search keywords
     search_by: "Search %{field}"
     search_options: Search options
