@@ -35,13 +35,9 @@ ITEM_TIERS = [
 
 # Service that pulls only the most helpful holdings info from Evergreen
 class EvergreenService
-  def initialize(connection=nil)
-    if connection
-      @evergreen_connection = connection
-    else
-      @evergreen_connection = Rails.cache.fetch('evergreen_connection', expires_in: 1.day) do
-        EvergreenHoldings::Connection.new 'https://libcat.linnbenton.edu'
-      end
+  def initialize(connection = nil)
+    @evergreen_connection = connection || Rails.cache.fetch('evergreen_connection', expires_in: 1.day) do
+      EvergreenHoldings::Connection.new 'https://libcat.linnbenton.edu'
     end
   end
 

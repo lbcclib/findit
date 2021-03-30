@@ -44,8 +44,6 @@ SUGGESTIONS = [
   }
 ].freeze
 
-
-
 # Offers suggestions to the user based on their query and the results
 class SearchSuggestionsComponent < ViewComponent::Base
   def initialize(query: nil, response: nil)

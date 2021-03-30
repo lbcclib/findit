@@ -20,5 +20,4 @@ RSpec.describe SearchSuggestionsComponent, type: :component do
   it 'does not provide a database when none match' do
     expect(SearchSuggestionsComponent.new(query: 'oregon history').best_bet).to eq(nil)
   end
-
 end

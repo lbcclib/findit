@@ -10,8 +10,8 @@ RSpec.describe 'solr format spec' do
   it 'defaults to Ebook format for OCLC materials' do
     ebook_with_bad_data = 'on1165547942'
     resp = RSpecSolr::SolrResponseHash.new(@@solr.get('get', params: {
-                                            :id => ebook_with_bad_data, 'fl' => 'format' }))
+                                                        :id => ebook_with_bad_data, 'fl' => 'format'
+                                                      }))
     expect(resp['doc']['format'].first).to eq('Ebook')
   end
-
 end

@@ -18,9 +18,9 @@ class CsvCreator
 
   def write
     CSV.open(filename, 'wb', col_sep: @delimiter, headers: @headers, write_headers: @write_headers) do |csv|
-        data.each do |row|
-            csv << row
-        end
+      data.each do |row|
+        csv << row
+      end
     end
   end
 
