@@ -9,8 +9,8 @@ class ArticlesController < CatalogController
     config.add_facet_field 'pub_year_tisim', label: I18n.t('facets.pub_year'), component: ArticleRangeFacetComponent
     config.add_facet_field 'eds_subject_topic_facet', label: I18n.t('facets.subject'), limit: 5
     config.add_facet_field 'eds_journal_facet', label: I18n.t('facets.journal'), limit: 5
-    config.add_facet_field 'eds_language', label: I18n.t('facets.language'), limit: 5
-    config.add_facet_field 'eds_subjects_geographic', label: I18n.t('facets.geographic'), limit: 5
+    config.add_facet_field 'eds_language_facet', label: I18n.t('facets.language'), limit: 5
+    config.add_facet_field 'eds_subjects_geographic_facet', label: I18n.t('facets.geographic'), limit: 5
     config.add_facet_field 'eds_publisher_facet', label: I18n.t('facets.publisher'), limit: 5
     config.add_facet_field 'eds_content_provider_facet', label: I18n.t('facets.database'), limit: 5
   end
