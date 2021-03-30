@@ -79,4 +79,11 @@ en:
     exact: "Are you looking for %{database}?"
     inexact: "Would you like to retry your search in %{database}?"
     database:
+      artstor: ArtStor
       cinahl: Cinahl (nursing database)
+      ebsco: Academic Search Premier (EBSCO)
+      ebookcentral: Ebook Central
+      flipster: Flipster
+      gale: Academic OneFile (Gale)
+      jstor: JSTOR
+      worldcat: WorldCat

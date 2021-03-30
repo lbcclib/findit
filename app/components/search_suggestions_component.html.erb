@@ -8,6 +8,6 @@
     </h3>
   </div>
 
-<% else %>
-<%= render(SearchSuggestions.new(query: params[:q], response: @response)) %>
+<% elsif @response %>
+  <%= render(FinditSpellcheckComponent.new(response: @response)) %>
 <% end %>
