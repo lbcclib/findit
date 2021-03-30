@@ -57,3 +57,8 @@ es:
   show:
     work_heading: Sobre la obra
     instance_heading: Sobre la edición
+  suggestions:
+    exact: "¿Está buscando %{database}?"
+    inexact: "¿Le gustaría volver a intentar su búsqueda en %{database}? "
+    database:
+      cinahl: Cinahl (base de datos de enfermería)

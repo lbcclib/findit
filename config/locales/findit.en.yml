@@ -75,3 +75,8 @@ en:
   show:
     work_heading: About this work
     instance_heading: About this edition
+  suggestions:
+    exact: "Are you looking for %{database}?"
+    inexact: "Would you like to retry your search in %{database}?"
+    database:
+      cinahl: Cinahl (nursing database)

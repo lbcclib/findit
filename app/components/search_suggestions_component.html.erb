@@ -1,0 +1,13 @@
+<% if best_bet %>
+  <div id="spell">
+    <h3 class="suggest">
+      <em>
+        <%= t(best_bet[:exact] ? 'suggestions.exact' : 'suggestions.inexact',
+               database: link_to(t("suggestions.database.#{best_bet[:name]}"), best_bet[:url])).html_safe %>
+      </em>
+    </h3>
+  </div>
+
+<% else %>
+<%= render(SearchSuggestions.new(query: params[:q], response: @response)) %>
+<% end %>
