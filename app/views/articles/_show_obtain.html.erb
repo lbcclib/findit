@@ -4,7 +4,7 @@
       <span class="material-icons">check</span>
       <%= t('obtain.source', source: @document.first('record_source_facet')) %>
     </div><div class="row">
-      <%= render 'catalog/obtain_online', url: @document[:url_fulltext_display], type: @document[:format] %>
+      <%= render ObtainOnlineComponent.new document: @document %>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
   </div>
 
   <div class="row">
-    <%= render 'catalog/obtain_online', url: article[:url_fulltext_display], type: article[:format] %>
+    <%= render ObtainOnlineComponent.new document: article %>
   </div>
 
   <%= render Blacklight::DocumentMetadataComponent.new(fields: index_presenter(article).field_presenters) %>

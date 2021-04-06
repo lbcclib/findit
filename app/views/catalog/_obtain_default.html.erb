@@ -1,5 +1,1 @@
-<% if online_record? document %>
-<%= render partial: 'catalog/obtain_online', locals: {type: document.first('format'), url: document.first('url_fulltext_display')}%>
-<% else %>
-<%= render partial: 'catalog/obtain_evergreen', locals: {record_id: document.first('eg_tcn_t')} if evergreen_record? document%>
-<% end %>
+<%= render ObtainComponent.new(document: document, evergreen_service: @evergreen_service) %>

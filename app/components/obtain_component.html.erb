@@ -1,0 +1,5 @@
+<% if online_record? %>
+<%= render ObtainOnlineComponent.new size: @size, document: @document %>
+<% elsif evergreen_record? %>
+<%= render(EvergreenHoldingsComponent.new(size: @size, record_id: @record_id, service: @evergreen_service)) rescue '' %>
+<% end %>

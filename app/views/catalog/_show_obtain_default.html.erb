@@ -1,5 +1,5 @@
 <div class="card">
   <div class="card-body">
-    <%= render partial: "obtain_default", locals: {document: @document} %>
+    <%= render ObtainComponent.new(document: @document, size: :large, evergreen_service: @evergreen_service) %>
   </div>
 </div>

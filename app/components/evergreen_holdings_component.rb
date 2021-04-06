@@ -7,7 +7,7 @@ class EvergreenHoldingsComponent < ViewComponent::Base
     @size = size
     @record_id = record_id
     service ||= EvergreenService.new
-    @items = @size == :small ? Array(service.best_item(@record_id)) : service.best_items(@record_id)
+    @items = @size == :large ? service.best_items(@record_id) : Array(service.best_item(@record_id))
     @btn_class = @size == :small ? 'badge badge-success' : 'btn btn-success mt-1'
   end
 
