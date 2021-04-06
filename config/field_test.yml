@@ -3,6 +3,7 @@ experiments:
     variants:
       - minimal
       - full
+      - author_date
 
 exclude:
   bots: true
