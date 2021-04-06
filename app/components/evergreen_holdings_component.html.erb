@@ -1,6 +1,6 @@
 <% if @size != :small %>
   <% @items.each do |item| %>
-    <div class="row">
+    <div>
       <span class="badge <%= badge_class_for item.status %>">
         <% tag.span library_icon_for(item), class: 'material-icons' %>
         <%= t(string_for item.status) %>

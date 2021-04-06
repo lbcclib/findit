@@ -1,16 +1,5 @@
 <h2><%= t('format.books_and_media.label') %></h2>
-<%= t('format.books_and_media.description') %>
-<ol>
-<% @catalog_records.each do |record| %>
-    <li><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
-    <% if online_record? record %>
-    <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.catalog_record')} "),
-            record.first(:url_fulltext_display), class: 'badge badge-success' %>
-    <% elsif(evergreen_record? record) %>
-    <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id, service: @evergreen_service)) %>
-    <% end %>
-    </li>
-<% end %>
-</ol>
+<%= content_tag :span, t('format.books_and_media.description'), class: 'text-muted' %>
+<%= render "catalog_results_list_#{field_test :bento_metadata}" %>
 <span class="material-icons">arrow_forward</span>
 <%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}).without(:f, :range, :results_per_page) %>

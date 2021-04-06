@@ -31,6 +31,7 @@ class BentoController < ApplicationController
     results = fetch_articles
     @num_article_hits = results.stat_total_hits
     @articles = results.records&.map { |record| Article.new record }
+  rescue
   end
 
   def solr_results
@@ -44,6 +45,7 @@ class BentoController < ApplicationController
     @catalog_format_facets = Hash[*@response['facet_counts']['facet_fields']['format']]
     @num_catalog_hits = @response['response']['numFound']
     @evergreen_service = EvergreenService.new
+  rescue
   end
 
   # If the user passed along some params that indicate they might just want articles or catalog,

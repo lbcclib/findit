@@ -26,6 +26,7 @@ class ArticlesController < CatalogController
   end
 
   def show
+    field_test_converted :bento_metadata
     raw_article = EdsService.retrieve params[:db], CGI.unescape(params[:id])
     @document = Article.new raw_article
   end

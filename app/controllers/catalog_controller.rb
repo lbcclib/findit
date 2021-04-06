@@ -255,4 +255,9 @@ class CatalogController < ApplicationController
     @evergreen_service = EvergreenService.new
     super
   end
+
+  def show
+    field_test_converted :bento_metadata
+    super
+  end
 end

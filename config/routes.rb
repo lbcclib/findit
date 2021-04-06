@@ -44,5 +44,7 @@ Rails.application.routes.draw do
   # Articles don't have their own range limit
   get 'articles/range_limit', to: redirect(path: '/catalog/range_limit')
 
+  mount FieldTest::Engine, at: "field_test"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

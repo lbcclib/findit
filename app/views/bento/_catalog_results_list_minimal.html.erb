@@ -1,0 +1,17 @@
+<ol class="mt-2">
+<% @catalog_records.each do |record| %>
+    <li class="mt-1"><%= link_to record.first(:title_display), {controller: 'catalog', action: 'show', id: record[:id] } %>
+    <% if record.has?(:format) && record.has?(:pub_date) %>
+      <%= "(#{record.first :format}, #{record.first :pub_date})" %>
+    <% elsif record.has?(:format) || record.has?(:pub_date) %>
+      <%= "(#{record.first(:format) || record.first(:pub_date)})" %>
+    <% end %>
+    <% if online_record? record %>
+    <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.catalog_record')} "),
+            record.first(:url_fulltext_display), class: 'badge badge-success' %>
+    <% elsif(evergreen_record? record) %>
+    <%= render(EvergreenHoldingsComponent.new(size: :small, record_id: record.id, service: @evergreen_service)) %>
+    <% end %>
+    </li>
+<% end %>
+</ol>

@@ -1,0 +1,8 @@
+experiments:
+  bento_metadata:
+    variants:
+      - minimal
+      - full
+
+exclude:
+  bots: true

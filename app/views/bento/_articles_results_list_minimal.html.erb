@@ -1,0 +1,13 @@
+<ol class="mt-2">
+<% @articles.each do |article| %>
+    <li class="mt-1"><%= link_to article[:title], {controller: 'articles', action: 'show', db: article[:db], id: CGI.escape(article[:id])} %>
+    <% if article.has?(:format) && article.has?(:pub_date) %>
+      <%= "(#{article.first :format}, #{article.first :pub_date})" %>
+    <% elsif article.has?(:format) || article.has?(:pub_date) %>
+      <%= "(#{article.first(:format) || article.first(:pub_date)})" %>
+    <% end %>
+    <%= link_to content_tag(:span, 'open_in_new', class: 'material-icons').prepend("#{t('obtain.article')} "),
+        article[:url_fulltext_display], class: 'badge badge-success' %>
+    </li>
+<% end %>
+</ol>

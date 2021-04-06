@@ -1,0 +1,8 @@
+<dl class="document-metadata dl-invert row">
+  <% {pub_date: 'pub_date', author_display: 'author', article_author_display: 'author'}.each do |field, label| %>
+    <% if @document.has? field %>
+    <dt class="col-md-3"><%= t("blacklight.search.fields.#{label}") %></dt>
+    <dd class="col-md-9"><%= @document.first field %></dd>
+    <% end %>
+  <% end %>
+</dl>
