@@ -82,7 +82,7 @@ en:
     inexact: "Would you like to retry your search in %{database}?"
     database:
       artstor: ArtStor
-      cinahl: Cinahl (nursing database)
+      cinahl: CINAHL (nursing database)
       ebsco: Academic Search Premier (EBSCO)
       ebookcentral: Ebook Central
       flipster: Flipster
