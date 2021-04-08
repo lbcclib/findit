@@ -1,4 +1,4 @@
-<%= render(Blacklight::Response::SpellcheckComponent.new(response: @solr_response)) %>
+<%= render(SearchSuggestionsComponent.new(query: params[:q], response: @solr_response)) %>
 <div class="articles row">
   <section id="content" class="col-lg-9 order-last">
     <%= render 'catalog/constraints' %>
