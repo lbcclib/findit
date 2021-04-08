@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require Rails.root.join('app/models/article') # Autoloading not always available to threads
+
 # This controller is responsible for the Bento results presentation,
 # which shows the user search results from Solr AND the articles API
 class BentoController < ApplicationController
@@ -27,11 +29,11 @@ class BentoController < ApplicationController
   private
 
   def article_results
-    require Rails.root.join('app/models/article') # Autoloading not always available to threads
     results = fetch_articles
     @num_article_hits = results.stat_total_hits
     @articles = results.records&.map { |record| Article.new record }
   rescue
+    @num_article_hits = 0
   end
 
   def solr_results
@@ -41,11 +43,10 @@ class BentoController < ApplicationController
     }
     catalog_search = Blacklight::SearchService.new search_config
     @response, @catalog_records = catalog_search.search_results
-    logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
+    #logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
     @catalog_format_facets = Hash[*@response['facet_counts']['facet_fields']['format']]
     @num_catalog_hits = @response['response']['numFound']
     @evergreen_service = EvergreenService.new
-  rescue
   end
 
   # If the user passed along some params that indicate they might just want articles or catalog,
