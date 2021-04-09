@@ -13,8 +13,9 @@ class BentoController < ApplicationController
       redirect_to_desired_controller
       initialize_search_data
       long_running_thread = Thread.new { article_results }
+      long_running_thread.run
       solr_results
-      long_running_thread.join
+      long_running_thread.join 9
       redirect_to_most_useful_controller
     end
   end
@@ -34,6 +35,7 @@ class BentoController < ApplicationController
     @articles = results.records&.map { |record| Article.new record }
   rescue
     @num_article_hits = 0
+    @articles = []
   end
 
   def solr_results
