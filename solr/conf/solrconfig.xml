@@ -703,6 +703,7 @@
 	  note_t
 	  preceeded_by_t
           professor_t
+    publisher_t
 	  subject_name_facet^410.0
 	  subject_topic_facet^437.0
 	  subject_era_facet^370.0
