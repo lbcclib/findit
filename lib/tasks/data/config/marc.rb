@@ -32,7 +32,8 @@ to_field 'abstract_display',    extract_marc('520a')
 to_field 'abstract_t',          extract_marc('520')
 
 to_field 'author_display',      extract_marc('100abcdq', first: true),
-         gsub(INVERTED_NAME, DIRECT_ORDER_NAME)
+         gsub(INVERTED_NAME, DIRECT_ORDER_NAME),
+         trim_punctuation
 to_field 'author_t',            extract_marc('100abcdq:110abcdgn:111acdegnq:700abcdq:710abcdgnu:711acdenqu')
 
 to_field 'contents_t',          extract_marc('505')
