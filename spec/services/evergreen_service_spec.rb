@@ -31,8 +31,9 @@ describe 'evergreen service' do
     Rails.cache.stub(:fetch).and_return(status)
 
     service = EvergreenService.new connection
-    expect(service.best_item(record_id)).to eq(lbcc_childrens)
-    expect(service.best_items(record_id)).to eq([lbcc_available, lbcc_childrens])
+    expected_items = [lbcc_available, lbcc_childrens]
+    expect(expected_items).to include(service.best_item(record_id))
+    expect(service.best_items(record_id)).to match_array(expected_items)
   end
 
   it 'chooses LBCC reserves before a partner library holdings' do
