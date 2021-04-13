@@ -115,7 +115,7 @@ GEM
     brakeman (5.0.0)
     browser (5.3.1)
     builder (3.2.4)
-    call_number_ranges (0.1.0)
+    call_number_ranges (0.2.0)
     citeproc (1.0.10)
       namae (~> 1.0)
     citeproc-ruby (1.1.13)
