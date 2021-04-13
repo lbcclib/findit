@@ -16,13 +16,30 @@ namespace :findit do
         end
       end
       desc 'Export a solr backup'
-      task as_solr: :environment do |_task|
+      task as_solr: :environment do
         solr = RSolr.connect url: ENV['SOLR_URL']
-        solr.get 'replication', params: {
-          command: 'backup',
-          name: 'new'
-        }
+        delete_existing_backup solr
+        sleep 10 # wait for the delete operation to finish
+        create_new_backup solr
       end
     end
   end
+end
+
+private
+
+def delete_existing_backup(solr)
+  solr.get 'replication', params: {
+    command: 'deletebackup',
+    name: 'new'
+  }
+# Don't complain if it's already been deleted
+rescue RSolr::Error::Http # rubocop:disable Lint/SuppressedException
+end
+
+def create_new_backup(solr)
+  solr.get 'replication', params: {
+    command: 'backup',
+    name: 'new'
+  }
 end
