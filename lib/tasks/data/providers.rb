@@ -3,12 +3,6 @@
 require 'dotenv/tasks'
 
 RECORD_PROVIDERS = {
-  'globe' => {
-    # This one is fetched manually from http://www.dramaonlinelibrary.com/pages/marc-records,
-    # because it's a zip file.  Go to Video Collections > Globe on Screen
-    'record_provider_facet' => 'Drama Online Library',
-    'traject_configuration_files' => %w[globe proxy marc]
-  },
   'gvrl' => {
     # This one is fetched manually from support.gale.com
     'record_provider_facet' => 'Gale Virtual Reference Library',
@@ -75,12 +69,5 @@ RECORD_PROVIDERS = {
     }],
     'traject_configuration_files' => %w[oclc marc],
     'needs_many_processing_threads' => true
-  },
-  'opentextbooks' => {
-    'fetch_url' => 'https://open.umn.edu/opentextbooks/download.marc',
-    'record_provider_facet' => 'Open Textbook Library',
-    'traject_configuration_files' => %w[marc opentextbooks],
-    'file_prefix' => 'umn_otl',
-    'fetch_method' => :http
   }
 }.freeze
