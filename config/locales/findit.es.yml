@@ -50,7 +50,7 @@ es:
     unavailable: No disponible
     available_at: "Disponible en %{library} (%{location}): %{call_number}"
     unavailable_at: "Artículo de %{library} actualmente no disponible."
-    catalog_record: Acceder a este recurso
+    resource: Acceder a este recurso
     ebook: Leer ebook
     general_online: "Aceder %{type} en línea"
     place_hold: Recogida en la acera
