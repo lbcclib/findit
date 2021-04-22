@@ -1,5 +1,6 @@
 experiments:
   bento_metadata:
+    winner: minimal
     variants:
       - minimal
       - full
