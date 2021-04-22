@@ -39,10 +39,12 @@ en:
     format: Format
     genre: Genre
     geographic: Region of focus
+    is_electronic: Get it
     journal: Journal
     language: Language
     pub_year: Publication year
     publisher: Publisher
+    series: Series
     subject: Topic
     last_5_years: Last 5 years
   format:

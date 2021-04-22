@@ -26,10 +26,12 @@ es:
     format: Formato
     genre: Género literario
     geographic: Geografía
+    is_electronic: Ubicación
     journal: Publicación
     language: Lengua
     pub_year: Año de edición
     publisher: Editorial
+    series: Serie
     subject: Tema
     last_5_years: Últimos 5 años
   format:

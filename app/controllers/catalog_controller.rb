@@ -102,16 +102,16 @@ class CatalogController < ApplicationController
     # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
-    config.add_facet_field 'is_electronic_facet', label: 'Get it', collapse: false
+    config.add_facet_field 'is_electronic_facet', label: I18n.t('facets.is_electronic'), collapse: false
     config.add_facet_field 'format', label: I18n.t('facets.format'), collapse: false
     config.add_facet_field 'pub_date', label: I18n.t('facets.pub_year'), range: true, collapse: false
     config.add_facet_field 'subject_topic_facet', label: I18n.t('facets.subject'), limit: 20, sort: 'count'
     config.add_facet_field 'language_facet', label: I18n.t('facets.language'), limit: true, sort: 'count'
-    config.add_facet_field 'subject_geo_facet', label: 'Region of focus', limit: true, sort: 'count'
+    config.add_facet_field 'subject_geo_facet', label: I18n.t('facets.geographic'), limit: true, sort: 'count'
     # config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
     # config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
     config.add_facet_field 'genre_facet', label: I18n.t('facets.genre'), limit: true, sort: 'count'
-    config.add_facet_field 'series_facet', label: 'Series', limit: true, sort: 'count'
+    config.add_facet_field 'series_facet', label: I18n.t('facets.series'), limit: true, sort: 'count'
     config.add_facet_field 'department_facet', label: I18n.t('facets.department'), limit: true, sort: 'count'
     config.add_facet_field 'record_source_facet', label: I18n.t('facets.database'), limit: true
     config.add_facet_field 'author_facet', show: false
