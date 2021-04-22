@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-INVERTED_NAME = /^([^,]*),\s([^,.]*)(\s[^,\s]*)?(,\s\S*)?/.freeze
-DIRECT_ORDER_NAME = '\2\3 \1\4'
 
 require 'traject'
 # To have access to various built-in logic
@@ -16,6 +14,7 @@ require 'traject/macros/marc21'
 extend Traject::Macros::Marc21
 require_relative 'subject.macro'
 extend FindIt::Macros::TopicSubject
+require_relative 'personal_names.macro'
 
 require 'call_number_ranges'
 
@@ -31,9 +30,9 @@ to_field 'marc_display',        serialized_marc(format: 'xml')
 to_field 'abstract_display',    extract_marc('520a')
 to_field 'abstract_t',          extract_marc('520')
 
-to_field 'author_display',      extract_marc('100abcdq', first: true),
-         gsub(INVERTED_NAME, DIRECT_ORDER_NAME),
-         trim_punctuation
+to_field 'author_display',      extract_marc('100abcq', first: true),
+         trim_punctuation,
+         FindIt::Macros::PersonalNames.to_direct_order
 to_field 'author_t',            extract_marc('100abcdq:110abcdgn:111acdegnq:700abcdq:710abcdgnu:711acdenqu')
 
 to_field 'contents_t',          extract_marc('505')
@@ -41,8 +40,8 @@ to_field 'contents_t',          extract_marc('505')
 to_field 'contributor_display', extract_marc('110abcdgn:111acdegnq:710abcdegnu:711acdegjnqu'),
          trim_punctuation
 to_field 'contributor_display', extract_marc('700abcgqu'),
-         gsub(INVERTED_NAME, DIRECT_ORDER_NAME),
-         trim_punctuation
+         trim_punctuation,
+         FindIt::Macros::PersonalNames.to_direct_order
 to_field 'contributor_display', extract_marc('511a'),
          split(', '),
          gsub(/\(.*\)/, '')
