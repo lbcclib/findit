@@ -39,7 +39,7 @@ to_field 'contents_t',          extract_marc('505')
 
 to_field 'contributor_display', extract_marc('110abcdgn:111acdegnq:710abcdegnu:711acdegjnqu'),
          trim_punctuation
-to_field 'contributor_display', extract_marc('700abcgqu'),
+to_field 'contributor_display', extract_marc('700ab'),
          trim_punctuation,
          FindIt::Macros::PersonalNames.to_direct_order
 to_field 'contributor_display', extract_marc('511a'),
