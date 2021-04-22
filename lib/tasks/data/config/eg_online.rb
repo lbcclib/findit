@@ -5,9 +5,14 @@ require 'traject'
 require_relative 'eg_authority_control.macro'
 extend FindIt::Macros::EgAuthorityControl
 
+require_relative 'cover_images.macro'
+extend FindIt::Macros::CoverImages
+
 require_relative 'lbcc_format.macro'
 
 to_field 'id', extract_marc('001', first: true)
+
+to_field 'thumbnail_path_ss', cover_image
 
 to_field 'record_provider_facet', literal('LBCC Evergreen Catalog')
 to_field 'record_source_facet', literal('LBCC Library Catalog')
