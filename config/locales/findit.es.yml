@@ -14,7 +14,7 @@ es:
     search:
       fields:
         all_fields: Palabra clave
-        author: Autor
+        author: Autor/a
         contents: Tabla de contenido
         format: Formato
         pub_date: Año de edición
