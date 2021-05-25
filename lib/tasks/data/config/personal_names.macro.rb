@@ -8,7 +8,7 @@ module FindIt
     module PersonalNames
       def self.to_direct_order
         lambda do |_rec, acc|
-          acc.map! { |name| BibTeX::Name.parse(name).display_order }
+          acc.map! { |name| BibTeX::Name.parse(name)&.display_order || name }
         end
       end
     end
