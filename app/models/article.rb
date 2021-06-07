@@ -7,6 +7,7 @@ class Article < SolrDocument
   PROXY_PREFIX = 'https://ezproxy.libweb.linnbenton.edu/login?url='
   DOMAINS_THAT_DONT_NEED_PROXY = [
     'doaj.org/article',
+    'eric.ed.gov',
     'arxiv.org/'
   ].freeze
   CORE_METADATA_MAPPING = {
