@@ -3,13 +3,13 @@ on: [push]
 jobs:
   index-solr:
     runs-on: ubuntu-latest
-	environment: findit indexing
+    environment: "findit indexing"
     steps:
       - uses: actions/checkout@v2
-	    - name: set evergreen password
-	      run: echo "EVERGREEN_PASSWORD=$EVERGREEN_PASSWORD" >> .env.local
+      - name: set evergreen password
+        run: echo "EVERGREEN_PASSWORD=$EVERGREEN_PASSWORD" >> .env.local
       - name: set oclc password
-	      run: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
+        run: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
       - name: Set up important containers
         run: docker-compose up -d solr memcached
       - name: Set up indexer container
