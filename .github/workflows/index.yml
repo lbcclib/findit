@@ -1,0 +1,23 @@
+name: Docker compose actions workflow
+on: [push]
+jobs:
+  index-solr:
+    runs-on: ubuntu-latest
+	environment: findit indexing
+    steps:
+      - uses: actions/checkout@v2
+	    - name: set evergreen password
+	      run: echo "EVERGREEN_PASSWORD=$EVERGREEN_PASSWORD" >> .env.local
+      - name: set oclc password
+	      run: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
+      - name: Set up important containers
+        run: docker-compose up -d solr memcached
+      - name: Set up indexer container
+        run: docker-compose up indexer
+      - name: copy solr snapshot
+        run: docker cp findit_solr_1:/var/solr/data/blacklight-core/data/snapshot.new .
+      - name: Upload index artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: index-artifacts
+          path: snapshot.new
