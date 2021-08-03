@@ -7,8 +7,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: set evergreen password
+        env:
+          EVERGREEN_PASSWORD: ${{ secrets.EVERGREEN_PASSWORD }}
         run: echo "EVERGREEN_PASSWORD=$EVERGREEN_PASSWORD" >> .env.local
       - name: set oclc password
+        env:
+          OCLC_PASSWORD: ${{ secrets.OCLC_PASSWORD }}
         run: echo "OCLC_PASSWORD=$OCLC_PASSWORD" >> .env.local
       - name: Set up important containers
         run: docker-compose up -d solr memcached
