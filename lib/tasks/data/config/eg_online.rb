@@ -2,8 +2,8 @@
 
 require 'traject'
 
-require_relative 'eg_authority_control.macro'
-extend FindIt::Macros::EgAuthorityControl
+require_relative 'wikidata_enrichment.macro'
+extend FindIt::Macros::WikidataEnrichment
 
 require_relative 'cover_images.macro'
 extend FindIt::Macros::CoverImages
@@ -24,4 +24,4 @@ to_field 'format', FindIt::Macros::LBCCFormats.lbcc_formats, default('Unknown')
 to_field 'professor_t', extract_marc('971a')
 to_field 'course_t', extract_marc('972a')
 
-to_field 'authority_data_t', keywords_from_linked_authority_records
+to_field 'authority_data_t', keywords_from_wikidata

@@ -5,8 +5,8 @@ require_relative 'cover_images.macro'
 extend FindIt::Macros::CoverImages
 require_relative 'lbcc_format.macro'
 
-require_relative 'eg_authority_control.macro'
-extend FindIt::Macros::EgAuthorityControl
+require_relative 'wikidata_enrichment.macro'
+extend FindIt::Macros::WikidataEnrichment
 
 to_field 'thumbnail_path_ss', cover_image
 
@@ -40,4 +40,4 @@ to_field 'url_fulltext_display', extract_marc('856|40|u')
 to_field 'professor_t', extract_marc('971a')
 to_field 'course_t', extract_marc('972a')
 
-to_field 'authority_data_t', keywords_from_linked_authority_records
+to_field 'authority_data_t', keywords_from_wikidata

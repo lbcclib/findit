@@ -57,6 +57,7 @@ gem 'blacklight', '~>7.15'
 gem 'dotenv-rails'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'solr_wrapper'
+gem 'sparql-client'
 gem 'traject'
 
 # 4.1.x is currently the latest version of http that we can use,
