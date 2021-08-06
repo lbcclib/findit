@@ -16,7 +16,7 @@ module FindIt
     # for a given record, using a variety of identifiers
     module CoverImages
       def logger
-        @logger ||= Yell.new($stderr, level: 'debug')
+        @logger ||= Yell.new($stderr, level: 'warn')
       end
 
       def cover_image
