@@ -9,7 +9,7 @@ class WikidataConnection
   def initialize
     @client = SPARQL::Client.new(
       'https://query.wikidata.org/sparql',
-      method: :get,
+      method: :post,
       headers: { 'User-Agent': USER_AGENT }
     )
   end
