@@ -20,10 +20,10 @@ def index_holdings_from_kbart(filename:)
   puts "indexing #{filename}"
   CSV.read(filename, 'r', col_sep: "\t", headers: true, quote_char: "\x00",
                           encoding: 'utf-8').each_slice(10) do |periodicals|
-    periodicals, wikidata_articles = get_periodical_metadata_and_articles_from_wikidata periodicals
+    wikidata_periodicals, wikidata_articles = get_periodical_metadata_and_articles_from_wikidata periodicals
     crossref_articles = get_articles_from_crossref periodicals
     articles = deduplicate_articles wikidata: wikidata_articles, crossref: crossref_articles
-    write_to_solr periodicals
+    write_to_solr wikidata_periodicals
     write_to_solr articles
   end
 end
@@ -43,11 +43,7 @@ def extract_issn(row)
 end
 
 def fetch_periodical_data_from_wikidata(issn)
-  client = SPARQL::Client.new(
-    'https://query.wikidata.org/sparql',
-    method: :get,
-    headers: { 'User-Agent': USER_AGENT }
-  )
+  client = WikidataConnection.new
   query = <<~ENDQUERY
         SELECT ?journal ?journalLabel ?languageLabel ?journalDescription ?placeOfPublicationLabel ?formatLabel ?issn WHERE {
         ?journal wdt:P236 "#{issn}" .
@@ -105,8 +101,7 @@ def write_to_solr(contents)
   solr.add contents.compact
 end
 
-def periodical_rdf_to_solr(response)
-  periodical = response.map(&:to_h)
+def periodical_rdf_to_solr(periodical)
   return nil unless periodical&.first
 
   {
@@ -117,6 +112,7 @@ def periodical_rdf_to_solr(response)
     issn_t: periodical.first[:issn].to_s,
     title_t: periodical.first[:journalLabel].to_s.capitalize,
     title_display: periodical.first[:journalLabel].to_s.capitalize,
+    language_facet: periodical.first[:languageLabel].to_s.capitalize,
     is_electronic_facet: 'Online'
   }
 end
