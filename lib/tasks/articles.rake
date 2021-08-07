@@ -29,9 +29,9 @@ def index_holdings_from_kbart(filename:)
 end
 
 def get_periodical_metadata_and_articles_from_wikidata(periodicals)
-  # TODO: don't just do ISSN ones!
-  issn_periodicals = select_periodicals_with_issns(periodicals)
-  periodical_data = issn_periodicals.map { |issn| fetch_periodical_data_from_wikidata(issn) }
+  # TODO: don't just do ISSN ones! Insted, this should be like:
+  # periodicals.map do |periodical| fetch_by_issn || fetch_by_title || fetch_by_something_else, each returning nil if it can't find anything
+  periodical_data = select_periodicals_only(periodicals).map { |periodical| fetch_periodical_data_from_wikidata_by_issn(periodical) }
   [periodical_data, []]
 end
 
@@ -42,12 +42,14 @@ def extract_issn(row)
   good_issn ? good_issn.insert(4, '-') : nil
 end
 
-def fetch_periodical_data_from_wikidata(issn)
+def fetch_periodical_data_from_wikidata_by_issn(periodical)
+  issn = extract_issn(periodical)
+  return nil unless issn
+
   client = WikidataConnection.new
   query = <<~ENDQUERY
         SELECT ?journal ?journalLabel ?languageLabel ?journalDescription ?placeOfPublicationLabel ?formatLabel ?issn WHERE {
         ?journal wdt:P236 "#{issn}" .
-    #{'    '}
         OPTIONAL{?journal wdt:P31 ?format} .
         OPTIONAL{?journal wdt:P495 ?placeOfPublication}  .
         OPTIONAL{?journal wdt:P407 ?language}  .
@@ -55,7 +57,7 @@ def fetch_periodical_data_from_wikidata(issn)
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
         }
   ENDQUERY
-  periodical_rdf_to_solr client.query(query)
+  periodical_rdf_to_solr(client.query(query), periodical['title_url'])
 end
 
 def get_articles_from_crossref(periodicals)
@@ -101,7 +103,7 @@ def write_to_solr(contents)
   solr.add contents.compact
 end
 
-def periodical_rdf_to_solr(periodical)
+def periodical_rdf_to_solr(periodical, link)
   return nil unless periodical&.first
 
   {
@@ -113,12 +115,17 @@ def periodical_rdf_to_solr(periodical)
     title_t: periodical.first[:journalLabel].to_s.capitalize,
     title_display: periodical.first[:journalLabel].to_s.capitalize,
     language_facet: periodical.first[:languageLabel].to_s.capitalize,
-    is_electronic_facet: 'Online'
+    is_electronic_facet: 'Online',
+    url_fulltext_display: ResourceLink.new(link).to_s
   }
 end
 
-def select_periodicals_with_issns(periodicals)
+def select_periodicals_only(periodicals)
   periodicals.select { |row| row && (row['coverage_depth'] == 'fulltext') }
-             .map { |row| extract_issn(row) }
-             .compact
+end
+
+def select_periodicals_with_issns(periodicals)
+  select_periodicals_only(periodicals)
+  .map {|periodical| extract_issn(periodical)}
+  .compact
 end
