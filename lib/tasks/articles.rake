@@ -10,12 +10,14 @@ namespace :findit do
     namespace :index do
       task sample_articles: :environment do
         index_holdings_from_kbart filename: Rails.root.join('spec/fixtures/files/kbart.txt')
+        Rake::Task['findit:data:commit'].execute
       end
     end
   end
 end
 
 def index_holdings_from_kbart(filename:)
+  puts "indexing #{filename}"
   CSV.read(filename, 'r', col_sep: "\t", headers: true, quote_char: "\x00",
                           encoding: 'utf-8').each_slice(10) do |periodicals|
     periodicals, wikidata_articles = get_periodical_metadata_and_articles_from_wikidata periodicals
@@ -113,7 +115,9 @@ def periodical_rdf_to_solr(response)
     place_of_publication_t: periodical.first[:placeOfPublicationLabel].to_s,
     abstract_t: periodical.first[:journalDescription].to_s,
     issn_t: periodical.first[:issn].to_s,
-    title_t: periodical.first[:journalLabel].to_s.capitalize
+    title_t: periodical.first[:journalLabel].to_s.capitalize,
+    title_display: periodical.first[:journalLabel].to_s.capitalize,
+    is_electronic_facet: 'Online'
   }
 end
 
