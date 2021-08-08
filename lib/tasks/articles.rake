@@ -99,7 +99,7 @@ def fetch_article_data_from_wikidata(journal_id)
         wdt:P2093 ?authorName ;
         wdt:P356 ?doi  ;
         wdt:P433 ?issue ;
-        wdt:P1433 ?journal ;
+        wdt:P1433 ?journalName ;
         rdfs:label ?label ;
         wdt:P407 ?languageName ;
         wdt:P304 ?pages ;
@@ -110,14 +110,14 @@ def fetch_article_data_from_wikidata(journal_id)
         wdt:P478 ?volume .
     }
     WHERE {
-      ?article wdt:P1433 wd:#{journal_id} ;
+      VALUES ?journal {wd:#{journal_id}}
+      ?article wdt:P1433 ?journal ;
         rdfs:label ?label ;
         wdt:P31 ?type.
       ?type rdfs:label ?typeName .
       OPTIONAL {?article wdt:P2093 ?authorStrings }
       OPTIONAL {?article wdt:P356 ?doi }
       OPTIONAL {?article wdt:P433 ?issue }
-      OPTIONAL {?article wdt:P1433 ?journal }
       OPTIONAL {?article wdt:P304 ?pages }
       OPTIONAL {?article wdt:P304 ?pubDate }
       OPTIONAL {?article wdt:P478 ?volume }

@@ -53,7 +53,7 @@ class Article
       'rft.date': @pub_date,
       'rft.jtitle': @journal
     ).permit('rft.atitle', 'rft.doi', 'rft.date', 'rft.jtitle')
-    .reject { |k, v| v.nil? }
+    .reject { |k, v| v.nil? } # TODO: once this is updated to Rails 6.1.4 or above, change to .compact
     ResourceLink.new "https://linn.on.worldcat.org/atoztitles/link?#{params.to_query}"
   end
 
@@ -90,6 +90,7 @@ class Article
                        &.value&.to_date&.year
     @subjects = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P921'
     @volume = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P478'
+    puts @title
   end
 
   def normalize_id(string)
