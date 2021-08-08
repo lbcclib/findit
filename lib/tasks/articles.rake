@@ -36,8 +36,6 @@ def get_periodical_metadata_and_articles_from_wikidata(periodicals)
     if periodical
       periodical_data.push periodical
       article_data.concat(fetch_article_data_from_wikidata(periodical[:id]))
-    else
-      puts periodical
     end
   end
   [periodical_data, article_data]
@@ -64,14 +62,12 @@ def fetch_periodical_data_from_wikidata_by_title(periodical)
   uri = URI.parse "https://wikidata.reconci.link/en/api?queries=#{{ 'q1' => { 'query' => title,
                                                                               'limit' => 1 } }.to_json}"
   response = Net::HTTP.get uri
-  puts JSON.parse(response)
-
   results = JSON.parse(response)['q1']['result']
   return nil unless results.any?
 
   qid = results&.first['id']
   types = results&.first['type'].map { |type| type['name'] }
-  return unless qid && any_valid_wikidata_types?(types)
+  return nil unless qid && any_valid_wikidata_types?(types)
 
   journal_metadata_query(
     "VALUES ?journal {wd:#{qid}}",
@@ -98,18 +94,51 @@ end
 def fetch_article_data_from_wikidata(journal_id)
   client = WikidataConnection.new
   query = <<~ENDQUERY
-    CONSTRUCT { ?article ?predicate ?object.}
-    WHERE { ?article ?predicate ?object.
-    ?article wdt:P1433 wd:#{journal_id}.
+    CONSTRUCT {
+      ?article wdt:P2093 ?authorStrings ;
+        wdt:P2093 ?authorName ;
+        wdt:P356 ?doi  ;
+        wdt:P433 ?issue ;
+        wdt:P1433 ?journal ;
+        rdfs:label ?label ;
+        wdt:P407 ?languageName ;
+        wdt:P304 ?pages ;
+        wdt:P304 ?pubDate ;
+        wdt:P921 ?subjectName ;
+        wdt:P1476 ?title ;
+        wdt:P31 ?typeName ;
+        wdt:P478 ?volume .
+    }
+    WHERE {
+      ?article wdt:P1433 wd:#{journal_id} ;
+        rdfs:label ?label ;
+        wdt:P31 ?type.
+      ?type rdfs:label ?typeName .
+      OPTIONAL {?article wdt:P2093 ?authorStrings }
+      OPTIONAL {?article wdt:P356 ?doi }
+      OPTIONAL {?article wdt:P433 ?issue }
+      OPTIONAL {?article wdt:P1433 ?journal }
+      OPTIONAL {?article wdt:P304 ?pages }
+      OPTIONAL {?article wdt:P304 ?pubDate }
+      OPTIONAL {?article wdt:P478 ?volume }
+      OPTIONAL {?article wdt:P50 ?author . ?author rdfs:label ?authorName }
+      OPTIONAL {?article wdt:P1433 ?journal . ?journal rdfs:label ?journalName }
+      OPTIONAL {?article wdt:P407 ?language . ?language rdfs:label ?languageName }
+      OPTIONAL {?article wdt:P921 ?subject . ?subject rdfs:label ?subjectName }
+      FILTER(lang(?authorName) = "en")
+      FILTER(lang(?journalName) = "en")
+      FILTER(lang(?languageName) = "en")
+      FILTER(lang(?subjectName) = "en")
+      FILTER(lang(?typeName) = "en")
     }
   ENDQUERY
   results = client.query query
   return [] unless results
 
-  article_uris = results.map { |solution| solution[0] }.uniq
+  article_uris = results.pluck(:subject).uniq
 
   article_uris.map do |uri|
-    matching_triples = results.select { |triple| triple[0] == uri }
+    matching_triples = results.select { |triple| triple[:subject] == uri }
     Article.new(wikidata: matching_triples).to_solr
   end
 end
@@ -119,7 +148,6 @@ def get_articles_from_crossref(periodicals)
   # TODO: cache
   # TODO: follow all of the "NICE" rules for crossref api
   # TODO: if no link available, construct one using the link resolver
-  # TODO: Index volume and issue
 
   documents = []
   select_periodicals_with_issns(periodicals).each do |issn|
@@ -136,7 +164,7 @@ def get_articles_from_crossref(periodicals)
 end
 
 def deduplicate_articles(wikidata:, crossref:)
-  crossref + wikidata.reject { |article| crossref.include? article }
+  crossref.concat(wikidata.reject { |article| crossref.include? article })
 end
 
 def write_to_solr(contents)

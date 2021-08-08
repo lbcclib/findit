@@ -16,6 +16,6 @@ class WikidataConnection
 
   def query(query)
     @client.query(query).map(&:to_h)
-  rescue Net::ReadTimeout
+  rescue Net::ReadTimeout, Net::HTTP::Persistent::Error
   end
 end
