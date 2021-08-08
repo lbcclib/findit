@@ -31,8 +31,16 @@ end
 def get_periodical_metadata_and_articles_from_wikidata(periodicals)
   # TODO: don't just do ISSN ones! Insted, this should be like:
   # periodicals.map do |periodical| fetch_by_issn || fetch_by_title || fetch_by_something_else, each returning nil if it can't find anything
-  periodical_data = select_periodicals_only(periodicals).map { |periodical| fetch_periodical_data_from_wikidata_by_issn(periodical) }
-  [periodical_data, []]
+  periodical_data = []
+  article_data = []
+  select_periodicals_only(periodicals).each do |row|
+    periodical = fetch_periodical_data_from_wikidata_by_issn(row)
+    if periodical
+      periodical_data.push periodical
+      article_data.concat(fetch_article_data_from_wikidata(periodical[:id]))
+    end
+  end
+  [periodical_data, article_data]
 end
 
 def extract_issn(row)
@@ -60,6 +68,25 @@ def fetch_periodical_data_from_wikidata_by_issn(periodical)
   periodical_rdf_to_solr(client.query(query), periodical['title_url'])
 end
 
+def fetch_article_data_from_wikidata(journal_id)
+  client = WikidataConnection.new
+  query = <<~ENDQUERY
+    CONSTRUCT { ?article ?predicate ?object.}
+    WHERE { ?article ?predicate ?object.
+    ?article wdt:P1433 wd:#{journal_id}.
+    }
+  ENDQUERY
+  results = client.query query
+  return [] unless results
+
+  article_uris = results.map {|solution| solution[0]}.uniq
+
+  article_uris.map do |uri|
+    matching_triples = results.select {|triple| triple[0] == uri}
+    Article.new(wikidata: matching_triples).to_solr
+  end
+end
+
 def get_articles_from_crossref(periodicals)
   # TODO: user agent
   # TODO: cache
@@ -82,7 +109,7 @@ def get_articles_from_crossref(periodicals)
 end
 
 def deduplicate_articles(wikidata:, crossref:)
-  crossref
+  crossref + wikidata.reject {|article| crossref.include? article}
 end
 
 def write_to_solr(contents)
