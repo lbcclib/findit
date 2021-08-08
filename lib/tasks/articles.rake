@@ -74,21 +74,8 @@ def get_articles_from_crossref(periodicals)
     result['message']['items'].each do |article|
       next unless article['title'] && article['link']
 
-      document = {
-        id: article['DOI'],
-        format: article['type'],
-        abstract_display: ActionController::Base.helpers.strip_tags(article['abstract']),
-        is_electronic_facet: 'Online',
-        publisher_display: article['publisher'],
-        publisher_t: article['publisher'],
-        pub_date: article['created']['date-parts'].first[0],
-        record_provider_facet: 'Open access',
-        record_source_facet: 'Open access',
-        title_display: article['title'].first,
-        title_t: article['title'].first,
-        url_fulltext_display: article['link'].first['URL']
-      }
-      documents.push document
+      document = Article.new crossref: article
+      documents.push document.to_solr
     end
   end
   documents
