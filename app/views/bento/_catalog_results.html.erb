@@ -1,5 +1,0 @@
-<h2><%= t('format.books_and_media.label') %></h2>
-<%= content_tag :span, t('format.books_and_media.description'), class: 'text-muted' %>
-<%= render "catalog_results_list_#{field_test :bento_metadata}" %>
-<span class="material-icons">arrow_forward</span>
-<%= link_to t('bento.all_catalog', number: number_to_human(@num_catalog_hits)), request.query_parameters.merge({controller: 'catalog'}).without(:f, :range, :results_per_page) %>

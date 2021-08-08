@@ -1,8 +1,0 @@
-<% if articles.empty? %>
-  <%= render partial: 'catalog/zero_results' %>
-<% else %>
-  <% articles.each do |article| %>
-    <%= render partial: 'articles/index_default', locals: {article: article} %>
-   <% end %>
-<% end %>
-

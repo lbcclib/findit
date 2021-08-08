@@ -1,5 +1,0 @@
-<h2><%= t('format.articles.label') %></h2>
-<%= content_tag :span, t('format.articles.description'), class: 'text-muted' %>
-<%= render "articles_results_list_#{field_test :bento_metadata}" %>
-<span class="material-icons">arrow_forward</span>
-<%= link_to t('bento.all_articles', number: number_to_human(@num_article_hits)), request.query_parameters.merge({controller: 'articles'}).without(:f, :range, :results_per_page) %>

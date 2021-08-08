@@ -1,5 +1,5 @@
 <div class="row large-search-container">
-   <form id="home-bento-search" class="container-fluid" method="get" action="search">
+   <form id="home-bento-search" class="container-fluid" method="get" action="catalog">
       <fieldset>
         <div class="row align-items-center vertical-center">
           <%= text_field_tag :q, '', id: 'home-searchbox', autofocus: true,
@@ -19,19 +19,6 @@
               aria-label="<%= t('bento.search_options') %>">
             </button>
             <div class="dropdown-menu" aria-labelledby="searchOptionsButton">
-              <span class="form-check dropdown-item">
-                <input class="form-check-input" name="showArticles" type="checkbox" id="showArticles" checked>
-                <label class="form-check-label" for="showArticles">
-                  <%= t('bento.include_articles') %>
-                </label>
-              </span>
-              <span class="form-check dropdown-item">
-                <input class="form-check-input" name="showCatalog" type="checkbox" id="showCatalog" checked>
-                <label class="form-check-label" for="showCatalog">
-                  <%= t('bento.include_catalog') %>
-                </label>
-              </span>
-              <div class="dropdown-divider"></div>
               <% blacklight_config.search_fields.each do |_key, field| %>
                 <button class="btn-light dropdown-item"
                   onclick="document.getElementById('search_field').setAttribute('value', '<%= field.key %>');">
