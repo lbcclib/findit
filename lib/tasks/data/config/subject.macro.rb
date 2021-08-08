@@ -47,30 +47,36 @@ module FindIt
   module Macros
     # Macro for handling topics
     module TopicSubject
+      def logger
+        @logger ||= Yell.new($stderr, level: 'debug')
+      end
+
       def topic_subject
         proc do |record, accumulator|
-          fields = record.find_all { |f| TOPIC_TAGS.include? f.tag }
-          accumulator.concat(fields.map { |field| extract_subject_from_field(field) }
-                               .compact)
+          record.each_by_tag(TOPIC_TAGS) do |field|
+            accumulator.concat(extract_subject_from_field(field))
+          end
         end
       end
 
       def extract_subject_from_field(field)
-        return nil if unused_thesaurus(field)
+        subjects = []
+        return subjects unless good_thesaurus(field)
 
-        subject = ::Traject::Macros::Marc21.trim_punctuation field['a']
-        return OFFENSIVE_VALUE_REPLACEMENTS[subject] if OFFENSIVE_VALUE_REPLACEMENTS[subject]
+        extracted_subjects = field.subfields.select { |subfield| subfield.code == 'a' }
+                                  .map do |subfield|
+          subject = ::Traject::Macros::Marc21.trim_punctuation subfield.value
+          return OFFENSIVE_VALUE_REPLACEMENTS[subject] if OFFENSIVE_VALUE_REPLACEMENTS[subject]
 
-        return subject unless UNHELPFUL_SUBJECTS.include? subject
-
-        nil
+          UNHELPFUL_SUBJECTS.include?(subject) ? nil : subject
+        end.compact
+        subjects.concat(extracted_subjects) if extracted_subjects
+        subjects
       end
 
-      def unused_thesaurus(field)
-        return false if [0, 2].include? field.indicator2
-        return false if field['2'] && (%w[bidex qlsp].include? field['2'])
-
-        true
+      def good_thesaurus(field)
+        %w[0 2].include?(field.indicator2) ||
+          (field['2'] && (%w[bidex qlsp].include? field['2']))
       end
     end
   end
