@@ -29,15 +29,15 @@ def index_holdings_from_kbart(filename:)
 end
 
 def get_periodical_metadata_and_articles_from_wikidata(periodicals)
-  # TODO: don't just do ISSN ones! Insted, this should be like:
-  # periodicals.map do |periodical| fetch_by_issn || fetch_by_title || fetch_by_something_else, each returning nil if it can't find anything
   periodical_data = []
   article_data = []
   select_periodicals_only(periodicals).each do |row|
-    periodical = fetch_periodical_data_from_wikidata_by_issn(row)
+    periodical = fetch_periodical_data_from_wikidata_by_issn(row) || fetch_periodical_data_from_wikidata_by_title(row)
     if periodical
       periodical_data.push periodical
       article_data.concat(fetch_article_data_from_wikidata(periodical[:id]))
+    else
+      puts periodical
     end
   end
   [periodical_data, article_data]
@@ -54,18 +54,45 @@ def fetch_periodical_data_from_wikidata_by_issn(periodical)
   issn = extract_issn(periodical)
   return nil unless issn
 
+  journal_metadata_query("?journal wdt:P236 \"#{issn}\" .", periodical['title_url'])
+end
+
+def fetch_periodical_data_from_wikidata_by_title(periodical)
+  title = fix_trailing_article periodical['publication_title']
+  return nil unless title
+
+  uri = URI.parse "https://wikidata.reconci.link/en/api?queries=#{{ 'q1' => { 'query' => title,
+                                                                              'limit' => 1 } }.to_json}"
+  response = Net::HTTP.get uri
+  puts JSON.parse(response)
+
+  results = JSON.parse(response)['q1']['result']
+  return nil unless results.any?
+
+  qid = results&.first['id']
+  types = results&.first['type'].map { |type| type['name'] }
+  return unless qid && any_valid_wikidata_types?(types)
+
+  journal_metadata_query(
+    "VALUES ?journal {wd:#{qid}}",
+    periodical['title_url']
+  )
+end
+
+def journal_metadata_query(where_clause, url_from_vendor)
   client = WikidataConnection.new
   query = <<~ENDQUERY
-        SELECT ?journal ?journalLabel ?languageLabel ?journalDescription ?placeOfPublicationLabel ?formatLabel ?issn WHERE {
-        ?journal wdt:P236 "#{issn}" .
-        OPTIONAL{?journal wdt:P31 ?format} .
-        OPTIONAL{?journal wdt:P495 ?placeOfPublication}  .
-        OPTIONAL{?journal wdt:P407 ?language}  .
-        OPTIONAL{?journal wdt:P236 ?issn}  .
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-        }
+    SELECT ?journal ?journalLabel ?languageLabel ?journalDescription ?placeOfPublicationLabel ?formatLabel ?issn WHERE {
+    #{where_clause}
+    OPTIONAL{?journal wdt:P31 ?format} .
+    OPTIONAL{?journal wdt:P495 ?placeOfPublication}  .
+    OPTIONAL{?journal wdt:P407 ?language}  .
+    OPTIONAL{?journal wdt:P236 ?issn}  .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }
+    LIMIT 1
   ENDQUERY
-  periodical_rdf_to_solr(client.query(query), periodical['title_url'])
+  periodical_rdf_to_solr(client.query(query), url_from_vendor)
 end
 
 def fetch_article_data_from_wikidata(journal_id)
@@ -79,10 +106,10 @@ def fetch_article_data_from_wikidata(journal_id)
   results = client.query query
   return [] unless results
 
-  article_uris = results.map {|solution| solution[0]}.uniq
+  article_uris = results.map { |solution| solution[0] }.uniq
 
   article_uris.map do |uri|
-    matching_triples = results.select {|triple| triple[0] == uri}
+    matching_triples = results.select { |triple| triple[0] == uri }
     Article.new(wikidata: matching_triples).to_solr
   end
 end
@@ -109,7 +136,7 @@ def get_articles_from_crossref(periodicals)
 end
 
 def deduplicate_articles(wikidata:, crossref:)
-  crossref + wikidata.reject {|article| crossref.include? article}
+  crossref + wikidata.reject { |article| crossref.include? article }
 end
 
 def write_to_solr(contents)
@@ -138,8 +165,17 @@ def select_periodicals_only(periodicals)
   periodicals.select { |row| row && (row['coverage_depth'] == 'fulltext') }
 end
 
+def any_valid_wikidata_types?(types_to_check)
+  valid_types = Set['newspaper', 'journal', 'magazine', 'periodical', 'serial']
+  types_to_check.any? { |type| valid_types.include? type }
+end
+
 def select_periodicals_with_issns(periodicals)
   select_periodicals_only(periodicals)
-  .map {|periodical| extract_issn(periodical)}
-  .compact
+    .map { |periodical| extract_issn(periodical) }
+    .compact
+end
+
+def fix_trailing_article(title)
+  title.gsub(/,\sThe/, '')
 end

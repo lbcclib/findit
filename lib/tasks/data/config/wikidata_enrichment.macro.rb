@@ -33,15 +33,15 @@ module FindIt
       def compile_query(identifier_string)
         <<~ENDQUERY
           SELECT DISTINCT ?keywordLabel
-          WHERE#{' '}
+          WHERE
           {
             VALUES ?authorities { #{identifier_string} }
             ?nameProperties wdt:P1647* wd:P2561.
             ?nameProperties wikibase:directClaim ?nameClaim .
             ?item wdt:P244 ?authorities.
-            {?item#{' '}
+            {?item
                   (wdt:P17|wdt:P101|wdt:P112|wdt:P135|wdt:P136|wdt:P279|wdt:P361|wdt:P460|wdt:P793|wdt:P800|wdt:P1269|wdt:P1344|wdt:P1830|p:P2572/ps:P2572|wdt:P3342|wdt:P3602|wdt:P5004) ?keyword.}
-            UNION#{' '}
+            UNION
             {?item ?nameClaim ?keyword}
 
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,es". }
