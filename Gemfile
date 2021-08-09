@@ -3,15 +3,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.5'
+ruby '~> 2.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
-# Use postgresql as the database for Active Record
-platforms :jruby do
-  gem 'activerecord-jdbc-adapter', '~> 60.2'
-  gem 'activerecord-jdbcpostgresql-adapter'
-end
+gem 'pg'
 
 group :production, :development, :test do
   # Use Puma as the app server
@@ -22,7 +18,7 @@ group :production, :development, :test do
   gem 'turbolinks', '~> 5'
 
   gem 'blacklight-locale_picker'
-  gem 'bootstrap', '4.1.3'
+  gem 'bootstrap', '~> 4'
   gem 'devise-guests'
   gem 'ebsco-eds', github: 'ebsco/edsapi-ruby'
   gem 'evergreen_holdings'
@@ -53,22 +49,18 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'blacklight', '~>7.15'
-
+gem 'bootsnap', require: false
 gem 'dotenv-rails'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'solr_wrapper'
 gem 'sparql-client'
 gem 'traject'
 
-# 4.1.x is currently the latest version of http that we can use,
-# since later versions depend on http-client, which is incompatible
-# with warbler, see https://github.com/jruby/warbler/issues/482
 gem 'blacklight-citeproc', '>=0.0.4'
 gem 'blacklight_range_limit'
 gem 'call_number_ranges'
 gem 'devise'
 gem 'field_test'
-gem 'http', '~>4.1.1'
 gem 'library_stdnums'
 gem 'openlibrary-covers'
 gem 'rack-cors'
@@ -78,4 +70,4 @@ group :indexer do
 end
 
 gem 'dalli'
-gem 'i18n', '1.8.7' # Pinned to this version while waiting for a fix to this issue: https://github.com/ruby-i18n/i18n/issues/555 / https://github.com/jruby/jruby/issues/6547
+gem 'i18n', '1.8.7'

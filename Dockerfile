@@ -1,4 +1,4 @@
-FROM jruby:9.2.16.0-jdk
+FROM ruby:2.7
 
 # Necessary for bundler to properly install some gems
 ENV LANG C.UTF-8
