@@ -57,7 +57,7 @@ class CatalogController < ApplicationController
     config.index.title_field = 'title_display'
     config.index.display_type_field = 'format'
     config.index.thumbnail_field = 'thumbnail_path_ss'
-    config.index.partials = %i[index_header obtain thumbnail index]
+    config.index.partials = %i[index_header obtain journal_contents thumbnail index]
     config.show.partials = %i[show_header show_obtain show_work show_instance]
 
     config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
@@ -107,6 +107,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'pub_date', label: I18n.t('facets.pub_year'), range: true, collapse: false
     config.add_facet_field 'subject_topic_facet', label: I18n.t('facets.subject'), limit: 20, sort: 'count'
     config.add_facet_field 'language_facet', label: I18n.t('facets.language'), limit: true, sort: 'count'
+    config.add_facet_field 'journal_facet', label: I18n.t('facets.journal'), limit: true, sort: 'count'
     config.add_facet_field 'subject_geo_facet', label: I18n.t('facets.geographic'), limit: true, sort: 'count'
     # config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
     # config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
@@ -259,5 +260,21 @@ class CatalogController < ApplicationController
   def show
     field_test_converted :bento_metadata
     super
+  end
+
+  def journal_contents_note
+    params.permit(:journal_name, :locale)
+    @journal_name = params[:journal_name]
+    exit unless @journal_name
+
+    @locale = params[:locale] || 'en'
+    @article_count = search_service.search_results do |search_builder|
+      search_builder.where journal_facet: @journal_name
+    end.first.total
+    exit if @article_count.zero?
+
+    @href = search_action_path(search_state.reset.add_facet_params_and_redirect(:journal_facet, @journal_name))
+
+    render layout: false
   end
 end

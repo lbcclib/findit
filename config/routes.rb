@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     concerns :range_searchable
   end
 
+  get '/journal_contents_note' => 'catalog#journal_contents_note'
+
   devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 

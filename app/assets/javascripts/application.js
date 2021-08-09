@@ -9,6 +9,7 @@
 //= require twitter/typeahead
 //= require bootstrap
 //= require blacklight/blacklight
+//= require journal-contents.js
 
 
 

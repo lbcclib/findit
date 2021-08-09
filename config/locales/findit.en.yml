@@ -76,6 +76,8 @@ en:
     request_scan: Request PDF of excerpt
     source: "Available from %{source}"
     streaming_video: Stream this video
+  results:
+    journal_contents: "This publication contains %{article_count} known articles"
   show:
     work_heading: About this work
     instance_heading: About this edition

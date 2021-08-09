@@ -59,6 +59,8 @@ es:
     request_scan: Extracto en PDF
     source: "Proporcionado por %{source}"
     streaming_video: Mirar este video streaming
+  results:
+    journal_contents: "Esta publicación contiene %{article_count} artículos"
   show:
     work_heading: Sobre la obra
     instance_heading: Sobre la edición

@@ -61,8 +61,10 @@ def fetch_periodical_data_from_wikidata_by_title(periodical)
 
   uri = URI.parse "https://wikidata.reconci.link/en/api?queries=#{{ 'q1' => { 'query' => title,
                                                                               'limit' => 1 } }.to_json}"
-  response = Net::HTTP.get uri
-  results = JSON.parse(response)['q1']['result']
+  response = JSON.parse(Net::HTTP.get uri)
+  return nil unless response
+
+  results = response['q1']['result']
   return nil unless results.any?
 
   qid = results&.first['id']
@@ -71,11 +73,11 @@ def fetch_periodical_data_from_wikidata_by_title(periodical)
 
   journal_metadata_query(
     "VALUES ?journal {wd:#{qid}}",
-    periodical['title_url']
+    periodical
   )
 end
 
-def journal_metadata_query(where_clause, url_from_vendor)
+def journal_metadata_query(where_clause, info_from_kbart)
   client = WikidataConnection.new
   query = <<~ENDQUERY
     SELECT ?journal ?journalLabel ?languageLabel ?journalDescription ?placeOfPublicationLabel ?formatLabel ?issn WHERE {
@@ -88,7 +90,7 @@ def journal_metadata_query(where_clause, url_from_vendor)
     }
     LIMIT 1
   ENDQUERY
-  periodical_rdf_to_solr(client.query(query), url_from_vendor)
+  periodical_rdf_to_solr(client.query(query), info_from_kbart)
 end
 
 def fetch_article_data_from_wikidata(journal_id)
@@ -172,7 +174,7 @@ def write_to_solr(contents)
   solr.add contents.compact
 end
 
-def periodical_rdf_to_solr(periodical, link)
+def periodical_rdf_to_solr(periodical, info_from_kbart)
   return nil unless periodical&.first
 
   {
@@ -181,11 +183,12 @@ def periodical_rdf_to_solr(periodical, link)
     place_of_publication_t: periodical.first[:placeOfPublicationLabel].to_s,
     abstract_t: periodical.first[:journalDescription].to_s,
     issn_t: periodical.first[:issn].to_s,
-    title_t: periodical.first[:journalLabel].to_s.capitalize,
-    title_display: periodical.first[:journalLabel].to_s.capitalize,
+    record_source_facet: info_from_kbart['oclc_collection_name'],
+    title_t: periodical.first[:journalLabel].to_s,
+    title_display: periodical.first[:journalLabel].to_s,
     language_facet: periodical.first[:languageLabel].to_s.capitalize,
     is_electronic_facet: 'Online',
-    url_fulltext_display: ResourceLink.new(link).to_s
+    url_fulltext_display: ResourceLink.new(info_from_kbart['title_url']).to_s
   }
 end
 
