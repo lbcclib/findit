@@ -7,6 +7,9 @@ SUGGESTIONS = [
     generated_url_prefix: 'https://library-artstor-org.ezproxy.libweb.linnbenton.edu/#/search/',
     generated_url_suffix: ''
   }, {
+    string: 'business',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/biz',
+  }, {
     string: 'cinahl',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=health&defaultdb=c8h',
     generated_url_prefix: 'https://search-ebscohost-com.ezproxy.libweb.linnbenton.edu/login.aspx?direct=true&db=c8h&bquery=',
@@ -22,6 +25,12 @@ SUGGESTIONS = [
     generated_url_prefix: 'https://ebookcentral.proquest.com/lib/linnbenton-ebooks/search.action?query=',
     generated_url_suffix: ''
   }, {
+    string: 'espanol',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/spanish',
+  }, {
+    string: 'faculty',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/faculty',
+  }, {
     string: 'flipster',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://search.ebscohost.com/login.aspx?authtype=cookie,ip,url,uid&custid=linncc&db=eon&profile=eon',
     generated_url_prefix: 'http://search.ebscohost.com.ezproxy.libweb.linnbenton.edu:2048/login.aspx?direct=true&db=eon&bquery=',
@@ -32,10 +41,28 @@ SUGGESTIONS = [
     generated_url_prefix: 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=https://support.gale.com/widgets/search?q=',
     generated_url_suffix: '&loc=lbcc&id=aone'
   }, {
+    string: 'hours',
+    exact_url: 'https://www.linnbenton.edu/student-services/library-tutoring-testing/library/contact.php',
+  }, {
     string: 'jstor',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://jstor.org',
     generated_url_prefix: 'https://www-jstor-org.ezproxy.libweb.linnbenton.edu/action/doBasicSearch?Query=',
     generated_url_suffix: '&acc=on&wc=on&fc=off&group=none'
+  }, {
+    string: 'oer',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/oer'
+  }, {
+    string: 'sociology',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/sociology'
+  }, {
+    string: 'spanish',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/spanish'
+  }, {
+    string: 'syllabus',
+    exact_url: 'https://libarchive.linnbenton.edu/'
+  }, {
+    string: 'textbooks',
+    exact_url: 'https://www.linnbenton.edu/student-services/textbooks/index.php'
   }, {
     string: 'worldcat',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://linn.on.worldcat.org/discovery',
@@ -48,7 +75,7 @@ SUGGESTIONS = [
 class SearchSuggestionsComponent < ViewComponent::Base
   def initialize(query: nil, response: nil)
     super
-    @query = query&.downcase&.strip
+    @query = query&.downcase&.strip.parameterize(separator=' ')
     @response = response
   end
 
@@ -61,7 +88,7 @@ class SearchSuggestionsComponent < ViewComponent::Base
 
     # try an inexact match
     match = SUGGESTIONS.detect { |suggestion| @query.include? suggestion[:string] }
-    return nil unless match
+    return nil unless match && match[:generated_url_prefix] && match[:generated_url_suffix]
 
     { name: match[:string],
       url: match[:generated_url_prefix] + @query.sub(match[:string], '').strip + match[:generated_url_suffix],
