@@ -67,11 +67,20 @@ es:
     inexact: "¿Le gustaría volver a intentar su búsqueda en %{database}? "
     database:
       artstor: ArtStor
+      business: Guía de negocios
       cinahl: CINAHL (base de datos de enfermería)
       ebsco: Academic Search Premier (EBSCO)
       ebookcentral: Ebook Central
+      espanol: Guía de materiales en español
+      faculty: Guía de servicios para profesores
       flipster: Flipster
       gale: Academic OneFile (Gale)
+      hours: Horario de la biblioteca
       jstor: JSTOR
+      oer: Guía de recursos educativos abiertos (para profesores)
+      sociology: Guía de sociología
+      spanish: Guía de materiales en español
+      syllabus: Community Archive @ LBCC (repositorio de programas de estudios)
+      textbooks: Libros de texto y materiales del curso
       worldcat: WorldCat
 
