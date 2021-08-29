@@ -84,10 +84,19 @@ en:
     inexact: "Would you like to retry your search in %{database}?"
     database:
       artstor: ArtStor
+      business: Business/Economics Research Guide
       cinahl: CINAHL (nursing database)
       ebsco: Academic Search Premier (EBSCO)
       ebookcentral: Ebook Central
+      espanol: Spanish Language Materials Guide
+      faculty: Faculty Services Guide
       flipster: Flipster
       gale: Academic OneFile (Gale)
+      hours: Library and Student Help Desk Hours
       jstor: JSTOR
+      oer: OER Guide for Faculty
+      sociology: Sociology Research Guide
+      spanish: Spanish Language Materials Guide
+      syllabus: Community Archive@LBCC (syllabus repository)
+      textbooks: Textbooks & Course Materials at LBCC
       worldcat: WorldCat
