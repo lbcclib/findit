@@ -15,7 +15,7 @@
 <% end %>
 <% if @items.any? %>
   <% if @size != :small %><div><% end %>
-    <%= link_to "#{t('obtain.place_hold')}  #{tag.span 'directions_car', class: 'material-icons'}".html_safe,
+    <%= link_to "#{t('obtain.place_hold')}  #{tag.span 'add_shopping_cart', class: 'material-icons'}".html_safe,
       url_for_evergreen_hold(@record_id), class: @btn_class, target: '_blank' %>
   <% if @size != :small %></div><% end %>
 <% end %>

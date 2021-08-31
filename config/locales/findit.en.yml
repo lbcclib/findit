@@ -72,7 +72,7 @@ en:
     resource: Access resource online
     ebook: Read ebook online
     general_online: "Access %{type} online"
-    place_hold: Request curbside pickup
+    place_hold: Place hold
     request_scan: Request PDF of excerpt
     source: "Available from %{source}"
     streaming_video: Stream this video
