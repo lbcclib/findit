@@ -1,0 +1,3 @@
+<% if Set['Academic journal', 'Scholarly journal', 'Scientific journal', 'Newspaper'].include?(document.first(:format)) %>
+  <%= content_tag :span, '', class: 'journal-contents', journal: document.first(:title_t) %>
+<% end %>
