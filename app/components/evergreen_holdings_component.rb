@@ -8,7 +8,7 @@ class EvergreenHoldingsComponent < ViewComponent::Base
     @record_id = record_id
     service ||= EvergreenService.new
     @items = @size == :large ? service.best_items(@record_id) : Array(service.best_item(@record_id))
-    @btn_class = @size == :small ? 'badge badge-success' : 'btn btn-success mt-1'
+    @btn_class = @size == :small ? 'badge badge-success' : 'btn btn-success mt-1 d-inline-flex'
   end
 
   def url_for_evergreen_hold(tcn)

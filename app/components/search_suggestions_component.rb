@@ -75,7 +75,7 @@ SUGGESTIONS = [
 class SearchSuggestionsComponent < ViewComponent::Base
   def initialize(query: nil, response: nil)
     super
-    @query = query&.downcase&.strip.parameterize(separator=' ')
+    @query = query&.downcase&.strip&.parameterize(separator: ' ')
     @response = response
   end
 
