@@ -102,7 +102,6 @@ def fetch_article_data_from_wikidata(journal_id)
         wdt:P356 ?doi  ;
         wdt:P433 ?issue ;
         wdt:P1433 ?journalLabel ;
-        rdfs:label ?label ;
         wdt:P407 ?languageLabel ;
         wdt:P304 ?pages ;
         wdt:P304 ?pubDate ;
@@ -114,20 +113,18 @@ def fetch_article_data_from_wikidata(journal_id)
     WHERE {
       VALUES ?journal {wd:#{journal_id}}
       ?article wdt:P1433 ?journal ;
-        rdfs:label ?label ;
         wdt:P31 ?type.
-      ?type rdfs:label ?typeName .
       OPTIONAL {?article wdt:P2093 ?authorStrings }
       OPTIONAL {?article wdt:P356 ?doi }
       OPTIONAL {?article wdt:P433 ?issue }
       OPTIONAL {?article wdt:P304 ?pages }
       OPTIONAL {?article wdt:P304 ?pubDate }
       OPTIONAL {?article wdt:P478 ?volume }
-      OPTIONAL {?article wdt:P50 ?authorLabel }
+      OPTIONAL {?article wdt:P50 ?author }
       OPTIONAL {?article wdt:P1433 ?journal }
       OPTIONAL {?article wdt:P407 ?language }
       OPTIONAL {?article wdt:P921 ?subject }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es". }
     }
   ENDQUERY
   puts query
