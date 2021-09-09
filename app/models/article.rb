@@ -51,8 +51,10 @@ class Article
       'rft.atitle': @title,
       'rft.doi': @doi,
       'rft.date': @pub_date,
-      'rft.jtitle': @journal
-    ).permit('rft.atitle', 'rft.doi', 'rft.date', 'rft.jtitle')
+      'rft.jtitle': @journal,
+      'rft.volume': @volume,
+      'rft.issue': @issue
+    ).permit('rft.atitle', 'rft.doi', 'rft.date', 'rft.jtitle', 'rft.volume', 'rft.issue')
     .reject { |k, v| v.nil? } # TODO: once this is updated to Rails 6.1.4 or above, change to .compact
     ResourceLink.new "https://linn.on.worldcat.org/atoztitles/link?#{params.to_query}"
   end

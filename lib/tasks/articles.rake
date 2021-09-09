@@ -98,17 +98,17 @@ def fetch_article_data_from_wikidata(journal_id)
   query = <<~ENDQUERY
     CONSTRUCT {
       ?article wdt:P2093 ?authorStrings ;
-        wdt:P2093 ?authorName ;
+        wdt:P2093 ?authorLabel ;
         wdt:P356 ?doi  ;
         wdt:P433 ?issue ;
-        wdt:P1433 ?journalName ;
+        wdt:P1433 ?journalLabel ;
         rdfs:label ?label ;
-        wdt:P407 ?languageName ;
+        wdt:P407 ?languageLabel ;
         wdt:P304 ?pages ;
         wdt:P304 ?pubDate ;
-        wdt:P921 ?subjectName ;
+        wdt:P921 ?subjectLabel ;
         wdt:P1476 ?title ;
-        wdt:P31 ?typeName ;
+        wdt:P31 ?typeLabel ;
         wdt:P478 ?volume .
     }
     WHERE {
@@ -123,17 +123,14 @@ def fetch_article_data_from_wikidata(journal_id)
       OPTIONAL {?article wdt:P304 ?pages }
       OPTIONAL {?article wdt:P304 ?pubDate }
       OPTIONAL {?article wdt:P478 ?volume }
-      OPTIONAL {?article wdt:P50 ?author . ?author rdfs:label ?authorName }
-      OPTIONAL {?article wdt:P1433 ?journal . ?journal rdfs:label ?journalName }
-      OPTIONAL {?article wdt:P407 ?language . ?language rdfs:label ?languageName }
-      OPTIONAL {?article wdt:P921 ?subject . ?subject rdfs:label ?subjectName }
-      FILTER(lang(?authorName) = "en")
-      FILTER(lang(?journalName) = "en")
-      FILTER(lang(?languageName) = "en")
-      FILTER(lang(?subjectName) = "en")
-      FILTER(lang(?typeName) = "en")
+      OPTIONAL {?article wdt:P50 ?authorLabel }
+      OPTIONAL {?article wdt:P1433 ?journal }
+      OPTIONAL {?article wdt:P407 ?language }
+      OPTIONAL {?article wdt:P921 ?subject }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
     }
   ENDQUERY
+  puts query
   results = client.query query
   return [] unless results
 
