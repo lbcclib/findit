@@ -24,6 +24,7 @@ class EdsService
   end
 
   def self.eds_style(params)
+    params[:actions] = ['addLimiter(FT:y)']
     # EDS defaults to 20 pages, which is more than we want
     params['results_per_page'] ||= 10
     params['highlight'] = false
@@ -31,7 +32,7 @@ class EdsService
   end
 
   def self.safe_params
-    [:q, :page, :search_field, :db, :highlight, :view, 'results_per_page', { range: {}, f: {} }]
+    [:q, :page, :search_field, :db, :highlight, :view, 'results_per_page', { actions: {}, range: {}, f: {} }]
   end
 
   def self.send_to_eds
