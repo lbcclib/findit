@@ -36,13 +36,9 @@ class Article
   end
 
   def ==(other_article)
-    puts "----------"
-    puts "Ours: @doi"
-    puts "THeirs: other_article.doi"
-    puts "----------"
     @doi == other_article.doi ||
       (@title.casecmp(other_article.title) &&
-        (@pub_date == other_article.pubdate ||
+        (@pub_date == other_article.pub_date ||
         (@volume == other_article.volume && @issue = other_article.issue)))
   end
 
@@ -79,8 +75,7 @@ class Article
 
   def populate_from_wikidata(triples)
     @id = triples.first[:subject].to_s.gsub('http://www.wikidata.org/entity/', '')
-    @title = rdf_get_value_by_property(triples, 'http://www.wikidata.org/prop/direct/P1476') ||
-             rdf_get_value_by_property(triples, 'http://www.w3.org/2000/01/rdf-schema#label')
+    @title = rdf_get_value_by_property(triples, 'http://www.wikidata.org/prop/direct/P1476')
     @authors = rdf_get_values_by_property triples, 'http://www.wikidata.org/prop/direct/P2093'
     @doi = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P356'
     @format = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P31'
@@ -92,7 +87,6 @@ class Article
                        &.value&.to_date&.year
     @subjects = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P921'
     @volume = rdf_get_value_by_property triples, 'http://www.wikidata.org/prop/direct/P478'
-    puts @title
   end
 
   def normalize_id(string)
@@ -101,7 +95,7 @@ class Article
 
   def rdf_get_value_by_property(triples, property_uri)
     match = triples.find {|triple| triple[:predicate] == property_uri }
-    return match[:object].to_s if match
+    return match[:object]&.to_s if match
   end
 
   def rdf_get_values_by_property(triples, property_uri)
