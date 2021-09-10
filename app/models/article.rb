@@ -16,6 +16,7 @@ class Article
       abstract_display: @abstract,
       author_display: @authors&.shift,
       contributor_display: @authors,
+      doi_t: @doi,
       is_electronic_facet: 'Online',
       issue_t: @issue,
       journal_display: @journal,
@@ -35,11 +36,10 @@ class Article
     }
   end
 
-  def ==(other_article)
-    @doi == other_article.doi ||
-      (@title.casecmp(other_article.title) &&
-        (@pub_date == other_article.pub_date ||
-        (@volume == other_article.volume && @issue = other_article.issue)))
+  def ==(other)
+    @doi == other.doi ||
+      (@title.casecmp(other.title) &&
+        (@pub_date == other.pub_date || same_volume_and_issue(other)))
   end
 
   def openurl_link
@@ -56,6 +56,11 @@ class Article
   end
 
   private
+
+  def same_volume_and_issue(other_article)
+    @volume&.delete("^0-9") == other_article.volume&.delete("^0-9") &&
+      @issue&.delete("^0-9") == other_article.issue&.delete("^0-9")
+  end
 
   def populate_from_crossref(article)
     @id = normalize_id(article['DOI']) || article['title'].first.gsub(/\s+/, '')

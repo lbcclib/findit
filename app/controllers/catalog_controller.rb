@@ -157,6 +157,9 @@ class CatalogController < ApplicationController
 
     config.add_show_field 'edition_display', label: 'Edition', instance: true, itemprop: 'disambiguatingDescription'
     config.add_show_field 'journal_display', label: 'Journal', instance: true, itemprop: 'source'
+    config.add_show_field 'volume_t', label: 'Volume', instance: true, itemprop: 'source'
+    config.add_show_field 'issue_t', label: 'Issue', instance: true, itemprop: 'source'
+    config.add_show_field 'doi_t', label: 'DOI', instance: true, itemprop: 'source'
     config.add_show_field 'course_t', label: 'Used for course', instance: true, itemprop: 'description'
     config.add_show_field 'professor_t', label: 'Assigned by professor', instance: true, itemprop: 'description'
     config.add_show_field 'contributor_display', label: 'Contributors', link_to_facet: :author_facet, link_to_search: :author_facet, itemprop: 'contributor', instance: true
