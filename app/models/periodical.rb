@@ -168,7 +168,7 @@ class Periodical
           wdt:P1433 ?journalLabel ;
           wdt:P407 ?languageLabel ;
           wdt:P304 ?pages ;
-          wdt:P304 ?pubDate ;
+          wdt:P577 ?pubDate ;
           wdt:P921 ?subjectLabel ;
           wdt:P1476 ?title ;
           wdt:P1476 ?articleLabel ;
@@ -184,7 +184,7 @@ class Periodical
         OPTIONAL {?article wdt:P356 ?doi }
         OPTIONAL {?article wdt:P433 ?issue }
         OPTIONAL {?article wdt:P304 ?pages }
-        OPTIONAL {?article wdt:P304 ?pubDate }
+        OPTIONAL {?article wdt:P577 ?pubDate }
         OPTIONAL {?article wdt:P478 ?volume }
         OPTIONAL {?article wdt:P50 ?author }
         OPTIONAL {?article wdt:P1433 ?journal }
