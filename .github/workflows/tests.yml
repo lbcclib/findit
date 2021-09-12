@@ -1,0 +1,17 @@
+name: Docker compose actions workflow
+on: [push, pull_request]
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up the necessary containers
+        run: docker-compose up -d solr app test_db
+      - name: db migrations
+        run: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate findit:data:index:sample
+      - name: db migrations
+        run: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate findit:data:index:sample
+      - name: run tests
+        run: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
+      - name: run rubocop
+        run: docker-compose exec app bundle exec rubocop app lib
