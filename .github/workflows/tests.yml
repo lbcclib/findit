@@ -8,8 +8,8 @@ jobs:
       - name: Set up the necessary containers
         run: docker-compose up -d solr app test_db
       - name: db migrations, index sample data
-        run: docker-compose exec -e RAILS_ENV=test app bundle exec rake db:migrate findit:data:index:sample
+        run: docker-compose exec -e RAILS_ENV=test app -T bundle exec rake db:migrate findit:data:index:sample
       - name: run tests
-        run: docker-compose exec -e RAILS_ENV=test app bundle exec rspec
+        run: docker-compose exec -e RAILS_ENV=test app -T bundle exec rspec
       - name: run rubocop
-        run: docker-compose exec app bundle exec rubocop app lib
+        run: docker-compose exec app -T bundle exec rubocop app lib
