@@ -11,6 +11,7 @@ gem 'rails', '~> 6.0'
 platforms :jruby do
   gem 'activerecord-jdbc-adapter', '~> 60.2'
   gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'jruby-openssl', '0.11.0.cr1'
 end
 
 group :production, :development, :test do
