@@ -29,8 +29,7 @@ to_field 'contributor_t', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:c
 
 to_field 'is_electronic_facet', literal('Online')
 
-to_field 'subject_t', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:subject')
-to_field 'subject_topic_facet', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:subject')
+to_field 'subject_topic_ssim', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:subject')
 
 to_field 'title_display', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:title[1]')
 to_field 'title_t', extract_xpath('/oai:record/oai:metadata/oai_dc:dc/dc:title')

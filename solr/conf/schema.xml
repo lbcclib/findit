@@ -25,11 +25,7 @@
    
     <!-- these fields are also used for display, so they must be stored -->
     <field name="isbn_t" type="text" indexed="true" stored="true" multiValued="true"/>
-    <field name="department_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="language_facet" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="subject_topic_facet" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="subject_era_facet" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="subject_geo_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="record_source_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <!-- is_electronic_facet is used for CSV exports, so has to be stored-->
     <field name="is_electronic_facet" type="string" indexed="true" stored="true" multiValued="true" />
@@ -243,19 +239,20 @@
   <copyField source="*_ssim" dest="all_text_timv" maxChars="3000"/>
   <copyField source="*_si" dest="all_text_timv" maxChars="3000"/>
 
+  <copyField source="*_ssim" dest="*_tsim" maxChars="3000"/>
+
   <copyField source="author_display" dest="suggest"/>
-  <copyField source="subject_topic_facet" dest="suggest"/>
+  <copyField source="subject_topic_ssim" dest="suggest"/>
   <copyField source="subtitle_display" dest="suggest"/>
   <copyField source="title_t" dest="suggest"/>
 
   <copyField source="author_display" dest="spell"/>
   <copyField source="contents_t" dest="spell"/>
-  <copyField source="subject_topic_facet" dest="spell"/>
+  <copyField source="subject_topic_ssim" dest="spell"/>
   <copyField source="subtitle_display" dest="spell"/>
   <copyField source="title_t" dest="spell"/>
 
   <copyField source="author_display" dest="author_spell"/>
-  <copyField source="subject_display" dest="subject_spell"/>
   <copyField source="title_display" dest="title_spell"/>
 
   <copyField source="author_display" dest="author_facet"/>

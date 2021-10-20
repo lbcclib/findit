@@ -52,7 +52,7 @@ to_field 'contributor_display', extract_marc('505r'),
          trim_punctuation
 to_field 'contributor_t',       extract_marc('505r:511a:700abcegqu:710abcdegnu:711acdegjnqu')
 
-to_field 'department_facet' do |rec, acc|
+to_field 'department_ssim' do |rec, acc|
   rec.find_all { |f| f.tag == '050' }
      .map(&:value)
      .compact
@@ -66,7 +66,7 @@ to_field 'eg_tcn_t',            extract_marc('901c', first: true)
 to_field 'followed_by_display', extract_marc('785at')
 to_field 'followed_by_t',       extract_marc('785')
 
-to_field 'genre_facet',         extract_marc('655a', trim_punctuation: true) do |_record, accumulator|
+to_field 'genre_ssim',         extract_marc('655a', trim_punctuation: true) do |_record, accumulator|
   ['Aufsatzsammlung',
    'Electronic book',
    'Electronic books',
@@ -125,18 +125,18 @@ to_field 'record_source_facet',
 to_field 'serial_coverage_display',
          extract_marc('362a')
 
-to_field 'series_facet', marc_series_facet
+to_field 'series_ssim', marc_series_facet
 
-to_field 'subject_name_facet', extract_marc('600abcdq:610ab:611ab',
+to_field 'subject_name_ssim', extract_marc('600abcdq:610ab:611ab',
                                             trim_punctuation: true) do |_record, accumulator|
   accumulator.collect! do |value|
     value.gsub(/\A[a-z]/, &:upcase)
   end
 end
-to_field 'subject_topic_facet', topic_subject
+to_field 'subject_topic_ssim', topic_subject
 
-to_field 'subject_era_facet',   extract_marc('650y:651y:654y:655y', trim_punctuation: true)
-to_field 'subject_geo_facet',   extract_marc('651z:650z', trim_punctuation: true)
+to_field 'subject_era_ssim',   extract_marc('650y:651y:654y:655y', trim_punctuation: true)
+to_field 'subject_geo_ssim',   extract_marc('651z:650z', trim_punctuation: true)
 
 to_field 'subtitle_display',    extract_marc('245b', trim_punctuation: true)
 to_field 'subtitle_t', extract_marc('245b')

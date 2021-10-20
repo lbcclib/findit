@@ -688,36 +688,41 @@
             http://wiki.apache.org/solr/LocalParams
        -->
         <str name="qf">
-	  authority_data_t^0.5
-    abstract_t^2.5
-	  author_t^82
-	  contents_t^3.1
-    contributor_t^1.2
-    course_t
-	  followed_by_t
-	  has_part_t
-	  is_part_of_t
-	  isbn_t
-	  isbn_of_alternate_edition_t
-	  language_facet
-	  note_t
-	  preceeded_by_t
+          authority_data_t^0.5
+          abstract_t^2.5
+          author_t^82
+          contents_t^3.1
+          contributor_t^1.2
+          course_t
+          department_tsim
+          followed_by_t
+          genre_tsim^5.0
+          has_part_t
+          is_part_of_t
+          isbn_t
+          isbn_of_alternate_edition_t
+          language_facet
+          note_t
+          preceeded_by_t
           professor_t
-    publisher_t
-	  subject_name_facet^410.0
-	  subject_topic_facet^437.0
-	  subject_era_facet^370.0
-	  subject_geo_facet^528.0
-	  subtitle_t^60.0
+          publisher_t
+          series_tsim
+          subject_name_tsim^410.0
+          subject_topic_tsim^437.0
+          subject_era_tsim^370.0
+          subject_geo_tsim^528.0
+          subtitle_t^60.0
           title_t^490.0
           title_and_statement_of_responsibility_t^90.0
         </str>
         <str name="pf">
           abstract_t^150
           author_t^20
-	  contents_t^5
+          contents_t^5
           course_t^100
-	  subject_geo_facet^63.0
+          series_tsim
+          subject_geo_tsim^63.0
+          subject_topic_tsim^63.0
           subject_t^100
           subtitle_t^310
           title_and_statement_of_responsibility_t^90.0
@@ -745,7 +750,7 @@
           record_source_facet:"NCBI Bookshelf"^35.0
         </str>
         <str name="bq">
-          subject_geo_facet:"United States"^5.0
+          subject_geo_tsim:"United States"^5.0
         </str>
         <str name="bq">
           pub_date_sort:[2017 TO *]^40.0
@@ -775,12 +780,10 @@
           subtitle_t
        </str>
        <str name="subject_qf">
-	      subject_t
-	      subject_additional_t
-	      subject_name_facet
-	      subject_topic_facet^2.0
-	      subject_era_facet
-	      subject_geo_facet^3.0
+	      subject_name_tsim
+	      subject_topic_tsim^2.0
+	      subject_era_tsim
+	      subject_geo_tsim^3.0
        </str>
        <str name="subject_pf">
 	      subject_t

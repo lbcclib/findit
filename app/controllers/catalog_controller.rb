@@ -105,14 +105,14 @@ class CatalogController < ApplicationController
     config.add_facet_field 'is_electronic_facet', label: I18n.t('facets.is_electronic'), collapse: false
     config.add_facet_field 'format', label: I18n.t('facets.format'), collapse: false
     config.add_facet_field 'pub_date', label: I18n.t('facets.pub_year'), range: true, collapse: false
-    config.add_facet_field 'subject_topic_facet', label: I18n.t('facets.subject'), limit: 20, sort: 'count'
+    config.add_facet_field 'subject_topic_ssim', label: I18n.t('facets.subject'), limit: 20, sort: 'count'
     config.add_facet_field 'language_facet', label: I18n.t('facets.language'), limit: true, sort: 'count'
-    config.add_facet_field 'subject_geo_facet', label: I18n.t('facets.geographic'), limit: true, sort: 'count'
-    # config.add_facet_field 'subject_era_facet', :label => 'Era of focus', :limit => true, :sort => 'count'
-    # config.add_facet_field 'subject_name_facet', :label => 'People and groups', :limit => true, :sort => 'count'
-    config.add_facet_field 'genre_facet', label: I18n.t('facets.genre'), limit: true, sort: 'count'
-    config.add_facet_field 'series_facet', label: I18n.t('facets.series'), limit: true, sort: 'count'
-    config.add_facet_field 'department_facet', label: I18n.t('facets.department'), limit: true, sort: 'count'
+    config.add_facet_field 'subject_geo_ssim', label: I18n.t('facets.geographic'), limit: true, sort: 'count'
+    config.add_facet_field 'subject_era_ssim', :label => 'Era of focus', :limit => true, :sort => 'count'
+    config.add_facet_field 'subject_name_ssim', :label => 'People and groups', :limit => true, :sort => 'count'
+    config.add_facet_field 'genre_ssim', label: I18n.t('facets.genre'), limit: true, sort: 'count'
+    config.add_facet_field 'series_ssim', label: I18n.t('facets.series'), limit: true, sort: 'count'
+    config.add_facet_field 'department_ssim', label: I18n.t('facets.department'), limit: true, sort: 'count'
     config.add_facet_field 'record_source_facet', label: I18n.t('facets.database'), limit: true
     config.add_facet_field 'author_facet', show: false
 
@@ -144,10 +144,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'author_display', label: I18n.t('blacklight.search.fields.author'), link_to_facet: :author_facet, link_to_search: :author_facet, itemprop: 'author', work: true
     config.add_show_field 'author_vern_display', label: I18n.t('blacklight.search.fields.author'), itemprop: 'author', work: true
     config.add_show_field 'article_author_display', label: 'Authors', work: true, itemprop: 'contributor', helper_method: 'link_to_article_author_search'
-    config.add_show_field 'subject_topic_facet', label: 'Topic terms', limit: 20, work: true, itemprop: 'about', link_to_facet: :subject_topic_facet, link_to_search: :subject_topic_facet
-    config.add_show_field 'subject_geo_facet', label: 'Region', work: true, itemprop: 'spatialCoverage', link_to_facet: :subject_geo_facet, link_to_search: :subject_topic_facet
-    config.add_show_field 'subject_era_facet', label: 'Era', work: true, itemprop: 'temporalCoverage', link_to_facet: :subject_era_facet, link_to_search: :subject_topic_facet
-    config.add_show_field 'subject_name_facet', label: 'People and groups', work: true, itemprop: 'about', link_to_facet: :subject_name_facet, link_to_search: :subject_topic_facet
+    config.add_show_field 'subject_topic_ssim', label: I18n.t('facets.subject'), limit: 20, work: true, itemprop: 'about', link_to_facet: :subject_topic_ssim
+    config.add_show_field 'subject_geo_ssim', label: I18n.t('facets.geographic'), work: true, itemprop: 'spatialCoverage', link_to_facet: :subject_geo_ssim
+    config.add_show_field 'subject_era_ssim', label: 'Era', work: true, itemprop: 'temporalCoverage', link_to_facet: :subject_era_ssim
+    config.add_show_field 'subject_name_ssim', label: 'People and groups', work: true, itemprop: 'about', link_to_facet: :subject_name_ssim
     config.add_show_field 'abstract_display', label: 'Abstract', work: true, itemprop: 'description'
     config.add_show_field 'preceeded_by_display', label: 'Preceded by', work: true, link_to_facet: :title_facet, link_to_search: :title_facet
     config.add_show_field 'followed_by_display', label: 'Followed by', work: true, link_to_facet: :title_facet, link_to_search: :title_facet

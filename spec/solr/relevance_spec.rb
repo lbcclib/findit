@@ -37,4 +37,11 @@ RSpec.describe 'solr general relevance spec' do
     irrelevant_id = 'ocn797917515'
     expect(resp).to include(relevant_id).before(irrelevant_id)
   end
+
+  it 'has a reasonable weight for the genre field' do
+    resp = solr_resp_doc_ids_only({ q: 'animal science biographies' })
+    relevant_id = 'on1109836794'
+    expect(resp).to include(relevant_id).in_first(2).results
+  end
+
 end
