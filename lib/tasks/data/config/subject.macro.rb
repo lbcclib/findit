@@ -66,7 +66,7 @@ module FindIt
         extracted_subjects = field.subfields.select { |subfield| subfield.code == 'a' }
                                   .map do |subfield|
           subject = ::Traject::Macros::Marc21.trim_punctuation subfield.value
-          return OFFENSIVE_VALUE_REPLACEMENTS[subject] if OFFENSIVE_VALUE_REPLACEMENTS[subject]
+          return [OFFENSIVE_VALUE_REPLACEMENTS[subject]] if OFFENSIVE_VALUE_REPLACEMENTS[subject]
 
           UNHELPFUL_SUBJECTS.include?(subject) ? nil : subject
         end.compact
