@@ -3,11 +3,6 @@
 require 'dotenv/tasks'
 
 RECORD_PROVIDERS = {
-  'gvrl' => {
-    # This one is fetched manually from support.gale.com
-    'record_provider_facet' => 'Gale Virtual Reference Library',
-    'traject_configuration_files' => %w[gvrl marc]
-  },
   'eg' => {
     'record_provider_facet' => 'LBCC Evergreen Catalog',
     'fetch_method' => :http,
@@ -36,15 +31,6 @@ RECORD_PROVIDERS = {
                    },
     'file_prefix' => 'eg_lbcc',
     'traject_configuration_files' => %w[eg_online marc]
-  },
-  'gale' => {
-    'record_provider_facet' => 'Gale Databases',
-    'fetch_method' => :http,
-    'fetch_url' => ['https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=ovic_portals',
-                    'https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=uhic_portals',
-                    'https://support.gale.com/marc/actions/merge.php?folder=products&marc-id=ngma'],
-    'file_prefix' => 'gale',
-    'traject_configuration_files' => %w[marc gale proxy]
   },
   'jomi' => {
     'record_provider_facet' => 'JoMI Surgical Videos',
