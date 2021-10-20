@@ -79,7 +79,7 @@ namespace :findit do
     namespace :index do
       desc 'Index sample data (perhaps for running tests)'
       task sample: :environment do
-        fixture_providers = %w[eg eg_online gale oclc]
+        fixture_providers = %w[eg eg_online oclc]
         fixture_providers.each do |provider|
           execute_index_task provider: provider, filename: fixture_filename(provider)
         end
