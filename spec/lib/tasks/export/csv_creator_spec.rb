@@ -14,6 +14,6 @@ describe 'csv creator' do
       'is_electronic_facet' => ['Online']
     }]
     csv = CsvCreator.new(config: config, docs: docs)
-    expect(csv.data).to eq(%w[9789768142542 Online])
+    expect(csv.data).to eq([%w[9789768142542 Online]])
   end
 end
