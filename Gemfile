@@ -11,7 +11,7 @@ gem 'rails', '~> 6.0'
 platforms :jruby do
   gem 'activerecord-jdbc-adapter', '~> 60.2'
   gem 'activerecord-jdbcpostgresql-adapter'
-  gem 'jruby-openssl', '0.11.0.cr1'
+  gem 'jruby-openssl', '0.11.0.cr1' # Uses a pre-release so that indexing doesn't fail
 end
 
 group :production, :development, :test do
@@ -25,7 +25,7 @@ group :production, :development, :test do
   gem 'blacklight-locale_picker'
   gem 'bootstrap', '4.1.3'
   gem 'devise-guests'
-  gem 'ebsco-eds', github: 'ebsco/edsapi-ruby'
+  gem 'ebsco-eds'
   gem 'evergreen_holdings'
   gem 'exception_notification'
   gem 'jquery-rails'
@@ -53,7 +53,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'blacklight', '~>7.15'
+gem 'blacklight', '~>7.19'
 
 gem 'dotenv-rails'
 gem 'rsolr', '>= 1.0', '< 3'
