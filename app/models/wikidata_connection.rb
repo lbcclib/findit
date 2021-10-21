@@ -16,5 +16,6 @@ class WikidataConnection
 
   def query(query)
     @client.query(query).map(&:to_h)
+  rescue Net::OpenTimeout
   end
 end
