@@ -16,7 +16,7 @@ class WikidataConnection
 
   def query(query)
     @client.query(query).map(&:to_h)
-  rescue Errno::ECONNREFUSED, Net::OpenTimeout
+  rescue Errno::ECONNREFUSED, Net::OpenTimeout, SocketError
     {}
   end
 end
