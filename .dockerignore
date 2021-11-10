@@ -5,3 +5,4 @@
 ./log
 ./lib/tasks/data/new/*.mrc
 ./lib/tasks/data/update/*.mrc
+./snapshot*
