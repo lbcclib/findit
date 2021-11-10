@@ -8,7 +8,7 @@ SUGGESTIONS = [
     generated_url_suffix: ''
   }, {
     string: 'business',
-    exact_url: 'https://libhelp.linnbenton.edu/subjects/biz',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/biz'
   }, {
     string: 'cinahl',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=health&defaultdb=c8h',
@@ -26,10 +26,10 @@ SUGGESTIONS = [
     generated_url_suffix: ''
   }, {
     string: 'espanol',
-    exact_url: 'https://libhelp.linnbenton.edu/subjects/spanish',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/spanish'
   }, {
     string: 'faculty',
-    exact_url: 'https://libhelp.linnbenton.edu/subjects/faculty',
+    exact_url: 'https://libhelp.linnbenton.edu/subjects/faculty'
   }, {
     string: 'flipster',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://search.ebscohost.com/login.aspx?authtype=cookie,ip,url,uid&custid=linncc&db=eon&profile=eon',
@@ -42,7 +42,7 @@ SUGGESTIONS = [
     generated_url_suffix: '&loc=lbcc&id=aone'
   }, {
     string: 'hours',
-    exact_url: 'https://www.linnbenton.edu/student-services/library-tutoring-testing/library/contact.php',
+    exact_url: 'https://www.linnbenton.edu/student-services/library-tutoring-testing/library/contact.php'
   }, {
     string: 'jstor',
     exact_url: 'https://ezproxy.libweb.linnbenton.edu/login?url=https://jstor.org',
