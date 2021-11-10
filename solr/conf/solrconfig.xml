@@ -126,6 +126,8 @@
        before upgrading to a newer version to avoid unnecessary reindexing.
   -->
   <codecFactory class="solr.SchemaCodecFactory"/>
+	
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
 
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing
@@ -1074,6 +1076,8 @@
        http://wiki.apache.org/solr/UpdateRequestProcessor
 
     -->
+	
+
 
   <!-- Add unknown fields to the schema
 
