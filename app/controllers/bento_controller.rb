@@ -33,7 +33,7 @@ class BentoController < ApplicationController
     results = fetch_articles
     @num_article_hits = results.stat_total_hits
     @articles = results.records&.map { |record| Article.new record }
-  rescue
+  rescue StandardError
     @num_article_hits = 0
     @articles = []
   end
