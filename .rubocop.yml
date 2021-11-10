@@ -15,6 +15,9 @@ AllCops:
     - app/models/user.rb
   TargetRubyVersion: 2.5
   NewCops: enable
+Layout/ExtraSpacing:
+  Exclude:
+    - lib/tasks/data/config/*
 Metrics/BlockLength:
   Exclude:
     - lib/tasks/data.rake
