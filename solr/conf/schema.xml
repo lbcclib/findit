@@ -211,7 +211,6 @@
     <dynamicField name="*_llsi" type="location" stored="true" indexed="true" multiValued="false"/>
     <dynamicField name="*_llsim" type="location" stored="true" indexed="true" multiValued="true"/>
 
-    <dynamicField name="*_srpt" type="location_rpt" stored="true" indexed="true" multiValued="true" />
     <dynamicField name="*_bbox" type="bbox" stored="true" indexed="true" />
 
 
@@ -303,8 +302,6 @@
       For more information about this and other Spatial fields new to Solr 4, see:
       http://wiki.apache.org/solr/SolrAdaptersForLuceneSpatial4
     -->
-    <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
-               geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers"/>
 
     <field name="bbox" type="bbox" />
     <fieldType name="bbox" class="solr.BBoxField"
