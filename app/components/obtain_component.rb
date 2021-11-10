@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ObtainComponent < ViewComponent::Base
-  def initialize(size: :medium, document:, evergreen_service:)
+  def initialize(document:, evergreen_service:, size: :medium)
     @size = size
     @document = document
     @evergreen_service = evergreen_service
