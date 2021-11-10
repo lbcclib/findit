@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A view component that provides options for accessing a resource
 class ObtainComponent < ViewComponent::Base
   def initialize(document:, evergreen_service:, size: :medium)
     @size = size

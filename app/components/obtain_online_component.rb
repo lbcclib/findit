@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A view component that provides options for accessing a resource electronically
 class ObtainOnlineComponent < ViewComponent::Base
   attr_reader :string
 
