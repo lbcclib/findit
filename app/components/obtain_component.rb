@@ -7,6 +7,7 @@ class ObtainComponent < ViewComponent::Base
     @document = document
     @evergreen_service = evergreen_service
     @record_id = @document.first :id
+    super
   end
 
   private
