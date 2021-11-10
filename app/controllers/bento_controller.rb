@@ -45,7 +45,7 @@ class BentoController < ApplicationController
     }
     catalog_search = Blacklight::SearchService.new search_config
     @response, @catalog_records = catalog_search.search_results
-    #logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
+    # logger.debug "Bento search: catalog records received: #{@catalog_records.inspect}"
     @catalog_format_facets = Hash[*@response['facet_counts']['facet_fields']['format']]
     @num_catalog_hits = @response['response']['numFound']
     @evergreen_service = EvergreenService.new

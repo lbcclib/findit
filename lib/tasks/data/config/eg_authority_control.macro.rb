@@ -65,7 +65,7 @@ module FindIt
 
       def authority_record_url(authority_id)
         'http://libcat.linnbenton.edu/opac/extras/supercat/'\
-        "retrieve/marcxml/authority/#{authority_id}"
+          "retrieve/marcxml/authority/#{authority_id}"
       end
     end
   end

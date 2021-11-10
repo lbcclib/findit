@@ -8,7 +8,6 @@ class ObtainComponent < ViewComponent::Base
     @record_id = @document.first :id
   end
 
-
   private
 
   def online_record?
@@ -18,5 +17,4 @@ class ObtainComponent < ViewComponent::Base
   def evergreen_record?
     @document.has? 'eg_tcn_t'
   end
-
 end

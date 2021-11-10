@@ -13,7 +13,7 @@ class EvergreenHoldingsComponent < ViewComponent::Base
 
   def url_for_evergreen_hold(tcn)
     'https://libcat.linnbenton.edu/eg/opac/place_hold?'\
-    "query=locg=8;detail_record_view=1;hold_target=#{Array.wrap(tcn).first};hold_type=T"
+      "query=locg=8;detail_record_view=1;hold_target=#{Array.wrap(tcn).first};hold_type=T"
   end
 
   def library_icon_for(item)

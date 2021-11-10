@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 require 'traject'
 # To have access to various built-in logic
 # for pulling things out of MARC21, like `marc_languages`
@@ -128,7 +127,7 @@ to_field 'serial_coverage_display',
 to_field 'series_ssim', marc_series_facet
 
 to_field 'subject_name_ssim', extract_marc('600abcdq:610ab:611ab',
-                                            trim_punctuation: true) do |_record, accumulator|
+                                           trim_punctuation: true) do |_record, accumulator|
   accumulator.collect! do |value|
     value.gsub(/\A[a-z]/, &:upcase)
   end
