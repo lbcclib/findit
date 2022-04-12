@@ -158,6 +158,7 @@ GEM
       faraday (>= 0.8, < 2)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
+    ffi (1.15.4)
     ffi (1.15.4-java)
     ffi (1.15.4-x64-mingw32)
     field_test (0.4.1)
@@ -231,9 +232,11 @@ GEM
       connection_pool (~> 2.2)
     nio4r (2.5.8)
     nio4r (2.5.8-java)
-    nokogiri (1.12.5-java)
+    nokogiri (1.13.4-java)
       racc (~> 1.4)
-    nokogiri (1.12.5-x64-mingw32)
+    nokogiri (1.13.4-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     openlibrary-covers (0.1.1)
     orm_adapter (0.5.0)
@@ -431,6 +434,7 @@ PLATFORMS
   java
   universal-java-1.8
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-jdbc-adapter (~> 60.2)
