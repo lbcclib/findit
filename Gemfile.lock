@@ -110,7 +110,7 @@ GEM
       namae (~> 1.0)
     csl-styles (1.0.1.11)
       csl (~> 1.0)
-    dalli (3.0.2)
+    dalli (3.2.3)
     deprecation (1.1.0)
       activesupport
     devise (4.8.0)
@@ -158,6 +158,7 @@ GEM
       faraday (>= 0.8, < 2)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
+    ffi (1.15.4)
     ffi (1.15.4-java)
     ffi (1.15.4-x64-mingw32)
     field_test (0.4.1)
@@ -234,6 +235,8 @@ GEM
     nokogiri (1.12.5-java)
       racc (~> 1.4)
     nokogiri (1.12.5-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     openlibrary-covers (0.1.1)
     orm_adapter (0.5.0)
@@ -431,6 +434,7 @@ PLATFORMS
   java
   universal-java-1.8
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-jdbc-adapter (~> 60.2)
