@@ -103,7 +103,7 @@ GEM
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 1.5)
     climate_control (0.2.0)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
     csl (1.5.2)
@@ -158,6 +158,7 @@ GEM
       faraday (>= 0.8, < 2)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
+    ffi (1.15.4)
     ffi (1.15.4-java)
     ffi (1.15.4-x64-mingw32)
     field_test (0.4.1)
@@ -165,7 +166,7 @@ GEM
       browser (>= 2.0)
       distribution
       railties (>= 5)
-    globalid (0.5.2)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
@@ -224,7 +225,7 @@ GEM
       railties (>= 3.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.14.4)
+    minitest (5.17.0)
     multipart-post (2.1.1)
     namae (1.1.1)
     net-http-persistent (3.1.0)
@@ -234,6 +235,8 @@ GEM
     nokogiri (1.12.5-java)
       racc (~> 1.4)
     nokogiri (1.12.5-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     openlibrary-covers (0.1.1)
     orm_adapter (0.5.0)
@@ -399,7 +402,7 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     tzinfo-data (1.2021.4)
       tzinfo (>= 1.0.0)
@@ -425,12 +428,13 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yell (2.2.2)
-    zeitwerk (2.5.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   java
   universal-java-1.8
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-jdbc-adapter (~> 60.2)
